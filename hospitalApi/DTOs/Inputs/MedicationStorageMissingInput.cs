@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace hospitalApi.DTOs.Inputs;
+
+public partial class MedicationStorageMissingInput
+{
+    public int Id { get; set; }
+
+    public int FkMedicationStorageId { get; set; }
+
+    public double AmountMissing { get; set; }
+
+    public DateTime WentMissingAt { get; set; }
+}
