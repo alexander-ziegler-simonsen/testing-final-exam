@@ -580,3 +580,10 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,csharp,macos,nodes
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
