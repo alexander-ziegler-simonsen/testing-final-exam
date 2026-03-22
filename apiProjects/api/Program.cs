@@ -1,5 +1,7 @@
 // using hospitalApi.Data.Postgres;
 using hospitalApi.Data;
+using hospitalApi.Services;
+using hospitalApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<HospitalContext>(options => options.UseNpgsql(conn
 // mapping
 // builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());;
 
+// add services
+builder.Services.AddScoped<ILocationService, LocationService>();
 
 // Add controllers
 builder.Services.AddControllers();
@@ -56,7 +60,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         // options.SwaggerEndpoint("/swagger/mysql-v1/swagger.json", "MySQL v1");
-        options.SwaggerEndpoint("/swagger/swagger.json", "v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
 
     });
 }
