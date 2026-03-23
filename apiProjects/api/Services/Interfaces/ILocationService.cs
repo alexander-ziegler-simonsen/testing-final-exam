@@ -1,4 +1,5 @@
-﻿using hospitalApi.DTOs.Outputs;
+﻿using hospitalApi.DTOs.Inputs;
+using hospitalApi.DTOs.Outputs;
 
 namespace hospitalApi.Services.Interfaces
 {
@@ -9,5 +10,10 @@ namespace hospitalApi.Services.Interfaces
 
         Task<List<FloorRoomsOutput>> getOneAllFloors();
         Task<FloorRoomsOutput> getOneFloorWithRooms(int floorId);
+
+
+        Task<bool> EditOnefloor(int id, FloorInput input);
+        Task<int> PostOneFloor(FloorInput input);
+        Task<bool> DeleteOneFloor(int id);
     }
 }

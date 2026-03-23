@@ -1,4 +1,7 @@
-﻿using hospitalApi.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using hospitalApi.Data;
+using hospitalApi.DTOs.Inputs;
 using hospitalApi.DTOs.Outputs;
 using hospitalApi.Models;
 using hospitalApi.Services.Interfaces;
@@ -12,78 +15,41 @@ namespace hospitalApi.Services
         private DbSet<Room> _rooms;
         private DbSet<Building> _buildings;
 
-        private HospitalContext _hospitalContext;
+        private readonly HospitalContext _hospitalContext;
 
-        public LocationService(HospitalContext dbContext)
+        private readonly IMapper _mapper;
+
+        public LocationService(HospitalContext dbContext, IMapper mapper)
         {
             _hospitalContext = dbContext;
             _floors = dbContext.Floors;
             _rooms = dbContext.Rooms;
             _buildings = dbContext.Buildings;
+            _mapper = mapper;
         }
 
         public async Task<List<LocationOutput>> getAllLocations()
         {
-            var raw = await _buildings
-            .Include(b => b.Floors)
-                .ThenInclude(f => f.Rooms)
-            .ToListAsync();
+            var entities = await _buildings
+                .Include(b => b.Floors)
+                    .ThenInclude(f => f.Rooms)
+                .ToListAsync();
 
-            List<LocationOutput> outputs = new List<LocationOutput>();
-
-            foreach (var building in raw)
-            {
-                // map the base and insert building info
-                var location = new LocationOutput
-                {
-                    Building = new BuildingOutput
-                    {
-                        Id = building.Id,
-                        Address = building.Address,
-                        Name = building.Name
-                    },
-                    FloorsWithRoomns = new List<FloorRoomsOutput>()
-                };
-
-                // step 2 is each floor, than have many rooms
-                foreach (var floor in building.Floors ?? new List<Floor>())
-                {
-                    List<RoomOutput> roomOutputs = new();
-                    var floorOutput = new FloorRoomsOutput
-                    {
-                        Floor = new FloorOutput
-                        {
-                            Id = floor.Id,
-                            FkBuildingId = floor.FkBuildingId,
-                            Name = floor.Name,
-                        },
-                        Rooms = roomOutputs
-                    };
-
-                    // now we handle each room
-                    foreach (var room in floor.Rooms ?? new List<Room>())
-                    {
-                        floorOutput.Rooms.Add(new RoomOutput
-                        {
-                            Id = room.Id,
-                            FkFloorId = room.FkFloorId,
-                            Name = room.Name
-                        });
-                    }
-
-                    location.FloorsWithRoomns.Add(floorOutput);
-                }
-
-                outputs.Add(location);
-            }
-
-            return outputs;
+            return _mapper.Map<List<LocationOutput>>(entities);
         }
         public async Task<LocationOutput> getOneLocations(int buildingId)
         {
-            // var raw = await
-            return null;
+            var entity = await _buildings
+                .Include(b => b.Floors)
+                    .ThenInclude(f => f.Rooms)
+                .FirstOrDefaultAsync(b => b.Id == buildingId);
+
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<LocationOutput>(entity);
         }
+
         public async Task<List<FloorRoomsOutput>> getOneAllFloors()
         {
             // var raw = await
@@ -93,6 +59,16 @@ namespace hospitalApi.Services
         {
             // var raw = await
             return null;
+        }
+
+        public async Task<bool> EditOnefloor(int id, FloorInput input) {
+            return false;
+        }
+        public async Task<int> PostOneFloor(FloorInput input) {
+            return 0;
+        }
+        public async Task<bool> DeleteOneFloor(int id) {
+            return false;
         }
     }
 }

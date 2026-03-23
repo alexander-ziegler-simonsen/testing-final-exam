@@ -29,9 +29,13 @@ namespace hospitalApi.Controllers
 
         // GET api/<LocationController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<LocationOutput>> Get(int id)
         {
-            return "value";
+            LocationOutput output = await _locationService.getOneLocations(id);
+            if (output == null)
+                return NotFound();
+            else
+                return Ok(output);
         }
 
         // POST api/<LocationController>
