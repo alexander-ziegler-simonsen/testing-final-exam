@@ -1,5 +1,7 @@
-// using hospitalApi.Data.Postgres;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 using hospitalApi.Data;
+using hospitalApi.Mapping;
 using hospitalApi.Services;
 using hospitalApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,19 @@ builder.Services.AddDbContext<HospitalContext>(options => options.UseNpgsql(conn
 
 // add services
 builder.Services.AddScoped<ILocationService, LocationService>();
+
+// add automapper
+builder.Services.AddSingleton<IMapper>(sp =>
+{
+    var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+
+    var config = new MapperConfiguration(cfg =>
+    {
+        cfg.AddProfile<MappingProfile>();
+    }, loggerFactory);
+
+    return config.CreateMapper();
+});
 
 // Add controllers
 builder.Services.AddControllers();
