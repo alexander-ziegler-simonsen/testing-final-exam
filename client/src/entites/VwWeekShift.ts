@@ -1,4 +1,4 @@
-interface VwWeekShift {
+export interface VwWeekShift {
 ShiftId?: number;
 StartTime?: Date;
 EndTime?: Date;

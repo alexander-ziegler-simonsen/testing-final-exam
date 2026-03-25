@@ -1,4 +1,4 @@
-interface Patient {
+export interface Patient {
     id: number;
     Firstname?: string;
     Lastname?: string;

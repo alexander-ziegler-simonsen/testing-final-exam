@@ -1,4 +1,4 @@
-interface Medication {
+export interface Medication {
     id: number;
     name?: string;
     genericName?: string;

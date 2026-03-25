@@ -1,4 +1,4 @@
-interface VwDoctor {
+export interface VwDoctor {
 DoctorId?: number;
 Firstname?: string;
 Lastname?: string;

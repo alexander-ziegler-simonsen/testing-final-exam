@@ -1,4 +1,4 @@
-interface StaffRole {
+export interface StaffRole {
 Id: number;
 Name: string;
 }

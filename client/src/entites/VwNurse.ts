@@ -1,4 +1,4 @@
-interface VwNurse {
+export interface VwNurse {
 NurseId?: number;
 Firstname?: string;
 Lastname?: string;

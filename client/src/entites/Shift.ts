@@ -1,4 +1,4 @@
-interface x {
+export interface x {
 Id: number;
 StartTime: Date;
 EndTime: Date;

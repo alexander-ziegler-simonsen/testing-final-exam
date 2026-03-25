@@ -1,4 +1,4 @@
-interface RoomBooking {
+export interface RoomBooking {
 Id: number;
 FkRoomId: number;
 StartTime: Date;

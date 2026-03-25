@@ -1,5 +1,5 @@
-interface Room {
-Id: number;
-Name: string;
-FkFloorId: number;
+export interface Room {
+id: number;
+name: string;
+fkFloorId: number;
 }
