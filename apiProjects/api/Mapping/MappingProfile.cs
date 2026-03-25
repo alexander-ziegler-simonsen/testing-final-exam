@@ -28,7 +28,7 @@ namespace hospitalApi.Mapping
             // custom mappings
             CreateMap<Building, LocationOutput>()
                 .ForMember(dest => dest.Building, opt => opt.MapFrom(src => src))
-                .ForMember(dest => dest.FloorsWithRoomns, opt => opt.MapFrom(src => src.Floors));
+                .ForMember(dest => dest.FloorsWithRooms, opt => opt.MapFrom(src => src.Floors));
 
             CreateMap<Floor, FloorRoomsOutput>()
                 .ForMember(dest => dest.Floor, opt => opt.MapFrom(src => src))          
