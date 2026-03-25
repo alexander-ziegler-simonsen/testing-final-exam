@@ -34,6 +34,18 @@ builder.Services.AddSingleton<IMapper>(sp =>
     return config.CreateMapper();
 });
 
+// cors 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") // TODO - this needs to be a appsettings value, since it can/will be running in a VM
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 // Add controllers
 builder.Services.AddControllers();
 
@@ -80,6 +92,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// add cors rules
+app.UseCors("AllowFrontend"); 
 
 // Routing + controllers
 
