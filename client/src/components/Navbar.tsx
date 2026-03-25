@@ -10,6 +10,7 @@ export default function Navbar() {
         { id: "NavAboutBtn", to: "/about", label: "About" },
         { id: "NavContactBtn", to: "/contact", label: "Contact" },
         { id: "NavLoginBtn", to: "/login", label: "Login" },
+        { id: "navLocationBtn", to: "/locations", label: "locations"}
     ];
 
     return (

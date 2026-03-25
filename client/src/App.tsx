@@ -8,6 +8,7 @@ import DoctorDashboard from "./pages/doctor/DoctorDashboard"
 import NurseDashboard from "./pages/nurse/NurseDashboard"
 import AdminDashboard from "./pages/admin/AdminDashboard"
 import About from "./pages/About"
+import LocationsPage from "./pages/LocationPage"
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/doctor" element={<DoctorDashboard />} />
         <Route path="/nurse" element={<NurseDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/locations" element={<LocationsPage />} />
       </Routes>
     </BrowserRouter>
   )
