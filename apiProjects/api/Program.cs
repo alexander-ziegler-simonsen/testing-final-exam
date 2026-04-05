@@ -34,6 +34,13 @@ builder.Services.AddSingleton<IMapper>(sp =>
     return config.CreateMapper();
 });
 
+
+// external api
+builder.Services.AddHttpClient<IExternalApiService, ExternalApiService>(client =>
+{
+    client.BaseAddress = new Uri("http://api.medicinpriser.dk/v1/");
+});
+
 // cors 
 builder.Services.AddCors(options =>
 {
