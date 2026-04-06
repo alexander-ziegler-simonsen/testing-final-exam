@@ -20,6 +20,15 @@ builder.Services.AddDbContext<HospitalContext>(options => options.UseNpgsql(conn
 
 // add services
 builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IMedicinService, MedicinService>();
+builder.Services.AddScoped<IShiftService, ShiftService>();
+builder.Services.AddScoped<IStaffService, StaffService>();
+builder.Services.AddScoped<IStorageService, StorageService>();
+builder.Services.AddScoped<IMissingStorageService, MissingStorageService>();
+
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<ITreatmentService, TreatmentService>();
 
 // add automapper
 builder.Services.AddSingleton<IMapper>(sp =>
