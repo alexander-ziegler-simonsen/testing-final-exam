@@ -21,23 +21,58 @@ namespace hospitalApi.Services
         }
         public async Task<IEnumerable<StaffOutput>> GetAll()
         {
-            return null;
+            var entities = await staffs.ToListAsync();
+            return _mapper.Map<List<StaffOutput>>(entities);
         }
-        public async Task<StaffOutput> GetOne(int id)
+
+        public async Task<StaffOutput?> GetOne(int id)
         {
-            return null;
+            var entity = await staffs.FirstOrDefaultAsync(s => s.Id == id);
+
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<StaffOutput>(entity);
         }
+
         public async Task<bool> EditStaff(int StaffId, StaffInput editedStaffData)
         {
-            return false;
+            var entity = await staffs.FirstOrDefaultAsync(s => s.Id == StaffId);
+
+            if (entity == null)
+                return false;
+
+            entity.Firstname = editedStaffData.Firstname;
+            entity.Lastname = editedStaffData.Lastname;
+            entity.FkRoleId = editedStaffData.FkRoleId;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> DeleteStaff(int id)
         {
-            return false;
+            var entity = await staffs.FirstOrDefaultAsync(s => s.Id == id);
+
+            if (entity == null)
+                return false;
+
+            staffs.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> CreateStaff(StaffInput newStaff)
         {
-            return false;
+            var entity = new Staff
+            {
+                Firstname = newStaff.Firstname,
+                Lastname = newStaff.Lastname,
+                FkRoleId = newStaff.FkRoleId
+            };
+            await staffs.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }

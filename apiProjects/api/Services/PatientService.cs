@@ -28,7 +28,7 @@ namespace hospitalApi.Services
             return _mapper.Map<List<PatientOutput>>(entities);
         }
 
-        public async Task<PatientOutput> GetOne(int id)
+        public async Task<PatientOutput?> GetOne(int id)
         {
             var entity = await _patients.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -40,15 +40,44 @@ namespace hospitalApi.Services
 
         public async Task<bool> EditPatient(int patientId, PatientInput editedPatientData)
         {
-            return false;
+            var entity = await _patients.FirstOrDefaultAsync(p => p.Id == patientId);
+
+            if (entity == null)
+                return false;
+
+            entity.Firstname = editedPatientData.Firstname;
+            entity.Lastname = editedPatientData.Lastname;
+            entity.Gender = editedPatientData.Gender;
+            entity.CprNumber = editedPatientData.CprNumber;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> DeletePatient(int id)
         {
-            return false;
+            var entity = await _patients.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (entity == null)
+                return false;
+
+            _patients.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> CreatePatient(PatientInput newPatient)
         {
-            return false;
+            var entity = new Patient
+            {
+                Firstname = newPatient.Firstname,
+                Lastname = newPatient.Lastname,
+                Gender = newPatient.Gender,
+                CprNumber = newPatient.CprNumber
+            };
+            await _patients.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }
