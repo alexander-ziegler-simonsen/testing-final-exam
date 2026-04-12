@@ -18,19 +18,21 @@ export default function LocationsPage() {
             .finally(() => setLoading(false));
     }, []);
 
-    if (loading) { return (<Box p={6}> <Spinner size="lg" /> </Box>); }
+    if (loading) {
+        return (<Box p={6}> <Spinner size="lg" /> </Box>);
+    }
 
     return (
         <Box p={6}>
-            <Heading mb={6}>Locations</Heading>
+            <Heading size={"5xl"} mb={6}>Locations</Heading>
 
-            <VStack spaceX={6} spaceY={6} align="stretch">
+            <VStack align="stretch">
                 {locations.map((location) => (
-                    <Box key={location.building.id} borderWidth="1px" borderRadius="lg" p={4} shadow="sm" >
-                        <Stack spaceX={4} spaceY={4}>
+                    <Box key={location.building.id} borderWidth="1px" borderRadius="lg" p={4} shadow="sm" m={3} >
+                        <Stack spaceX={1} spaceY={1}>
                             {/* building */}
                             <Box>
-                                <Heading size="md">{location.building.name}</Heading>
+                                <Heading size="xl">{location.building.name}</Heading>
                                 {location.building.address && (
                                     <Text color="gray.500">
                                         {location.building.address}
@@ -40,15 +42,15 @@ export default function LocationsPage() {
 
                             {/* Floors */}
 
-                            <Box id={(location.building.id).toString()} pl={4}>
+                            <Box id={(location.building.id).toString()}>
 
-                                <VStack align="start" spaceX={1} spaceY={1} pl={4}>
+                                <VStack spaceX={1} spaceY={1}>
                                     {/* rooms */}
 
-                                    <Box display="flex" gap={4} flexWrap="wrap">
+                                    <Box display="flex" gap={4} >
                                         {location.floorsWithRooms.map((floorData) => (
-                                            <Box key={floorData.floor.id} borderWidth="1px" borderRadius="md" p={3} minW="200px" flex="1" >
-                                                <Heading size="sm" mb={2}>{floorData.floor.name}</Heading>
+                                            <Box key={floorData.floor.id} borderWidth="1px" borderRadius="md" p={3} minW="200px" >
+                                                <Heading size="md" textDecor={"underline"} mb={2}>{floorData.floor.name}</Heading>
 
                                                 {(floorData.rooms ?? []).map((room) => (<Text key={room.id}>• {room.name}</Text>))}
                                             </Box>

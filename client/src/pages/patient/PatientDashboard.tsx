@@ -2,6 +2,10 @@ import { Box, Heading, Text } from "@chakra-ui/react"
 import Navbar from "../../components/Navbar"
 
 export default function PatientDashboard() {
+
+    // here we do the logic
+    
+
     return (
         <>
             <Navbar />
