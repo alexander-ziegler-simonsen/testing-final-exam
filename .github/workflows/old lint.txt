@@ -1,0 +1,69 @@
+name: Lint just the client and api
+
+concurrency:
+    group: lint
+    cancel-in-progress: false
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    lint:
+        runs-on: ubuntu-22.04
+        strategy:
+            fail-fast: false # by default, this is set to true, which kills off parallel jobs
+            matrix:
+                project: [api, client]
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+              # this makes our CI action go faster - since each project now get cached separately
+            - name: Create CI-only .npmrc for local pnpm stores
+              run: |
+                  echo "store-dir=.pnpm-store" > api/.npmrc    
+                  echo "store-dir=.pnpm-store" > client/.npmrc
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v3
+              with:
+                  version: 10.20.0
+                  run_install: false # I manually install later
+
+            - name: Setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+
+            # --- NEW: Cache project-local pnpm store + node_modules ---
+            - name: Cache node_modules and .pnpm-store
+              uses: actions/cache@v4
+              with:
+                  path: |
+                      ./${{ matrix.project }}/node_modules
+                      ./${{ matrix.project }}/.pnpm-store
+                  key: ${{ runner.os }}-${{ matrix.project }}-${{ hashFiles(format('{0}/pnpm-lock.yaml', matrix.project)) }}
+                  restore-keys: |
+                      ${{ runner.os }}-${{ matrix.project }}-
+
+            - name: Start timer
+              id: start
+              run: echo "START=$(date +%s)" >> $GITHUB_ENV # timer inside the matix, that count from 'Install dependencies' and the end of 'Run ESLint'
+
+            - name: Install dependencies
+              working-directory: ./${{ matrix.project }}
+              run: pnpm install --frozen-lockfile # flag so it don't change the lockfile, but uses what is already there
+
+            - name: Run ESLint
+              working-directory: ./${{ matrix.project }}
+              run: |
+                  if pnpm run lint; then
+                    echo "LINT_RESULT=success" >> $GITHUB_ENV
+                  else
+                    echo "LINT_RESULT=failure" >> $GITHUB_ENV
+                    exit 1
+                  fi

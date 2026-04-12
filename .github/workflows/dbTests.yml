@@ -1,0 +1,32 @@
+name: DB Tests
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    db-tests:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            # 👉 Install pnpm
+            - name: Install pnpm
+              run: npm install -g pnpm
+
+            # 👉 Install deps inside dbTests
+            - name: Install dependencies
+              working-directory: ./dbTests
+              run: pnpm install
+
+            # 👉 Run tests
+            - name: Run DB tests
+              working-directory: ./dbTests
+              run: pnpm test

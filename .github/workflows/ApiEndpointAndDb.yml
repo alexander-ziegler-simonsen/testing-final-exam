@@ -1,0 +1,90 @@
+name: API with DB tests
+
+on:
+    push:
+        branches: [main, master]
+    pull_request:
+        branches: [main, master]
+
+jobs:
+    apiWithDbTests:
+        environment: monoEnv
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+
+        services:
+            postgres:
+                image: postgres:18
+                env:
+                    POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+                    POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+                    POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+                ports:
+                    - 5432:5432
+        env:
+            ConnectionStrings__DefaultConnection: Host=localhost;Port=5432;Database=${{ secrets.POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}
+
+        steps:
+            # 1 Checkout FIRST
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            # 2 Install PostgreSQL client (needed for pg_isready + psql)
+            - name: Install PostgreSQL client
+              run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+            # 3 Wait for DB
+            - name: Wait for PostgreSQL
+              run: |
+                  until PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql \
+                    -h localhost \
+                    -U ${{ secrets.POSTGRES_USER }} \
+                    -d ${{ secrets.POSTGRES_DB }} \
+                    -c '\q'; do
+                    echo "Waiting for database..."
+                    sleep 2
+                  done
+
+            # 4 Setup .NET
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: "10.0.x"
+
+            - name: Restore
+              run: dotnet restore dotnetApi/tradeItApi/tradeItApi.slnx
+
+            - name: Build
+              run: dotnet build dotnetApi/tradeItApi/tradeItApi.slnx --no-restore --configuration Release
+
+            # 5 Initialize schema + seed
+            - name: Initialize database
+              run: |
+                  PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql \
+                    -h localhost \
+                    -U ${{ secrets.POSTGRES_USER }} \
+                    -d ${{ secrets.POSTGRES_DB }} \
+                    -f init/init.sql
+
+            # 6 Setup Node for Newman
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - name: Install Newman
+              run: npm install -g newman
+
+            - name: Start API
+              run: |
+                dotnet run --project dotnetApi/tradeItApi/tradeItApi.csproj --configuration Release & 
+
+            - name: Wait for API
+              run: |
+                until curl -s http://localhost:5129; do
+                    echo "Waiting for API..."
+                    sleep 2
+                done
+            - name: Run Postman Collection
+              run: |
+                newman run testing/api/postman_collection.json -e testing/api/postmanEnv.json --reporters cli
