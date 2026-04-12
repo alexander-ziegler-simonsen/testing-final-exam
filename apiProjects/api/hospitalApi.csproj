@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Postgres\**" />
+    <Compile Remove="DTOs\Postgres\**" />
+    <Compile Remove="Mapping\Postgres\**" />
+    <Compile Remove="Models\Postgres\**" />
+    <Content Remove="Data\Postgres\**" />
+    <Content Remove="DTOs\Postgres\**" />
+    <Content Remove="Mapping\Postgres\**" />
+    <Content Remove="Models\Postgres\**" />
+    <EmbeddedResource Remove="Data\Postgres\**" />
+    <EmbeddedResource Remove="DTOs\Postgres\**" />
+    <EmbeddedResource Remove="Mapping\Postgres\**" />
+    <EmbeddedResource Remove="Models\Postgres\**" />
+    <None Remove="Data\Postgres\**" />
+    <None Remove="DTOs\Postgres\**" />
+    <None Remove="Mapping\Postgres\**" />
+    <None Remove="Models\Postgres\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="16.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
@@ -22,13 +41,6 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
     <PackageReference Include="NUnit" Version="4.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DTOs\Postgres\" />
-    <Folder Include="Data\Postgres\" />
-    <Folder Include="Mapping\Postgres\" />
-    <Folder Include="Models\Postgres\" />
   </ItemGroup>
 	
 </Project>
