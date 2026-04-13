@@ -18,7 +18,7 @@ namespace hospitalApi.Controllers
         }
 
         // GET api/<ExternalMedicinePricesController>/productsByIngredient/
-        [HttpGet("/productsByName/")]
+        [HttpGet("productsByName")]
         public async Task<IActionResult> GetMedicineProductsByName([FromQuery] string productName)
         {
             var output = await _externalApiService.GetMedicineProductsByNameAsync(productName);
@@ -26,8 +26,8 @@ namespace hospitalApi.Controllers
             return Ok(output);
         }
 
-        // GET api/<ExternalMedicinePricesController>/productsByIngredient/
-        [HttpGet("/productsByIngredient/")]
+        // GET api/<ExternalMedicinePricesController>/productsByIngredient
+        [HttpGet("productsByIngredient")]
         public async Task<IActionResult> GetMedicineProductsByIngredients([FromQuery] string ingredientName)
         {
             var output = await _externalApiService.GetMedicineProductsByIngredientsAsync(ingredientName);
@@ -35,8 +35,8 @@ namespace hospitalApi.Controllers
             return Ok(output);
         }
 
-        // GET api/<ExternalMedicinePricesController>/productDetails/
-        [HttpGet("/productDetails/")]
+        // GET api/<ExternalMedicinePricesController>/productDetails
+        [HttpGet("productDetails")]
         public async Task<IActionResult> GetMedicineProductDetailsAsync([FromQuery] string productDetailId)
         {
             var output = await _externalApiService.GetMedicineProductDetailsAsync(productDetailId);
