@@ -1,4 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/react"
+import MedicinePriceSearch from "../components/MedicinePriceSearch"
 
 export default function Home() {
     return (
@@ -10,6 +11,8 @@ export default function Home() {
                     This system allows patients, nurses, doctors, and administrators
                     to manage hospital operations efficiently.
                 </Text>
+
+                <MedicinePriceSearch />
             </Box>
         </>
     )
