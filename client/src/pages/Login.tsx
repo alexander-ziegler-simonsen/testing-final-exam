@@ -1,5 +1,4 @@
 import { Box, Button, Heading, Input, VStack, Field } from "@chakra-ui/react"
-import Navbar from "../components/Navbar"
 import { useNavigate } from "react-router"
 
 export default function Login() {
@@ -7,7 +6,6 @@ export default function Login() {
 
     return (
         <>
-            <Navbar />
             <Box maxW="400px" mx="auto" mt={20} p={8} borderWidth={1} borderRadius="md">
                 <Heading mb={6}>Login</Heading>
 

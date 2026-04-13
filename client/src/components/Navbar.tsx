@@ -14,18 +14,20 @@ export default function Navbar() {
     ];
 
     return (
-        <Flex bg="blue.500" p={4} color="white" align="center">
-            <Heading size="md">Hospital System</Heading>
+        <Box bg="blue.500" color="white">
+            <Flex maxW="1280px" mx="auto" px={{ base: 4, md: 8 }} py={4} align="center">
+                <Heading size="md">Hospital System</Heading>
 
-            <Spacer />
+                <Spacer />
 
-            <Box>
-                {navItems.map((item) => (
-                    <Button key={item.id} id={item.id} asChild variant="outline" color="white" mr={2} >
-                        <Link to={item.to}>{item.label}</Link>
-                    </Button>
-                ))}
-            </Box>
-        </Flex>
+                <Box>
+                    {navItems.map((item) => (
+                        <Button key={item.id} id={item.id} asChild variant="outline" color="white" mr={2} >
+                            <Link to={item.to}>{item.label}</Link>
+                        </Button>
+                    ))}
+                </Box>
+            </Flex>
+        </Box>
     )
 }
