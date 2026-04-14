@@ -22,23 +22,49 @@ namespace hospitalApi.Services
 
         public async Task<IEnumerable<DepartmentOutput>> GetAll()
         {
-            return null;
+            var entities = await departments.ToListAsync();
+            return _mapper.Map<IEnumerable<DepartmentOutput>>(entities);
         }
+
         public async Task<DepartmentOutput> GetOne(int id)
         {
-            return null;
+            var entity = await departments.FirstOrDefaultAsync(d => d.Id == id);
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<DepartmentOutput>(entity);
         }
+
         public async Task<bool> EditDepartment(int DepartmentId, DepartmentInput editedDepartmentData)
         {
-            return false;
+            var entity = await departments.FirstOrDefaultAsync(d => d.Id == DepartmentId);
+            if (entity == null)
+                return false;
+
+            entity.Name = editedDepartmentData.Name;
+            entity.Type = editedDepartmentData.Type;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> DeleteDepartment(int id)
         {
-            return false;
+            var entity = await departments.FirstOrDefaultAsync(d => d.Id == id);
+            if (entity == null)
+                return false;
+
+            departments.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> CreateDepartment(DepartmentInput newDepartment)
         {
-            return false;
+            var entity = _mapper.Map<Department>(newDepartment);
+            await departments.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -21,23 +21,54 @@ namespace hospitalApi.Services
         }
         public async Task<IEnumerable<MedicationOutput>> GetAll()
         {
-            return null;
+            var entities = await _medication.ToListAsync();
+            return _mapper.Map<IEnumerable<MedicationOutput>>(entities);
         }
+
         public async Task<MedicationOutput> GetOne(int id)
         {
-            return null;
+            var entity = await _medication.FirstOrDefaultAsync(m => m.Id == id);
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<MedicationOutput>(entity);
         }
+
         public async Task<bool> EditMedication(int MedicationId, MedicationInput editedMedicationData)
         {
-            return false;
+            var entity = await _medication.FirstOrDefaultAsync(m => m.Id == MedicationId);
+            if (entity == null)
+                return false;
+
+            entity.Name = editedMedicationData.Name;
+            entity.GenericName = editedMedicationData.GenericName;
+            entity.Brand = editedMedicationData.Brand;
+            entity.Form = editedMedicationData.Form;
+            entity.Strength = editedMedicationData.Strength;
+            entity.Category = editedMedicationData.Category;
+            entity.Description = editedMedicationData.Description;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> DeleteMedication(int id)
         {
-            return false;
+            var entity = await _medication.FirstOrDefaultAsync(m => m.Id == id);
+            if (entity == null)
+                return false;
+
+            _medication.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> CreateMedication(MedicationInput newMedication)
         {
-            return false;
+            var entity = _mapper.Map<Medication>(newMedication);
+            await _medication.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }

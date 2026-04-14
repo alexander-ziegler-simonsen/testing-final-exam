@@ -21,23 +21,49 @@ namespace hospitalApi.Services
         }
         public async Task<IEnumerable<MedicationStorageOutput>> GetAll()
         {
-            return null;
+            var entities = await storages.ToListAsync();
+            return _mapper.Map<IEnumerable<MedicationStorageOutput>>(entities);
         }
+
         public async Task<MedicationStorageOutput> GetOne(int id)
         {
-            return null;
+            var entity = await storages.FirstOrDefaultAsync(s => s.Id == id);
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<MedicationStorageOutput>(entity);
         }
+
         public async Task<bool> EditStorage(int StorageId, MedicationStorageInput editedStorageData)
         {
-            return false;
+            var entity = await storages.FirstOrDefaultAsync(s => s.Id == StorageId);
+            if (entity == null)
+                return false;
+
+            entity.FkMedicationId = editedStorageData.FkMedicationId;
+            entity.Amount = editedStorageData.Amount;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> DeleteStorage(int id)
         {
-            return false;
+            var entity = await storages.FirstOrDefaultAsync(s => s.Id == id);
+            if (entity == null)
+                return false;
+
+            storages.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> CreateStorage(MedicationStorageInput newStorage)
         {
-            return false;
+            var entity = _mapper.Map<MedicationStorage>(newStorage);
+            await storages.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }

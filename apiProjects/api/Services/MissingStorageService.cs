@@ -21,23 +21,50 @@ namespace hospitalApi.Services
         }
         public async Task<IEnumerable<MedicationStorageMissingOutput>> GetAll()
         {
-            return null;
+            var entities = await _missing.ToListAsync();
+            return _mapper.Map<IEnumerable<MedicationStorageMissingOutput>>(entities);
         }
+
         public async Task<MedicationStorageMissingOutput> GetOne(int id)
         {
-            return null;
+            var entity = await _missing.FirstOrDefaultAsync(m => m.Id == id);
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<MedicationStorageMissingOutput>(entity);
         }
+
         public async Task<bool> EditMissingStorage(int MissingStorageId, MedicationStorageMissingInput editedMissingStorageData)
         {
-            return false;
+            var entity = await _missing.FirstOrDefaultAsync(m => m.Id == MissingStorageId);
+            if (entity == null)
+                return false;
+
+            entity.FkMedicationStorageId = editedMissingStorageData.FkMedicationStorageId;
+            entity.AmountMissing = editedMissingStorageData.AmountMissing;
+            entity.WentMissingAt = editedMissingStorageData.WentMissingAt;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> DeleteMissingStorage(int id)
         {
-            return false;
+            var entity = await _missing.FirstOrDefaultAsync(m => m.Id == id);
+            if (entity == null)
+                return false;
+
+            _missing.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> CreateMissingStorage(MedicationStorageMissingInput newMissingStorage)
         {
-            return false;
+            var entity = _mapper.Map<MedicationStorageMissing>(newMissingStorage);
+            await _missing.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }

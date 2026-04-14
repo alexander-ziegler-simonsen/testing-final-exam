@@ -21,23 +21,50 @@ namespace hospitalApi.Services
         }
         public async Task<IEnumerable<TreatmentOutput>> GetAll()
         {
-            return null;
+            var entities = await treatments.ToListAsync();
+            return _mapper.Map<IEnumerable<TreatmentOutput>>(entities);
         }
+
         public async Task<TreatmentOutput> GetOne(int id)
         {
-            return null;
+            var entity = await treatments.FirstOrDefaultAsync(t => t.Id == id);
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<TreatmentOutput>(entity);
         }
+
         public async Task<bool> EditTreatment(int TreatmentId, TreatmentInput editedTreatmentData)
         {
-            return false;
+            var entity = await treatments.FirstOrDefaultAsync(t => t.Id == TreatmentId);
+            if (entity == null)
+                return false;
+
+            entity.FkPatientId = editedTreatmentData.FkPatientId;
+            entity.Description = editedTreatmentData.Description;
+            entity.Time = editedTreatmentData.Time;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> DeleteTreatment(int id)
         {
-            return false;
+            var entity = await treatments.FirstOrDefaultAsync(t => t.Id == id);
+            if (entity == null)
+                return false;
+
+            treatments.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> CreateTreatment(TreatmentInput newTreatment)
         {
-            return false;
+            var entity = _mapper.Map<Treatment>(newTreatment);
+            await treatments.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }

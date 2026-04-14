@@ -22,23 +22,49 @@ namespace hospitalApi.Services
 
         public async Task<IEnumerable<ShiftOutput>> GetAll()
         {
-            return null;
+            var entities = await shifts.ToListAsync();
+            return _mapper.Map<IEnumerable<ShiftOutput>>(entities);
         }
+
         public async Task<ShiftOutput> GetOne(int id)
         {
-            return null;
+            var entity = await shifts.FirstOrDefaultAsync(s => s.Id == id);
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<ShiftOutput>(entity);
         }
+
         public async Task<bool> EditShift(int ShiftId, ShiftInput editedShiftData)
         {
-            return false;
+            var entity = await shifts.FirstOrDefaultAsync(s => s.Id == ShiftId);
+            if (entity == null)
+                return false;
+
+            entity.StartTime = editedShiftData.StartTime;
+            entity.EndTime = editedShiftData.EndTime;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> DeleteShift(int id)
         {
-            return false;
+            var entity = await shifts.FirstOrDefaultAsync(s => s.Id == id);
+            if (entity == null)
+                return false;
+
+            shifts.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
+
         public async Task<bool> CreateShift(ShiftInput newShift)
         {
-            return false;
+            var entity = _mapper.Map<Shift>(newShift);
+            await shifts.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }
