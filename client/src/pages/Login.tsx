@@ -1,55 +1,77 @@
-import { Box, Button, Heading, Input, VStack, Field } from "@chakra-ui/react"
+import { useState } from "react"
+import { Box, Button, Heading, Input, VStack, Field, Text } from "@chakra-ui/react"
 import { useNavigate } from "react-router"
+import { authService } from "../services/AuthService"
 
 export default function Login() {
     const navigate = useNavigate()
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState<string | null>(null)
+    const [loading, setLoading] = useState(false)
+
+    const handleLogin = async () => {
+        setError(null)
+        setLoading(true)
+
+        try {
+            const result = await authService.login(username, password)
+
+            localStorage.setItem("token", result.token)
+            localStorage.setItem("role", result.role)
+            localStorage.setItem("staffId", result.staffId.toString())
+            localStorage.setItem("firstname", result.firstname ?? "")
+            localStorage.setItem("lastname", result.lastname ?? "")
+
+            switch (result.role) {
+                case "doctor": navigate("/doctor"); break
+                case "nurse":  navigate("/nurse");  break
+                case "admin":  navigate("/admin");  break
+                default:       navigate("/");       break
+            }
+        } catch {
+            setError("Invalid username or password")
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return (
-        <>
-            <Box maxW="400px" mx="auto" mt={20} p={8} borderWidth={1} borderRadius="md">
-                <Heading mb={6}>Login</Heading>
+        <Box maxW="400px" mx="auto" mt={20} p={8} borderWidth={1} borderRadius="md">
+            <Heading mb={6}>Login</Heading>
 
-                <VStack gap={4}>
-                    <Field.Root>
-                        <Field.Label>Email</Field.Label>
-                        <Input placeholder="email@example.com" />
-                    </Field.Root>
+            <VStack gap={4}>
+                <Field.Root>
+                    <Field.Label>Username</Field.Label>
+                    <Input
+                        placeholder="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </Field.Root>
 
-                    <Field.Root>
-                        <Field.Label>Password</Field.Label>
-                        <Input type="password" placeholder="password" />
-                    </Field.Root>
+                <Field.Root>
+                    <Field.Label>Password</Field.Label>
+                    <Input
+                        type="password"
+                        placeholder="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+                    />
+                </Field.Root>
 
-                    <Button id="loginBtn" bg="blue.500" width="100%">
-                        Login
-                    </Button>
-                </VStack>
-            </Box>
-            <hr/>
-            <hr/>
-            <hr/>
+                {error && <Text color="red.500">{error}</Text>}
 
-            <Box p={8}>
-                <Heading mb={6}>Login (Demo)</Heading>
-
-                <VStack gap={4} align="start">
-                    <Button bg="blue.500" onClick={() => navigate("/patient")}>
-                        Login as Patient
-                    </Button>
-
-                    <Button bg="blue.500" onClick={() => navigate("/doctor")}>
-                        Login as Doctor
-                    </Button>
-
-                    <Button bg="blue.500" onClick={() => navigate("/nurse")}>
-                        Login as Nurse
-                    </Button>
-
-                    <Button bg="blue.500" onClick={() => navigate("/admin")}>
-                        Login as Admin
-                    </Button>
-                </VStack>
-            </Box>
-        </>
+                <Button
+                    bg="blue.500"
+                    width="100%"
+                    onClick={handleLogin}
+                    loading={loading}
+                >
+                    Login
+                </Button>
+            </VStack>
+        </Box>
     )
 }
