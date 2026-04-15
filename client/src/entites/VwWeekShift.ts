@@ -1,9 +1,9 @@
 export interface VwWeekShift {
-ShiftId?: number;
-StartTime?: Date;
-EndTime?: Date;
-StaffId?: number;
-Firstname?: string;
-Lastname?: string;
-StaffRole?: number;
+    shiftId?: number
+    startTime?: string
+    endTime?: string
+    staffId?: number
+    firstname?: string
+    lastname?: string
+    staffRole?: string
 }

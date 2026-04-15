@@ -1,6 +1,6 @@
 export interface Staff {
-Id: number;
-Firstname?: string;
-Lastname?: string;
-FkRoleId: number;
+    id: number
+    firstname?: string
+    lastname?: string
+    fkRoleId: number
 }

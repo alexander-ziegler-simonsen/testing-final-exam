@@ -1,7 +1,7 @@
 export interface VwDoctor {
-DoctorId?: number;
-Firstname?: string;
-Lastname?: string;
-DepartmentId?: number;
-DepartmentName?: string;
+    doctorId?: number
+    firstname?: string
+    lastname?: string
+    departmentId?: number
+    departmentName?: string
 }

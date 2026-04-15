@@ -1,5 +1,5 @@
 export interface TreatmentStaff {
-Id: number;
-FkTreatmentId: number;
-FkStaffId: number;
+    id: number
+    fkTreatmentId: number
+    fkStaffId: number
 }

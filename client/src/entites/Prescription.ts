@@ -1,7 +1,7 @@
 export interface Prescription {
-Id: number;
-FkMedicationId: number;
-FkTreatmentId: number;
-FkPrescribedByStaffId: number;
-Doses: number;
+    id: number
+    fkMedicationId: number
+    fkTreatmentId: number
+    fkPrescribedByStaffId: number
+    doses: number
 }

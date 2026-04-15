@@ -1,5 +1,5 @@
-export interface x {
-Id: number;
-StartTime: Date;
-EndTime: Date;
+export interface Shift {
+    id: number
+    startTime: string
+    endTime: string
 }

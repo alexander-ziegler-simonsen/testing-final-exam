@@ -1,5 +1,5 @@
 export interface ShiftStaff {
-Id: number;
-FkShiftId: number;
-FkStaffId: number;
+    id: number
+    fkShiftId: number
+    fkStaffId: number
 }

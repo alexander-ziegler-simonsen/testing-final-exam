@@ -1,7 +1,7 @@
 export interface RoomBooking {
-Id: number;
-FkRoomId: number;
-StartTime: Date;
-EndTime: Date;
-FkPatientId: number;
+    id: number
+    fkRoomId: number
+    startTime: string
+    endTime: string
+    fkPatientId: number
 }

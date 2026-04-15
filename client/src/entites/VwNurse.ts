@@ -1,8 +1,8 @@
 export interface VwNurse {
-NurseId?: number;
-Firstname?: string;
-Lastname?: string;
-DepartmentId?: number;
-DepartmentName?: string;
-ShiftId?: number;
+    nurseId?: number
+    firstname?: string
+    lastname?: string
+    departmentId?: number
+    departmentName?: string
+    shiftId?: number
 }
