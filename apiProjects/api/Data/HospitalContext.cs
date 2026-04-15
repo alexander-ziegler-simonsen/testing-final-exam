@@ -50,6 +50,8 @@ public partial class HospitalContext : DbContext
 
     public virtual DbSet<VwNurse> VwNurses { get; set; }
 
+    public virtual DbSet<User> Users { get; set; }
+
     public virtual DbSet<VwWeekShift> VwWeekShifts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -381,6 +383,34 @@ public partial class HospitalContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("user_pkey");
+
+            entity.ToTable("user");
+
+            entity.HasIndex(e => e.Username, "user_username_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("id");
+            entity.Property(e => e.Username)
+                .HasMaxLength(100)
+                .HasColumnName("username");
+            entity.Property(e => e.PasswordHash)
+                .HasMaxLength(255)
+                .HasColumnName("password_hash");
+            entity.Property(e => e.Salt)
+                .HasMaxLength(255)
+                .HasColumnName("salt");
+            entity.Property(e => e.FkStaffId).HasColumnName("fk_staff_id");
+
+            entity.HasOne(d => d.FkStaff).WithMany()
+                .HasForeignKey(d => d.FkStaffId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_fk_staff_id_fkey");
         });
 
         modelBuilder.Entity<Treatment>(entity =>

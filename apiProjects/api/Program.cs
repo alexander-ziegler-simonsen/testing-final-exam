@@ -1,10 +1,13 @@
+using System.Text;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using hospitalApi.Data;
 using hospitalApi.Mapping;
 using hospitalApi.Services;
 using hospitalApi.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +32,7 @@ builder.Services.AddScoped<IMissingStorageService, MissingStorageService>();
 
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<ITreatmentService, TreatmentService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // add automapper
 builder.Services.AddSingleton<IMapper>(sp =>
@@ -50,7 +54,26 @@ builder.Services.AddHttpClient<IExternalApiService, ExternalApiService>(client =
     client.BaseAddress = new Uri("http://api.medicinpriser.dk/v1/");
 });
 
-// cors 
+// JWT authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+// cors
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
@@ -109,7 +132,10 @@ if (app.Environment.IsDevelopment())
 }
 
 // add cors rules
-app.UseCors("AllowFrontend"); 
+app.UseCors("AllowFrontend");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Routing + controllers
 

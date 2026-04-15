@@ -55,6 +55,14 @@ create table staff (
     fk_role_id int not null references staff_role(id)
 );
 
+create table "user" (
+    id int generated always as identity primary key,
+    username varchar(100) not null unique,
+    password_hash varchar(255) not null,
+    salt varchar(255) not null,
+    fk_staff_id int not null references staff(id)
+);
+
 create table department (
     id int generated always as identity primary key,
     name varchar(100),
@@ -252,6 +260,16 @@ insert into staff (firstname, lastname, fk_role_id) values
 ('peter','christensen',2),('nikolaj','møller',2),('thomas','pedersen',2),
 ('maria','jensen',2),('john','poulsen',2),('sara','nielsen',2),
 ('henrik','hansen',2);
+
+
+-- users (linked to staff, for login)
+-- passwords: doctors use 'Doctor1234!', nurses use 'Nurse1234!'
+
+insert into "user" (username, password_hash, salt, fk_staff_id) values
+('larsc',  '$2b$11$nlclhzrwTwvhpiFLLyB32./O5E.NSqH9Z6YyHVHLInzuvic3W0daK', '$2b$11$nlclhzrwTwvhpiFLLyB32.', 1),
+('evam',   '$2b$11$v49fsgGrRe4izN65HiA.X.R9nnF7pfoOLf/s7QRiDsLFaTE4MNtLe', '$2b$11$v49fsgGrRe4izN65HiA.X.', 2),
+('annaj',  '$2b$11$F/xqtdVrZjJUb6hfXptkAuse9F7s3DbH33SigLynX9D0YxMMqZI0O', '$2b$11$F/xqtdVrZjJUb6hfXptkAu', 26),
+('mettek', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRuGeMLXwumuCHWBCr7by6mccjlzMnT65m', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRu', 27);
 
 
 -- departments
