@@ -6,6 +6,7 @@ import './App.css'
 import PatientDashboard from "./pages/patient/PatientDashboard"
 import DoctorDashboard from "./pages/doctor/DoctorDashboard"
 import NurseDashboard from "./pages/nurse/NurseDashboard"
+import PatientDetailPage from "./pages/nurse/PatientDetailPage"
 import AdminDashboard from "./pages/admin/AdminDashboard"
 import About from "./pages/About"
 import LocationsPage from "./pages/LocationPage"
@@ -33,6 +34,11 @@ function App() {
           {/* Nurse only */}
           <Route element={<ProtectedRoute allowedRoles={["nurse"]} />}>
             <Route path="/nurse" element={<NurseDashboard />} />
+          </Route>
+
+          {/* Nurse, doctor, admin — and in the future patients (self only, enforced in the page) */}
+          <Route element={<ProtectedRoute allowedRoles={["nurse", "doctor", "admin"]} />}>
+            <Route path="/patients/:id" element={<PatientDetailPage />} />
           </Route>
 
           {/* Admin only */}

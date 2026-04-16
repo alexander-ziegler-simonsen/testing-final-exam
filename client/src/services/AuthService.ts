@@ -25,6 +25,10 @@ export const authService = {
         const id = localStorage.getItem("staffId")
         return id ? parseInt(id) : null
     },
+    getPatientId: (): number | null => {
+        const id = localStorage.getItem("patientId")
+        return id ? parseInt(id) : null
+    },
     getFirstname: (): string | null => localStorage.getItem("firstname"),
     getLastname: (): string | null => localStorage.getItem("lastname"),
     getFullName: (): string => {
