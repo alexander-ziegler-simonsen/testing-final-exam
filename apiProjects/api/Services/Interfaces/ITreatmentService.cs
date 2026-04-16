@@ -9,6 +9,6 @@ namespace hospitalApi.Services.Interfaces
         Task<TreatmentOutput> GetOne(int id);
         Task<bool> EditTreatment(int TreatmentId, TreatmentInput editedTreatmentData);
         Task<bool> DeleteTreatment(int id);
-        Task<bool> CreateTreatment(TreatmentInput newTreatment);
+        Task<int> CreateTreatment(TreatmentInput newTreatment);
     }
 }

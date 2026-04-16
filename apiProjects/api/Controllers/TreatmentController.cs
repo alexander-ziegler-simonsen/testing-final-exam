@@ -40,12 +40,8 @@ namespace hospitalApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] TreatmentInput newTreatment)
         {
-            bool output = await _TreatmentService.CreateTreatment(newTreatment);
-
-            if (output)
-                return Ok();
-            else
-                return NoContent();
+            int newId = await _TreatmentService.CreateTreatment(newTreatment);
+            return Ok(newId);
         }
 
         // PUT api/<TreatmentController>/5
