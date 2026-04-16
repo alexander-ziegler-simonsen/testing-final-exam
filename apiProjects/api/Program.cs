@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
+// fix added to prevent problems with DateTime values
+// Allow writing DateTime(Kind=UTC) to PostgreSQL 'timestamp without time zone' columns
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -31,7 +35,9 @@ builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IMissingStorageService, MissingStorageService>();
 
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
 builder.Services.AddScoped<ITreatmentService, TreatmentService>();
+builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // add automapper

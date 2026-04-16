@@ -12,18 +12,25 @@ namespace hospitalApi.Mapping
             CreateMap<Room, RoomOutput>();
             CreateMap<Floor, FloorOutput>();
             CreateMap<Medication, MedicationOutput>();
+            CreateMap<MedicationInput, Medication>();
             CreateMap<MedicationStorage, MedicationStorageOutput>();
+            CreateMap<MedicationStorageInput, MedicationStorage>();
+            CreateMap<MedicationStorageMissing, MedicationStorageMissingOutput>();
+            CreateMap<MedicationStorageMissingInput, MedicationStorageMissing>();
             CreateMap<RoomBooking, RoomBookingOutput>();
+            CreateMap<RoomBookingInput, RoomBooking>();
             CreateMap<Shift, ShiftOutput>();
             CreateMap<ShiftStaff, ShiftStaffOutput>();
             CreateMap<Treatment, TreatmentOutput>();
+            CreateMap<TreatmentInput, Treatment>();
             CreateMap<TreatmentStaff, TreatmentStaffOutput>();
             CreateMap<Patient, PatientOutput>();
             CreateMap<Department, DepartmentOutput>();
+            CreateMap<DepartmentInput, Department>();
             CreateMap<DepartmentStaff, DepartmentStaffOutput>();
             CreateMap<Building, BuildingOutput>();
-            CreateMap<MedicationStorageMissing, MedicationStorageMissingOutput>();
             CreateMap<Prescription, PrescriptionOutput>();
+            CreateMap<PrescriptionInput, Prescription>();
             CreateMap<Staff, StaffOutput>();
 
             CreateMap<User, LoginOutput>()
