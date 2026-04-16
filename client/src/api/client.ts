@@ -19,5 +19,6 @@ export async function apiFetch<T>(
         throw new Error(`API error: ${response.status}`);
     }
 
-    return response.json();
+    const text = await response.text();
+    return text ? (JSON.parse(text) as T) : (undefined as T);
 }
