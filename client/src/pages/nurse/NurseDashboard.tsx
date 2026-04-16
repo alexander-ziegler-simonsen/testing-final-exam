@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react"
-import { Box, Heading, Spinner, Table, Tabs, Text, Badge } from "@chakra-ui/react"
+import { useNavigate } from "react-router"
+import { Box, Button, Heading, Spinner, Table, Tabs, Text, Badge } from "@chakra-ui/react"
 import { patientService } from "../../services/PatientService"
 import { shiftService } from "../../services/ShiftService"
 import { authService } from "../../services/AuthService"
+import GiveTreatment from "../../components/GiveTreatment"
 import type { Patient } from "../../entites/Patient"
 import type { Shift } from "../../entites/Shift"
 
 const fmt = (d: string) => new Date(d).toLocaleString()
 
 export default function NurseDashboard() {
+    const navigate = useNavigate()
     const [patients, setPatients] = useState<Patient[]>([])
     const [shifts, setShifts] = useState<Shift[]>([])
     const [loading, setLoading] = useState(true)
@@ -45,6 +48,9 @@ export default function NurseDashboard() {
                     <Tabs.Trigger value="shifts">
                         Shifts <Badge ml={2} colorPalette="green">{shifts.length}</Badge>
                     </Tabs.Trigger>
+                    <Tabs.Trigger value="give-treatment">
+                        Give Treatment
+                    </Tabs.Trigger>
                 </Tabs.List>
 
                 {/* Patients tab */}
@@ -56,6 +62,7 @@ export default function NurseDashboard() {
                                 <Table.ColumnHeader>Name</Table.ColumnHeader>
                                 <Table.ColumnHeader>Gender</Table.ColumnHeader>
                                 <Table.ColumnHeader>CPR</Table.ColumnHeader>
+                                <Table.ColumnHeader />
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
@@ -65,6 +72,11 @@ export default function NurseDashboard() {
                                     <Table.Cell>{p.firstname} {p.lastname}</Table.Cell>
                                     <Table.Cell>{p.gender ?? "—"}</Table.Cell>
                                     <Table.Cell>{p.cprNumber ?? "—"}</Table.Cell>
+                                    <Table.Cell>
+                                        <Button size="xs" variant="outline" onClick={() => navigate(`/patients/${p.id}`)}>
+                                            View
+                                        </Button>
+                                    </Table.Cell>
                                 </Table.Row>
                             ))}
                         </Table.Body>
@@ -91,6 +103,10 @@ export default function NurseDashboard() {
                             ))}
                         </Table.Body>
                     </Table.Root>
+                </Tabs.Content>
+                {/* Give Treatment tab */}
+                <Tabs.Content value="give-treatment">
+                    <GiveTreatment patients={patients} />
                 </Tabs.Content>
             </Tabs.Root>
         </Box>
