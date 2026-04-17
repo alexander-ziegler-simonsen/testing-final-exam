@@ -267,9 +267,9 @@ insert into staff (firstname, lastname, fk_role_id) values
 
 insert into "user" (username, password_hash, salt, fk_staff_id) values
 ('larsc',  '$2b$11$nlclhzrwTwvhpiFLLyB32./O5E.NSqH9Z6YyHVHLInzuvic3W0daK', '$2b$11$nlclhzrwTwvhpiFLLyB32.', 1),
-('evam',   '$2b$11$v49fsgGrRe4izN65HiA.X.R9nnF7pfoOLf/s7QRiDsLFaTE4MNtLe', '$2b$11$v49fsgGrRe4izN65HiA.X.', 2),
+('doctor',   '$2b$11$v49fsgGrRe4izN65HiA.X.R9nnF7pfoOLf/s7QRiDsLFaTE4MNtLe', '$2b$11$v49fsgGrRe4izN65HiA.X.', 2),
 ('annaj',  '$2b$11$F/xqtdVrZjJUb6hfXptkAuse9F7s3DbH33SigLynX9D0YxMMqZI0O', '$2b$11$F/xqtdVrZjJUb6hfXptkAu', 26),
-('mettek', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRuGeMLXwumuCHWBCr7by6mccjlzMnT65m', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRu', 27);
+('nurse', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRuGeMLXwumuCHWBCr7by6mccjlzMnT65m', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRu', 27);
 
 
 -- departments
