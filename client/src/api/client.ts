@@ -16,7 +16,9 @@ export async function apiFetch<T>(
     });
 
     if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
+        const err = new Error(`API error: ${response.status}`) as Error & { status: number }
+        err.status = response.status
+        throw err
     }
 
     const text = await response.text();
