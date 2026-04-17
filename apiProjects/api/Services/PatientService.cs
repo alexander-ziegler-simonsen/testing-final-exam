@@ -21,10 +21,33 @@ namespace hospitalApi.Services
             _patients = dbContext.Patients;
         }
 
-        public async Task<IEnumerable<PatientOutput>> GetAll()
+        public async Task<IEnumerable<PatientOutput>> GetAll(PatientInput? filter = null, string? sortBy = null, string? sortDir = "asc")
         {
-            var entities = await _patients.ToListAsync();
+            IQueryable<Patient> query = _patients;
 
+            if (filter != null)
+            {
+                if (!string.IsNullOrWhiteSpace(filter.Firstname))
+                    query = query.Where(p => p.Firstname != null && p.Firstname.ToLower().Contains(filter.Firstname.ToLower()));
+                if (!string.IsNullOrWhiteSpace(filter.Lastname))
+                    query = query.Where(p => p.Lastname != null && p.Lastname.ToLower().Contains(filter.Lastname.ToLower()));
+                if (!string.IsNullOrWhiteSpace(filter.Gender))
+                    query = query.Where(p => p.Gender != null && p.Gender.ToLower().Contains(filter.Gender.ToLower()));
+                if (!string.IsNullOrWhiteSpace(filter.CprNumber))
+                    query = query.Where(p => p.CprNumber != null && p.CprNumber.ToLower().Contains(filter.CprNumber.ToLower()));
+            }
+
+            bool desc = sortDir?.ToLower() == "desc";
+            query = sortBy?.ToLower() switch
+            {
+                "firstname" => desc ? query.OrderByDescending(p => p.Firstname) : query.OrderBy(p => p.Firstname),
+                "lastname"  => desc ? query.OrderByDescending(p => p.Lastname)  : query.OrderBy(p => p.Lastname),
+                "gender"    => desc ? query.OrderByDescending(p => p.Gender)    : query.OrderBy(p => p.Gender),
+                "cprnumber" => desc ? query.OrderByDescending(p => p.CprNumber) : query.OrderBy(p => p.CprNumber),
+                _           => desc ? query.OrderByDescending(p => p.Id)        : query.OrderBy(p => p.Id),
+            };
+
+            var entities = await query.ToListAsync();
             return _mapper.Map<List<PatientOutput>>(entities);
         }
 

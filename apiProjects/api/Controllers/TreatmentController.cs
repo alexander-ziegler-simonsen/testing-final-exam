@@ -18,11 +18,12 @@ namespace hospitalApi.Controllers
 
         // GET: api/<TreatmentController>
         [HttpGet]
-        public async Task<IEnumerable<TreatmentOutput>> GetAllTreatments()
+        public async Task<IEnumerable<TreatmentOutput>> GetAllTreatments(
+            [FromQuery] TreatmentInput? filter = null,
+            [FromQuery] string? sortBy = null,
+            [FromQuery] string? sortDir = "asc")
         {
-            var output = await _TreatmentService.GetAll();
-
-            return output;
+            return await _TreatmentService.GetAll(filter, sortBy, sortDir);
         }
 
         // GET api/<TreatmentController>/5

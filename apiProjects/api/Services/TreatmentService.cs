@@ -19,9 +19,28 @@ namespace hospitalApi.Services
             _mapper = mapper;
             treatments = dbContext.Treatments;
         }
-        public async Task<IEnumerable<TreatmentOutput>> GetAll()
+        public async Task<IEnumerable<TreatmentOutput>> GetAll(TreatmentInput? filter = null, string? sortBy = null, string? sortDir = "asc")
         {
-            var entities = await treatments.ToListAsync();
+            IQueryable<Treatment> query = treatments;
+
+            if (filter != null)
+            {
+                if (!string.IsNullOrWhiteSpace(filter.Description))
+                    query = query.Where(t => t.Description != null && t.Description.ToLower().Contains(filter.Description.ToLower()));
+                if (filter.FkPatientId != 0)
+                    query = query.Where(t => t.FkPatientId == filter.FkPatientId);
+            }
+
+            bool desc = sortDir?.ToLower() == "desc";
+            query = sortBy?.ToLower() switch
+            {
+                "description" => desc ? query.OrderByDescending(t => t.Description) : query.OrderBy(t => t.Description),
+                "time"        => desc ? query.OrderByDescending(t => t.Time)        : query.OrderBy(t => t.Time),
+                "fkpatientid" => desc ? query.OrderByDescending(t => t.FkPatientId) : query.OrderBy(t => t.FkPatientId),
+                _             => desc ? query.OrderByDescending(t => t.Id)          : query.OrderBy(t => t.Id),
+            };
+
+            var entities = await query.ToListAsync();
             return _mapper.Map<IEnumerable<TreatmentOutput>>(entities);
         }
 
