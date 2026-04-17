@@ -18,11 +18,13 @@ namespace hospitalApi.Controllers
 
         // GET: api/<ShiftController>
         [HttpGet]
-        public async Task<IEnumerable<ShiftOutput>> GetAllShifts()
+        public async Task<IEnumerable<ShiftOutput>> GetAllShifts(
+            [FromQuery] DateTime? from = null,
+            [FromQuery] DateTime? to = null,
+            [FromQuery] string? sortBy = null,
+            [FromQuery] string? sortDir = "asc")
         {
-            var output = await _ShiftService.GetAll();
-
-            return output;
+            return await _ShiftService.GetAll(from, to, sortBy, sortDir);
         }
 
         // GET api/<ShiftController>/5

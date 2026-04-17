@@ -20,9 +20,25 @@ namespace hospitalApi.Services
             shifts = dbContext.Shifts;
         }
 
-        public async Task<IEnumerable<ShiftOutput>> GetAll()
+        public async Task<IEnumerable<ShiftOutput>> GetAll(DateTime? from = null, DateTime? to = null, string? sortBy = null, string? sortDir = "asc")
         {
-            var entities = await shifts.ToListAsync();
+            IQueryable<Shift> query = shifts;
+
+            // Date range filter: shifts that overlap with [from, to]
+            if (from.HasValue)
+                query = query.Where(s => s.EndTime >= from.Value);
+            if (to.HasValue)
+                query = query.Where(s => s.StartTime <= to.Value);
+
+            bool desc = sortDir?.ToLower() == "desc";
+            query = sortBy?.ToLower() switch
+            {
+                "starttime" => desc ? query.OrderByDescending(s => s.StartTime) : query.OrderBy(s => s.StartTime),
+                "endtime"   => desc ? query.OrderByDescending(s => s.EndTime)   : query.OrderBy(s => s.EndTime),
+                _           => desc ? query.OrderByDescending(s => s.Id)        : query.OrderBy(s => s.Id),
+            };
+
+            var entities = await query.ToListAsync();
             return _mapper.Map<IEnumerable<ShiftOutput>>(entities);
         }
 

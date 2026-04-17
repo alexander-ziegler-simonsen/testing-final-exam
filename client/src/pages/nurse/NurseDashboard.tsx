@@ -1,37 +1,19 @@
-import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
-import { Box, Button, Heading, Spinner, Table, Tabs, Text, Badge } from "@chakra-ui/react"
+import { Box, Button, Heading, HStack, Input, Spinner, Table, Tabs, Text, Badge } from "@chakra-ui/react"
 import { patientService } from "../../services/PatientService"
 import { shiftService } from "../../services/ShiftService"
 import { authService } from "../../services/AuthService"
 import GiveTreatment from "../../components/GiveTreatment"
-import type { Patient } from "../../entites/Patient"
-import type { Shift } from "../../entites/Shift"
+import RoomBookings from "../../components/RoomBookings"
+import SortHeader from "../../components/SortHeader"
+import { useSortableData } from "../../hooks/useSortableData"
 
 const fmt = (d: string) => new Date(d).toLocaleString()
 
 export default function NurseDashboard() {
     const navigate = useNavigate()
-    const [patients, setPatients] = useState<Patient[]>([])
-    const [shifts, setShifts] = useState<Shift[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-
-    useEffect(() => {
-        Promise.all([
-            patientService.getAll(),
-            shiftService.getAll(),
-        ])
-            .then(([p, s]) => {
-                setPatients(p)
-                setShifts(s)
-            })
-            .catch(() => setError("Failed to load data"))
-            .finally(() => setLoading(false))
-    }, [])
-
-    if (loading) return <Box p={8}><Spinner /></Box>
-    if (error)   return <Box p={8}><Text color="red.500">{error}</Text></Box>
+    const patients = useSortableData((q) => patientService.getAll(q))
+    const shifts   = useSortableData((q) => shiftService.getAll(q), 'starttime')
 
     return (
         <Box p={8}>
@@ -43,70 +25,105 @@ export default function NurseDashboard() {
             <Tabs.Root defaultValue="patients">
                 <Tabs.List mb={4}>
                     <Tabs.Trigger value="patients">
-                        Patients <Badge ml={2} colorPalette="blue">{patients.length}</Badge>
+                        Patients {!patients.loading && <Badge ml={2} colorPalette="blue">{patients.data.length}</Badge>}
                     </Tabs.Trigger>
                     <Tabs.Trigger value="shifts">
-                        Shifts <Badge ml={2} colorPalette="green">{shifts.length}</Badge>
+                        Shifts {!shifts.loading && <Badge ml={2} colorPalette="green">{shifts.data.length}</Badge>}
                     </Tabs.Trigger>
-                    <Tabs.Trigger value="give-treatment">
-                        Give Treatment
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="give-treatment">Give Treatment</Tabs.Trigger>
+                    <Tabs.Trigger value="book-room">Book Room</Tabs.Trigger>
                 </Tabs.List>
 
                 {/* Patients tab */}
                 <Tabs.Content value="patients">
-                    <Table.Root size="sm">
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.ColumnHeader>ID</Table.ColumnHeader>
-                                <Table.ColumnHeader>Name</Table.ColumnHeader>
-                                <Table.ColumnHeader>Gender</Table.ColumnHeader>
-                                <Table.ColumnHeader>CPR</Table.ColumnHeader>
-                                <Table.ColumnHeader />
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {patients.map(p => (
-                                <Table.Row key={p.id}>
-                                    <Table.Cell>{p.id}</Table.Cell>
-                                    <Table.Cell>{p.firstname} {p.lastname}</Table.Cell>
-                                    <Table.Cell>{p.gender ?? "—"}</Table.Cell>
-                                    <Table.Cell>{p.cprNumber ?? "—"}</Table.Cell>
-                                    <Table.Cell>
-                                        <Button size="xs" variant="outline" onClick={() => navigate(`/patients/${p.id}`)}>
-                                            View
-                                        </Button>
-                                    </Table.Cell>
+                    {patients.loading ? <Spinner /> : patients.error ? (
+                        <Text color="red.500">{patients.error}</Text>
+                    ) : (
+                        <Table.Root size="sm">
+                            <Table.Header>
+                                <Table.Row>
+                                    <SortHeader col="id"        label="ID"         sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} />
+                                    <SortHeader col="firstname" label="First Name"  sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.firstname}  onFilter={patients.setFilter} />
+                                    <SortHeader col="lastname"  label="Last Name"   sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.lastname}   onFilter={patients.setFilter} />
+                                    <SortHeader col="gender"    label="Gender"      sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.gender}     onFilter={patients.setFilter} />
+                                    <SortHeader col="cprnumber" label="CPR"         sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.cprnumber}  onFilter={patients.setFilter} />
+                                    <Table.ColumnHeader />
                                 </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table.Root>
+                            </Table.Header>
+                            <Table.Body>
+                                {patients.data.map(p => (
+                                    <Table.Row key={p.id}>
+                                        <Table.Cell>{p.id}</Table.Cell>
+                                        <Table.Cell>{p.firstname ?? "—"}</Table.Cell>
+                                        <Table.Cell>{p.lastname ?? "—"}</Table.Cell>
+                                        <Table.Cell>{p.gender ?? "—"}</Table.Cell>
+                                        <Table.Cell>{p.cprNumber ?? "—"}</Table.Cell>
+                                        <Table.Cell>
+                                            <Button size="xs" variant="outline" onClick={() => navigate(`/patients/${p.id}`)}>
+                                                View
+                                            </Button>
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table.Root>
+                    )}
                 </Tabs.Content>
 
                 {/* Shifts tab */}
                 <Tabs.Content value="shifts">
-                    <Table.Root size="sm">
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.ColumnHeader>ID</Table.ColumnHeader>
-                                <Table.ColumnHeader>Start</Table.ColumnHeader>
-                                <Table.ColumnHeader>End</Table.ColumnHeader>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {shifts.map(s => (
-                                <Table.Row key={s.id}>
-                                    <Table.Cell>{s.id}</Table.Cell>
-                                    <Table.Cell>{fmt(s.startTime)}</Table.Cell>
-                                    <Table.Cell>{fmt(s.endTime)}</Table.Cell>
+                    <HStack mb={3} gap={4} align="center">
+                        <Box>
+                            <Text fontSize="xs" mb={1} color="gray.500">From</Text>
+                            <Input
+                                type="date"
+                                size="sm"
+                                value={shifts.filters.from?.split('T')[0] ?? ''}
+                                onChange={e => shifts.setFilter('from', e.target.value ? `${e.target.value}T00:00:00` : '')}
+                            />
+                        </Box>
+                        <Box>
+                            <Text fontSize="xs" mb={1} color="gray.500">To</Text>
+                            <Input
+                                type="date"
+                                size="sm"
+                                value={shifts.filters.to?.split('T')[0] ?? ''}
+                                onChange={e => shifts.setFilter('to', e.target.value ? `${e.target.value}T23:59:59` : '')}
+                            />
+                        </Box>
+                    </HStack>
+                    {shifts.loading ? <Spinner /> : shifts.error ? (
+                        <Text color="red.500">{shifts.error}</Text>
+                    ) : (
+                        <Table.Root size="sm">
+                            <Table.Header>
+                                <Table.Row>
+                                    <SortHeader col="id"        label="ID"    sortBy={shifts.sortBy} sortDir={shifts.sortDir} onSort={shifts.onSort} />
+                                    <SortHeader col="starttime" label="Start" sortBy={shifts.sortBy} sortDir={shifts.sortDir} onSort={shifts.onSort} />
+                                    <SortHeader col="endtime"   label="End"   sortBy={shifts.sortBy} sortDir={shifts.sortDir} onSort={shifts.onSort} />
                                 </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table.Root>
+                            </Table.Header>
+                            <Table.Body>
+                                {shifts.data.map(s => (
+                                    <Table.Row key={s.id}>
+                                        <Table.Cell>{s.id}</Table.Cell>
+                                        <Table.Cell>{fmt(s.startTime)}</Table.Cell>
+                                        <Table.Cell>{fmt(s.endTime)}</Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table.Root>
+                    )}
                 </Tabs.Content>
+
                 {/* Give Treatment tab */}
                 <Tabs.Content value="give-treatment">
-                    <GiveTreatment patients={patients} />
+                    <GiveTreatment patients={patients.data} />
+                </Tabs.Content>
+
+                {/* Book Room tab */}
+                <Tabs.Content value="book-room">
+                    <RoomBookings />
                 </Tabs.Content>
             </Tabs.Root>
         </Box>
