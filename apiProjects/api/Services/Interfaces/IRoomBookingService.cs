@@ -10,5 +10,6 @@ namespace hospitalApi.Services.Interfaces
         Task<bool> EditRoomBooking(int roomBookingId, RoomBookingInput editedRoomBookingData);
         Task<bool> DeleteRoomBooking(int id);
         Task<bool> CreateRoomBooking(RoomBookingInput newRoomBooking);
+        Task<bool> IsRoomAvailable(int roomId, DateTime start, DateTime end, int? excludeBookingId = null);
     }
 }

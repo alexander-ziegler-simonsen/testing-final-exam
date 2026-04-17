@@ -65,5 +65,15 @@ namespace hospitalApi.Services
             await _hospitalContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> IsRoomAvailable(int roomId, DateTime start, DateTime end, int? excludeBookingId = null)
+        {
+            return !await _bookings.AnyAsync(b =>
+                b.FkRoomId == roomId &&
+                (excludeBookingId == null || b.Id != excludeBookingId) &&
+                b.StartTime < end &&
+                b.EndTime > start
+            );
+        }
     }
 }

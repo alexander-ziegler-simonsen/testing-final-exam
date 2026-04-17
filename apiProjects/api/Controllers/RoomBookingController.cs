@@ -36,6 +36,14 @@ namespace hospitalApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] RoomBookingInput newRoomBooking)
         {
+            bool available = await _roomBookingService.IsRoomAvailable(
+                newRoomBooking.FkRoomId,
+                newRoomBooking.StartTime,
+                newRoomBooking.EndTime
+            );
+            if (!available)
+                return Conflict("Room is already booked for the requested time slot.");
+
             bool output = await _roomBookingService.CreateRoomBooking(newRoomBooking);
 
             if (output)
@@ -48,6 +56,15 @@ namespace hospitalApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] RoomBookingInput newRoomBooking)
         {
+            bool available = await _roomBookingService.IsRoomAvailable(
+                newRoomBooking.FkRoomId,
+                newRoomBooking.StartTime,
+                newRoomBooking.EndTime,
+                excludeBookingId: id
+            );
+            if (!available)
+                return Conflict("Room is already booked for the requested time slot.");
+
             bool output = await _roomBookingService.EditRoomBooking(id, newRoomBooking);
 
             if (output)
