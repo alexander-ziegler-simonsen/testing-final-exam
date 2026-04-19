@@ -3,6 +3,7 @@ import { patientService } from "../../services/PatientService"
 import { treatmentService } from "../../services/TreatmentService"
 import { authService } from "../../services/AuthService"
 import RoomBookings from "../../components/RoomBookings"
+import MedicationStoragePage from "../MedicationStoragePage"
 import SortHeader from "../../components/SortHeader"
 import { useSortableData } from "../../hooks/useSortableData"
 
@@ -33,6 +34,7 @@ export default function DoctorDashboard() {
                         Treatments {!treatments.loading && <Badge ml={2} colorPalette="purple">{treatments.data.length}</Badge>}
                     </Tabs.Trigger>
                     <Tabs.Trigger value="book-room">Book Room</Tabs.Trigger>
+                    <Tabs.Trigger value="medication-storage">Medication Storage</Tabs.Trigger>
                 </Tabs.List>
 
                 {/* Patients tab */}
@@ -96,6 +98,11 @@ export default function DoctorDashboard() {
                 {/* Book Room tab */}
                 <Tabs.Content value="book-room">
                     <RoomBookings />
+                </Tabs.Content>
+
+                {/* Medication Storage tab */}
+                <Tabs.Content value="medication-storage">
+                    <MedicationStoragePage />
                 </Tabs.Content>
             </Tabs.Root>
         </Box>

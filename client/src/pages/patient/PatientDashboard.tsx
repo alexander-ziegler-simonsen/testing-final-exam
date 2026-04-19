@@ -36,10 +36,10 @@ export default function PatientDashboard() {
                     {patients.map(p => (
                         <Table.Row key={p.id}>
                             <Table.Cell>{p.id}</Table.Cell>
-                            <Table.Cell>{p.Firstname ?? "—"}</Table.Cell>
-                            <Table.Cell>{p.Lastname ?? "—"}</Table.Cell>
-                            <Table.Cell>{p.Gender ?? "—"}</Table.Cell>
-                            <Table.Cell>{p.CprNumber ?? "—"}</Table.Cell>
+                            <Table.Cell>{p.firstname ?? "—"}</Table.Cell>
+                            <Table.Cell>{p.lastname ?? "—"}</Table.Cell>
+                            <Table.Cell>{p.gender ?? "—"}</Table.Cell>
+                            <Table.Cell>{p.cprNumber ?? "—"}</Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>

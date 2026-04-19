@@ -8,6 +8,7 @@ import DoctorDashboard from "./pages/doctor/DoctorDashboard"
 import NurseDashboard from "./pages/nurse/NurseDashboard"
 import PatientDetailPage from "./pages/nurse/PatientDetailPage"
 import AdminDashboard from "./pages/admin/AdminDashboard"
+import MedicationStoragePage from "./pages/MedicationStoragePage"
 import About from "./pages/About"
 import LocationsPage from "./pages/LocationPage"
 import Layout from "./components/Layout"
@@ -44,6 +45,11 @@ function App() {
           {/* Admin only */}
           <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
             <Route path="/admin" element={<AdminDashboard />} />
+          </Route>
+
+          {/* Nurse and admin */}
+          <Route element={<ProtectedRoute allowedRoles={["nurse", "admin"]} />}>
+            <Route path="/medication-storage" element={<MedicationStoragePage />} />
           </Route>
 
           {/* Any logged-in user */}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Box, Heading, Spinner, Table, Tabs, Text, Badge } from "@chakra-ui/react"
+import MedicationStoragePage from "../MedicationStoragePage"
 import { staffService } from "../../services/StaffService"
 import { departmentService } from "../../services/DepartmentService"
 import { medicationService } from "../../services/MedicationService"
@@ -61,6 +62,7 @@ export default function AdminDashboard() {
                     <Tabs.Trigger value="missing">
                         Missing Stock <Badge ml={2} colorPalette="red">{missing.length}</Badge>
                     </Tabs.Trigger>
+                    <Tabs.Trigger value="medication-storage">Medication Storage</Tabs.Trigger>
                 </Tabs.List>
 
                 {/* Staff tab */}
@@ -159,6 +161,10 @@ export default function AdminDashboard() {
                             ))}
                         </Table.Body>
                     </Table.Root>
+                </Tabs.Content>
+                {/* Medication Storage tab */}
+                <Tabs.Content value="medication-storage">
+                    <MedicationStoragePage />
                 </Tabs.Content>
             </Tabs.Root>
         </Box>

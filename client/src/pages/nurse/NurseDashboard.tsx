@@ -5,6 +5,7 @@ import { shiftService } from "../../services/ShiftService"
 import { authService } from "../../services/AuthService"
 import GiveTreatment from "../../components/GiveTreatment"
 import RoomBookings from "../../components/RoomBookings"
+import MedicationStoragePage from "../MedicationStoragePage"
 import SortHeader from "../../components/SortHeader"
 import { useSortableData } from "../../hooks/useSortableData"
 
@@ -32,6 +33,7 @@ export default function NurseDashboard() {
                     </Tabs.Trigger>
                     <Tabs.Trigger value="give-treatment">Give Treatment</Tabs.Trigger>
                     <Tabs.Trigger value="book-room">Book Room</Tabs.Trigger>
+                    <Tabs.Trigger value="medication-storage">Medication Storage</Tabs.Trigger>
                 </Tabs.List>
 
                 {/* Patients tab */}
@@ -124,6 +126,11 @@ export default function NurseDashboard() {
                 {/* Book Room tab */}
                 <Tabs.Content value="book-room">
                     <RoomBookings />
+                </Tabs.Content>
+
+                {/* Medication Storage tab */}
+                <Tabs.Content value="medication-storage">
+                    <MedicationStoragePage />
                 </Tabs.Content>
             </Tabs.Root>
         </Box>
