@@ -22,6 +22,7 @@ export default function Login() {
             localStorage.setItem("staffId", result.staffId.toString())
             localStorage.setItem("firstname", result.firstname ?? "")
             localStorage.setItem("lastname", result.lastname ?? "")
+            localStorage.setItem("loginTime", Date.now().toString())
 
             switch (result.role) {
                 case "doctor": navigate("/doctor"); break

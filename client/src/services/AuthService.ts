@@ -2,6 +2,7 @@ import { apiFetch } from "../api/client"
 import type { LoginResponse } from "../entites/LoginResponse"
 
 const BASE = "/auth"
+const SESSION_DURATION_MS = 6 * 60 * 60 * 1000
 
 export const authService = {
     login: async (username: string, password: string): Promise<LoginResponse> => {
@@ -17,6 +18,7 @@ export const authService = {
         localStorage.removeItem("staffId")
         localStorage.removeItem("firstname")
         localStorage.removeItem("lastname")
+        localStorage.removeItem("loginTime")
     },
 
     getToken: (): string | null => localStorage.getItem("token"),
@@ -37,5 +39,14 @@ export const authService = {
         return `${first} ${last}`.trim()
     },
 
-    isLoggedIn: (): boolean => localStorage.getItem("token") !== null,
+    isLoggedIn: (): boolean => {
+        const token = localStorage.getItem("token")
+        const loginTime = localStorage.getItem("loginTime")
+        if (!token || !loginTime) return false
+        if (Date.now() - parseInt(loginTime) > SESSION_DURATION_MS) {
+            authService.logout()
+            return false
+        }
+        return true
+    },
 }
