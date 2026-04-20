@@ -10,6 +10,7 @@ import PatientDetailPage from "./pages/nurse/PatientDetailPage"
 import AdminDashboard from "./pages/admin/AdminDashboard"
 import MedicationStoragePage from "./pages/MedicationStoragePage"
 import About from "./pages/About"
+import Contact from "./pages/Contact"
 import LocationsPage from "./pages/LocationPage"
 import Layout from "./components/Layout"
 import ProtectedRoute from "./components/ProtectedRoute"
@@ -25,7 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
 
           {/* Doctor only */}
           <Route element={<ProtectedRoute allowedRoles={["doctor"]} />}>
