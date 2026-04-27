@@ -1,15 +1,15 @@
 services:
-  mysql:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${HospitalDB}
-    ports:
-      - "${MYSQL_PORT}:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./initScripts/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+  # mysql:
+  #   image: mysql:8.0
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+  #     MYSQL_DATABASE: ${MYSQL_DB}
+  #   ports:
+  #     - "${MYSQL_PORT}:3306"
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #     - ./initScripts/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
   postgres:
     image: postgres
     restart: always
