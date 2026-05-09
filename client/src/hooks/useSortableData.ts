@@ -3,6 +3,8 @@ import type { TableQuery } from '../services/tableQuery'
 
 export interface SortableData<T> {
     data: T[]
+    // setData lets callers mutate the local list after an edit/delete without re-fetching from the API
+    setData: React.Dispatch<React.SetStateAction<T[]>>
     loading: boolean
     error: string | null
     sortBy: string
@@ -61,5 +63,5 @@ export function useSortableData<T>(
         setFilters(prev => ({ ...prev, [col]: value }))
     }
 
-    return { data, loading, error, sortBy, sortDir, onSort, filters, setFilter }
+    return { data, setData, loading, error, sortBy, sortDir, onSort, filters, setFilter }
 }
