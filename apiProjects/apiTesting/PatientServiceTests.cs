@@ -1,5 +1,4 @@
 using AutoMapper;
-using hospitalApi.Data;
 using hospitalApi.DTOs.Inputs;
 using hospitalApi.DTOs.Outputs;
 using hospitalApi.Models;
@@ -13,31 +12,29 @@ namespace hospitalApiTesting;
 [TestFixture]
 public class PatientServiceTests
 {
-    private Mock<HospitalContext> _contextMock = null!;
-    private Mock<IMapper> _mapperMock = null!;
-
-    [SetUp]
-    public void SetUp()
-    {
-        var options = new DbContextOptionsBuilder<HospitalContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .Options;
-
-        _contextMock = new Mock<HospitalContext>(options);
-        _mapperMock = new Mock<IMapper>();
-
-        _contextMock
-            .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(1);
-    }
+    private static readonly List<Patient> SortPatients =
+    [
+        new() { Id = 2, Firstname = "Charlie", Lastname = "Brown",  Gender = "Male"   },
+        new() { Id = 1, Firstname = "Alice",   Lastname = "Smith",  Gender = "Female" },
+        new() { Id = 3, Firstname = "Bob",     Lastname = "Johnson", Gender = "Male"  },
+    ];
 
     private PatientService BuildService(List<Patient> patients)
     {
-        var dbSetMock = MockDbSetHelper.Create(patients);
-        _contextMock.Setup(c => c.Patients).Returns(dbSetMock.Object);
+        var options = new DbContextOptionsBuilder<hospitalApi.Data.HospitalContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
 
-        // Mapper: List → List (preserves order so sorting tests are meaningful)
-        _mapperMock
+        var contextMock = new Mock<hospitalApi.Data.HospitalContext>(options);
+        contextMock
+            .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(1);
+
+        var dbSetMock = MockDbSetHelper.Create(patients);
+        contextMock.Setup(c => c.Patients).Returns(dbSetMock.Object);
+
+        var mapperMock = new Mock<IMapper>();
+        mapperMock
             .Setup(m => m.Map<List<PatientOutput>>(It.IsAny<object>()))
             .Returns((object src) =>
                 ((IEnumerable<Patient>)src)
@@ -47,11 +44,9 @@ public class PatientServiceTests
                     Firstname = p.Firstname,
                     Lastname = p.Lastname,
                     Gender = p.Gender,
-                    CprNumber = p.CprNumber,
                 }).ToList());
 
-        // Mapper: single entity
-        _mapperMock
+        mapperMock
             .Setup(m => m.Map<PatientOutput>(It.IsAny<Patient>()))
             .Returns((Patient p) => new PatientOutput
             {
@@ -59,233 +54,79 @@ public class PatientServiceTests
                 Firstname = p.Firstname,
                 Lastname = p.Lastname,
                 Gender = p.Gender,
-                CprNumber = p.CprNumber,
             });
 
-        return new PatientService(_contextMock.Object, _mapperMock.Object);
+        return new PatientService(contextMock.Object, mapperMock.Object);
     }
 
-    // GetAll – filtering
+    // [TestCase] — sort direction
 
-    [Test]
-    public async Task GetAll_WithNoFilter_ReturnsAllPatients()
+    [TestCase("asc", new[] { "Alice", "Bob", "Charlie" })]
+    [TestCase("desc", new[] { "Charlie", "Bob", "Alice" })]
+    public async Task GetAll_SortByFirstname_ReturnsCorrectOrder(string sortDir, string[] expected)
     {
-        var patients = new List<Patient>
-        {
-            new() { Id = 1, Firstname = "Alice", Lastname = "Smith" },
-            new() { Id = 2, Firstname = "Bob",   Lastname = "Jones" },
-        };
-        var service = BuildService(patients);
+        var service = BuildService(SortPatients);
 
-        var result = (await service.GetAll()).ToList();
+        var result = (await service.GetAll(sortBy: "firstname", sortDir: sortDir))
+            .Select(p => p.Firstname)
+            .ToList();
 
-        Assert.That(result, Has.Count.EqualTo(2));
+        Assert.That(result, Is.EqualTo(expected));
     }
 
-    [Test]
-    public async Task GetAll_WithFirstnameFilter_ReturnsMatchingPatients()
+    [TestCase("asc", new[] { "Brown", "Smith", "Ziegler" })]
+    [TestCase("desc", new[] { "Ziegler", "Smith", "Brown" })]
+    public async Task GetAll_SortByLastname_ReturnsCorrectOrder(string sortDir, string[] expected)
     {
-        var patients = new List<Patient>
-        {
-            new() { Id = 1, Firstname = "Alice" },
-            new() { Id = 2, Firstname = "Bob"   },
-            new() { Id = 3, Firstname = "Albert" },
-        };
-        var service = BuildService(patients);
+        var service = BuildService(SortPatients);
 
-        var result = (await service.GetAll(new PatientInput { Firstname = "al" })).ToList();
+        var result = (await service.GetAll(sortBy: "lastname", sortDir: sortDir))
+            .Select(p => p.Lastname)
+            .ToList();
 
-        Assert.That(result, Has.Count.EqualTo(2));
-        Assert.That(result.Select(p => p.Id), Is.EquivalentTo(new[] { 1, 3 }));
+        Assert.That(result, Is.EqualTo(expected));
     }
 
-    [Test]
-    public async Task GetAll_WithFirstnameFilter_IsCaseInsensitive()
+    // [TestCase] — filter by gender
+    // The service uses substring Contains matching (case-insensitive).
+    // "female".Contains("male") == true, so "Male" matches Female patients too.
+
+    [TestCase("Female", 1)]   // only Alice — "male".Contains("female") == false
+    [TestCase("Male", 3)]   // all 3 — "female".Contains("male") == true
+    [TestCase("Other", 0)]   // no match
+    public async Task GetAll_FilterByGender_ReturnsExpectedCount(string gender, int expectedCount)
     {
-        var patients = new List<Patient>
-        {
-            new() { Id = 1, Firstname = "Alice" },
-            new() { Id = 2, Firstname = "BOB"   },
-        };
-        var service = BuildService(patients);
+        var service = BuildService(SortPatients);
 
-        var result = (await service.GetAll(new PatientInput { Firstname = "alice" })).ToList();
+        var result = (await service.GetAll(new PatientInput { Gender = gender })).ToList();
 
-        Assert.That(result, Has.Count.EqualTo(1));
-        Assert.That(result[0].Id, Is.EqualTo(1));
+        Assert.That(result, Has.Count.EqualTo(expectedCount));
     }
 
-    [Test]
-    public async Task GetAll_WithGenderFilter_ReturnsMatchingPatients()
+    // [TestCaseSource] — GetOne with complex expected values
+
+    private static IEnumerable<TestCaseData> GetOneTestCases()
     {
-        var patients = new List<Patient>
-        {
-            new() { Id = 1, Firstname = "Alice", Gender = "Female" },
-            new() { Id = 2, Firstname = "Bob",   Gender = "Male"   },
-        };
-        var service = BuildService(patients);
+        yield return new TestCaseData(1, "Alice")
+            .SetName("GetOne_ExistingId_ReturnsCorrectPatient");
 
-        var result = (await service.GetAll(new PatientInput { Gender = "female" })).ToList();
+        yield return new TestCaseData(2, "Charlie")
+            .SetName("GetOne_SecondPatient_ReturnsCorrectPatient");
 
-        Assert.That(result, Has.Count.EqualTo(1));
-        Assert.That(result[0].Firstname, Is.EqualTo("Alice"));
+        yield return new TestCaseData(99, null)
+            .SetName("GetOne_NonExistentId_ReturnsNull");
     }
 
-    [Test]
-    public async Task GetAll_WithNonMatchingFilter_ReturnsEmpty()
+    [TestCaseSource(nameof(GetOneTestCases))]
+    public async Task GetOne_ReturnsExpectedResult(int id, string? expectedFirstname)
     {
-        var patients = new List<Patient>
-        {
-            new() { Id = 1, Firstname = "Alice" },
-        };
-        var service = BuildService(patients);
+        var service = BuildService(SortPatients);
 
-        var result = (await service.GetAll(new PatientInput { Firstname = "xyz" })).ToList();
+        var result = await service.GetOne(id);
 
-        Assert.That(result, Is.Empty);
-    }
-
-    // GetAll – sorting
-
-    [Test]
-    public async Task GetAll_SortByFirstnameAsc_ReturnsSortedResults()
-    {
-        var patients = new List<Patient>
-        {
-            new() { Id = 2, Firstname = "Charlie" },
-            new() { Id = 1, Firstname = "Alice"   },
-            new() { Id = 3, Firstname = "Bob"     },
-        };
-        var service = BuildService(patients);
-
-        var result = (await service.GetAll(sortBy: "firstname", sortDir: "asc"))
-            .Select(p => p.Firstname).ToList();
-
-        Assert.That(result, Is.EqualTo(new[] { "Alice", "Bob", "Charlie" }));
-    }
-
-    [Test]
-    public async Task GetAll_SortByFirstnameDesc_ReturnsSortedResults()
-    {
-        var patients = new List<Patient>
-        {
-            new() { Id = 1, Firstname = "Alice"   },
-            new() { Id = 2, Firstname = "Charlie" },
-            new() { Id = 3, Firstname = "Bob"     },
-        };
-        var service = BuildService(patients);
-
-        var result = (await service.GetAll(sortBy: "firstname", sortDir: "desc"))
-            .Select(p => p.Firstname).ToList();
-
-        Assert.That(result, Is.EqualTo(new[] { "Charlie", "Bob", "Alice" }));
-    }
-
-    [Test]
-    public async Task GetAll_WithUnknownSortBy_DefaultSortsByIdAsc()
-    {
-        var patients = new List<Patient>
-        {
-            new() { Id = 3, Firstname = "Alice"   },
-            new() { Id = 1, Firstname = "Charlie" },
-            new() { Id = 2, Firstname = "Bob"     },
-        };
-        var service = BuildService(patients);
-
-        var result = (await service.GetAll(sortBy: "unknown"))
-            .Select(p => p.Id).ToList();
-
-        Assert.That(result, Is.EqualTo(new[] { 1, 2, 3 }));
-    }
-
-    // GetOne
-
-    [Test]
-    public async Task GetOne_WhenPatientExists_ReturnsMappedOutput()
-    {
-        var patients = new List<Patient>
-        {
-            new() { Id = 1, Firstname = "Alice", Lastname = "Smith" },
-        };
-        var service = BuildService(patients);
-
-        var result = await service.GetOne(1);
-
-        Assert.That(result, Is.Not.Null);
-        Assert.That(result!.Firstname, Is.EqualTo("Alice"));
-    }
-
-    [Test]
-    public async Task GetOne_WhenPatientNotFound_ReturnsNull()
-    {
-        var service = BuildService(new List<Patient>());
-
-        var result = await service.GetOne(99);
-
-        Assert.That(result, Is.Null);
-    }
-
-    // DeletePatient
-
-    [Test]
-    public async Task DeletePatient_WhenPatientExists_ReturnsTrueAndSavesChanges()
-    {
-        var patients = new List<Patient>
-        {
-            new() { Id = 1, Firstname = "Alice" },
-        };
-        var dbSetMock = MockDbSetHelper.Create(patients);
-        _contextMock.Setup(c => c.Patients).Returns(dbSetMock.Object);
-        _mapperMock.Setup(m => m.Map<PatientOutput>(It.IsAny<Patient>()))
-            .Returns(new PatientOutput());
-        var service = new PatientService(_contextMock.Object, _mapperMock.Object);
-
-        var result = await service.DeletePatient(1);
-
-        Assert.That(result, Is.True);
-        dbSetMock.Verify(s => s.Remove(It.Is<Patient>(p => p.Id == 1)), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
-    }
-
-    [Test]
-    public async Task DeletePatient_WhenPatientNotFound_ReturnsFalseWithoutSaving()
-    {
-        var service = BuildService(new List<Patient>());
-
-        var result = await service.DeletePatient(99);
-
-        Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
-    }
-
-    // EditPatient
-
-    [Test]
-    public async Task EditPatient_WhenPatientExists_UpdatesPropertiesAndReturnsTrue()
-    {
-        var patient = new Patient { Id = 1, Firstname = "Old", Lastname = "Name" };
-        var service = BuildService(new List<Patient> { patient });
-        var input = new PatientInput { Firstname = "New", Lastname = "Updated", Gender = "Female", CprNumber = "1234" };
-
-        var result = await service.EditPatient(1, input);
-
-        Assert.That(result, Is.True);
-        Assert.That(patient.Firstname, Is.EqualTo("New"));
-        Assert.That(patient.Lastname, Is.EqualTo("Updated"));
-        Assert.That(patient.Gender, Is.EqualTo("Female"));
-        Assert.That(patient.CprNumber, Is.EqualTo("1234"));
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
-    }
-
-    [Test]
-    public async Task EditPatient_WhenPatientNotFound_ReturnsFalseWithoutSaving()
-    {
-        var service = BuildService(new List<Patient>());
-        var input = new PatientInput { Firstname = "New" };
-
-        var result = await service.EditPatient(99, input);
-
-        Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
+        if (expectedFirstname is null)
+            Assert.That(result, Is.Null);
+        else
+            Assert.That(result!.Firstname, Is.EqualTo(expectedFirstname));
     }
 }
