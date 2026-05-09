@@ -27,6 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/locations" element={<LocationsPage />} />
 
           {/* Doctor only */}
           <Route element={<ProtectedRoute allowedRoles={["doctor"]} />}>
@@ -56,7 +57,6 @@ function App() {
           {/* Any logged-in user */}
           <Route element={<ProtectedRoute />}>
             <Route path="/patient" element={<PatientDashboard />} />
-            <Route path="/locations" element={<LocationsPage />} />
           </Route>
 
         </Route>
