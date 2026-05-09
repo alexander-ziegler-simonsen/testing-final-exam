@@ -24,6 +24,7 @@ namespace hospitalApi.Mapping
             CreateMap<Treatment, TreatmentOutput>();
             CreateMap<TreatmentInput, Treatment>();
             CreateMap<TreatmentStaff, TreatmentStaffOutput>();
+            CreateMap<TreatmentStaffInput, TreatmentStaff>();
             CreateMap<Patient, PatientOutput>();
             CreateMap<Department, DepartmentOutput>();
             CreateMap<DepartmentInput, Department>();
