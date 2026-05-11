@@ -1,10 +1,10 @@
 import http from 'k6/http';
 import { check } from 'k6';
 import { Rate } from 'k6/metrics';
-import { handleSummary } from '../lib/summary.js';
+import { handleSummary } from './lib/summary.js';
 export { handleSummary };
 
-// Single-endpoint attack benchmark — multi-step ramp — GET /api/patient
+// Single-endpoint attack benchmark — linear ramp — GET /api/patient
 // All VUs hammer one endpoint with no sleep.
 
 const BASE = 'http://localhost:5028/api';
@@ -17,16 +17,12 @@ export const options = {
     error_rate: ['rate<0.01'],
   },
   scenarios: {
-    multi_step: {
+    linear: {
       executor: 'ramping-vus',
       startVUs: 0,
       stages: [
-        { duration: '30s', target: 25 },
-        { duration: '30s', target: 25 },
-        { duration: '20s', target: 50 },
-        { duration: '30s', target: 50 },
+        { duration: '10s', target: 100 },
         { duration: '30s', target: 100 },
-        { duration: '60s', target: 100 },
         { duration: '10s', target: 0 },
       ],
       gracefulRampDown: '5s',

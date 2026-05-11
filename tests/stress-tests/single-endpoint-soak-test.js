@@ -1,11 +1,12 @@
 import http from 'k6/http';
 import { check } from 'k6';
 import { Rate } from 'k6/metrics';
-import { handleSummary } from '../lib/summary.js';
+import { handleSummary } from './lib/summary.js';
 export { handleSummary };
 
-// Single-endpoint attack benchmark — linear ramp — GET /api/patient
-// All VUs hammer one endpoint with no sleep.
+// Single-endpoint soak test — GET /api/patient
+// Holds a moderate, sustainable load for 30 minutes to surface memory leaks,
+// connection pool exhaustion, and gradual performance degradation.
 
 const BASE = 'http://localhost:5028/api';
 const errorRate = new Rate('error_rate');
@@ -17,15 +18,15 @@ export const options = {
     error_rate: ['rate<0.01'],
   },
   scenarios: {
-    linear: {
+    soak: {
       executor: 'ramping-vus',
       startVUs: 0,
       stages: [
-        { duration: '10s', target: 100 },
-        { duration: '30s', target: 100 },
-        { duration: '10s', target: 0 },
+        { duration: '2m', target: 25 },
+        { duration: '26m', target: 25 },
+        { duration: '2m', target: 0 },
       ],
-      gracefulRampDown: '5s',
+      gracefulRampDown: '30s',
     },
   },
 };

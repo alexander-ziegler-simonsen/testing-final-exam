@@ -1,15 +1,4 @@
 services:
-  # mysql:
-  #   image: mysql:8.0
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-  #     MYSQL_DATABASE: ${MYSQL_DB}
-  #   ports:
-  #     - "${MYSQL_PORT}:3306"
-  #   volumes:
-  #     - mysql_data:/var/lib/mysql
-  #     - ./initScripts/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
   postgres:
     image: postgres
     restart: always
@@ -33,5 +22,4 @@ services:
       - postgres_data:/var/lib/postgresql
       - ./initScripts/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 volumes:
-  mysql_data:
   postgres_data:

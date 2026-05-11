@@ -22,7 +22,7 @@ beforeAll(async () => {
     });
 
     const initSql = fs.readFileSync(
-        path.join(__dirname, "../db/init.sql"),
+        path.join(__dirname, "../../initScripts/postgres/init.sql"),
         "utf-8"
     );
 

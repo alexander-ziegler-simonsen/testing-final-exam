@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check } from 'k6';
 import { Rate } from 'k6/metrics';
-import { handleSummary } from '../lib/summary.js';
+import { handleSummary } from './lib/summary.js';
 export { handleSummary };
 
 // Single-endpoint attack benchmark — random ramp — GET /api/patient

@@ -142,6 +142,6 @@ function buildHtml(data) {
 export function handleSummary(data) {
   const name = __ENV.TEST_NAME || 'report';
   return {
-    [`stress-tests/reports/${name}.html`]: buildHtml(data),
+    [`tests/stress-tests/reports/${name}.html`]: buildHtml(data),
   };
 }
