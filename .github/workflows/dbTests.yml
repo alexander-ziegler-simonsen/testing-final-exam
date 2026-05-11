@@ -23,10 +23,10 @@ jobs:
 
             # 👉 Install deps inside dbTests
             - name: Install dependencies
-              working-directory: ./dbTests
+              working-directory: ./tests/dbTests
               run: pnpm install
 
             # 👉 Run tests
             - name: Run DB tests
-              working-directory: ./dbTests
+              working-directory: ./tests/dbTests
               run: pnpm test

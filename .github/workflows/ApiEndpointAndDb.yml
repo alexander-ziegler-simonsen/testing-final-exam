@@ -14,15 +14,21 @@ jobs:
 
         services:
             postgres:
-                image: postgres:18
+                image: postgres:17
                 env:
                     POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
                     POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
                     POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
                 ports:
                     - 5432:5432
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
         env:
             ConnectionStrings__DefaultConnection: Host=localhost;Port=5432;Database=${{ secrets.POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}
+            ASPNETCORE_URLS: http://localhost:5028
 
         steps:
             # 1 Checkout FIRST
@@ -52,10 +58,10 @@ jobs:
                   dotnet-version: "10.0.x"
 
             - name: Restore
-              run: dotnet restore dotnetApi/tradeItApi/tradeItApi.slnx
+              run: dotnet restore apiProjects/api/hospitalApi.csproj
 
             - name: Build
-              run: dotnet build dotnetApi/tradeItApi/tradeItApi.slnx --no-restore --configuration Release
+              run: dotnet build apiProjects/api/hospitalApi.csproj --no-restore --configuration Release
 
             # 5 Initialize schema + seed
             - name: Initialize database
@@ -64,7 +70,7 @@ jobs:
                     -h localhost \
                     -U ${{ secrets.POSTGRES_USER }} \
                     -d ${{ secrets.POSTGRES_DB }} \
-                    -f init/init.sql
+                    -f initScripts/postgres/init.sql
 
             # 6 Setup Node for Newman
             - name: Setup Node
@@ -77,14 +83,19 @@ jobs:
 
             - name: Start API
               run: |
-                dotnet run --project dotnetApi/tradeItApi/tradeItApi.csproj --configuration Release & 
+                  dotnet run --project apiProjects/api/hospitalApi.csproj --configuration Release --no-build &
 
             - name: Wait for API
               run: |
-                until curl -s http://localhost:5129; do
+                  until curl -sf http://localhost:5028; do
                     echo "Waiting for API..."
                     sleep 2
-                done
+                  done
+
             - name: Run Postman Collection
               run: |
-                newman run testing/api/postman_collection.json -e testing/api/postmanEnv.json --reporters cli
+                  newman run \
+                    "https://api.getpostman.com/collections/12590735-d2637d88-8db0-440f-8fc4-311fb39720d5" \
+                    --environment "https://api.getpostman.com/environments/12590735-36583cbb-fb85-4c40-93e4-2f58748a3d6d" \
+                    --postman-api-key "${{ secrets.POSTMAN_API_KEY }}" \
+                    --env-var "baseUrl=http://localhost:5028"
