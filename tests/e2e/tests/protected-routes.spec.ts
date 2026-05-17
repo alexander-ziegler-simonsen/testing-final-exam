@@ -1,25 +1,59 @@
 import { test, expect } from '@playwright/test';
 
+/**
+ * State Transition Testing – Route Protection
+ *
+ * States
+ *   S0  Unauthenticated        – no session token stored
+ *   S1  Authenticated[Nurse]   – JWT with role = "nurse" held in session
+ *
+ * Events
+ *   E1  navigate(protected)    – visit /admin, /nurse, or /doctor without a token
+ *   E2  login(role=nurse)      – submit nurse credentials, receive JWT
+ *   E3  navigate(/admin)       – visit admin route while authenticated as nurse
+ *
+ * State Transition Diagram
+ *
+ *              E1: navigate(protected) → redirect /login
+ *          ┌─────────────────────────────────────────────┐
+ *          ▼                                             │
+ *   ┌──────────────────┐   E2: login(nurse)   ┌─────────────────────────┐
+ *   │  S0              │──────────────────────▶│  S1                     │
+ *   │  Unauthenticated │                       │  Authenticated[Nurse]   │
+ *   └──────────────────┘                       └─────────────────────────┘
+ *          ▲                                             │
+ *          │     E3: navigate(/admin)                    │
+ *          │     → redirect /login  [authz failure]      │
+ *          └─────────────────────────────────────────────┘
+ *
+ * Transition Table
+ *   T1  S0 + E1(/admin)   → S0   redirect /login                [tested]
+ *   T2  S0 + E1(/nurse)   → S0   redirect /login                [tested]
+ *   T3  S0 + E1(/doctor)  → S0   redirect /login                [tested]
+ *   T4  S0 + E2           → S1   land on /nurse (role home)     [tested]
+ *   T5  S1 + E3(/admin)   → S0   redirect /login (authz fail)   [tested]
+ */
+
 const API = 'http://localhost:5028/api';
 
-test.describe('Protected routes', () => {
+test.describe('Protected routes – State Transition Testing', () => {
 
-  test('unauthenticated user visiting /admin is redirected to /login', async ({ page }) => {
+  test('T1 – S0 + navigate(/admin) → S0: redirect /login', async ({ page }) => {
     await page.goto('/admin');
     await expect(page).toHaveURL('/login');
   });
 
-  test('unauthenticated user visiting /nurse is redirected to /login', async ({ page }) => {
+  test('T2 – S0 + navigate(/nurse) → S0: redirect /login', async ({ page }) => {
     await page.goto('/nurse');
     await expect(page).toHaveURL('/login');
   });
 
-  test('unauthenticated user visiting /doctor is redirected to /login', async ({ page }) => {
+  test('T3 – S0 + navigate(/doctor) → S0: redirect /login', async ({ page }) => {
     await page.goto('/doctor');
     await expect(page).toHaveURL('/login');
   });
 
-  test('authenticated nurse cannot access /admin', async ({ page }) => {
+  test('T4+T5 – S0 + login(nurse) → S1; S1 + navigate(/admin) → S0', async ({ page }) => {
     await page.route(`${API}/auth/login`, (route) =>
       route.fulfill({
         status: 200,
@@ -34,12 +68,14 @@ test.describe('Protected routes', () => {
       })
     );
 
+    // T4: S0 → login(nurse) → S1
     await page.goto('/login');
     await page.getByPlaceholder('username').fill('nurse1');
     await page.getByPlaceholder('password').fill('password');
     await page.getByRole('button', { name: /Login/i }).click();
     await expect(page).toHaveURL('/nurse');
 
+    // T5: S1 → navigate(/admin) → S0 (unauthorized)
     await page.goto('/admin');
     await expect(page).toHaveURL('/login');
   });

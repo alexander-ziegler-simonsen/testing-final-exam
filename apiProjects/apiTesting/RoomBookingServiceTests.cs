@@ -168,4 +168,42 @@ public class RoomBookingServiceTests
 
         Assert.That(result, Is.False);
     }
+
+    // -------------------------------------------------------------------------
+    // Decision Table – IsRoomAvailable
+    //
+    // Conditions:
+    //   C1  Same room?        existing booking is in room 1 (Y) or room 2 (N)
+    //   C2  Times overlap?    existing booking's window overlaps 08:00–10:00
+    //   C3  Booking excluded? the conflicting booking's ID is passed as excludeBookingId
+    //
+    // Rules (reduced from 8 → 4 by collapsing don't-care columns):
+    //
+    //   Rule │ C1 │ C2 │ C3 │ Available?
+    //   ─────┼────┼────┼────┼───────────
+    //    R1  │ N  │ –  │ –  │ true    (different room → C2/C3 irrelevant)
+    //    R2  │ Y  │ N  │ –  │ true    (same room, no overlap → C3 irrelevant)
+    //    R3  │ Y  │ Y  │ Y  │ true    (overlap exists but booking is excluded)
+    //    R4  │ Y  │ Y  │ N  │ false   (overlap exists, not excluded → conflict)
+    // -------------------------------------------------------------------------
+    [TestCase(2, true,  true,  true,  TestName = "R1 – different room, C2/C3 irrelevant → available")]
+    [TestCase(1, false, false, true,  TestName = "R2 – same room, no overlap, C3 irrelevant → available")]
+    [TestCase(1, true,  true,  true,  TestName = "R3 – same room, overlap, booking excluded → available")]
+    [TestCase(1, true,  false, false, TestName = "R4 – same room, overlap, not excluded → conflict")]
+    public async Task IsRoomAvailable_DecisionTable(
+        int existingRoomId, bool timesOverlap, bool excludeBooking, bool expectedAvailable)
+    {
+        // Arrange
+        var existingStart = timesOverlap ? S : S.AddHours(-3);
+        var existingEnd   = timesOverlap ? E : S.AddHours(-1);
+        await SeedBooking(99, existingRoomId, existingStart, existingEnd);
+        int? excludeId = excludeBooking ? 99 : null;
+
+        // Act
+        var result = await _service.IsRoomAvailable(
+            roomId: 1, start: S, end: E, excludeBookingId: excludeId);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expectedAvailable));
+    }
 }
