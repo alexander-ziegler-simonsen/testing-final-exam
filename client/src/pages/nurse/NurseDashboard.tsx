@@ -9,19 +9,17 @@ import MedicationStoragePage from "../MedicationStoragePage"
 import SortHeader from "../../components/SortHeader"
 import { useSortableData } from "../../hooks/useSortableData"
 
-const fmt = (d: string) => new Date(d).toLocaleString()
+const formatDate = (dateString: string) => new Date(dateString).toLocaleString()
 
 export default function NurseDashboard() {
     const navigate = useNavigate()
-    const patients = useSortableData((q) => patientService.getAll(q))
-    const shifts   = useSortableData((q) => shiftService.getAll(q), 'starttime')
+    const patients = useSortableData((query) => patientService.getAll(query))
+    const shifts   = useSortableData((query) => shiftService.getAll(query), 'starttime')
 
     return (
         <Box p={8}>
             <Heading mb={1}>Nurse Dashboard</Heading>
-            <Text mb={6} color="gray.500">
-                Welcome, {authService.getFullName()}
-            </Text>
+            <Text mb={6} color="gray.500">Welcome, {authService.getFullName()}</Text>
 
             <Tabs.Root defaultValue="patients">
                 <Tabs.List mb={4}>
@@ -44,24 +42,24 @@ export default function NurseDashboard() {
                         <Table.Root size="sm">
                             <Table.Header>
                                 <Table.Row>
-                                    <SortHeader col="id"        label="ID"         sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} />
-                                    <SortHeader col="firstname" label="First Name"  sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.firstname}  onFilter={patients.setFilter} />
-                                    <SortHeader col="lastname"  label="Last Name"   sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.lastname}   onFilter={patients.setFilter} />
-                                    <SortHeader col="gender"    label="Gender"      sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.gender}     onFilter={patients.setFilter} />
-                                    <SortHeader col="cprnumber" label="CPR"         sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.cprnumber}  onFilter={patients.setFilter} />
+                                    <SortHeader col="id" label="ID" sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} />
+                                    <SortHeader col="firstname" label="First Name" sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.firstname} onFilter={patients.setFilter} />
+                                    <SortHeader col="lastname" label="Last Name" sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.lastname} onFilter={patients.setFilter} />
+                                    <SortHeader col="gender" label="Gender" sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.gender} onFilter={patients.setFilter} />
+                                    <SortHeader col="cprnumber" label="CPR" sortBy={patients.sortBy} sortDir={patients.sortDir} onSort={patients.onSort} filterValue={patients.filters.cprnumber} onFilter={patients.setFilter} />
                                     <Table.ColumnHeader />
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {patients.data.map(p => (
-                                    <Table.Row key={p.id}>
-                                        <Table.Cell>{p.id}</Table.Cell>
-                                        <Table.Cell>{p.firstname ?? "—"}</Table.Cell>
-                                        <Table.Cell>{p.lastname ?? "—"}</Table.Cell>
-                                        <Table.Cell>{p.gender ?? "—"}</Table.Cell>
-                                        <Table.Cell>{p.cprNumber ?? "—"}</Table.Cell>
+                                {patients.data.map(patient => (
+                                    <Table.Row key={patient.id}>
+                                        <Table.Cell>{patient.id}</Table.Cell>
+                                        <Table.Cell>{patient.firstname ?? "—"}</Table.Cell>
+                                        <Table.Cell>{patient.lastname ?? "—"}</Table.Cell>
+                                        <Table.Cell>{patient.gender ?? "—"}</Table.Cell>
+                                        <Table.Cell>{patient.cprNumber ?? "—"}</Table.Cell>
                                         <Table.Cell>
-                                            <Button size="xs" variant="outline" onClick={() => navigate(`/patients/${p.id}`)}>
+                                            <Button size="xs" variant="outline" onClick={() => navigate(`/patients/${patient.id}`)}>
                                                 View
                                             </Button>
                                         </Table.Cell>
@@ -78,19 +76,17 @@ export default function NurseDashboard() {
                         <Box>
                             <Text fontSize="xs" mb={1} color="gray.500">From</Text>
                             <Input
-                                type="date"
-                                size="sm"
+                                type="date" size="sm"
                                 value={shifts.filters.from?.split('T')[0] ?? ''}
-                                onChange={e => shifts.setFilter('from', e.target.value ? `${e.target.value}T00:00:00` : '')}
+                                onChange={event => shifts.setFilter('from', event.target.value ? `${event.target.value}T00:00:00` : '')}
                             />
                         </Box>
                         <Box>
                             <Text fontSize="xs" mb={1} color="gray.500">To</Text>
                             <Input
-                                type="date"
-                                size="sm"
+                                type="date" size="sm"
                                 value={shifts.filters.to?.split('T')[0] ?? ''}
-                                onChange={e => shifts.setFilter('to', e.target.value ? `${e.target.value}T23:59:59` : '')}
+                                onChange={event => shifts.setFilter('to', event.target.value ? `${event.target.value}T23:59:59` : '')}
                             />
                         </Box>
                     </HStack>
@@ -100,17 +96,17 @@ export default function NurseDashboard() {
                         <Table.Root size="sm">
                             <Table.Header>
                                 <Table.Row>
-                                    <SortHeader col="id"        label="ID"    sortBy={shifts.sortBy} sortDir={shifts.sortDir} onSort={shifts.onSort} />
+                                    <SortHeader col="id" label="ID" sortBy={shifts.sortBy} sortDir={shifts.sortDir} onSort={shifts.onSort} />
                                     <SortHeader col="starttime" label="Start" sortBy={shifts.sortBy} sortDir={shifts.sortDir} onSort={shifts.onSort} />
-                                    <SortHeader col="endtime"   label="End"   sortBy={shifts.sortBy} sortDir={shifts.sortDir} onSort={shifts.onSort} />
+                                    <SortHeader col="endtime" label="End" sortBy={shifts.sortBy} sortDir={shifts.sortDir} onSort={shifts.onSort} />
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {shifts.data.map(s => (
-                                    <Table.Row key={s.id}>
-                                        <Table.Cell>{s.id}</Table.Cell>
-                                        <Table.Cell>{fmt(s.startTime)}</Table.Cell>
-                                        <Table.Cell>{fmt(s.endTime)}</Table.Cell>
+                                {shifts.data.map(shift => (
+                                    <Table.Row key={shift.id}>
+                                        <Table.Cell>{shift.id}</Table.Cell>
+                                        <Table.Cell>{formatDate(shift.startTime)}</Table.Cell>
+                                        <Table.Cell>{formatDate(shift.endTime)}</Table.Cell>
                                     </Table.Row>
                                 ))}
                             </Table.Body>

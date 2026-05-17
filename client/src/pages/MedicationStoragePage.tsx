@@ -9,7 +9,7 @@ import type { MedicationStorage } from "../entites/MedicationStorage"
 import type { Medication } from "../entites/Medication"
 import type { MedicationStorageMissing } from "../entites/MedicationStorageMissing"
 
-const fmt = (d: string) => new Date(d).toLocaleString()
+const formatDate = (dateString: string) => new Date(dateString).toLocaleString()
 
 export default function MedicationStoragePage() {
     const [storages, setStorages] = useState<MedicationStorage[]>([])
@@ -25,24 +25,30 @@ export default function MedicationStoragePage() {
             medicationService.getAll(),
             missingStorageService.getAll(),
         ])
-            .then(([s, m, ms]) => {
-                setStorages(s)
-                setMedications(m)
-                setMissingReports(ms)
+            .then(([storageData, medicationData, missingData]) => {
+                setStorages(storageData)
+                setMedications(medicationData)
+                setMissingReports(missingData)
             })
             .catch(() => setLoadError("Failed to load medication storage data."))
             .finally(() => setLoading(false))
     }, [])
 
     function medicationName(storageId: number) {
-        const storage = storages.find(s => s.id === storageId)
-        if (!storage) return `Storage #${storageId}`
-        const med = medications.find(m => m.id === storage.fkMedicationId)
-        return med?.name ?? `Medication #${storage.fkMedicationId}`
+
+        const storage = storages.find(entry => entry.id === storageId)
+        if (!storage)
+            return `Storage #${storageId}`
+
+        const medication = medications.find(med => med.id === storage.fkMedicationId)
+
+        return medication?.name ?? `Medication #${storage.fkMedicationId}`
     }
 
-    if (loading) return <Box p={8}><Spinner /></Box>
-    if (loadError) return <Box p={8}><Text color="red.500">{loadError}</Text></Box>
+    if (loading)
+        return <Box p={8}><Spinner /></Box>
+    if (loadError)
+        return <Box p={8}><Text color="red.500">{loadError}</Text></Box>
 
     return (
         <Box p={8}>
@@ -56,15 +62,14 @@ export default function MedicationStoragePage() {
 
             {/* Report missing form */}
             <ReportMissingForm
-                storages={storages}
-                medications={medications}
+                storages={storages} medications={medications}
                 onReported={entry => setMissingReports(prev => [...prev, entry])}
             />
 
             {/* Missing reports */}
             <HStack mb={3} justify="space-between" align="center">
                 <Heading size="md">Missing Reports ({missingReports.length})</Heading>
-                <Button size="sm" variant="outline" onClick={() => setShowMissing(v => !v)}>
+                <Button size="sm" variant="outline" onClick={() => setShowMissing(visible => !visible)}>
                     {showMissing ? "Hide" : "Show"}
                 </Button>
             </HStack>
@@ -83,12 +88,12 @@ export default function MedicationStoragePage() {
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {missingReports.map(r => (
-                                <Table.Row key={r.id}>
-                                    <Table.Cell>{r.id}</Table.Cell>
-                                    <Table.Cell>{medicationName(r.fkMedicationStorageId)}</Table.Cell>
-                                    <Table.Cell>{r.amountMissing}</Table.Cell>
-                                    <Table.Cell>{fmt(r.wentMissingAt)}</Table.Cell>
+                            {missingReports.map(report => (
+                                <Table.Row key={report.id}>
+                                    <Table.Cell>{report.id}</Table.Cell>
+                                    <Table.Cell>{medicationName(report.fkMedicationStorageId)}</Table.Cell>
+                                    <Table.Cell>{report.amountMissing}</Table.Cell>
+                                    <Table.Cell>{formatDate(report.wentMissingAt)}</Table.Cell>
                                 </Table.Row>
                             ))}
                         </Table.Body>

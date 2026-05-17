@@ -7,8 +7,7 @@ export default function Contact() {
                 <Heading mb={4}>Contact Us</Heading>
 
                 <Text mb={6}>
-                    Have a question, feedback, or need to reach a specific department? We're here to help.
-                    Don't hesitate to get in touch with us using the details below.
+                    Have a question, feedback, or need to reach a specific department? We're here to help. Don't hesitate to get in touch with us using the details below.
                 </Text>
 
                 <Heading size="md" mb={3}>General Inquiries</Heading>

@@ -25,10 +25,18 @@ export default function Login() {
             localStorage.setItem("loginTime", Date.now().toString())
 
             switch (result.role) {
-                case "doctor": navigate("/doctor"); break
-                case "nurse":  navigate("/nurse");  break
-                case "admin":  navigate("/admin");  break
-                default:       navigate("/");       break
+                case "doctor":
+                    navigate("/doctor");
+                    break
+                case "nurse":
+                    navigate("/nurse");
+                    break
+                case "admin":
+                    navigate("/admin");
+                    break
+                default:
+                    navigate("/");
+                    break
             }
         } catch {
             setError("Invalid username or password")
@@ -44,32 +52,19 @@ export default function Login() {
             <VStack gap={4}>
                 <Field.Root>
                     <Field.Label>Username</Field.Label>
-                    <Input
-                        placeholder="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
+                    <Input placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                 </Field.Root>
 
                 <Field.Root>
                     <Field.Label>Password</Field.Label>
-                    <Input
-                        type="password"
-                        placeholder="password"
-                        value={password}
+                    <Input type="password" placeholder="password" value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-                    />
+                        onKeyDown={(e) => e.key === "Enter" && handleLogin()} />
                 </Field.Root>
 
                 {error && <Text color="red.500">{error}</Text>}
 
-                <Button
-                    bg="blue.500"
-                    width="100%"
-                    onClick={handleLogin}
-                    loading={loading}
-                >
+                <Button bg="blue.500" width="100%" onClick={handleLogin} loading={loading}>
                     Login
                 </Button>
             </VStack>

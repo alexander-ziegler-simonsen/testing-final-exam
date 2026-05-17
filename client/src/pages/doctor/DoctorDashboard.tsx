@@ -9,17 +9,17 @@ import SortHeader from "../../components/SortHeader"
 import { useSortableData } from "../../hooks/useSortableData"
 import type { Treatment } from "../../entites/Treatment"
 
-const fmt = (d: string) => new Date(d).toLocaleString()
+const formatDate = (dateString: string) => new Date(dateString).toLocaleString()
 
 function toLocalInput(iso: string) {
-    const d = new Date(iso)
-    d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
-    return d.toISOString().slice(0, 16)
+    const date = new Date(iso)
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+    return date.toISOString().slice(0, 16)
 }
 
 export default function DoctorDashboard() {
-    const patients   = useSortableData((q) => patientService.getAll(q))
-    const treatments = useSortableData((q) => treatmentService.getAll(q), 'time')
+    const patients   = useSortableData((query) => patientService.getAll(query))
+    const treatments = useSortableData((query) => treatmentService.getAll(query), 'time')
 
     const [editing, setEditing]       = useState<Treatment | null>(null)
     const [form, setForm]             = useState<TreatmentInput>({ fkPatientId: 0, time: "" })
@@ -29,13 +29,13 @@ export default function DoctorDashboard() {
     const [deleteError, setDeleteError] = useState<string | null>(null)
 
     function patientName(id: number) {
-        const p = patients.data.find(p => p.id === id)
-        return p ? `${p.firstname ?? ""} ${p.lastname ?? ""}`.trim() || `Patient #${id}` : `Patient #${id}`
+        const patient = patients.data.find(patient => patient.id === id)
+        return patient ? `${patient.firstname ?? ""} ${patient.lastname ?? ""}`.trim() || `Patient #${id}` : `Patient #${id}`
     }
 
-    function startEdit(t: Treatment) {
-        setEditing(t)
-        setForm({ fkPatientId: t.fkPatientId, description: t.description, time: toLocalInput(t.time) })
+    function startEdit(treatment: Treatment) {
+        setEditing(treatment)
+        setForm({ fkPatientId: treatment.fkPatientId, description: treatment.description, time: toLocalInput(treatment.time) })
         setFormError(null)
     }
 
@@ -44,15 +44,15 @@ export default function DoctorDashboard() {
         setFormError(null)
     }
 
-    async function handleSave(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSave(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (!editing) return
         setSubmitting(true)
         setFormError(null)
         try {
             const payload: TreatmentInput = { ...form, time: new Date(form.time).toISOString() }
             await treatmentService.update(editing.id, payload)
-            treatments.setData(prev => prev.map(t => t.id === editing.id ? { ...t, ...payload } : t))
+            treatments.setData(prev => prev.map(treatment => treatment.id === editing.id ? { ...treatment, ...payload } : treatment))
             setEditing(null)
         } catch {
             setFormError("Failed to update treatment.")
@@ -66,7 +66,7 @@ export default function DoctorDashboard() {
         setDeleteError(null)
         try {
             await treatmentService.delete(id)
-            treatments.setData(prev => prev.filter(t => t.id !== id))
+            treatments.setData(prev => prev.filter(treatment => treatment.id !== id))
         } catch {
             setDeleteError("Failed to delete treatment.")
         } finally {
@@ -87,6 +87,7 @@ export default function DoctorDashboard() {
             </Text>
 
             <Tabs.Root defaultValue="patients">
+                {/* header tabs */}
                 <Tabs.List mb={4}>
                     <Tabs.Trigger value="patients">
                         Patients {!patients.loading && <Badge ml={2} colorPalette="blue">{patients.data.length}</Badge>}
@@ -140,13 +141,13 @@ export default function DoctorDashboard() {
                                         <Text fontWeight="medium" fontSize="sm" mb={1}>Patient</Text>
                                         <select
                                             value={form.fkPatientId}
-                                            onChange={e => setForm(f => ({ ...f, fkPatientId: Number(e.target.value) }))}
+                                            onChange={event => setForm(prevForm => ({ ...prevForm, fkPatientId: Number(event.target.value) }))}
                                             style={selectStyle}
                                             required
                                         >
-                                            {patients.data.map(p => (
-                                                <option key={p.id} value={p.id}>
-                                                    {p.firstname} {p.lastname} (#{p.id})
+                                            {patients.data.map(patient => (
+                                                <option key={patient.id} value={patient.id}>
+                                                    {patient.firstname} {patient.lastname} (#{patient.id})
                                                 </option>
                                             ))}
                                         </select>
@@ -155,7 +156,7 @@ export default function DoctorDashboard() {
                                         <Text fontWeight="medium" fontSize="sm" mb={1}>Description</Text>
                                         <Textarea
                                             value={form.description ?? ""}
-                                            onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
+                                            onChange={event => setForm(prevForm => ({ ...prevForm, description: event.target.value }))}
                                             rows={2}
                                         />
                                     </Box>
@@ -164,7 +165,7 @@ export default function DoctorDashboard() {
                                         <Input
                                             type="datetime-local"
                                             value={form.time}
-                                            onChange={e => setForm(f => ({ ...f, time: e.target.value }))}
+                                            onChange={event => setForm(prevForm => ({ ...prevForm, time: event.target.value }))}
                                             required
                                         />
                                     </Box>
@@ -198,19 +199,19 @@ export default function DoctorDashboard() {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {treatments.data.map(t => (
-                                    <Table.Row key={t.id} bg={editing?.id === t.id ? "blue.50" : undefined}>
-                                        <Table.Cell>{t.id}</Table.Cell>
-                                        <Table.Cell>{patientName(t.fkPatientId)}</Table.Cell>
-                                        <Table.Cell>{t.description ?? "—"}</Table.Cell>
-                                        <Table.Cell>{fmt(t.time)}</Table.Cell>
+                                {treatments.data.map(treatment => (
+                                    <Table.Row key={treatment.id} bg={editing?.id === treatment.id ? "blue.50" : undefined}>
+                                        <Table.Cell>{treatment.id}</Table.Cell>
+                                        <Table.Cell>{patientName(treatment.fkPatientId)}</Table.Cell>
+                                        <Table.Cell>{treatment.description ?? "—"}</Table.Cell>
+                                        <Table.Cell>{formatDate(treatment.time)}</Table.Cell>
                                         <Table.Cell>
                                             <HStack gap={2} justify="flex-end">
-                                                <Button size="xs" variant="outline" onClick={() => startEdit(t)} disabled={deletingId === t.id}>
+                                                <Button size="xs" variant="outline" onClick={() => startEdit(treatment)} disabled={deletingId === treatment.id}>
                                                     Edit
                                                 </Button>
-                                                <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === t.id} onClick={() => handleDelete(t.id)}>
-                                                    {deletingId === t.id ? <Spinner size="xs" /> : "Delete"}
+                                                <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === treatment.id} onClick={() => handleDelete(treatment.id)}>
+                                                    {deletingId === treatment.id ? <Spinner size="xs" /> : "Delete"}
                                                 </Button>
                                             </HStack>
                                         </Table.Cell>

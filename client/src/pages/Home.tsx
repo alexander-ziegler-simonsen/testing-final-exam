@@ -8,8 +8,7 @@ export default function Home() {
                 <Heading mb={4}>Welcome to the Hospital System</Heading>
 
                 <Text>
-                    This system allows patients, nurses, doctors, and administrators
-                    to manage hospital operations efficiently.
+                    This system allows patients, nurses, doctors, and administrators to manage hospital operations efficiently.
                 </Text>
 
                 <MedicinePriceSearch />

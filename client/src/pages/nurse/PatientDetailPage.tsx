@@ -14,8 +14,8 @@ import type { Building } from "../../entites/Building"
 import type { Floor } from "../../entites/Floor"
 import type { Room } from "../../entites/Room"
 
-const fmt = (d: string) => new Date(d).toLocaleString()
-const fmtDate = (d: string) => new Date(d).toLocaleDateString()
+const formatDate = (dateString: string) => new Date(dateString).toLocaleString()
+const formatDateOnly = (dateString: string) => new Date(dateString).toLocaleDateString()
 
 interface ResolvedLocation {
     building: Building
@@ -32,7 +32,7 @@ interface Visit {
 function resolveLocation(roomId: number, locations: Location[]): ResolvedLocation | null {
     for (const loc of locations) {
         for (const fr of loc.floorsWithRooms) {
-            const room = fr.rooms.find(r => r.id === roomId)
+            const room = fr.rooms.find(room => room.id === roomId)
             if (room) return { building: loc.building, floor: fr.floor, room }
         }
     }
@@ -47,25 +47,25 @@ function buildVisits(
     const used = new Set<number>()
 
     const visits: Visit[] = bookings
-        .map(b => {
-            const start = new Date(b.startTime).getTime()
-            const end   = new Date(b.endTime).getTime()
-            const matched = treatments.filter(t => {
-                const tTime = new Date(t.time).getTime()
-                return tTime >= start && tTime <= end
+        .map(booking => {
+            const start = new Date(booking.startTime).getTime()
+            const end   = new Date(booking.endTime).getTime()
+            const matched = treatments.filter(treatment => {
+                const treatmentTime = new Date(treatment.time).getTime()
+                return treatmentTime >= start && treatmentTime <= end
             })
-            matched.forEach(t => used.add(t.id))
+            matched.forEach(treatment => used.add(treatment.id))
             return {
-                booking: b,
-                location: resolveLocation(b.fkRoomId, locations),
-                treatments: matched.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()),
+                booking: booking,
+                location: resolveLocation(booking.fkRoomId, locations),
+                treatments: matched.sort((treatmentA, treatmentB) => new Date(treatmentA.time).getTime() - new Date(treatmentB.time).getTime()),
             }
         })
-        .sort((a, b) => new Date(b.booking.startTime).getTime() - new Date(a.booking.startTime).getTime())
+        .sort((visitA, visitB) => new Date(visitB.booking.startTime).getTime() - new Date(visitA.booking.startTime).getTime())
 
     const unlinked = treatments
-        .filter(t => !used.has(t.id))
-        .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
+        .filter(treatment => !used.has(treatment.id))
+        .sort((treatmentA, treatmentB) => new Date(treatmentB.time).getTime() - new Date(treatmentA.time).getTime())
 
     return { visits, unlinked }
 }
@@ -88,11 +88,11 @@ export default function PatientDetailPage() {
             roomBookingService.getAll(),
             locationService.getAll(),
         ])
-            .then(([p, allTreatments, allBookings, allLocations]) => {
-                setPatient(p)
+            .then(([patientData, allTreatments, allBookings, allLocations]) => {
+                setPatient(patientData)
 
-                const myTreatments = allTreatments.filter(t => t.fkPatientId === patientId)
-                const myBookings   = allBookings.filter(b => b.fkPatientId === patientId)
+                const myTreatments = allTreatments.filter(treatment => treatment.fkPatientId === patientId)
+                const myBookings   = allBookings.filter(booking => booking.fkPatientId === patientId)
 
                 const { visits, unlinked } = buildVisits(myBookings, myTreatments, allLocations)
                 setVisits(visits)
@@ -133,22 +133,22 @@ export default function PatientDetailPage() {
                 <Text color="gray.500" mb={6}>No room bookings recorded for this patient.</Text>
             )}
 
-            {visits.map((v, i) => {
-                const loc = v.location
+            {visits.map((visit, index) => {
+                const location = visit.location
                 return (
-                    <Box key={v.booking.id} borderWidth={1} borderRadius="lg" p={5} mb={5}>
+                    <Box key={visit.booking.id} borderWidth={1} borderRadius="lg" p={5} mb={5}>
                         {/* Visit header */}
                         <Box mb={3}>
                             <Heading size="sm">
-                                Visit {visits.length - i} &nbsp;·&nbsp;
-                                {fmtDate(v.booking.startTime)} → {fmtDate(v.booking.endTime)}
+                                Visit {visits.length - index} &nbsp;·&nbsp;
+                                {formatDateOnly(visit.booking.startTime)} → {formatDateOnly(visit.booking.endTime)}
                             </Heading>
-                            {loc ? (
+                            {location ? (
                                 <Text fontSize="sm" color="gray.600" mt={1}>
-                                    {loc.building.name}
-                                    {loc.building.address ? ` (${loc.building.address})` : ""}
-                                    {" › "}{loc.floor.name}
-                                    {" › "}{loc.room.name}
+                                    {location.building.name}
+                                    {location.building.address ? ` (${location.building.address})` : ""}
+                                    {" › "}{location.floor.name}
+                                    {" › "}{location.room.name}
                                 </Text>
                             ) : (
                                 <Text fontSize="sm" color="gray.400" mt={1}>Location not found</Text>
@@ -156,7 +156,7 @@ export default function PatientDetailPage() {
                         </Box>
 
                         {/* Treatments in this visit */}
-                        {v.treatments.length === 0 ? (
+                        {visit.treatments.length === 0 ? (
                             <Text fontSize="sm" color="gray.400">No treatments recorded during this visit.</Text>
                         ) : (
                             <Table.Root size="sm">
@@ -168,11 +168,11 @@ export default function PatientDetailPage() {
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
-                                    {v.treatments.map(t => (
-                                        <Table.Row key={t.id}>
-                                            <Table.Cell>{t.id}</Table.Cell>
-                                            <Table.Cell>{t.description ?? "—"}</Table.Cell>
-                                            <Table.Cell>{fmt(t.time)}</Table.Cell>
+                                    {visit.treatments.map(treatment => (
+                                        <Table.Row key={treatment.id}>
+                                            <Table.Cell>{treatment.id}</Table.Cell>
+                                            <Table.Cell>{treatment.description ?? "—"}</Table.Cell>
+                                            <Table.Cell>{formatDate(treatment.time)}</Table.Cell>
                                         </Table.Row>
                                     ))}
                                 </Table.Body>
@@ -195,11 +195,11 @@ export default function PatientDetailPage() {
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {unlinked.map(t => (
-                                <Table.Row key={t.id}>
-                                    <Table.Cell>{t.id}</Table.Cell>
-                                    <Table.Cell>{t.description ?? "—"}</Table.Cell>
-                                    <Table.Cell>{fmt(t.time)}</Table.Cell>
+                            {unlinked.map(treatment => (
+                                <Table.Row key={treatment.id}>
+                                    <Table.Cell>{treatment.id}</Table.Cell>
+                                    <Table.Cell>{treatment.description ?? "—"}</Table.Cell>
+                                    <Table.Cell>{formatDate(treatment.time)}</Table.Cell>
                                 </Table.Row>
                             ))}
                         </Table.Body>

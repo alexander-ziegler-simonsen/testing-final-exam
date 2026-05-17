@@ -7,18 +7,14 @@ export default function About() {
                 <Heading mb={4}>Welcome to Fake General Hospital</Heading>
 
                 <Text mb={4}>
-                    Fake General Hospital has been serving the community since 1978. Located in the heart of
-                    Copenhagen, we are committed to providing world-class medical care to every patient who walks
-                    through our doors — regardless of background or circumstance.
+                    Fake General Hospital has been serving the community since 1978. Located in the heart of Copenhagen, we are committed to providing world-class medical care to every patient who walks through our doors — regardless of background or circumstance. 
                 </Text>
 
                 <Box borderBottom="1px solid" borderColor="gray.200" my={6} />
 
                 <Heading size="md" mb={3}>Our Mission</Heading>
                 <Text mb={4}>
-                    Our mission is to deliver compassionate, evidence-based healthcare with a focus on patient
-                    dignity, safety, and long-term wellbeing. We believe that excellent medical care goes hand
-                    in hand with empathy and respect.
+                    Our mission is to deliver compassionate, evidence-based healthcare with a focus on patient dignity, safety, and long-term wellbeing. We believe that excellent medical care goes hand in hand with empathy and respect.
                 </Text>
 
                 <Heading size="md" mb={3}>Departments</Heading>

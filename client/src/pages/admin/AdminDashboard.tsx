@@ -12,8 +12,9 @@ export default function AdminDashboard() {
     return (
         <Box p={8}>
             <Heading mb={6}>Admin Dashboard</Heading>
-
+            
             <Tabs.Root defaultValue="staff">
+                {/* header tabs */}
                 <Tabs.List mb={4}>
                     <Tabs.Trigger value="staff">Staff</Tabs.Trigger>
                     <Tabs.Trigger value="departments">Departments</Tabs.Trigger>
