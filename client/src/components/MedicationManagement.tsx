@@ -34,16 +34,16 @@ export default function MedicationManagement() {
             .finally(() => setLoading(false))
     }, [])
 
-    function startEdit(m: Medication) {
-        setEditing(m)
+    function startEdit(med: Medication) {
+        setEditing(med)
         setForm({
-            name: m.name ?? "",
-            genericName: m.genericName ?? "",
-            brand: m.brand ?? "",
-            form: m.form ?? "",
-            strength: m.strength ?? "",
-            category: m.category ?? "",
-            description: m.description ?? "",
+            name: med.name ?? "",
+            genericName: med.genericName ?? "",
+            brand: med.brand ?? "",
+            form: med.form ?? "",
+            strength: med.strength ?? "",
+            category: med.category ?? "",
+            description: med.description ?? "",
         })
         setFormError(null)
         setFormSuccess(null)
@@ -56,8 +56,8 @@ export default function MedicationManagement() {
         setFormSuccess(null)
     }
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (!form.name?.trim()) {
             setFormError("Medication name is required.")
             return
@@ -70,7 +70,7 @@ export default function MedicationManagement() {
         try {
             if (editing) {
                 await medicationService.update(editing.id, form)
-                setMedications(prev => prev.map(m => m.id === editing.id ? { ...m, ...form } : m))
+                setMedications(prev => prev.map(med => med.id === editing.id ? { ...med, ...form } : med))
                 setFormSuccess("Medication updated.")
             } else {
                 await medicationService.create(form)
@@ -92,7 +92,7 @@ export default function MedicationManagement() {
         setDeleteError(null)
         try {
             await medicationService.delete(id)
-            setMedications(prev => prev.filter(m => m.id !== id))
+            setMedications(prev => prev.filter(med => med.id !== id))
         } catch {
             setDeleteError("Failed to delete medication.")
         } finally {
@@ -115,39 +115,22 @@ export default function MedicationManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Name *</Text>
-                                <Input
-                                    value={form.name ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                                    placeholder="e.g. Paracetamol"
-                                    required
-                                />
+                                <Input value={form.name ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, name: event.target.value }))} placeholder="e.g. Paracetamol" required />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Generic Name</Text>
-                                <Input
-                                    value={form.genericName ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, genericName: e.target.value }))}
-                                    placeholder="e.g. Acetaminophen"
-                                />
+                                <Input value={form.genericName ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, genericName: event.target.value }))} placeholder="e.g. Acetaminophen" />
                             </Box>
                         </HStack>
 
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Brand</Text>
-                                <Input
-                                    value={form.brand ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, brand: e.target.value }))}
-                                    placeholder="e.g. Panodil"
-                                />
+                                <Input value={form.brand ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, brand: event.target.value }))} placeholder="e.g. Panodil" />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Category</Text>
-                                <Input
-                                    value={form.category ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
-                                    placeholder="e.g. Analgesic"
-                                />
+                                <Input value={form.category ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, category: event.target.value }))} placeholder="e.g. Analgesic" />
                             </Box>
                         </HStack>
 
@@ -156,28 +139,19 @@ export default function MedicationManagement() {
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Form</Text>
                                 <Input
                                     value={form.form ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, form: e.target.value }))}
+                                    onChange={event => setForm(prevForm => ({ ...prevForm, form: event.target.value }))}
                                     placeholder="e.g. Tablet"
                                 />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Strength</Text>
-                                <Input
-                                    value={form.strength ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, strength: e.target.value }))}
-                                    placeholder="e.g. 500mg"
-                                />
+                                <Input value={form.strength ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, strength: event.target.value }))} placeholder="e.g. 500mg" />
                             </Box>
                         </HStack>
 
                         <Box>
                             <Text fontWeight="medium" fontSize="sm" mb={1}>Description</Text>
-                            <Textarea
-                                value={form.description ?? ""}
-                                onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-                                placeholder="Optional notes"
-                                rows={2}
-                            />
+                            <Textarea value={form.description ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, description: event.target.value }))} placeholder="Optional notes" rows={2} />
                         </Box>
 
                         {formError && <Text color="red.500" fontSize="sm">{formError}</Text>}
@@ -188,9 +162,7 @@ export default function MedicationManagement() {
                                 {submitting ? <Spinner size="sm" /> : editing ? "Save Changes" : "Add Medication"}
                             </Button>
                             {editing && (
-                                <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>
-                                    Cancel
-                                </Button>
+                                <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>Cancel</Button>
                             )}
                         </HStack>
                     </VStack>
@@ -216,34 +188,19 @@ export default function MedicationManagement() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {medications.map(m => (
-                            <Table.Row key={m.id} bg={editing?.id === m.id ? "blue.50" : undefined}>
-                                <Table.Cell>{m.id}</Table.Cell>
-                                <Table.Cell>{m.name ?? "—"}</Table.Cell>
-                                <Table.Cell>{m.genericName ?? "—"}</Table.Cell>
-                                <Table.Cell>{m.brand ?? "—"}</Table.Cell>
-                                <Table.Cell>{m.category ?? "—"}</Table.Cell>
-                                <Table.Cell>{m.form ?? "—"}</Table.Cell>
-                                <Table.Cell>{m.strength ?? "—"}</Table.Cell>
+                        {medications.map(med => (
+                            <Table.Row key={med.id} bg={editing?.id === med.id ? "blue.50" : undefined}>
+                                <Table.Cell>{med.id}</Table.Cell>
+                                <Table.Cell>{med.name ?? "—"}</Table.Cell>
+                                <Table.Cell>{med.genericName ?? "—"}</Table.Cell>
+                                <Table.Cell>{med.brand ?? "—"}</Table.Cell>
+                                <Table.Cell>{med.category ?? "—"}</Table.Cell>
+                                <Table.Cell>{med.form ?? "—"}</Table.Cell>
+                                <Table.Cell>{med.strength ?? "—"}</Table.Cell>
                                 <Table.Cell>
                                     <HStack gap={2} justify="flex-end">
-                                        <Button
-                                            size="xs"
-                                            variant="outline"
-                                            onClick={() => startEdit(m)}
-                                            disabled={deletingId === m.id}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            size="xs"
-                                            colorPalette="red"
-                                            variant="outline"
-                                            disabled={deletingId === m.id}
-                                            onClick={() => handleDelete(m.id)}
-                                        >
-                                            {deletingId === m.id ? <Spinner size="xs" /> : "Delete"}
-                                        </Button>
+                                        <Button size="xs" variant="outline" onClick={() => startEdit(med)} disabled={deletingId === med.id}>Edit</Button>
+                                        <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === med.id} onClick={() => handleDelete(med.id)}>{deletingId === med.id ? <Spinner size="xs" /> : "Delete"}</Button>
                                     </HStack>
                                 </Table.Cell>
                             </Table.Row>

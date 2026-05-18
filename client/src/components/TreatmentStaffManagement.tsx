@@ -46,13 +46,13 @@ export default function TreatmentStaffManagement() {
     }, [])
 
     function treatmentLabel(id: number) {
-        const t = treatments.find(t => t.id === id)
-        return t ? `#${id}${t.description ? ` — ${t.description.slice(0, 40)}` : ""}` : `#${id}`
+        const treatment = treatments.find(treatment => treatment.id === id)
+        return treatment ? `#${id}${treatment.description ? ` — ${treatment.description.slice(0, 40)}` : ""}` : `#${id}`
     }
 
     function staffLabel(id: number) {
-        const s = staff.find(s => s.id === id)
-        return s ? `${s.firstname ?? ""} ${s.lastname ?? ""}`.trim() || `#${id}` : `#${id}`
+        const staffMember = staff.find(member => member.id === id)
+        return staffMember ? `${staffMember.firstname ?? ""} ${staffMember.lastname ?? ""}`.trim() || `#${id}` : `#${id}`
     }
 
     function startEdit(ts: TreatmentStaff) {
@@ -69,8 +69,8 @@ export default function TreatmentStaffManagement() {
         setFormSuccess(null)
     }
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (!form.fkTreatmentId || !form.fkStaffId) {
             setFormError("Both treatment and staff are required.")
             return
@@ -128,32 +128,22 @@ export default function TreatmentStaffManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Treatment</Text>
-                                <select
-                                    value={form.fkTreatmentId || ""}
-                                    onChange={e => setForm(f => ({ ...f, fkTreatmentId: Number(e.target.value) }))}
-                                    style={selectStyle}
-                                    required
-                                >
+                                <select value={form.fkTreatmentId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkTreatmentId: Number(event.target.value) }))} style={selectStyle} required>
                                     <option value="">Select treatment…</option>
-                                    {treatments.map(t => (
-                                        <option key={t.id} value={t.id}>
-                                            {treatmentLabel(t.id)}
+                                    {treatments.map(treatment => (
+                                        <option key={treatment.id} value={treatment.id}>
+                                            {treatmentLabel(treatment.id)}
                                         </option>
                                     ))}
                                 </select>
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Staff member</Text>
-                                <select
-                                    value={form.fkStaffId || ""}
-                                    onChange={e => setForm(f => ({ ...f, fkStaffId: Number(e.target.value) }))}
-                                    style={selectStyle}
-                                    required
-                                >
+                                <select value={form.fkStaffId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkStaffId: Number(event.target.value) }))} style={selectStyle} required>
                                     <option value="">Select staff…</option>
-                                    {staff.map(s => (
-                                        <option key={s.id} value={s.id}>
-                                            {staffLabel(s.id)} (#{s.id})
+                                    {staff.map(member => (
+                                        <option key={member.id} value={member.id}>
+                                            {staffLabel(member.id)} (#{member.id})
                                         </option>
                                     ))}
                                 </select>
@@ -168,9 +158,7 @@ export default function TreatmentStaffManagement() {
                                 {submitting ? <Spinner size="sm" /> : editing ? "Save Changes" : "Assign"}
                             </Button>
                             {editing && (
-                                <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>
-                                    Cancel
-                                </Button>
+                                <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>Cancel</Button>
                             )}
                         </HStack>
                     </VStack>
@@ -199,21 +187,8 @@ export default function TreatmentStaffManagement() {
                                 <Table.Cell>{staffLabel(ts.fkStaffId)}</Table.Cell>
                                 <Table.Cell>
                                     <HStack gap={2} justify="flex-end">
-                                        <Button
-                                            size="xs"
-                                            variant="outline"
-                                            onClick={() => startEdit(ts)}
-                                            disabled={deletingId === ts.id}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            size="xs"
-                                            colorPalette="red"
-                                            variant="outline"
-                                            disabled={deletingId === ts.id}
-                                            onClick={() => handleDelete(ts.id)}
-                                        >
+                                        <Button size="xs" variant="outline" onClick={() => startEdit(ts)} disabled={deletingId === ts.id}>Edit</Button>
+                                        <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === ts.id} onClick={() => handleDelete(ts.id)}>
                                             {deletingId === ts.id ? <Spinner size="xs" /> : "Remove"}
                                         </Button>
                                     </HStack>

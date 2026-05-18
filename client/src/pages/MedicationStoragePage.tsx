@@ -61,10 +61,7 @@ export default function MedicationStoragePage() {
             </Box>
 
             {/* Report missing form */}
-            <ReportMissingForm
-                storages={storages} medications={medications}
-                onReported={entry => setMissingReports(prev => [...prev, entry])}
-            />
+            <ReportMissingForm storages={storages} medications={medications} onReported={entry => setMissingReports(prev => [...prev, entry])} />
 
             {/* Missing reports */}
             <HStack mb={3} justify="space-between" align="center">

@@ -62,7 +62,7 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
     }, [])
 
     function storageFor(medId: number): MedicationStorage | undefined {
-        return storages.find(s => s.fkMedicationId === medId)
+        return storages.find(storage => storage.fkMedicationId === medId)
     }
 
     function handleMedicationChange(newMedId: number | "") {
@@ -101,8 +101,8 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
         }
     }
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (patientId === "") return
 
         const hasPrescription = medicationId !== ""
@@ -162,8 +162,8 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
 
                 // keep local storage state in sync so amounts reflect immediately
                 setStorages(prev =>
-                    prev.map(s =>
-                        s.id === storage.id ? { ...s, amount: s.amount - dosesNum } : s
+                    prev.map(storageEntry =>
+                        storageEntry.id === storage.id ? { ...storageEntry, amount: storageEntry.amount - dosesNum } : storageEntry
                     )
                 )
             }
@@ -221,16 +221,11 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
                     {/* ── Treatment fields ── */}
                     <Box>
                         <Text fontWeight="medium" fontSize="sm" mb={1}>Patient</Text>
-                        <select
-                            value={patientId}
-                            onChange={e => setPatientId(e.target.value === "" ? "" : Number(e.target.value))}
-                            required
-                            style={selectStyle}
-                        >
+                        <select value={patientId} onChange={event => setPatientId(event.target.value === "" ? "" : Number(event.target.value))} required style={selectStyle}>
                             <option value="">Select a patient…</option>
-                            {patients.map(p => (
-                                <option key={p.id} value={p.id}>
-                                    {p.firstname} {p.lastname} (#{p.id})
+                            {patients.map(patient => (
+                                <option key={patient.id} value={patient.id}>
+                                    {patient.firstname} {patient.lastname} (#{patient.id})
                                 </option>
                             ))}
                         </select>
@@ -238,12 +233,7 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
 
                     <Box>
                         <Text fontWeight="medium" fontSize="sm" mb={1}>Description (optional)</Text>
-                        <textarea
-                            placeholder="Describe the treatment…"
-                            value={description}
-                            onChange={e => setDescription(e.target.value)}
-                            style={textareaStyle}
-                        />
+                        <textarea placeholder="Describe the treatment…" value={description} onChange={event => setDescription(event.target.value)} style={textareaStyle} />
                     </Box>
 
                     <Box>
@@ -251,37 +241,35 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
                         <Input
                             type="datetime-local"
                             value={time}
-                            onChange={e => setTime(e.target.value)}
+                            onChange={event => setTime(event.target.value)}
                             required
                         />
                     </Box>
 
                     {/* ── Optional prescription ── */}
                     <Box borderWidth={1} borderRadius="md" p={4} bg="gray.50">
-                        <Text fontWeight="semibold" fontSize="sm" mb={3}>
-                            Prescription (optional)
-                        </Text>
+                        <Text fontWeight="semibold" fontSize="sm" mb={3}>Prescription (optional)</Text>
 
                         <VStack align="stretch" gap={3}>
                             <Box>
                                 <Text fontSize="sm" mb={1}>Medication</Text>
                                 <select
                                     value={medicationId}
-                                    onChange={e => handleMedicationChange(
-                                        e.target.value === "" ? "" : Number(e.target.value)
+                                    onChange={event => handleMedicationChange(
+                                        event.target.value === "" ? "" : Number(event.target.value)
                                     )}
                                     style={approvalStep === "approved" ? selectStyleDisabled : selectStyle}
                                     disabled={approvalStep === "approved"}
                                 >
                                     <option value="">No medication</option>
-                                    {medications.map(m => {
-                                        const storage = storageFor(m.id)
+                                    {medications.map(med => {
+                                        const storage = storageFor(med.id)
                                         const stock = storage?.amount ?? 0
                                         const outOfStock = stock <= 0
                                         return (
-                                            <option key={m.id} value={m.id} disabled={outOfStock}>
-                                                {m.name ?? m.genericName ?? `Medication #${m.id}`}
-                                                {m.strength ? ` — ${m.strength}` : ""}
+                                            <option key={med.id} value={med.id} disabled={outOfStock}>
+                                                {med.name ?? med.genericName ?? `Medication #${med.id}`}
+                                                {med.strength ? ` — ${med.strength}` : ""}
                                                 {" "}({outOfStock ? "out of stock" : `${stock} in stock`})
                                             </option>
                                         )
@@ -299,17 +287,7 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
                                             </Text>
                                         )}
                                     </HStack>
-                                    <Input
-                                        type="number"
-                                        min={0.01}
-                                        step="any"
-                                        max={storageFor(medicationId as number)?.amount}
-                                        placeholder="e.g. 2"
-                                        value={doses}
-                                        onChange={e => setDoses(e.target.value)}
-                                        required={!!medicationId}
-                                        disabled={approvalStep === "approved"}
-                                    />
+                                    <Input type="number" min={0.01} step="any" max={storageFor(medicationId as number)?.amount} placeholder="e.g. 2" value={doses} onChange={event => setDoses(event.target.value)} required={!!medicationId} disabled={approvalStep === "approved"} />
                                 </Box>
                             )}
                         </VStack>
@@ -319,32 +297,11 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
                     {medicationId !== "" && (
                         <>
                             {approvalStep === "required" && (
-                                <Box
-                                    bg="orange.50"
-                                    borderWidth={1}
-                                    borderColor="orange.300"
-                                    borderRadius="md"
-                                    p={4}
-                                >
-                                    <Text color="orange.700" fontWeight="medium" mb={3}>
-                                        This medication requires a doctor to sign off before it can be prescribed.
-                                    </Text>
+                                <Box bg="orange.50" borderWidth={1} borderColor="orange.300" borderRadius="md" p={4}>
+                                    <Text color="orange.700" fontWeight="medium" mb={3}>This medication requires a doctor to sign off before it can be prescribed.</Text>
                                     <HStack gap={2}>
-                                        <Button
-                                            size="sm"
-                                            variant="outline"
-                                            onClick={() => handleMedicationChange("")}
-                                        >
-                                            Remove medication
-                                        </Button>
-                                        <Button
-                                            size="sm"
-                                            bg="orange.500"
-                                            color="white"
-                                            onClick={() => setApprovalStep("signing")}
-                                        >
-                                            Doctor sign-off
-                                        </Button>
+                                        <Button size="sm" variant="outline" onClick={() => handleMedicationChange("")}>Remove medication</Button>
+                                        <Button size="sm" bg="orange.500" color="white" onClick={() => setApprovalStep("signing")}>Doctor sign-off</Button>
                                     </HStack>
                                 </Box>
                             )}
@@ -353,43 +310,20 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
                                 <Box borderWidth={1} borderColor="blue.200" borderRadius="md" p={4}>
                                     <Text fontWeight="medium" mb={3}>Doctor authentication</Text>
                                     <VStack align="stretch" gap={3}>
-                                        <Input
-                                            placeholder="Doctor username"
-                                            value={doctorUsername}
-                                            onChange={e => setDoctorUsername(e.target.value)}
-                                            autoComplete="off"
-                                        />
-                                        <Input
-                                            type="password"
-                                            placeholder="Password"
-                                            value={doctorPassword}
-                                            onChange={e => setDoctorPassword(e.target.value)}
-                                            autoComplete="off"
-                                            onKeyDown={e => e.key === "Enter" && handleDoctorLogin()}
-                                        />
+                                        <Input placeholder="Doctor username" value={doctorUsername} onChange={event => setDoctorUsername(event.target.value)} autoComplete="off" />
+                                        <Input type="password" placeholder="Password" value={doctorPassword} onChange={event => setDoctorPassword(event.target.value)} autoComplete="off" onKeyDown={event => event.key === "Enter" && handleDoctorLogin()} />
                                         {approvalError && (
                                             <Text color="red.500" fontSize="sm">{approvalError}</Text>
                                         )}
                                         <HStack gap={2}>
-                                            <Button
-                                                size="sm"
-                                                variant="outline"
+                                            <Button size="sm" variant="outline" 
                                                 onClick={() => {
                                                     setApprovalStep("required")
                                                     setApprovalError(null)
                                                     setDoctorUsername("")
                                                     setDoctorPassword("")
-                                                }}
-                                            >
-                                                Back
-                                            </Button>
-                                            <Button
-                                                size="sm"
-                                                bg="blue.500"
-                                                color="white"
-                                                onClick={handleDoctorLogin}
-                                                disabled={approvalLoading || !doctorUsername || !doctorPassword}
-                                            >
+                                                }}>Back</Button>
+                                            <Button size="sm" bg="blue.500" color="white" onClick={handleDoctorLogin} disabled={approvalLoading || !doctorUsername || !doctorPassword}>
                                                 {approvalLoading ? <Spinner size="sm" /> : "Authenticate"}
                                             </Button>
                                         </HStack>
@@ -398,16 +332,8 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
                             )}
 
                             {approvalStep === "approved" && (
-                                <Box
-                                    bg="green.50"
-                                    borderWidth={1}
-                                    borderColor="green.300"
-                                    borderRadius="md"
-                                    p={3}
-                                >
-                                    <Text color="green.700" fontSize="sm">
-                                        Approved by Dr. {approvedDoctorName}
-                                    </Text>
+                                <Box bg="green.50" borderWidth={1} borderColor="green.300" borderRadius="md" p={3}>
+                                    <Text color="green.700" fontSize="sm">Approved by Dr. {approvedDoctorName}</Text>
                                 </Box>
                             )}
                         </>
@@ -416,13 +342,7 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
                     {error && <Text color="red.500" fontSize="sm">{error}</Text>}
                     {success && <Text color="green.500" fontSize="sm">Treatment recorded successfully.</Text>}
 
-                    <Button
-                        type="submit"
-                        bg="blue.500"
-                        color="white"
-                        disabled={!canSubmit}
-                        alignSelf="flex-start"
-                    >
+                    <Button type="submit" bg="blue.500" color="white" disabled={!canSubmit} alignSelf="flex-start">
                         {loading ? <Spinner size="sm" /> : "Give Treatment"}
                     </Button>
                 </VStack>

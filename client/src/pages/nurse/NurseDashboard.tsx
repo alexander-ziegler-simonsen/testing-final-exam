@@ -59,9 +59,7 @@ export default function NurseDashboard() {
                                         <Table.Cell>{patient.gender ?? "—"}</Table.Cell>
                                         <Table.Cell>{patient.cprNumber ?? "—"}</Table.Cell>
                                         <Table.Cell>
-                                            <Button size="xs" variant="outline" onClick={() => navigate(`/patients/${patient.id}`)}>
-                                                View
-                                            </Button>
+                                            <Button size="xs" variant="outline" onClick={() => navigate(`/patients/${patient.id}`)}>View</Button>
                                         </Table.Cell>
                                     </Table.Row>
                                 ))}
@@ -75,19 +73,11 @@ export default function NurseDashboard() {
                     <HStack mb={3} gap={4} align="center">
                         <Box>
                             <Text fontSize="xs" mb={1} color="gray.500">From</Text>
-                            <Input
-                                type="date" size="sm"
-                                value={shifts.filters.from?.split('T')[0] ?? ''}
-                                onChange={event => shifts.setFilter('from', event.target.value ? `${event.target.value}T00:00:00` : '')}
-                            />
+                            <Input type="date" size="sm" value={shifts.filters.from?.split('T')[0] ?? ''} onChange={event => shifts.setFilter('from', event.target.value ? `${event.target.value}T00:00:00` : '')} />
                         </Box>
                         <Box>
                             <Text fontSize="xs" mb={1} color="gray.500">To</Text>
-                            <Input
-                                type="date" size="sm"
-                                value={shifts.filters.to?.split('T')[0] ?? ''}
-                                onChange={event => shifts.setFilter('to', event.target.value ? `${event.target.value}T23:59:59` : '')}
-                            />
+                            <Input type="date" size="sm" value={shifts.filters.to?.split('T')[0] ?? ''} onChange={event => shifts.setFilter('to', event.target.value ? `${event.target.value}T23:59:59` : '')} />
                         </Box>
                     </HStack>
                     {shifts.loading ? <Spinner /> : shifts.error ? (

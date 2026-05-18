@@ -15,18 +15,18 @@ export interface SortableData<T> {
 }
 
 export function useSortableData<T>(
-    fetcher: (q: TableQuery) => Promise<T[]>,
+    fetcher: (query: TableQuery) => Promise<T[]>,
     defaultSortBy = 'id'
 ): SortableData<T> {
-    const [data, setData]               = useState<T[]>([])
-    const [loading, setLoading]         = useState(true)
-    const [error, setError]             = useState<string | null>(null)
-    const [sortBy, setSortBy]           = useState(defaultSortBy)
-    const [sortDir, setSortDir]         = useState<'asc' | 'desc'>('asc')
-    const [filters, setFilters]         = useState<Record<string, string>>({})
+    const [data, setData] = useState<T[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+    const [sortBy, setSortBy] = useState(defaultSortBy)
+    const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc')
+    const [filters, setFilters] = useState<Record<string, string>>({})
     const [debouncedFilters, setDebouncedFilters] = useState<Record<string, string>>({})
 
-    const fetcherRef   = useRef(fetcher)
+    const fetcherRef = useRef(fetcher)
     const isFirstRender = useRef(true)
     fetcherRef.current = fetcher
 
@@ -36,8 +36,8 @@ export function useSortableData<T>(
             isFirstRender.current = false
             return
         }
-        const t = setTimeout(() => setDebouncedFilters(filters), 300)
-        return () => clearTimeout(t)
+        const timer = setTimeout(() => setDebouncedFilters(filters), 300)
+        return () => clearTimeout(timer)
     }, [filters])
 
     // Re-fetch when debounced filters or sort state changes
@@ -52,7 +52,7 @@ export function useSortableData<T>(
 
     function onSort(col: string) {
         if (col === sortBy) {
-            setSortDir(d => d === 'asc' ? 'desc' : 'asc')
+            setSortDir(dir => dir === 'asc' ? 'desc' : 'asc')
         } else {
             setSortBy(col)
             setSortDir('asc')

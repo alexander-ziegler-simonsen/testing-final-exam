@@ -41,12 +41,12 @@ export default function UserManagement() {
     }, [])
 
     function staffLabel(id: number) {
-        const s = staff.find(s => s.id === id)
-        return s ? `${s.firstname ?? ""} ${s.lastname ?? ""}`.trim() || `#${id}` : `#${id}`
+        const staffMember = staff.find(member => member.id === id)
+        return staffMember ? `${staffMember.firstname ?? ""} ${staffMember.lastname ?? ""}`.trim() || `#${id}` : `#${id}`
     }
 
-    async function handleRegister(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleRegister(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (!registerForm.username.trim()) { setRegisterError("Username is required."); return }
         if (!registerForm.password.trim()) { setRegisterError("Password is required."); return }
         if (!registerForm.fkStaffId) { setRegisterError("Staff member is required."); return }
@@ -87,7 +87,7 @@ export default function UserManagement() {
         setDeleteError(null)
         try {
             await userService.delete(id)
-            setUsers(prev => prev.filter(u => u.id !== id))
+            setUsers(prev => prev.filter(user => user.id !== id))
         } catch {
             setDeleteError("Failed to delete account.")
         } finally {
@@ -108,37 +108,20 @@ export default function UserManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Username</Text>
-                                <Input
-                                    value={registerForm.username}
-                                    onChange={e => setRegisterForm(f => ({ ...f, username: e.target.value }))}
-                                    placeholder="e.g. jdoe"
-                                    autoComplete="off"
-                                    required
-                                />
+                                <Input value={registerForm.username} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, username: event.target.value }))} placeholder="e.g. jdoe" autoComplete="off" required />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Password</Text>
-                                <Input
-                                    type="password"
-                                    value={registerForm.password}
-                                    onChange={e => setRegisterForm(f => ({ ...f, password: e.target.value }))}
-                                    autoComplete="new-password"
-                                    required
-                                />
+                                <Input type="password" value={registerForm.password} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, password: event.target.value }))} autoComplete="new-password" required />
                             </Box>
                         </HStack>
                         <Box>
                             <Text fontWeight="medium" fontSize="sm" mb={1}>Staff member</Text>
-                            <select
-                                value={registerForm.fkStaffId || ""}
-                                onChange={e => setRegisterForm(f => ({ ...f, fkStaffId: Number(e.target.value) }))}
-                                style={selectStyle}
-                                required
-                            >
+                            <select value={registerForm.fkStaffId || ""} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, fkStaffId: Number(event.target.value) }))} style={selectStyle} required>
                                 <option value="">Select staff…</option>
-                                {staff.map(s => (
-                                    <option key={s.id} value={s.id}>
-                                        {staffLabel(s.id)} (#{s.id})
+                                {staff.map(member => (
+                                    <option key={member.id} value={member.id}>
+                                        {staffLabel(member.id)} (#{member.id})
                                     </option>
                                 ))}
                             </select>
@@ -169,60 +152,38 @@ export default function UserManagement() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {users.map(u => (
+                        {users.map(user => (
                             <>
-                                <Table.Row key={u.id} bg={changingPwId === u.id ? "blue.50" : undefined}>
-                                    <Table.Cell>{u.id}</Table.Cell>
-                                    <Table.Cell>{u.username}</Table.Cell>
-                                    <Table.Cell>{staffLabel(u.fkStaffId)}</Table.Cell>
+                                <Table.Row key={user.id} bg={changingPwId === user.id ? "blue.50" : undefined}>
+                                    <Table.Cell>{user.id}</Table.Cell>
+                                    <Table.Cell>{user.username}</Table.Cell>
+                                    <Table.Cell>{staffLabel(user.fkStaffId)}</Table.Cell>
                                     <Table.Cell>
                                         <HStack gap={2} justify="flex-end">
-                                            <Button
-                                                size="xs"
-                                                variant="outline"
+                                            <Button size="xs" variant="outline" 
                                                 onClick={() => {
-                                                    setChangingPwId(changingPwId === u.id ? null : u.id)
+                                                    setChangingPwId(changingPwId === user.id ? null : user.id)
                                                     setNewPassword("")
                                                     setPwError(null)
                                                 }}
-                                                disabled={deletingId === u.id}
+                                                disabled={deletingId === user.id}
                                             >
-                                                {changingPwId === u.id ? "Cancel" : "Change Password"}
+                                                {changingPwId === user.id ? "Cancel" : "Change Password"}
                                             </Button>
-                                            <Button
-                                                size="xs"
-                                                colorPalette="red"
-                                                variant="outline"
-                                                disabled={deletingId === u.id}
-                                                onClick={() => handleDelete(u.id)}
-                                            >
-                                                {deletingId === u.id ? <Spinner size="xs" /> : "Delete"}
+                                            <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === user.id} onClick={() => handleDelete(user.id)}>
+                                                {deletingId === user.id ? <Spinner size="xs" /> : "Delete"}
                                             </Button>
                                         </HStack>
                                     </Table.Cell>
                                 </Table.Row>
                                 {/* Inline password row — only shown for the selected user */}
-                                {changingPwId === u.id && (
-                                    <Table.Row key={`${u.id}-pw`} bg="blue.50">
+                                {changingPwId === user.id && (
+                                    <Table.Row key={`${user.id}-pw`} bg="blue.50">
                                         <Table.Cell colSpan={4}>
                                             <HStack gap={3} py={1}>
-                                                <Input
-                                                    type="password"
-                                                    placeholder="New password"
-                                                    value={newPassword}
-                                                    onChange={e => setNewPassword(e.target.value)}
-                                                    autoComplete="new-password"
-                                                    size="sm"
-                                                    maxW="260px"
-                                                />
+                                                <Input type="password" placeholder="New password" value={newPassword} onChange={event => setNewPassword(event.target.value)} autoComplete="new-password" size="sm" maxW="260px" />
                                                 {pwError && <Text color="red.500" fontSize="xs">{pwError}</Text>}
-                                                <Button
-                                                    size="xs"
-                                                    bg="blue.500"
-                                                    color="white"
-                                                    onClick={() => handleChangePassword(u.id)}
-                                                    disabled={savingPw}
-                                                >
+                                                <Button size="xs" bg="blue.500" color="white" onClick={() => handleChangePassword(user.id)} disabled={savingPw}>
                                                     {savingPw ? <Spinner size="xs" /> : "Save"}
                                                 </Button>
                                             </HStack>

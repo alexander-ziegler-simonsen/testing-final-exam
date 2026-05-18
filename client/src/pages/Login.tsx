@@ -57,9 +57,7 @@ export default function Login() {
 
                 <Field.Root>
                     <Field.Label>Password</Field.Label>
-                    <Input type="password" placeholder="password" value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleLogin()} />
+                    <Input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleLogin()} />
                 </Field.Root>
 
                 {error && <Text color="red.500">{error}</Text>}

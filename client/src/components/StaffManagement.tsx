@@ -8,7 +8,7 @@ const ROLES: { id: number; label: string }[] = [
     { id: 2, label: "Nurse" },
 ]
 
-const roleLabel = (id: number) => ROLES.find(r => r.id === id)?.label ?? `Role ${id}`
+const roleLabel = (id: number) => ROLES.find(role => role.id === id)?.label ?? `Role ${id}`
 
 const selectStyle: React.CSSProperties = {
     width: "100%",
@@ -42,9 +42,9 @@ export default function StaffManagement() {
             .finally(() => setLoading(false))
     }, [])
 
-    function startEdit(s: Staff) {
-        setEditing(s)
-        setForm({ firstname: s.firstname ?? "", lastname: s.lastname ?? "", fkRoleId: s.fkRoleId })
+    function startEdit(member: Staff) {
+        setEditing(member)
+        setForm({ firstname: member.firstname ?? "", lastname: member.lastname ?? "", fkRoleId: member.fkRoleId })
         setFormError(null)
         setFormSuccess(null)
     }
@@ -56,8 +56,8 @@ export default function StaffManagement() {
         setFormSuccess(null)
     }
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (!form.firstname?.trim() || !form.lastname?.trim()) {
             setFormError("First name and last name are required.")
             return
@@ -70,7 +70,7 @@ export default function StaffManagement() {
         try {
             if (editing) {
                 await staffService.update(editing.id, form)
-                setStaff(prev => prev.map(s => s.id === editing.id ? { ...s, ...form } : s))
+                setStaff(prev => prev.map(member => member.id === editing.id ? { ...member, ...form } : member))
                 setFormSuccess("Staff member updated.")
             } else {
                 await staffService.create(form)
@@ -92,7 +92,7 @@ export default function StaffManagement() {
         setDeleteError(null)
         try {
             await staffService.delete(id)
-            setStaff(prev => prev.filter(s => s.id !== id))
+            setStaff(prev => prev.filter(member => member.id !== id))
         } catch {
             setDeleteError("Failed to delete staff member.")
         } finally {
@@ -113,33 +113,19 @@ export default function StaffManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>First Name</Text>
-                                <Input
-                                    value={form.firstname ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, firstname: e.target.value }))}
-                                    placeholder="e.g. Jane"
-                                    required
-                                />
+                                <Input value={form.firstname ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, firstname: event.target.value }))} placeholder="e.g. Jane" required />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Last Name</Text>
-                                <Input
-                                    value={form.lastname ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, lastname: e.target.value }))}
-                                    placeholder="e.g. Doe"
-                                    required
-                                />
+                                <Input value={form.lastname ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, lastname: event.target.value }))} placeholder="e.g. Doe" required />
                             </Box>
                         </HStack>
 
                         <Box>
                             <Text fontWeight="medium" fontSize="sm" mb={1}>Role</Text>
-                            <select
-                                value={form.fkRoleId}
-                                onChange={e => setForm(f => ({ ...f, fkRoleId: Number(e.target.value) }))}
-                                style={selectStyle}
-                            >
-                                {ROLES.map(r => (
-                                    <option key={r.id} value={r.id}>{r.label}</option>
+                            <select value={form.fkRoleId} onChange={event => setForm(prevForm => ({ ...prevForm, fkRoleId: Number(event.target.value) }))} style={selectStyle}>
+                                {ROLES.map(role => (
+                                    <option key={role.id} value={role.id}>{role.label}</option>
                                 ))}
                             </select>
                         </Box>
@@ -176,29 +162,18 @@ export default function StaffManagement() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {staff.map(s => (
-                            <Table.Row key={s.id} bg={editing?.id === s.id ? "blue.50" : undefined}>
-                                <Table.Cell>{s.id}</Table.Cell>
-                                <Table.Cell>{s.firstname} {s.lastname}</Table.Cell>
-                                <Table.Cell>{roleLabel(s.fkRoleId)}</Table.Cell>
+                        {staff.map(member => (
+                            <Table.Row key={member.id} bg={editing?.id === member.id ? "blue.50" : undefined}>
+                                <Table.Cell>{member.id}</Table.Cell>
+                                <Table.Cell>{member.firstname} {member.lastname}</Table.Cell>
+                                <Table.Cell>{roleLabel(member.fkRoleId)}</Table.Cell>
                                 <Table.Cell>
                                     <HStack gap={2} justify="flex-end">
-                                        <Button
-                                            size="xs"
-                                            variant="outline"
-                                            onClick={() => startEdit(s)}
-                                            disabled={deletingId === s.id}
-                                        >
+                                        <Button size="xs" variant="outline" onClick={() => startEdit(member)} disabled={deletingId === member.id}>
                                             Edit
                                         </Button>
-                                        <Button
-                                            size="xs"
-                                            colorPalette="red"
-                                            variant="outline"
-                                            disabled={deletingId === s.id}
-                                            onClick={() => handleDelete(s.id)}
-                                        >
-                                            {deletingId === s.id ? <Spinner size="xs" /> : "Delete"}
+                                        <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === member.id} onClick={() => handleDelete(member.id)}>
+                                            {deletingId === member.id ? <Spinner size="xs" /> : "Delete"}
                                         </Button>
                                     </HStack>
                                 </Table.Cell>

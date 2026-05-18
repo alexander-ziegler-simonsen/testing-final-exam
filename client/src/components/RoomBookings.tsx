@@ -26,7 +26,7 @@ function localDateTimeHourLater() {
     return now.toISOString().slice(0, 16)
 }
 
-const fmt = (d: string) => new Date(d).toLocaleString()
+const fmt = (dateStr: string) => new Date(dateStr).toLocaleString()
 
 const selectStyle: React.CSSProperties = {
     width: "100%",
@@ -72,9 +72,9 @@ export default function RoomBookings() {
             patientService.getAll(),
             locationService.getAll(),
         ])
-            .then(([b, p, locs]) => {
-                setBookings(b)
-                setPatients(p)
+            .then(([bookingsData, patientsData, locs]) => {
+                setBookings(bookingsData)
+                setPatients(patientsData)
                 setFlatRooms(flattenRooms(locs))
             })
             .catch(() => setLoadError("Failed to load data"))
@@ -97,8 +97,8 @@ export default function RoomBookings() {
     }
 
     function patientName(id: number) {
-        const p = patients.find(p => p.id === id)
-        return p ? `${p.firstname ?? ""} ${p.lastname ?? ""}`.trim() || `Patient #${id}` : `Patient #${id}`
+        const patient = patients.find(patient => patient.id === id)
+        return patient ? `${patient.firstname ?? ""} ${patient.lastname ?? ""}`.trim() || `Patient #${id}` : `Patient #${id}`
     }
 
     function roomLabel(id: number) {
@@ -106,11 +106,11 @@ export default function RoomBookings() {
     }
 
     const selectedRoomBookings = roomId !== ""
-        ? bookings.filter(b => b.fkRoomId === roomId)
+        ? bookings.filter(booking => booking.fkRoomId === roomId)
         : []
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (patientId === "" || roomId === "") return
         if (new Date(startTime) >= new Date(endTime)) {
             setFormError("End time must be after start time.")
@@ -152,7 +152,7 @@ export default function RoomBookings() {
         setDeleteError(null)
         try {
             await roomBookingService.delete(id)
-            setBookings(prev => prev.filter(b => b.id !== id))
+            setBookings(prev => prev.filter(booking => booking.id !== id))
         } catch {
             setDeleteError("Failed to delete booking.")
         } finally {
@@ -173,10 +173,9 @@ export default function RoomBookings() {
 
                         <Box>
                             <Text fontWeight="medium" fontSize="sm" mb={1}>Patient</Text>
-                            <select
-                                value={patientId}
-                                onChange={e => {
-                                    setPatientId(e.target.value === "" ? "" : Number(e.target.value))
+                            <select value={patientId}
+                                onChange={event => {
+                                    setPatientId(event.target.value === "" ? "" : Number(event.target.value))
                                     setRoomId("")
                                     setFormError(null)
                                     setFormSuccess(false)
@@ -185,9 +184,9 @@ export default function RoomBookings() {
                                 style={selectStyle}
                             >
                                 <option value="">Select a patient…</option>
-                                {patients.map(p => (
-                                    <option key={p.id} value={p.id}>
-                                        {p.firstname} {p.lastname} (#{p.id})
+                                {patients.map(patient => (
+                                    <option key={patient.id} value={patient.id}>
+                                        {patient.firstname} {patient.lastname} (#{patient.id})
                                     </option>
                                 ))}
                             </select>
@@ -197,8 +196,8 @@ export default function RoomBookings() {
                             <Text fontWeight="medium" fontSize="sm" mb={1}>Room</Text>
                             <select
                                 value={roomId}
-                                onChange={e => {
-                                    setRoomId(e.target.value === "" ? "" : Number(e.target.value))
+                                onChange={event => {
+                                    setRoomId(event.target.value === "" ? "" : Number(event.target.value))
                                     setFormError(null)
                                     setFormSuccess(false)
                                 }}
@@ -224,9 +223,9 @@ export default function RoomBookings() {
                                     This room already has {selectedRoomBookings.length} booking{selectedRoomBookings.length > 1 ? "s" : ""} — avoid these times:
                                 </Text>
                                 <VStack align="stretch" gap={1}>
-                                    {selectedRoomBookings.map(b => (
-                                        <Text key={b.id} fontSize="sm" color="orange.800">
-                                            {fmt(b.startTime)} → {fmt(b.endTime)} ({patientName(b.fkPatientId)})
+                                    {selectedRoomBookings.map(booking => (
+                                        <Text key={booking.id} fontSize="sm" color="orange.800">
+                                            {fmt(booking.startTime)} → {fmt(booking.endTime)} ({patientName(booking.fkPatientId)})
                                         </Text>
                                     ))}
                                 </VStack>
@@ -236,23 +235,11 @@ export default function RoomBookings() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1} color={timesEnabled ? undefined : "gray.400"}>Start</Text>
-                                <Input
-                                    type="datetime-local"
-                                    value={startTime}
-                                    onChange={e => setStartTime(e.target.value)}
-                                    required
-                                    disabled={!timesEnabled}
-                                />
+                                <Input type="datetime-local" value={startTime} onChange={event => setStartTime(event.target.value)} required disabled={!timesEnabled} />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1} color={timesEnabled ? undefined : "gray.400"}>End</Text>
-                                <Input
-                                    type="datetime-local"
-                                    value={endTime}
-                                    onChange={e => setEndTime(e.target.value)}
-                                    required
-                                    disabled={!timesEnabled}
-                                />
+                                <Input type="datetime-local" value={endTime} onChange={event => setEndTime(event.target.value)} required disabled={!timesEnabled} />
                             </Box>
                         </HStack>
                         {!timesEnabled && (
@@ -262,13 +249,7 @@ export default function RoomBookings() {
                         {formError && <Text color="red.500" fontSize="sm">{formError}</Text>}
                         {formSuccess && <Text color="green.500" fontSize="sm">Booking created successfully.</Text>}
 
-                        <Button
-                            type="submit"
-                            bg="blue.500"
-                            color="white"
-                            disabled={submitting || !timesEnabled}
-                            alignSelf="flex-start"
-                        >
+                        <Button type="submit" bg="blue.500" color="white" disabled={submitting || !timesEnabled} alignSelf="flex-start">
                             {submitting ? <Spinner size="sm" /> : "Book Room"}
                         </Button>
                     </VStack>
@@ -301,22 +282,22 @@ export default function RoomBookings() {
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {bookings.map(b => (
-                                <Table.Row key={b.id}>
-                                    <Table.Cell>{b.id}</Table.Cell>
-                                    <Table.Cell>{patientName(b.fkPatientId)}</Table.Cell>
-                                    <Table.Cell>{roomLabel(b.fkRoomId)}</Table.Cell>
-                                    <Table.Cell>{fmt(b.startTime)}</Table.Cell>
-                                    <Table.Cell>{fmt(b.endTime)}</Table.Cell>
+                            {bookings.map(booking => (
+                                <Table.Row key={booking.id}>
+                                    <Table.Cell>{booking.id}</Table.Cell>
+                                    <Table.Cell>{patientName(booking.fkPatientId)}</Table.Cell>
+                                    <Table.Cell>{roomLabel(booking.fkRoomId)}</Table.Cell>
+                                    <Table.Cell>{fmt(booking.startTime)}</Table.Cell>
+                                    <Table.Cell>{fmt(booking.endTime)}</Table.Cell>
                                     <Table.Cell>
                                         <Button
                                             size="xs"
                                             colorPalette="red"
                                             variant="outline"
-                                            disabled={deletingId === b.id}
-                                            onClick={() => handleDelete(b.id)}
+                                            disabled={deletingId === booking.id}
+                                            onClick={() => handleDelete(booking.id)}
                                         >
-                                            {deletingId === b.id ? <Spinner size="xs" /> : "Delete"}
+                                            {deletingId === booking.id ? <Spinner size="xs" /> : "Delete"}
                                         </Button>
                                     </Table.Cell>
                                 </Table.Row>

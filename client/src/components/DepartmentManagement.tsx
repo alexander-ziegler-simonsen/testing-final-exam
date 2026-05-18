@@ -26,9 +26,9 @@ export default function DepartmentManagement() {
             .finally(() => setLoading(false))
     }, [])
 
-    function startEdit(d: Department) {
-        setEditing(d)
-        setForm({ name: d.name ?? "", type: d.type ?? "" })
+    function startEdit(dept: Department) {
+        setEditing(dept)
+        setForm({ name: dept.name ?? "", type: dept.type ?? "" })
         setFormError(null)
         setFormSuccess(null)
     }
@@ -40,8 +40,8 @@ export default function DepartmentManagement() {
         setFormSuccess(null)
     }
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (!form.name?.trim()) {
             setFormError("Department name is required.")
             return
@@ -54,7 +54,7 @@ export default function DepartmentManagement() {
         try {
             if (editing) {
                 await departmentService.update(editing.id, form)
-                setDepartments(prev => prev.map(d => d.id === editing.id ? { ...d, ...form } : d))
+                setDepartments(prev => prev.map(dept => dept.id === editing.id ? { ...dept, ...form } : dept))
                 setFormSuccess("Department updated.")
             } else {
                 await departmentService.create(form)
@@ -76,7 +76,7 @@ export default function DepartmentManagement() {
         setDeleteError(null)
         try {
             await departmentService.delete(id)
-            setDepartments(prev => prev.filter(d => d.id !== id))
+            setDepartments(prev => prev.filter(dept => dept.id !== id))
         } catch {
             setDeleteError("Failed to delete department.")
         } finally {
@@ -97,20 +97,11 @@ export default function DepartmentManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Name</Text>
-                                <Input
-                                    value={form.name ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                                    placeholder="e.g. Cardiology"
-                                    required
-                                />
+                                <Input value={form.name ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, name: event.target.value }))} placeholder="e.g. Cardiology" required />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Type</Text>
-                                <Input
-                                    value={form.type ?? ""}
-                                    onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
-                                    placeholder="e.g. Surgical"
-                                />
+                                <Input value={form.type ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, type: event.target.value }))} placeholder="e.g. Surgical" />
                             </Box>
                         </HStack>
 
@@ -146,29 +137,16 @@ export default function DepartmentManagement() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {departments.map(d => (
-                            <Table.Row key={d.id} bg={editing?.id === d.id ? "blue.50" : undefined}>
-                                <Table.Cell>{d.id}</Table.Cell>
-                                <Table.Cell>{d.name ?? "—"}</Table.Cell>
-                                <Table.Cell>{d.type ?? "—"}</Table.Cell>
+                        {departments.map(dept => (
+                            <Table.Row key={dept.id} bg={editing?.id === dept.id ? "blue.50" : undefined}>
+                                <Table.Cell>{dept.id}</Table.Cell>
+                                <Table.Cell>{dept.name ?? "—"}</Table.Cell>
+                                <Table.Cell>{dept.type ?? "—"}</Table.Cell>
                                 <Table.Cell>
                                     <HStack gap={2} justify="flex-end">
-                                        <Button
-                                            size="xs"
-                                            variant="outline"
-                                            onClick={() => startEdit(d)}
-                                            disabled={deletingId === d.id}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            size="xs"
-                                            colorPalette="red"
-                                            variant="outline"
-                                            disabled={deletingId === d.id}
-                                            onClick={() => handleDelete(d.id)}
-                                        >
-                                            {deletingId === d.id ? <Spinner size="xs" /> : "Delete"}
+                                        <Button size="xs" variant="outline" onClick={() => startEdit(dept)} disabled={deletingId === dept.id}>Edit</Button>
+                                        <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === dept.id} onClick={() => handleDelete(dept.id)}>
+                                            {deletingId === dept.id ? <Spinner size="xs" /> : "Delete"}
                                         </Button>
                                     </HStack>
                                 </Table.Cell>

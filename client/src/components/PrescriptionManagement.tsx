@@ -56,27 +56,27 @@ export default function PrescriptionManagement() {
     }, [])
 
     function medLabel(id: number) {
-        const m = medications.find(m => m.id === id)
-        return m ? (m.name ?? m.genericName ?? `#${id}`) : `#${id}`
+        const medication = medications.find(med => med.id === id)
+        return medication ? (medication.name ?? medication.genericName ?? `#${id}`) : `#${id}`
     }
 
     function treatmentLabel(id: number) {
-        const t = treatments.find(t => t.id === id)
-        return t ? `#${id}${t.description ? ` — ${t.description.slice(0, 30)}` : ""}` : `#${id}`
+        const treatment = treatments.find(treatment => treatment.id === id)
+        return treatment ? `#${id}${treatment.description ? ` — ${treatment.description.slice(0, 30)}` : ""}` : `#${id}`
     }
 
     function staffLabel(id: number) {
-        const s = staff.find(s => s.id === id)
-        return s ? `${s.firstname ?? ""} ${s.lastname ?? ""}`.trim() || `#${id}` : `#${id}`
+        const staffMember = staff.find(member => member.id === id)
+        return staffMember ? `${staffMember.firstname ?? ""} ${staffMember.lastname ?? ""}`.trim() || `#${id}` : `#${id}`
     }
 
-    function startEdit(p: Prescription) {
-        setEditing(p)
+    function startEdit(prescription: Prescription) {
+        setEditing(prescription)
         setForm({
-            fkMedicationId: p.fkMedicationId,
-            fkTreatmentId: p.fkTreatmentId,
-            fkPrescribedByStaffId: p.fkPrescribedByStaffId,
-            doses: p.doses,
+            fkMedicationId: prescription.fkMedicationId,
+            fkTreatmentId: prescription.fkTreatmentId,
+            fkPrescribedByStaffId: prescription.fkPrescribedByStaffId,
+            doses: prescription.doses,
         })
         setFormError(null)
         setFormSuccess(null)
@@ -89,8 +89,8 @@ export default function PrescriptionManagement() {
         setFormSuccess(null)
     }
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (!form.fkMedicationId || !form.fkTreatmentId || !form.fkPrescribedByStaffId) {
             setFormError("All fields are required.")
             return
@@ -107,7 +107,7 @@ export default function PrescriptionManagement() {
         try {
             if (editing) {
                 await prescriptionService.update(editing.id, form)
-                setPrescriptions(prev => prev.map(p => p.id === editing.id ? { ...p, ...form } : p))
+                setPrescriptions(prev => prev.map(prescription => prescription.id === editing.id ? { ...prescription, ...form } : prescription))
                 setFormSuccess("Prescription updated.")
             } else {
                 await prescriptionService.create(form)
@@ -129,7 +129,7 @@ export default function PrescriptionManagement() {
         setDeleteError(null)
         try {
             await prescriptionService.delete(id)
-            setPrescriptions(prev => prev.filter(p => p.id !== id))
+            setPrescriptions(prev => prev.filter(prescription => prescription.id !== id))
         } catch {
             setDeleteError("Failed to delete prescription.")
         } finally {
@@ -152,33 +152,23 @@ export default function PrescriptionManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Medication</Text>
-                                <select
-                                    value={form.fkMedicationId || ""}
-                                    onChange={e => setForm(f => ({ ...f, fkMedicationId: Number(e.target.value) }))}
-                                    style={selectStyle}
-                                    required
-                                >
+                                <select value={form.fkMedicationId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkMedicationId: Number(event.target.value) }))} style={selectStyle} required>
                                     <option value="">Select medication…</option>
-                                    {medications.map(m => (
-                                        <option key={m.id} value={m.id}>
-                                            {m.name ?? m.genericName ?? `#${m.id}`}
-                                            {m.strength ? ` — ${m.strength}` : ""}
+                                    {medications.map(med => (
+                                        <option key={med.id} value={med.id}>
+                                            {med.name ?? med.genericName ?? `#${med.id}`}
+                                            {med.strength ? ` — ${med.strength}` : ""}
                                         </option>
                                     ))}
                                 </select>
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Treatment</Text>
-                                <select
-                                    value={form.fkTreatmentId || ""}
-                                    onChange={e => setForm(f => ({ ...f, fkTreatmentId: Number(e.target.value) }))}
-                                    style={selectStyle}
-                                    required
-                                >
+                                <select value={form.fkTreatmentId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkTreatmentId: Number(event.target.value) }))} style={selectStyle} required>
                                     <option value="">Select treatment…</option>
-                                    {treatments.map(t => (
-                                        <option key={t.id} value={t.id}>
-                                            {treatmentLabel(t.id)}
+                                    {treatments.map(treatment => (
+                                        <option key={treatment.id} value={treatment.id}>
+                                            {treatmentLabel(treatment.id)}
                                         </option>
                                     ))}
                                 </select>
@@ -188,31 +178,18 @@ export default function PrescriptionManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Prescribed by</Text>
-                                <select
-                                    value={form.fkPrescribedByStaffId || ""}
-                                    onChange={e => setForm(f => ({ ...f, fkPrescribedByStaffId: Number(e.target.value) }))}
-                                    style={selectStyle}
-                                    required
-                                >
+                                <select value={form.fkPrescribedByStaffId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkPrescribedByStaffId: Number(event.target.value) }))} style={selectStyle} required>
                                     <option value="">Select staff…</option>
-                                    {staff.map(s => (
-                                        <option key={s.id} value={s.id}>
-                                            {staffLabel(s.id)} (#{s.id})
+                                    {staff.map(member => (
+                                        <option key={member.id} value={member.id}>
+                                            {staffLabel(member.id)} (#{member.id})
                                         </option>
                                     ))}
                                 </select>
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Doses</Text>
-                                <Input
-                                    type="number"
-                                    min={0.01}
-                                    step="any"
-                                    value={form.doses || ""}
-                                    onChange={e => setForm(f => ({ ...f, doses: parseFloat(e.target.value) || 0 }))}
-                                    placeholder="e.g. 2"
-                                    required
-                                />
+                                <Input type="number" min={0.01} step="any" value={form.doses || ""} onChange={event => setForm(prevForm => ({ ...prevForm, doses: parseFloat(event.target.value) || 0 }))} placeholder="e.g. 2" required />
                             </Box>
                         </HStack>
 
@@ -224,9 +201,7 @@ export default function PrescriptionManagement() {
                                 {submitting ? <Spinner size="sm" /> : editing ? "Save Changes" : "Add Prescription"}
                             </Button>
                             {editing && (
-                                <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>
-                                    Cancel
-                                </Button>
+                                <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>Cancel</Button>
                             )}
                         </HStack>
                     </VStack>
@@ -250,31 +225,18 @@ export default function PrescriptionManagement() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {prescriptions.map(p => (
-                            <Table.Row key={p.id} bg={editing?.id === p.id ? "blue.50" : undefined}>
-                                <Table.Cell>{p.id}</Table.Cell>
-                                <Table.Cell>{medLabel(p.fkMedicationId)}</Table.Cell>
-                                <Table.Cell>{treatmentLabel(p.fkTreatmentId)}</Table.Cell>
-                                <Table.Cell>{staffLabel(p.fkPrescribedByStaffId)}</Table.Cell>
-                                <Table.Cell>{p.doses}</Table.Cell>
+                        {prescriptions.map(prescription => (
+                            <Table.Row key={prescription.id} bg={editing?.id === prescription.id ? "blue.50" : undefined}>
+                                <Table.Cell>{prescription.id}</Table.Cell>
+                                <Table.Cell>{medLabel(prescription.fkMedicationId)}</Table.Cell>
+                                <Table.Cell>{treatmentLabel(prescription.fkTreatmentId)}</Table.Cell>
+                                <Table.Cell>{staffLabel(prescription.fkPrescribedByStaffId)}</Table.Cell>
+                                <Table.Cell>{prescription.doses}</Table.Cell>
                                 <Table.Cell>
                                     <HStack gap={2} justify="flex-end">
-                                        <Button
-                                            size="xs"
-                                            variant="outline"
-                                            onClick={() => startEdit(p)}
-                                            disabled={deletingId === p.id}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            size="xs"
-                                            colorPalette="red"
-                                            variant="outline"
-                                            disabled={deletingId === p.id}
-                                            onClick={() => handleDelete(p.id)}
-                                        >
-                                            {deletingId === p.id ? <Spinner size="xs" /> : "Delete"}
+                                        <Button size="xs" variant="outline" onClick={() => startEdit(prescription)} disabled={deletingId === prescription.id}>Edit</Button>
+                                        <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === prescription.id} onClick={() => handleDelete(prescription.id)}>
+                                            {deletingId === prescription.id ? <Spinner size="xs" /> : "Delete"}
                                         </Button>
                                     </HStack>
                                 </Table.Cell>

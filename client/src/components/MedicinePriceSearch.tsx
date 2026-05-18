@@ -65,25 +65,12 @@ export default function MedicinePriceSearch() {
                 >
                     By Name
                 </Button>
-                <Button
-                    size="sm"
-                    bg={searchMode === "ingredient" ? "blue.500" : "gray.200"}
-                    color={searchMode === "ingredient" ? "white" : "black"}
-                    onClick={() => setSearchMode("ingredient")} >
-                    By Ingredient
-                </Button>
+                <Button size="sm" bg={searchMode === "ingredient" ? "blue.500" : "gray.200"} color={searchMode === "ingredient" ? "white" : "black"} onClick={() => setSearchMode("ingredient")} >By Ingredient</Button>
             </HStack>
 
             <HStack mb={6}>
-                <Input
-                    placeholder={searchMode === "name" ? "e.g. Ibuprofen" : "e.g. paracetamol"}
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                />
-                <Button bg="blue.500" color="white" onClick={handleSearch} px={6}>
-                    Search
-                </Button>
+                <Input placeholder={searchMode === "name" ? "e.g. Ibuprofen" : "e.g. paracetamol"} value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSearch()} />
+                <Button bg="blue.500" color="white" onClick={handleSearch} px={6}>Search</Button>
             </HStack>
 
             {loading && <Spinner />}
@@ -100,9 +87,7 @@ export default function MedicinePriceSearch() {
                                     <Text fontSize="sm" color="gray.500">{p.firma} — {p.styrke} — {p.pakning}</Text>
                                     <Badge mt={1}>#{p.varenummer}</Badge>
                                 </Box>
-                                <Button size="sm" variant="outline" onClick={() => handleViewDetails(p.varenummer)}>
-                                    Details
-                                </Button>
+                                <Button size="sm" variant="outline" onClick={() => handleViewDetails(p.varenummer)}>Details</Button>
                             </HStack>
                         </Box>
                     ))}
@@ -114,9 +99,7 @@ export default function MedicinePriceSearch() {
                 <Box borderWidth={1} borderRadius="md" p={4}>
                     <HStack justify="space-between" mb={3}>
                         <Heading size="sm">{detail.navn}</Heading>
-                        <Button size="sm" variant="outline" onClick={() => setDetail(null)}>
-                            Back to results
-                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => setDetail(null)}>Back to results</Button>
                     </HStack>
                     <VStack align="start" gap={1} fontSize="sm">
                         {detail.firma && <Text><b>Firma:</b> {detail.firma}</Text>}

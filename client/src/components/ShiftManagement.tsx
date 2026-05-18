@@ -3,12 +3,12 @@ import { Box, Button, Heading, HStack, Input, Spinner, Table, Text, VStack } fro
 import { shiftService, type ShiftInput } from "../services/ShiftService"
 import type { Shift } from "../entites/Shift"
 
-const fmt = (d: string) => new Date(d).toLocaleString()
+const fmt = (dateStr: string) => new Date(dateStr).toLocaleString()
 
 function toLocalInput(iso: string) {
-    const d = new Date(iso)
-    d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
-    return d.toISOString().slice(0, 16)
+    const date = new Date(iso)
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+    return date.toISOString().slice(0, 16)
 }
 
 function localDateTimeNow() {
@@ -47,9 +47,9 @@ export default function ShiftManagement() {
             .finally(() => setLoading(false))
     }, [])
 
-    function startEdit(s: Shift) {
-        setEditing(s)
-        setForm({ startTime: toLocalInput(s.startTime), endTime: toLocalInput(s.endTime) })
+    function startEdit(shift: Shift) {
+        setEditing(shift)
+        setForm({ startTime: toLocalInput(shift.startTime), endTime: toLocalInput(shift.endTime) })
         setFormError(null)
         setFormSuccess(null)
     }
@@ -61,8 +61,8 @@ export default function ShiftManagement() {
         setFormSuccess(null)
     }
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (new Date(form.startTime) >= new Date(form.endTime)) {
             setFormError("End time must be after start time.")
             return
@@ -80,7 +80,7 @@ export default function ShiftManagement() {
         try {
             if (editing) {
                 await shiftService.update(editing.id, payload)
-                setShifts(prev => prev.map(s => s.id === editing.id ? { ...s, ...payload } : s))
+                setShifts(prev => prev.map(shift => shift.id === editing.id ? { ...shift, ...payload } : shift))
                 setFormSuccess("Shift updated.")
             } else {
                 await shiftService.create(payload)
@@ -102,7 +102,7 @@ export default function ShiftManagement() {
         setDeleteError(null)
         try {
             await shiftService.delete(id)
-            setShifts(prev => prev.filter(s => s.id !== id))
+            setShifts(prev => prev.filter(shift => shift.id !== id))
         } catch {
             setDeleteError("Failed to delete shift.")
         } finally {
@@ -125,21 +125,11 @@ export default function ShiftManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Start</Text>
-                                <Input
-                                    type="datetime-local"
-                                    value={form.startTime}
-                                    onChange={e => setForm(f => ({ ...f, startTime: e.target.value }))}
-                                    required
-                                />
+                                <Input type="datetime-local" value={form.startTime} onChange={event => setForm(prevForm => ({ ...prevForm, startTime: event.target.value }))} required />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>End</Text>
-                                <Input
-                                    type="datetime-local"
-                                    value={form.endTime}
-                                    onChange={e => setForm(f => ({ ...f, endTime: e.target.value }))}
-                                    required
-                                />
+                                <Input type="datetime-local" value={form.endTime} onChange={event => setForm(prevForm => ({ ...prevForm, endTime: event.target.value }))} required />
                             </Box>
                         </HStack>
 
@@ -151,9 +141,7 @@ export default function ShiftManagement() {
                                 {submitting ? <Spinner size="sm" /> : editing ? "Save Changes" : "Add Shift"}
                             </Button>
                             {editing && (
-                                <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>
-                                    Cancel
-                                </Button>
+                                <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>Cancel</Button>
                             )}
                         </HStack>
                     </VStack>
@@ -175,29 +163,16 @@ export default function ShiftManagement() {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {shifts.map(s => (
-                            <Table.Row key={s.id} bg={editing?.id === s.id ? "blue.50" : undefined}>
-                                <Table.Cell>{s.id}</Table.Cell>
-                                <Table.Cell>{fmt(s.startTime)}</Table.Cell>
-                                <Table.Cell>{fmt(s.endTime)}</Table.Cell>
+                        {shifts.map(shift => (
+                            <Table.Row key={shift.id} bg={editing?.id === shift.id ? "blue.50" : undefined}>
+                                <Table.Cell>{shift.id}</Table.Cell>
+                                <Table.Cell>{fmt(shift.startTime)}</Table.Cell>
+                                <Table.Cell>{fmt(shift.endTime)}</Table.Cell>
                                 <Table.Cell>
                                     <HStack gap={2} justify="flex-end">
-                                        <Button
-                                            size="xs"
-                                            variant="outline"
-                                            onClick={() => startEdit(s)}
-                                            disabled={deletingId === s.id}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            size="xs"
-                                            colorPalette="red"
-                                            variant="outline"
-                                            disabled={deletingId === s.id}
-                                            onClick={() => handleDelete(s.id)}
-                                        >
-                                            {deletingId === s.id ? <Spinner size="xs" /> : "Delete"}
+                                        <Button size="xs" variant="outline" onClick={() => startEdit(shift)} disabled={deletingId === shift.id}>Edit</Button>
+                                        <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === shift.id} onClick={() => handleDelete(shift.id)}>
+                                            {deletingId === shift.id ? <Spinner size="xs" /> : "Delete"}
                                         </Button>
                                     </HStack>
                                 </Table.Cell>

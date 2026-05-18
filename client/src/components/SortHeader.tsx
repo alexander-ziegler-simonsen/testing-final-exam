@@ -14,23 +14,11 @@ export default function SortHeader({ col, label, sortBy, sortDir, onSort, filter
     const active = sortBy === col
     return (
         <Table.ColumnHeader style={{ verticalAlign: "top" }}>
-            <Box
-                cursor="pointer"
-                userSelect="none"
-                onClick={() => onSort(col)}
-                mb={onFilter ? 1 : 0}
-                whiteSpace="nowrap"
-            >
+            <Box cursor="pointer" userSelect="none" onClick={() => onSort(col)} mb={onFilter ? 1 : 0} whiteSpace="nowrap">
                 {label}{active ? (sortDir === 'asc' ? ' ↑' : ' ↓') : ' ↕'}
             </Box>
             {onFilter && (
-                <Input
-                    size="xs"
-                    value={filterValue ?? ''}
-                    onChange={e => onFilter(col, e.target.value)}
-                    onClick={e => e.stopPropagation()}
-                    placeholder="Search…"
-                />
+                <Input size="xs" value={filterValue ?? ''} onChange={event => onFilter(col, event.target.value)} onClick={event => event.stopPropagation()} placeholder="Search…" />
             )}
         </Table.ColumnHeader>
     )

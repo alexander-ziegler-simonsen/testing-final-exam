@@ -8,7 +8,7 @@ interface Props {
 }
 
 function medicationName(medications: Medication[], id: number) {
-    const med = medications.find(m => m.id === id)
+    const med = medications.find(medication => medication.id === id)
     return med?.name ?? `Medication #${id}`
 }
 
@@ -25,11 +25,11 @@ export default function MedicationStorageTable({ storages, medications }: Props)
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                {storages.map(s => (
-                    <Table.Row key={s.id}>
-                        <Table.Cell>{s.id}</Table.Cell>
-                        <Table.Cell>{medicationName(medications, s.fkMedicationId)}</Table.Cell>
-                        <Table.Cell>{s.amount}</Table.Cell>
+                {storages.map(storageEntry => (
+                    <Table.Row key={storageEntry.id}>
+                        <Table.Cell>{storageEntry.id}</Table.Cell>
+                        <Table.Cell>{medicationName(medications, storageEntry.fkMedicationId)}</Table.Cell>
+                        <Table.Cell>{storageEntry.amount}</Table.Cell>
                     </Table.Row>
                 ))}
             </Table.Body>

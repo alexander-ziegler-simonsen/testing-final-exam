@@ -4,13 +4,13 @@ export interface TableQuery {
     filters?: Record<string, string>
 }
 
-export function buildQueryString(q?: TableQuery): string {
+export function buildQueryString(query?: TableQuery): string {
     const params = new URLSearchParams()
-    if (q?.sortBy)  params.set('sortBy',  q.sortBy)
-    if (q?.sortDir) params.set('sortDir', q.sortDir)
-    for (const [col, val] of Object.entries(q?.filters ?? {})) {
+    if (query?.sortBy)  params.set('sortBy',  query.sortBy)
+    if (query?.sortDir) params.set('sortDir', query.sortDir)
+    for (const [col, val] of Object.entries(query?.filters ?? {})) {
         if (val) params.set(col, val)
     }
-    const s = params.toString()
-    return s ? `?${s}` : ''
+    const queryString = params.toString()
+    return queryString ? `?${queryString}` : ''
 }

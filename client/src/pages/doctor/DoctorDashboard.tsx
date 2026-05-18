@@ -115,13 +115,13 @@ export default function DoctorDashboard() {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {patients.data.map(p => (
-                                    <Table.Row key={p.id}>
-                                        <Table.Cell>{p.id}</Table.Cell>
-                                        <Table.Cell>{p.firstname ?? "—"}</Table.Cell>
-                                        <Table.Cell>{p.lastname ?? "—"}</Table.Cell>
-                                        <Table.Cell>{p.gender ?? "—"}</Table.Cell>
-                                        <Table.Cell>{p.cprNumber ?? "—"}</Table.Cell>
+                                {patients.data.map(patient => (
+                                    <Table.Row key={patient.id}>
+                                        <Table.Cell>{patient.id}</Table.Cell>
+                                        <Table.Cell>{patient.firstname ?? "—"}</Table.Cell>
+                                        <Table.Cell>{patient.lastname ?? "—"}</Table.Cell>
+                                        <Table.Cell>{patient.gender ?? "—"}</Table.Cell>
+                                        <Table.Cell>{patient.cprNumber ?? "—"}</Table.Cell>
                                     </Table.Row>
                                 ))}
                             </Table.Body>
@@ -139,12 +139,7 @@ export default function DoctorDashboard() {
                                 <VStack align="stretch" gap={3}>
                                     <Box>
                                         <Text fontWeight="medium" fontSize="sm" mb={1}>Patient</Text>
-                                        <select
-                                            value={form.fkPatientId}
-                                            onChange={event => setForm(prevForm => ({ ...prevForm, fkPatientId: Number(event.target.value) }))}
-                                            style={selectStyle}
-                                            required
-                                        >
+                                        <select value={form.fkPatientId} onChange={event => setForm(prevForm => ({ ...prevForm, fkPatientId: Number(event.target.value) }))} style={selectStyle} required>
                                             {patients.data.map(patient => (
                                                 <option key={patient.id} value={patient.id}>
                                                     {patient.firstname} {patient.lastname} (#{patient.id})
@@ -154,29 +149,18 @@ export default function DoctorDashboard() {
                                     </Box>
                                     <Box>
                                         <Text fontWeight="medium" fontSize="sm" mb={1}>Description</Text>
-                                        <Textarea
-                                            value={form.description ?? ""}
-                                            onChange={event => setForm(prevForm => ({ ...prevForm, description: event.target.value }))}
-                                            rows={2}
-                                        />
+                                        <Textarea value={form.description ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, description: event.target.value }))} rows={2} />
                                     </Box>
                                     <Box>
                                         <Text fontWeight="medium" fontSize="sm" mb={1}>Time</Text>
-                                        <Input
-                                            type="datetime-local"
-                                            value={form.time}
-                                            onChange={event => setForm(prevForm => ({ ...prevForm, time: event.target.value }))}
-                                            required
-                                        />
+                                        <Input type="datetime-local" value={form.time} onChange={event => setForm(prevForm => ({ ...prevForm, time: event.target.value }))} required />
                                     </Box>
                                     {formError && <Text color="red.500" fontSize="sm">{formError}</Text>}
                                     <HStack gap={3}>
                                         <Button type="submit" bg="blue.500" color="white" disabled={submitting}>
                                             {submitting ? <Spinner size="sm" /> : "Save Changes"}
                                         </Button>
-                                        <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>
-                                            Cancel
-                                        </Button>
+                                        <Button type="button" variant="outline" onClick={cancelEdit} disabled={submitting}>Cancel</Button>
                                     </HStack>
                                 </VStack>
                             </form>
@@ -191,10 +175,10 @@ export default function DoctorDashboard() {
                         <Table.Root size="sm">
                             <Table.Header>
                                 <Table.Row>
-                                    <SortHeader col="id"          label="ID"          sortBy={treatments.sortBy} sortDir={treatments.sortDir} onSort={treatments.onSort} />
-                                    <SortHeader col="fkpatientid" label="Patient"      sortBy={treatments.sortBy} sortDir={treatments.sortDir} onSort={treatments.onSort} />
-                                    <SortHeader col="description" label="Description"  sortBy={treatments.sortBy} sortDir={treatments.sortDir} onSort={treatments.onSort} filterValue={treatments.filters.description} onFilter={treatments.setFilter} />
-                                    <SortHeader col="time"        label="Time"         sortBy={treatments.sortBy} sortDir={treatments.sortDir} onSort={treatments.onSort} />
+                                    <SortHeader col="id" label="ID" sortBy={treatments.sortBy} sortDir={treatments.sortDir} onSort={treatments.onSort} />
+                                    <SortHeader col="fkpatientid" label="Patient" sortBy={treatments.sortBy} sortDir={treatments.sortDir} onSort={treatments.onSort} />
+                                    <SortHeader col="description" label="Description" sortBy={treatments.sortBy} sortDir={treatments.sortDir} onSort={treatments.onSort} filterValue={treatments.filters.description} onFilter={treatments.setFilter} />
+                                    <SortHeader col="time" label="Time" sortBy={treatments.sortBy} sortDir={treatments.sortDir} onSort={treatments.onSort} />
                                     <Table.ColumnHeader />
                                 </Table.Row>
                             </Table.Header>
@@ -207,9 +191,7 @@ export default function DoctorDashboard() {
                                         <Table.Cell>{formatDate(treatment.time)}</Table.Cell>
                                         <Table.Cell>
                                             <HStack gap={2} justify="flex-end">
-                                                <Button size="xs" variant="outline" onClick={() => startEdit(treatment)} disabled={deletingId === treatment.id}>
-                                                    Edit
-                                                </Button>
+                                                <Button size="xs" variant="outline" onClick={() => startEdit(treatment)} disabled={deletingId === treatment.id}>Edit</Button>
                                                 <Button size="xs" colorPalette="red" variant="outline" disabled={deletingId === treatment.id} onClick={() => handleDelete(treatment.id)}>
                                                     {deletingId === treatment.id ? <Spinner size="xs" /> : "Delete"}
                                                 </Button>

@@ -35,13 +35,13 @@ export default function ReportMissingForm({ storages, medications, onReported }:
     const [formSuccess, setFormSuccess] = useState(false)
 
     function medicationLabel(storageEntry: MedicationStorage) {
-        const med = medications.find(m => m.id === storageEntry.fkMedicationId)
+        const med = medications.find(medication => medication.id === storageEntry.fkMedicationId)
         const name = med?.name ?? `Medication #${storageEntry.fkMedicationId}`
         return `${name} (Storage #${storageEntry.id}, stock: ${storageEntry.amount})`
     }
 
-    async function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault()
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
         if (storageId === "" || !amount) return
 
         const amountNum = parseFloat(amount)
@@ -83,8 +83,8 @@ export default function ReportMissingForm({ storages, medications, onReported }:
                         <Text fontWeight="medium" fontSize="sm" mb={1}>Medication Storage</Text>
                         <select
                             value={storageId}
-                            onChange={e => {
-                                setStorageId(e.target.value === "" ? "" : Number(e.target.value))
+                            onChange={event => {
+                                setStorageId(event.target.value === "" ? "" : Number(event.target.value))
                                 setFormError(null)
                                 setFormSuccess(false)
                             }}
@@ -92,9 +92,9 @@ export default function ReportMissingForm({ storages, medications, onReported }:
                             style={selectStyle}
                         >
                             <option value="">Select a storage entry…</option>
-                            {storages.map(s => (
-                                <option key={s.id} value={s.id}>
-                                    {medicationLabel(s)}
+                            {storages.map(storageEntry => (
+                                <option key={storageEntry.id} value={storageEntry.id}>
+                                    {medicationLabel(storageEntry)}
                                 </option>
                             ))}
                         </select>
@@ -102,14 +102,9 @@ export default function ReportMissingForm({ storages, medications, onReported }:
 
                     <Box>
                         <Text fontWeight="medium" fontSize="sm" mb={1}>Amount Missing</Text>
-                        <Input
-                            type="number"
-                            min="0.01"
-                            step="any"
-                            placeholder="e.g. 5"
-                            value={amount}
-                            onChange={e => {
-                                setAmount(e.target.value)
+                        <Input type="number" min="0.01" step="any" placeholder="e.g. 5" value={amount} 
+                            onChange={event => {
+                                setAmount(event.target.value)
                                 setFormError(null)
                                 setFormSuccess(false)
                             }}
@@ -119,24 +114,13 @@ export default function ReportMissingForm({ storages, medications, onReported }:
 
                     <Box>
                         <Text fontWeight="medium" fontSize="sm" mb={1}>Went Missing At</Text>
-                        <Input
-                            type="datetime-local"
-                            value={wentMissingAt}
-                            onChange={e => setWentMissingAt(e.target.value)}
-                            required
-                        />
+                        <Input type="datetime-local" value={wentMissingAt} onChange={event => setWentMissingAt(event.target.value)} required />
                     </Box>
 
                     {formError && <Text color="red.500" fontSize="sm">{formError}</Text>}
                     {formSuccess && <Text color="green.500" fontSize="sm">Missing medicine reported successfully.</Text>}
 
-                    <Button
-                        type="submit"
-                        bg="orange.500"
-                        color="white"
-                        disabled={submitting || storageId === ""}
-                        alignSelf="flex-start"
-                    >
+                    <Button type="submit" bg="orange.500" color="white" disabled={submitting || storageId === ""} alignSelf="flex-start">
                         {submitting ? <Spinner size="sm" /> : "Report Missing"}
                     </Button>
                 </VStack>
