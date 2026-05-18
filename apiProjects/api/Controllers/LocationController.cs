@@ -1,4 +1,5 @@
-﻿using hospitalApi.DTOs.Outputs;
+﻿using hospitalApi.DTOs.Inputs;
+using hospitalApi.DTOs.Outputs;
 using hospitalApi.Services;
 using hospitalApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -38,22 +39,49 @@ namespace hospitalApi.Controllers
                 return Ok(output);
         }
 
-        // POST api/<LocationController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // GET api/location/floor
+        [HttpGet("floor")]
+        public async Task<IEnumerable<FloorRoomsOutput>> GetAllFloors()
         {
+            return await _locationService.getOneAllFloors();
         }
 
-        // PUT api/<LocationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // GET api/location/floor/5
+        [HttpGet("floor/{id}")]
+        public async Task<ActionResult<FloorRoomsOutput>> GetFloor(int id)
         {
+            var output = await _locationService.getOneFloorWithRooms(id);
+            if (output == null)
+                return NotFound();
+            return Ok(output);
         }
 
-        // DELETE api/<LocationController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // POST api/location/floor
+        [HttpPost("floor")]
+        public async Task<ActionResult<int>> PostFloor([FromBody] FloorInput input)
         {
+            var newId = await _locationService.PostOneFloor(input);
+            return Ok(newId);
+        }
+
+        // PUT api/location/floor/5
+        [HttpPut("floor/{id}")]
+        public async Task<ActionResult> PutFloor(int id, [FromBody] FloorInput input)
+        {
+            var success = await _locationService.EditOnefloor(id, input);
+            if (!success)
+                return NotFound();
+            return NoContent();
+        }
+
+        // DELETE api/location/floor/5
+        [HttpDelete("floor/{id}")]
+        public async Task<ActionResult> DeleteFloor(int id)
+        {
+            var success = await _locationService.DeleteOneFloor(id);
+            if (!success)
+                return NotFound();
+            return NoContent();
         }
     }
 }

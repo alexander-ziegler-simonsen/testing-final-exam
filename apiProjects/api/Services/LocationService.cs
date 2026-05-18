@@ -52,23 +52,55 @@ namespace hospitalApi.Services
 
         public async Task<List<FloorRoomsOutput>> getOneAllFloors()
         {
-            // var raw = await
-            return null;
-        }
-        public async Task<FloorRoomsOutput> getOneFloorWithRooms(int floorId)
-        {
-            // var raw = await
-            return null;
+            var entities = await _floors
+                .Include(f => f.Rooms)
+                .ToListAsync();
+
+            return _mapper.Map<List<FloorRoomsOutput>>(entities);
         }
 
-        public async Task<bool> EditOnefloor(int id, FloorInput input) {
-            return false;
+        public async Task<FloorRoomsOutput> getOneFloorWithRooms(int floorId)
+        {
+            var entity = await _floors
+                .Include(f => f.Rooms)
+                .FirstOrDefaultAsync(f => f.Id == floorId);
+
+            if (entity == null)
+                return null;
+
+            return _mapper.Map<FloorRoomsOutput>(entity);
         }
-        public async Task<int> PostOneFloor(FloorInput input) {
-            return 0;
+
+        public async Task<bool> EditOnefloor(int id, FloorInput input)
+        {
+            var entity = await _floors.FirstOrDefaultAsync(f => f.Id == id);
+            if (entity == null)
+                return false;
+
+            entity.Name = input.Name;
+            entity.FkBuildingId = input.FkBuildingId;
+
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
-        public async Task<bool> DeleteOneFloor(int id) {
-            return false;
+
+        public async Task<int> PostOneFloor(FloorInput input)
+        {
+            var entity = _mapper.Map<Floor>(input);
+            await _floors.AddAsync(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return entity.Id;
+        }
+
+        public async Task<bool> DeleteOneFloor(int id)
+        {
+            var entity = await _floors.FirstOrDefaultAsync(f => f.Id == id);
+            if (entity == null)
+                return false;
+
+            _floors.Remove(entity);
+            await _hospitalContext.SaveChangesAsync();
+            return true;
         }
     }
 }

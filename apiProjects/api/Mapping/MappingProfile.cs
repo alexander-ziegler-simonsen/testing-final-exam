@@ -11,6 +11,7 @@ namespace hospitalApi.Mapping
         {
             CreateMap<Room, RoomOutput>();
             CreateMap<Floor, FloorOutput>();
+            CreateMap<FloorInput, Floor>();
             CreateMap<Medication, MedicationOutput>();
             CreateMap<MedicationInput, Medication>();
             CreateMap<MedicationStorage, MedicationStorageOutput>();
