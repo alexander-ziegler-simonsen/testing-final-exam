@@ -1,29 +1,26 @@
 name: API unit tests
 on:
     push:
-        branches: [main, master]
     pull_request:
-        branches: [main, master]
 jobs:
     apiLocalTests:
-        environment: monoEnv # the name of the environment
-        timeout-minutes: 10
+        environment: monoEnv
+        timeout-minutes: 15
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
-            
-            - name: setup .NET
+
+            - name: Setup .NET
               uses: actions/setup-dotnet@v4
               with:
                   dotnet-version: '10.0.x'
-            
+
             - name: Restore
-              run: dotnet restore dotnetApi/tradeItApi/tradeItApi.slnx
+              run: dotnet restore apiProjects/apiTesting/hospitalApiTesting.csproj
 
             - name: Build
-              run: dotnet build dotnetApi/tradeItApi/tradeItApi.slnx --no-restore --configuration Release
-
+              run: dotnet build apiProjects/apiTesting/hospitalApiTesting.csproj --no-restore --configuration Release
 
             - name: Test
-              run: dotnet test dotnetApi/tradeItApi/tradeItApi.slnx --no-build --configuration Release
+              run: dotnet test apiProjects/apiTesting/hospitalApiTesting.csproj --no-build --configuration Release
