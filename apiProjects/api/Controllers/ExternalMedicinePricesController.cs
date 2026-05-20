@@ -12,7 +12,7 @@ namespace hospitalApi.Controllers
     {
         public IExternalApiService _externalApiService;
 
-        public ExternalMedicinePricesController (IExternalApiService externalApiService)
+        public ExternalMedicinePricesController(IExternalApiService externalApiService)
         {
             _externalApiService = externalApiService;
         }

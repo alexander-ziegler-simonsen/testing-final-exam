@@ -11,7 +11,8 @@ namespace hospitalApi.Controllers
     {
         private IStaffService _StaffService;
 
-        public StaffController (IStaffService StaffService) {
+        public StaffController(IStaffService StaffService)
+        {
             _StaffService = StaffService;
         }
 

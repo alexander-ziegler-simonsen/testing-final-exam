@@ -7,7 +7,7 @@ namespace hospitalApi.Services.Interfaces
     {
         Task<IEnumerable<DepartmentOutput>> GetAll();
         Task<DepartmentOutput> GetOne(int id);
-        Task<bool> EditDepartment(int DepartmentId,DepartmentInput editedDepartmentData);
+        Task<bool> EditDepartment(int DepartmentId, DepartmentInput editedDepartmentData);
         Task<bool> DeleteDepartment(int id);
         Task<bool> CreateDepartment(DepartmentInput newDepartment);
     }

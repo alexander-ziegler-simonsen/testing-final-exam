@@ -48,8 +48,8 @@ namespace hospitalApi.Mapping
                 .ForMember(dest => dest.FloorsWithRooms, opt => opt.MapFrom(src => src.Floors));
 
             CreateMap<Floor, FloorRoomsOutput>()
-                .ForMember(dest => dest.Floor, opt => opt.MapFrom(src => src))          
-                .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms));   
+                .ForMember(dest => dest.Floor, opt => opt.MapFrom(src => src))
+                .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms));
         }
     }
 

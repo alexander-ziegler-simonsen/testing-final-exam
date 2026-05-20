@@ -11,7 +11,8 @@ namespace hospitalApi.Controllers
     {
         private IPatientService _PatientService;
 
-        public PatientController (IPatientService PatientService) {
+        public PatientController(IPatientService PatientService)
+        {
             _PatientService = PatientService;
         }
 

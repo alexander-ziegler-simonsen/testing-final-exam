@@ -13,7 +13,7 @@ namespace hospitalApi.Services
 
         JsonSerializerOptions _theSetting;
 
-        public ExternalApiService(HttpClient httpClient)  
+        public ExternalApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
             _theSetting = new JsonSerializerOptions
@@ -26,7 +26,7 @@ namespace hospitalApi.Services
         {
             var response = await _httpClient.GetAsync($"produkter/{productName}?format=json");
             response.EnsureSuccessStatusCode();
-            
+
             var json = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<List<MedicineProductOutput>>(json, _theSetting);
         }

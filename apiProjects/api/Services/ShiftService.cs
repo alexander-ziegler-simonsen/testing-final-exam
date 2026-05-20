@@ -34,8 +34,8 @@ namespace hospitalApi.Services
             query = sortBy?.ToLower() switch
             {
                 "starttime" => desc ? query.OrderByDescending(s => s.StartTime) : query.OrderBy(s => s.StartTime),
-                "endtime"   => desc ? query.OrderByDescending(s => s.EndTime)   : query.OrderBy(s => s.EndTime),
-                _           => desc ? query.OrderByDescending(s => s.Id)        : query.OrderBy(s => s.Id),
+                "endtime" => desc ? query.OrderByDescending(s => s.EndTime) : query.OrderBy(s => s.EndTime),
+                _ => desc ? query.OrderByDescending(s => s.Id) : query.OrderBy(s => s.Id),
             };
 
             var entities = await query.ToListAsync();

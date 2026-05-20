@@ -11,7 +11,8 @@ namespace hospitalApi.Controllers
     {
         private IStorageService _MedicationStorageService;
 
-        public StorageController (IStorageService MedicationStorageService) {
+        public StorageController(IStorageService MedicationStorageService)
+        {
             _MedicationStorageService = MedicationStorageService;
         }
 

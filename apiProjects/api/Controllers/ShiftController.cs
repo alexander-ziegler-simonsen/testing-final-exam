@@ -11,7 +11,8 @@ namespace hospitalApi.Controllers
     {
         private IShiftService _ShiftService;
 
-        public ShiftController (IShiftService ShiftService) {
+        public ShiftController(IShiftService ShiftService)
+        {
             _ShiftService = ShiftService;
         }
 

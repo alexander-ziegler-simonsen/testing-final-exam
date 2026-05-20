@@ -14,7 +14,8 @@ namespace hospitalApi.Controllers
     {
         private ILocationService _locationService;
 
-        public LocationController (ILocationService locationService) {
+        public LocationController(ILocationService locationService)
+        {
             _locationService = locationService;
         }
 

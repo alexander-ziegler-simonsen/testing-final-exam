@@ -11,7 +11,8 @@ namespace hospitalApi.Controllers
     {
         private ITreatmentService _TreatmentService;
 
-        public TreatmentController (ITreatmentService TreatmentService) {
+        public TreatmentController(ITreatmentService TreatmentService)
+        {
             _TreatmentService = TreatmentService;
         }
 

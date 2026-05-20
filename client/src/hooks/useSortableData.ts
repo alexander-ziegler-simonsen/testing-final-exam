@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import type { TableQuery } from '../services/tableQuery'
 
 export interface SortableData<T> {
@@ -28,7 +28,7 @@ export function useSortableData<T>(
 
     const fetcherRef = useRef(fetcher)
     const isFirstRender = useRef(true)
-    fetcherRef.current = fetcher
+    useLayoutEffect(() => { fetcherRef.current = fetcher })
 
     // Debounce filter changes — skip on first render so we don't double-fetch on mount
     useEffect(() => {
@@ -42,12 +42,11 @@ export function useSortableData<T>(
 
     // Re-fetch when debounced filters or sort state changes
     useEffect(() => {
-        setLoading(true)
-        setError(null)
+        let cancelled = false
         fetcherRef.current({ sortBy, sortDir, filters: debouncedFilters })
-            .then(setData)
-            .catch(() => setError('Failed to load data'))
-            .finally(() => setLoading(false))
+            .then(data => { if (!cancelled) { setData(data); setError(null); setLoading(false) } })
+            .catch(() => { if (!cancelled) { setError('Failed to load data'); setLoading(false) } })
+        return () => { cancelled = true }
     }, [debouncedFilters, sortBy, sortDir])
 
     function onSort(col: string) {

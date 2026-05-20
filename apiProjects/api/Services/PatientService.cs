@@ -41,10 +41,10 @@ namespace hospitalApi.Services
             query = sortBy?.ToLower() switch
             {
                 "firstname" => desc ? query.OrderByDescending(p => p.Firstname) : query.OrderBy(p => p.Firstname),
-                "lastname"  => desc ? query.OrderByDescending(p => p.Lastname)  : query.OrderBy(p => p.Lastname),
-                "gender"    => desc ? query.OrderByDescending(p => p.Gender)    : query.OrderBy(p => p.Gender),
+                "lastname" => desc ? query.OrderByDescending(p => p.Lastname) : query.OrderBy(p => p.Lastname),
+                "gender" => desc ? query.OrderByDescending(p => p.Gender) : query.OrderBy(p => p.Gender),
                 "cprnumber" => desc ? query.OrderByDescending(p => p.CprNumber) : query.OrderBy(p => p.CprNumber),
-                _           => desc ? query.OrderByDescending(p => p.Id)        : query.OrderBy(p => p.Id),
+                _ => desc ? query.OrderByDescending(p => p.Id) : query.OrderBy(p => p.Id),
             };
 
             var entities = await query.ToListAsync();

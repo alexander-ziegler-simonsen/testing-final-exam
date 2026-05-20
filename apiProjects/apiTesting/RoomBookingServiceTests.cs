@@ -186,16 +186,16 @@ public class RoomBookingServiceTests
     //    R3  │ Y  │ Y  │ Y  │ true    (overlap exists but booking is excluded)
     //    R4  │ Y  │ Y  │ N  │ false   (overlap exists, not excluded → conflict)
     // -------------------------------------------------------------------------
-    [TestCase(2, true,  true,  true,  TestName = "R1 – different room, C2/C3 irrelevant → available")]
-    [TestCase(1, false, false, true,  TestName = "R2 – same room, no overlap, C3 irrelevant → available")]
-    [TestCase(1, true,  true,  true,  TestName = "R3 – same room, overlap, booking excluded → available")]
-    [TestCase(1, true,  false, false, TestName = "R4 – same room, overlap, not excluded → conflict")]
+    [TestCase(2, true, true, true, TestName = "R1 – different room, C2/C3 irrelevant → available")]
+    [TestCase(1, false, false, true, TestName = "R2 – same room, no overlap, C3 irrelevant → available")]
+    [TestCase(1, true, true, true, TestName = "R3 – same room, overlap, booking excluded → available")]
+    [TestCase(1, true, false, false, TestName = "R4 – same room, overlap, not excluded → conflict")]
     public async Task IsRoomAvailable_DecisionTable(
         int existingRoomId, bool timesOverlap, bool excludeBooking, bool expectedAvailable)
     {
         // Arrange
         var existingStart = timesOverlap ? S : S.AddHours(-3);
-        var existingEnd   = timesOverlap ? E : S.AddHours(-1);
+        var existingEnd = timesOverlap ? E : S.AddHours(-1);
         await SeedBooking(99, existingRoomId, existingStart, existingEnd);
         int? excludeId = excludeBooking ? 99 : null;
 
