@@ -1,0 +1,24 @@
+name: Lint C#
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  dotnet-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Check API formatting
+        run: dotnet format apiProjects/api/hospitalApi.csproj --verify-no-changes
+
+      - name: Check test project formatting
+        run: dotnet format apiProjects/apiTesting/hospitalApiTesting.csproj --verify-no-changes
