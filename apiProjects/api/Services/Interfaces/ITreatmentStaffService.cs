@@ -7,7 +7,7 @@ namespace hospitalApi.Services.Interfaces
     {
         Task<IEnumerable<TreatmentStaffOutput>> GetAll();
         Task<TreatmentStaffOutput> GetOne(int id);
-        Task<bool> CreateTreatmentStaff(TreatmentStaffInput input);
+        Task<int> CreateTreatmentStaff(TreatmentStaffInput input);
         Task<bool> EditTreatmentStaff(int id, TreatmentStaffInput input);
         Task<bool> DeleteTreatmentStaff(int id);
     }

@@ -63,12 +63,12 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<bool> CreateMedication(MedicationInput newMedication)
+        public async Task<int> CreateMedication(MedicationInput newMedication)
         {
             var entity = _mapper.Map<Medication>(newMedication);
             await _medication.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();
-            return true;
+            return entity.Id;
         }
     }
 }

@@ -9,6 +9,6 @@ namespace hospitalApi.Services.Interfaces
         Task<PrescriptionOutput> GetOne(int id);
         Task<bool> EditPrescription(int PrescriptionId, PrescriptionInput editedPrescriptionData);
         Task<bool> DeletePrescription(int id);
-        Task<bool> CreatePrescription(PrescriptionInput newPrescription);
+        Task<int> CreatePrescription(PrescriptionInput newPrescription);
     }
 }

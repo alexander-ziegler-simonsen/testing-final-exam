@@ -43,10 +43,10 @@ namespace hospitalApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] ShiftInput newShift)
         {
-            bool output = await _ShiftService.CreateShift(newShift);
+            int newId = await _ShiftService.CreateShift(newShift);
 
-            if (output)
-                return Ok();
+            if (newId > 0)
+                return Ok(newId);
             else
                 return NoContent();
         }

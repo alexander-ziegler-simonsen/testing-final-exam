@@ -89,7 +89,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<bool> CreatePatient(PatientInput newPatient)
+        public async Task<int> CreatePatient(PatientInput newPatient)
         {
             var entity = new Patient
             {
@@ -100,7 +100,7 @@ namespace hospitalApi.Services
             };
             await _patients.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();
-            return true;
+            return entity.Id;
         }
     }
 }

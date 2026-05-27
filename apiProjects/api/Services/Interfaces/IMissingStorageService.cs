@@ -9,6 +9,6 @@ namespace hospitalApi.Services.Interfaces
         Task<MedicationStorageMissingOutput> GetOne(int id);
         Task<bool> EditMissingStorage(int MissingStorageId, MedicationStorageMissingInput editedMissingStorageData);
         Task<bool> DeleteMissingStorage(int id);
-        Task<bool> CreateMissingStorage(MedicationStorageMissingInput newMissingStorage);
+        Task<int> CreateMissingStorage(MedicationStorageMissingInput newMissingStorage);
     }
 }

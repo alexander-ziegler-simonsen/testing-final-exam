@@ -58,12 +58,12 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<bool> CreateRoomBooking(RoomBookingInput newRoomBooking)
+        public async Task<int> CreateRoomBooking(RoomBookingInput newRoomBooking)
         {
             var entity = _mapper.Map<RoomBooking>(newRoomBooking);
             await _bookings.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();
-            return true;
+            return entity.Id;
         }
 
         public async Task<bool> IsRoomAvailable(int roomId, DateTime start, DateTime end, int? excludeBookingId = null)

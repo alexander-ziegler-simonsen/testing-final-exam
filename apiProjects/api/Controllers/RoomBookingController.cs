@@ -44,10 +44,10 @@ namespace hospitalApi.Controllers
             if (!available)
                 return Conflict("Room is already booked for the requested time slot.");
 
-            bool output = await _roomBookingService.CreateRoomBooking(newRoomBooking);
+            int newId = await _roomBookingService.CreateRoomBooking(newRoomBooking);
 
-            if (output)
-                return Ok();
+            if (newId > 0)
+                return Ok(newId);
             else
                 return NoContent();
         }

@@ -9,6 +9,6 @@ namespace hospitalApi.Services.Interfaces
         Task<MedicationStorageOutput> GetOne(int id);
         Task<bool> EditStorage(int StorageId, MedicationStorageInput editedStorageData);
         Task<bool> DeleteStorage(int id);
-        Task<bool> CreateStorage(MedicationStorageInput newStorage);
+        Task<int> CreateStorage(MedicationStorageInput newStorage);
     }
 }

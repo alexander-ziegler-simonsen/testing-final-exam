@@ -62,7 +62,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<bool> CreateStaff(StaffInput newStaff)
+        public async Task<int> CreateStaff(StaffInput newStaff)
         {
             var entity = new Staff
             {
@@ -72,7 +72,7 @@ namespace hospitalApi.Services
             };
             await staffs.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();
-            return true;
+            return entity.Id;
         }
     }
 }

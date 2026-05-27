@@ -75,12 +75,12 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<bool> CreateShift(ShiftInput newShift)
+        public async Task<int> CreateShift(ShiftInput newShift)
         {
             var entity = _mapper.Map<Shift>(newShift);
             await shifts.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();
-            return true;
+            return entity.Id;
         }
     }
 }

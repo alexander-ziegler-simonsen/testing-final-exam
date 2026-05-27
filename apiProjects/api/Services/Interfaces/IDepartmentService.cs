@@ -9,6 +9,6 @@ namespace hospitalApi.Services.Interfaces
         Task<DepartmentOutput> GetOne(int id);
         Task<bool> EditDepartment(int DepartmentId, DepartmentInput editedDepartmentData);
         Task<bool> DeleteDepartment(int id);
-        Task<bool> CreateDepartment(DepartmentInput newDepartment);
+        Task<int> CreateDepartment(DepartmentInput newDepartment);
     }
 }

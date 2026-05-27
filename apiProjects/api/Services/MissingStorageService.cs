@@ -59,12 +59,12 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<bool> CreateMissingStorage(MedicationStorageMissingInput newMissingStorage)
+        public async Task<int> CreateMissingStorage(MedicationStorageMissingInput newMissingStorage)
         {
             var entity = _mapper.Map<MedicationStorageMissing>(newMissingStorage);
             await _missing.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();
-            return true;
+            return entity.Id;
         }
     }
 }

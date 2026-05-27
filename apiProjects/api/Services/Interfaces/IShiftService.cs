@@ -9,6 +9,6 @@ namespace hospitalApi.Services.Interfaces
         Task<ShiftOutput> GetOne(int id);
         Task<bool> EditShift(int ShiftId, ShiftInput editedShiftData);
         Task<bool> DeleteShift(int id);
-        Task<bool> CreateShift(ShiftInput newShift);
+        Task<int> CreateShift(ShiftInput newShift);
     }
 }

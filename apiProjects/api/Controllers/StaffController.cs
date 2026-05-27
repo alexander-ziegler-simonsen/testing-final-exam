@@ -41,10 +41,10 @@ namespace hospitalApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] StaffInput newStaff)
         {
-            bool output = await _StaffService.CreateStaff(newStaff);
+            int newId = await _StaffService.CreateStaff(newStaff);
 
-            if (output)
-                return Ok();
+            if (newId > 0)
+                return Ok(newId);
             else
                 return NoContent();
         }

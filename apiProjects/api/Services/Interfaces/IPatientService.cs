@@ -9,7 +9,7 @@ namespace hospitalApi.Services.Interfaces
         Task<PatientOutput?> GetOne(int id);
         Task<bool> EditPatient(int patientId, PatientInput editedPatientData);
         Task<bool> DeletePatient(int id);
-        Task<bool> CreatePatient(PatientInput newPatient);
+        Task<int> CreatePatient(PatientInput newPatient);
 
 
     }

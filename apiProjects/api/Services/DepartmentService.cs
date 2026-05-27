@@ -59,12 +59,12 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<bool> CreateDepartment(DepartmentInput newDepartment)
+        public async Task<int> CreateDepartment(DepartmentInput newDepartment)
         {
             var entity = _mapper.Map<Department>(newDepartment);
             await departments.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();
-            return true;
+            return entity.Id;
         }
     }
 }

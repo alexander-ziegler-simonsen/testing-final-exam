@@ -9,6 +9,6 @@ namespace hospitalApi.Services.Interfaces
         Task<StaffOutput?> GetOne(int id);
         Task<bool> EditStaff(int StaffId, StaffInput editedStaffData);
         Task<bool> DeleteStaff(int id);
-        Task<bool> CreateStaff(StaffInput newStaff);
+        Task<int> CreateStaff(StaffInput newStaff);
     }
 }
