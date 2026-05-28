@@ -5,8 +5,6 @@ namespace hospitalApi.DTOs.Inputs;
 
 public partial class RoomBookingInput
 {
-    public int Id { get; set; }
-
     public int FkRoomId { get; set; }
 
     public DateTime StartTime { get; set; }

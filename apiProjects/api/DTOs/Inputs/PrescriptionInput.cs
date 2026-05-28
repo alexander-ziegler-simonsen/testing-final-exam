@@ -5,8 +5,6 @@ namespace hospitalApi.DTOs.Inputs;
 
 public partial class PrescriptionInput
 {
-    public int Id { get; set; }
-
     public int FkMedicationId { get; set; }
 
     public int FkTreatmentId { get; set; }

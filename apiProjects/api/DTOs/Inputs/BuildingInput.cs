@@ -5,8 +5,6 @@ namespace hospitalApi.DTOs.Inputs;
 
 public partial class BuildingInput
 {
-    public int Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string? Address { get; set; }
