@@ -74,8 +74,8 @@ public class PatientServiceTests
         Assert.That(result, Is.EqualTo(expected));
     }
 
-    [TestCase("asc", new[] { "Brown", "Smith", "Ziegler" })]
-    [TestCase("desc", new[] { "Ziegler", "Smith", "Brown" })]
+    [TestCase("asc", new[] { "Brown", "Johnson", "Smith" })]
+    [TestCase("desc", new[] { "Smith", "Johnson", "Brown" })]
     public async Task GetAll_SortByLastname_ReturnsCorrectOrder(string sortDir, string[] expected)
     {
         var service = BuildService(SortPatients);

@@ -149,7 +149,7 @@ public class DatabaseIntegrationTests
         var created = await _patientService.CreatePatient(input);
         var fromDb = await _context.Patients.FirstOrDefaultAsync(p => p.CprNumber == "999999-0001");
 
-        Assert.That(created, Is.True);
+        Assert.That(created, Is.GreaterThan(0));
         Assert.That(fromDb, Is.Not.Null);
         Assert.That(fromDb!.Firstname, Is.EqualTo("TestCreate"));
 
