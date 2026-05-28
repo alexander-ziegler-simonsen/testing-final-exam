@@ -21,6 +21,7 @@ namespace hospitalApi.Mapping
             CreateMap<RoomBooking, RoomBookingOutput>();
             CreateMap<RoomBookingInput, RoomBooking>();
             CreateMap<Shift, ShiftOutput>();
+            CreateMap<ShiftInput, Shift>();
             CreateMap<ShiftStaff, ShiftStaffOutput>();
             CreateMap<Treatment, TreatmentOutput>();
             CreateMap<TreatmentInput, Treatment>();
