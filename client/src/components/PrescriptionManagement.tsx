@@ -18,7 +18,7 @@ const emptyForm = (): PrescriptionInput => ({
 
 const selectStyle: React.CSSProperties = {
     width: "100%", padding: "8px 12px", borderRadius: "6px",
-    border: "1px solid #e2e8f0", fontSize: "14px", background: "white",
+    border: "1px solid rgba(128,128,128,0.4)", fontSize: "14px", colorScheme: "inherit",
 }
 
 export default function PrescriptionManagement() {

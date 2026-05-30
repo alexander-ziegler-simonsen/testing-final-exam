@@ -187,15 +187,14 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
         width: "100%",
         padding: "8px 12px",
         borderRadius: "6px",
-        border: "1px solid #e2e8f0",
+        border: "1px solid rgba(128,128,128,0.4)",
         fontSize: "14px",
-        background: "white",
+        colorScheme: "inherit",
     }
 
     const selectStyleDisabled: React.CSSProperties = {
         ...selectStyle,
-        background: "#f7fafc",
-        color: "#718096",
+        opacity: 0.5,
         cursor: "not-allowed",
     }
 
@@ -203,11 +202,12 @@ export default function GiveTreatment({ patients, onSuccess }: Props) {
         width: "100%",
         padding: "8px 12px",
         borderRadius: "6px",
-        border: "1px solid #e2e8f0",
+        border: "1px solid rgba(128,128,128,0.4)",
         fontSize: "14px",
         resize: "vertical",
         minHeight: "80px",
         fontFamily: "inherit",
+        colorScheme: "inherit",
     }
 
     if (dataLoading) return <Box p={4}><Spinner /></Box>

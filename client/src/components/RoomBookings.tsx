@@ -32,15 +32,14 @@ const selectStyle: React.CSSProperties = {
     width: "100%",
     padding: "8px 12px",
     borderRadius: "6px",
-    border: "1px solid #e2e8f0",
+    border: "1px solid rgba(128,128,128,0.4)",
     fontSize: "14px",
-    background: "white",
+    colorScheme: "inherit",
 }
 
 const selectStyleDisabled: React.CSSProperties = {
     ...selectStyle,
-    background: "#f7fafc",
-    color: "#a0aec0",
+    opacity: 0.5,
     cursor: "not-allowed",
 }
 

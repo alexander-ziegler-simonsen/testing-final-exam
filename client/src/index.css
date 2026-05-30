@@ -52,6 +52,20 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Dark mode table overrides (dark is the default in this app) */
+table tr {
+  background-color: #2a2a2a !important;
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+table thead tr {
+  background-color: #1e1e1e !important;
+}
+table th,
+table td {
+  color: rgba(255, 255, 255, 0.87) !important;
+  border-color: #444 !important;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -62,5 +76,19 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+
+  /* Light mode table overrides */
+  table tr {
+    background-color: #ffffff !important;
+    color: #213547 !important;
+  }
+  table thead tr {
+    background-color: #f7fafc !important;
+  }
+  table th,
+  table td {
+    color: #213547 !important;
+    border-color: #e2e8f0 !important;
   }
 }

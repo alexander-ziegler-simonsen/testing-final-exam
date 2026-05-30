@@ -59,13 +59,13 @@ export default function MedicinePriceSearch() {
             <HStack mb={4}>
                 <Button
                     size="sm"
-                    bg={searchMode === "name" ? "blue.500" : "gray.200"}
-                    color={searchMode === "name" ? "white" : "black"}
+                    bg={searchMode === "name" ? "blue.500" : "gray.subtle"}
+                    color={searchMode === "name" ? "white" : undefined}
                     onClick={() => setSearchMode("name")}
                 >
                     By Name
                 </Button>
-                <Button size="sm" bg={searchMode === "ingredient" ? "blue.500" : "gray.200"} color={searchMode === "ingredient" ? "white" : "black"} onClick={() => setSearchMode("ingredient")} >By Ingredient</Button>
+                <Button size="sm" bg={searchMode === "ingredient" ? "blue.500" : "gray.subtle"} color={searchMode === "ingredient" ? "white" : undefined} onClick={() => setSearchMode("ingredient")} >By Ingredient</Button>
             </HStack>
 
             <HStack mb={6}>
