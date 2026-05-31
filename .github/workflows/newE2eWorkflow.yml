@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  e2e-testing:
+  e2e-testing-new:
     timeout-minutes: 20
     runs-on: ubuntu-latest
 
