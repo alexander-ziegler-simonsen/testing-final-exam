@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: 24
 
+      - name: Approve builds
+        working-directory: ./client
+        run: pnpm approve-builds
+
       - name: Install dependencies
         working-directory: ./client
         run: pnpm install --frozen-lockfile
