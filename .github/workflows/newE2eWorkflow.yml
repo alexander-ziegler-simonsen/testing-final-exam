@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Playwright Tests (Docker)
 on:
   push:
   pull_request:
@@ -10,12 +10,12 @@ jobs:
 
     # 1. Run the test steps directly inside the Playwright image
     container:
-      image: ://microsoft.com # Match your local version
+      image: mcr.microsoft.com/playwright:v1.58.2-noble # Keep in sync with @playwright/test in tests/e2e/package.json
 
     # 2. Spin up your backend services in the background instantly
     services:
       postgres:
-        image: postgres:latest
+        image: postgres:16
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -53,11 +53,15 @@ jobs:
 
       # 5. Start the .NET API in the background
       - name: Start API Service
-        run: |
-          dotnet run --project ./apiProjects/api &
+        run: dotnet run --project ./apiProjects/api &
         env:
           ASPNETCORE_ENVIRONMENT: Development
+          ASPNETCORE_URLS: http://+:5028
           ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=hospital;Username=postgres;Password=postgres;
+
+      - name: Wait for API to be ready
+        run: until curl -s -o /dev/null -w "%{http_code}" http://localhost:5028/api/patient | grep -qE "^(200|401)$"; do sleep 2; done
+        timeout-minutes: 2
 
       # 6. Build the client and run tests
       - name: Setup pnpm
@@ -71,6 +75,10 @@ jobs:
           node-version: 24
           cache: "pnpm"
           cache-dependency-path: ./tests/e2e/pnpm-lock.yaml
+
+      - name: Install Client Dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: ./client
 
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
