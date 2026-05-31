@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { PostgreSqlContainer } from "testcontainers";
+import { PostgreSqlContainer } from "@testcontainers/postgresql";
 import pkg from "pg";
 import fs from "fs";
 import path from "path";
@@ -27,8 +27,8 @@ beforeAll(async () => {
 }, 60_000);
 
 afterAll(async () => {
-    await pool.end();
-    await container.stop();
+    await pool?.end();
+    await container?.stop();
 });
 
 
