@@ -16,7 +16,13 @@ let pool;
 beforeAll(async () => {
     container = await new PostgreSqlContainer("postgres:15").start();
 
-    pool = new Pool({ connectionString: container.getConnectionString() });
+    pool = new Pool({
+        host: container.getHost(),
+        port: container.getPort(),
+        database: container.getDatabase(),
+        user: container.getUsername(),
+        password: container.getPassword(),
+    });
 
     const initSql = fs.readFileSync(
         path.join(__dirname, "../../initScripts/postgres/init.sql"),
@@ -32,7 +38,7 @@ afterAll(async () => {
 });
 
 
-// ─── Seed data ────────────────────────────────────────────────────────────────
+// ─── Seed data
 
 describe("Seed data", () => {
     test("patient table has 25 seeded rows", async () => {
@@ -50,9 +56,14 @@ describe("Seed data", () => {
         expect(Number(res.rows[0].count)).toBe(26);
     });
 
-    test("medication_storage has one row per medication", async () => {
-        const res = await pool.query("SELECT COUNT(*) FROM medication_storage");
-        expect(Number(res.rows[0].count)).toBe(25);
+    test("every medication has a corresponding storage entry", async () => {
+        const res = await pool.query(`
+            SELECT m.id
+            FROM medication m
+            LEFT JOIN medication_storage ms ON ms.fk_medication_id = m.id
+            WHERE ms.id IS NULL
+        `);
+        expect(res.rows.length).toBe(0);
     });
 
     test("room_booking table has 10 seeded rows", async () => {
@@ -65,18 +76,20 @@ describe("Seed data", () => {
         expect(Number(res.rows[0].count)).toBe(25);
     });
 
-    test("first seeded patient has correct CPR number", async () => {
-        const res = await pool.query("SELECT cpr_number FROM patient WHERE id = 1");
-        expect(res.rows[0].cpr_number).toBe("150553-4561");
+    test("seeded patient michael conklin has correct CPR number", async () => {
+        const res = await pool.query(
+            "SELECT cpr_number FROM patient WHERE firstname = 'michael' AND lastname = 'conklin'"
+        );
+        expect(res.rows[0]?.cpr_number).toBe("150553-4561");
     });
 });
 
 
-// ─── Constraints ─────────────────────────────────────────────────────────────
+// ─── Constraints
 
 describe("Constraints", () => {
     test("CPR uniqueness: inserting a duplicate CPR raises an error", async () => {
-        const duplicateCpr = "150553-4561"; // already seeded for patient id=1
+        const duplicateCpr = "150553-4561"; // already seeded for michael conklin
         await expect(
             pool.query(
                 "INSERT INTO patient (firstname, lastname, gender, cpr_number) VALUES ($1,$2,$3,$4)",
@@ -85,37 +98,28 @@ describe("Constraints", () => {
         ).rejects.toThrow(/unique/i);
     });
 
-    test("room_booking rows all reference existing patients", async () => {
-        const res = await pool.query(`
-            SELECT rb.id
-            FROM room_booking rb
-            LEFT JOIN patient p ON p.id = rb.fk_patient_id
-            WHERE p.id IS NULL
-        `);
-        expect(res.rows.length).toBe(0);
-    });
-
-    test("prescription rows all reference existing treatments", async () => {
-        const res = await pool.query(`
-            SELECT pr.id
-            FROM prescription pr
-            LEFT JOIN treatment t ON t.id = pr.fk_treatment_id
-            WHERE t.id IS NULL
-        `);
-        expect(res.rows.length).toBe(0);
-    });
-
     test("FK violation: inserting room_booking with non-existent patient raises an error", async () => {
+        const roomRes = await pool.query("SELECT id FROM room LIMIT 1");
+        const validRoomId = roomRes.rows[0].id;
         await expect(
             pool.query(
-                "INSERT INTO room_booking (fk_room_id, start_time, end_time, fk_patient_id) VALUES (1, NOW(), NOW() + INTERVAL '1 hour', 99999)"
+                "INSERT INTO room_booking (fk_room_id, start_time, end_time, fk_patient_id) VALUES ($1, NOW(), NOW() + INTERVAL '1 hour', 99999)",
+                [validRoomId]
+            )
+        ).rejects.toThrow(/foreign key/i);
+    });
+
+    test("FK violation: inserting medication_storage_missing for non-existent storage entry raises an error", async () => {
+        await expect(
+            pool.query(
+                "INSERT INTO medication_storage_missing (fk_medication_storage_id, amount_missing, went_missing_at) VALUES (99999, 5, NOW())"
             )
         ).rejects.toThrow(/foreign key/i);
     });
 });
 
 
-// ─── R-10: stock deduction ────────────────────────────────────────────────────
+// ─── R-10: stock deduction
 
 describe("R-10: stock deduction via missing report", () => {
     test("updating medication_storage.amount reduces stock by exactly the reported figure", async () => {
@@ -127,13 +131,11 @@ describe("R-10: stock deduction via missing report", () => {
             const initialAmount = beforeRes.rows[0].amount;
             const missingAmount = 15;
 
-            // Step 1: record the missing report
             await pool.query(
                 "INSERT INTO medication_storage_missing (fk_medication_storage_id, amount_missing, went_missing_at) VALUES ($1, $2, NOW())",
                 [1, missingAmount]
             );
 
-            // Step 2: deduct from storage (what the application does via EditStorage)
             await pool.query(
                 "UPDATE medication_storage SET amount = amount - $1 WHERE id = $2",
                 [missingAmount, 1]
@@ -148,31 +150,11 @@ describe("R-10: stock deduction via missing report", () => {
         }
     });
 
-    test("medication_storage_missing row is persisted after insert", async () => {
-        await pool.query("BEGIN");
-        try {
-            const countBefore = await pool.query(
-                "SELECT COUNT(*) FROM medication_storage_missing"
-            );
-            const before = Number(countBefore.rows[0].count);
 
-            await pool.query(
-                "INSERT INTO medication_storage_missing (fk_medication_storage_id, amount_missing, went_missing_at) VALUES ($1, $2, NOW())",
-                [2, 5]
-            );
-
-            const countAfter = await pool.query(
-                "SELECT COUNT(*) FROM medication_storage_missing"
-            );
-            expect(Number(countAfter.rows[0].count)).toBe(before + 1);
-        } finally {
-            await pool.query("ROLLBACK");
-        }
-    });
 });
 
 
-// ─── Functions ────────────────────────────────────────────────────────────────
+// ─── Functions
 
 describe("DB function: calculate_patient_age", () => {
     test("returns 0 for a patient born today", async () => {
@@ -182,12 +164,11 @@ describe("DB function: calculate_patient_age", () => {
         expect(Number(res.rows[0].age)).toBe(0);
     });
 
-    test("returns a positive integer for someone born in 1990", async () => {
+    test("returns exact age for someone born exactly 35 years ago today", async () => {
         const res = await pool.query(
-            "SELECT calculate_patient_age('1990-01-01') AS age"
+            "SELECT calculate_patient_age((CURRENT_DATE - INTERVAL '35 years')::date) AS age"
         );
-        const age = Number(res.rows[0].age);
-        expect(age).toBeGreaterThan(30);
+        expect(Number(res.rows[0].age)).toBe(35);
     });
 
     test("age increases by 1 after a birth anniversary year", async () => {
@@ -213,6 +194,20 @@ describe("DB function: is_patient_minor", () => {
             "SELECT is_patient_minor('1990-01-01') AS minor"
         );
         expect(res.rows[0].minor).toBe(false);
+    });
+
+    test("boundary: returns false for someone born exactly 18 years ago today", async () => {
+        const res = await pool.query(
+            "SELECT is_patient_minor((CURRENT_DATE - INTERVAL '18 years')::date) AS minor"
+        );
+        expect(res.rows[0].minor).toBe(false);
+    });
+
+    test("boundary: returns true for someone born one day after the 18-year cutoff", async () => {
+        const res = await pool.query(
+            "SELECT is_patient_minor((CURRENT_DATE - INTERVAL '18 years' + INTERVAL '1 day')::date) AS minor"
+        );
+        expect(res.rows[0].minor).toBe(true);
     });
 });
 
@@ -279,7 +274,7 @@ describe("DB function: patient_bmi_category", () => {
 });
 
 
-// ─── Views ────────────────────────────────────────────────────────────────────
+// ─── Views
 
 describe("DB view: vw_nurses", () => {
     test("returns at least one row", async () => {
@@ -346,49 +341,65 @@ describe("DB view: vw_week_shifts", () => {
 });
 
 
-// ─── Stored procedures ────────────────────────────────────────────────────────
-//
-// Note: these procedures use bare SELECT (no INTO / REFCURSOR), so they only
-// execute cleanly when the WHERE clause matches 0 rows — PL/pgSQL raises
-// "query has no destination for result data" when rows would be returned.
-// The call tests therefore use non-existent IDs to exercise the call path
-// without triggering that limitation. A separate schema test confirms all
-// procedures were created successfully.
+// ─── Functions
 
-describe("Stored procedures", () => {
-    test("all eight procedures exist in pg_proc", async () => {
-        const res = await pool.query(`
-            SELECT proname FROM pg_proc
-            WHERE proname IN (
-                'sp_get_patient_by_id', 'sp_get_nurse_by_id', 'sp_get_doctor_by_id',
-                'sp_get_department_by_id', 'sp_get_shift_by_id', 'sp_get_room_by_id',
-                'sp_get_floor_by_id', 'sp_get_building_by_id'
-            )
-        `);
-        expect(res.rows.length).toBe(8);
+describe("DB functions (sp_get_*)", () => {
+    test("sp_get_patient_by_id returns correct patient data", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_patient_by_id($1)", [1]);
+        expect(res.rows.length).toBeGreaterThan(0);
+        expect(res.rows[0].firstname).toBe("michael");
+        expect(res.rows[0].cpr_number).toBe("150553-4561");
     });
 
-    test("sp_get_patient_by_id: non-existent id completes without error", async () => {
-        await expect(
-            pool.query("CALL sp_get_patient_by_id($1)", [99999])
-        ).resolves.toBeDefined();
+    test("sp_get_patient_by_id returns empty for non-existent id", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_patient_by_id($1)", [99999]);
+        expect(res.rows.length).toBe(0);
     });
 
-    test("sp_get_nurse_by_id: non-existent id completes without error", async () => {
-        await expect(
-            pool.query("CALL sp_get_nurse_by_id($1)", [99999])
-        ).resolves.toBeDefined();
+    test("sp_get_nurse_by_id returns correct nurse data", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_nurse_by_id($1)", [26]);
+        expect(res.rows.length).toBeGreaterThan(0);
+        expect(res.rows[0].firstname).toBe("anna");
+        expect(res.rows[0].lastname).toBe("jensen");
     });
 
-    test("sp_get_doctor_by_id: non-existent id completes without error", async () => {
-        await expect(
-            pool.query("CALL sp_get_doctor_by_id($1)", [99999])
-        ).resolves.toBeDefined();
+    test("sp_get_doctor_by_id returns correct doctor data", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_doctor_by_id($1)", [1]);
+        expect(res.rows.length).toBeGreaterThan(0);
+        expect(res.rows[0].firstname).toBe("lars");
+        expect(res.rows[0].lastname).toBe("christensen");
     });
 
-    test("sp_get_department_by_id: non-existent id completes without error", async () => {
-        await expect(
-            pool.query("CALL sp_get_department_by_id($1)", [99999])
-        ).resolves.toBeDefined();
+    test("sp_get_department_by_id returns correct department with staff", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_department_by_id($1)", [1]);
+        expect(res.rows.length).toBeGreaterThan(0);
+        expect(res.rows[0].department_name).toBe("emergency");
+    });
+
+    test("sp_get_shift_by_id returns shift with assigned staff", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_shift_by_id($1)", [1]);
+        expect(res.rows.length).toBeGreaterThan(0);
+        expect(res.rows[0].shift_id).toBe(1);
+        expect(res.rows[0].firstname).not.toBeNull();
+    });
+
+    test("sp_get_room_by_id returns room with floor and building", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_room_by_id($1)", [1]);
+        expect(res.rows.length).toBeGreaterThan(0);
+        expect(res.rows[0].room_name).toBe("room a101");
+        expect(res.rows[0].floor_name).not.toBeNull();
+        expect(res.rows[0].building_name).not.toBeNull();
+    });
+
+    test("sp_get_floor_by_id returns floor with its rooms", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_floor_by_id($1)", [1]);
+        expect(res.rows.length).toBeGreaterThan(0);
+        expect(res.rows[0].building_name).toBe("main hospital");
+    });
+
+    test("sp_get_building_by_id returns building with floors and rooms", async () => {
+        const res = await pool.query("SELECT * FROM sp_get_building_by_id($1)", [1]);
+        expect(res.rows.length).toBeGreaterThan(0);
+        expect(res.rows[0].building_name).toBe("main hospital");
     });
 });

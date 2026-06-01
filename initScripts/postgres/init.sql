@@ -158,7 +158,7 @@ insert into floor (name, fk_building_id) values
 ('ground floor', 2), ('first floor', 2), ('second floor', 2);
 
 
--- medication (25)
+-- medication (26)
 
 insert into medication (name,generic_name,brand,form,strength,category,description) values
 ('paracetamol','acetaminophen','panodil','tablet','500mg','pain relief','used to treat mild to moderate pain and fever.'),
@@ -194,7 +194,7 @@ insert into medication (name,generic_name,brand,form,strength,category,descripti
 insert into medication_storage (fk_medication_id, amount) values
 (1,500),(2,400),(3,300),(4,250),(5,200),(6,180),(7,160),(8,150),(9,140),(10,130),
 (11,120),(12,110),(13,100),(14,90),(15,80),(16,70),(17,60),(18,50),(19,40),(20,30),
-(21,25),(22,20),(23,15),(24,10),(25,5);
+(21,25),(22,20),(23,15),(24,10),(25,5),(26,30);
 
 
 -- rooms
@@ -491,19 +491,30 @@ $$;
 -- procedure _______________________
 
 
-create or replace procedure sp_get_nurse_by_id(p_nurse_id int)
+create or replace function sp_get_nurse_by_id(p_nurse_id int)
+returns table(
+    nurse_id int,
+    firstname varchar,
+    lastname varchar,
+    department_id int,
+    department_name varchar,
+    shift_id int,
+    shift_start timestamp,
+    shift_end timestamp
+)
 language plpgsql
 as $$
 begin
+    return query
     select
-        s.id as nurse_id,
+        s.id,
         s.firstname,
         s.lastname,
-        d.id as department_id,
-        d.name as department_name,
-        sh.id as shift_id,
-        sh.start_time as shift_start,
-        sh.end_time as shift_end
+        d.id,
+        d.name,
+        sh.id,
+        sh.start_time,
+        sh.end_time
     from staff s
     join staff_role sr on sr.id = s.fk_role_id and sr.name = 'nurse'
     left join department_staff ds on ds.fk_staff_id = s.id
@@ -514,18 +525,28 @@ begin
 end;
 $$;
 
-create or replace procedure sp_get_floor_by_id(p_floor_id int)
+create or replace function sp_get_floor_by_id(p_floor_id int)
+returns table(
+    floor_id int,
+    floor_name varchar,
+    building_id int,
+    building_name varchar,
+    building_address varchar,
+    room_id int,
+    room_name varchar
+)
 language plpgsql
 as $$
 begin
-    select 
-        f.id as floor_id,
-        f.name as floor_name,
-        b.id as building_id,
-        b.name as building_name,
-        b.address as building_address,
-        r.id as room_id,
-        r.name as room_name
+    return query
+    select
+        f.id,
+        f.name,
+        b.id,
+        b.name,
+        b.address,
+        r.id,
+        r.name
     from floor f
     join building b on b.id = f.fk_building_id
     left join room r on r.fk_floor_id = f.id
@@ -533,18 +554,28 @@ begin
 end;
 $$;
 
-create or replace procedure sp_get_building_by_id(p_building_id int)
+create or replace function sp_get_building_by_id(p_building_id int)
+returns table(
+    building_id int,
+    building_name varchar,
+    address varchar,
+    floor_id int,
+    floor_name varchar,
+    room_id int,
+    room_name varchar
+)
 language plpgsql
 as $$
 begin
-    select 
-        b.id as building_id,
-        b.name as building_name,
+    return query
+    select
+        b.id,
+        b.name,
         b.address,
-        f.id as floor_id,
-        f.name as floor_name,
-        r.id as room_id,
-        r.name as room_name
+        f.id,
+        f.name,
+        r.id,
+        r.name
     from building b
     left join floor f on f.fk_building_id = b.id
     left join room r on r.fk_floor_id = f.id
@@ -552,16 +583,24 @@ begin
 end;
 $$;
 
-create or replace procedure sp_get_doctor_by_id(p_doctor_id int)
+create or replace function sp_get_doctor_by_id(p_doctor_id int)
+returns table(
+    doctor_id int,
+    firstname varchar,
+    lastname varchar,
+    department_id int,
+    department_name varchar
+)
 language plpgsql
 as $$
 begin
+    return query
     select
-        s.id as doctor_id,
+        s.id,
         s.firstname,
         s.lastname,
-        d.id as department_id,
-        d.name as department_name
+        d.id,
+        d.name
     from staff s
     join staff_role sr on sr.id = s.fk_role_id and sr.name = 'doctor'
     left join department_staff ds on ds.fk_staff_id = s.id
@@ -570,20 +609,32 @@ begin
 end;
 $$;
 
-create or replace procedure sp_get_patient_by_id(p_patient_id int)
+create or replace function sp_get_patient_by_id(p_patient_id int)
+returns table(
+    patient_id int,
+    firstname varchar,
+    lastname varchar,
+    gender varchar,
+    cpr_number varchar,
+    roombooking_id int,
+    room_name varchar,
+    floor_name varchar,
+    building_name varchar
+)
 language plpgsql
 as $$
 begin
+    return query
     select
-        p.id as patient_id,
+        p.id,
         p.firstname,
         p.lastname,
         p.gender,
         p.cpr_number,
-        rb.id as roombooking_id,
-        r.name as room_name,
-        f.name as floor_name,
-        b.name as building_name
+        rb.id,
+        r.name,
+        f.name,
+        b.name
     from patient p
     left join room_booking rb on rb.fk_patient_id = p.id
     left join room r on r.id = rb.fk_room_id
@@ -593,18 +644,28 @@ begin
 end;
 $$;
 
-create or replace procedure sp_get_shift_by_id(p_shift_id int)
+create or replace function sp_get_shift_by_id(p_shift_id int)
+returns table(
+    shift_id int,
+    start_time timestamp,
+    end_time timestamp,
+    staff_id int,
+    firstname varchar,
+    lastname varchar,
+    staff_role varchar
+)
 language plpgsql
 as $$
 begin
+    return query
     select
-        sh.id as shift_id,
+        sh.id,
         sh.start_time,
         sh.end_time,
-        s.id as staff_id,
+        s.id,
         s.firstname,
         s.lastname,
-        sr.name as staff_role
+        sr.name
     from shift sh
     left join shift_staff ss on ss.fk_shift_id = sh.id
     left join staff s on s.id = ss.fk_staff_id
@@ -613,21 +674,34 @@ begin
 end;
 $$;
 
-create or replace procedure sp_get_room_by_id(p_room_id int)
+create or replace function sp_get_room_by_id(p_room_id int)
+returns table(
+    room_id int,
+    room_name varchar,
+    floor_name varchar,
+    building_name varchar,
+    booking_id int,
+    start_time timestamp,
+    end_time timestamp,
+    patient_id int,
+    patient_firstname varchar,
+    patient_lastname varchar
+)
 language plpgsql
 as $$
 begin
+    return query
     select
-        r.id as room_id,
-        r.name as room_name,
-        f.name as floor_name,
-        b.name as building_name,
-        rb.id as booking_id,
+        r.id,
+        r.name,
+        f.name,
+        b.name,
+        rb.id,
         rb.start_time,
         rb.end_time,
-        p.id as patient_id,
-        p.firstname as patient_firstname,
-        p.lastname as patient_lastname
+        p.id,
+        p.firstname,
+        p.lastname
     from room r
     left join floor f on f.id = r.fk_floor_id
     left join building b on b.id = f.fk_building_id
@@ -637,18 +711,28 @@ begin
 end;
 $$;
 
-create or replace procedure sp_get_department_by_id(p_department_id int)
+create or replace function sp_get_department_by_id(p_department_id int)
+returns table(
+    department_id int,
+    department_name varchar,
+    department_type varchar,
+    staff_id int,
+    firstname varchar,
+    lastname varchar,
+    staff_role varchar
+)
 language plpgsql
 as $$
 begin
+    return query
     select
-        d.id as department_id,
-        d.name as department_name,
-        d.type as department_type,
-        s.id as staff_id,
+        d.id,
+        d.name,
+        d.type,
+        s.id,
         s.firstname,
         s.lastname,
-        sr.name as staff_role
+        sr.name
     from department d
     left join department_staff ds on ds.fk_department_id = d.id
     left join staff s on s.id = ds.fk_staff_id
