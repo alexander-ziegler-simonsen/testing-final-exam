@@ -68,9 +68,9 @@ namespace hospitalApi.Controllers
             bool output = await _MedicationStorageMissingService.DeleteMissingStorage(id);
 
             if (output)
-                return Ok();
-            else
                 return NoContent();
+            else
+                return NotFound();
         }
     }
 

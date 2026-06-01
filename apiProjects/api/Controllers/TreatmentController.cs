@@ -65,9 +65,9 @@ namespace hospitalApi.Controllers
             bool output = await _TreatmentService.DeleteTreatment(id);
 
             if (output)
-                return Ok();
-            else
                 return NoContent();
+            else
+                return NotFound();
         }
     }
 

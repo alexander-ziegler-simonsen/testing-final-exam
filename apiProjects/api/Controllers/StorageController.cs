@@ -68,9 +68,9 @@ namespace hospitalApi.Controllers
             bool output = await _MedicationStorageService.DeleteStorage(id);
 
             if (output)
-                return Ok();
-            else
                 return NoContent();
+            else
+                return NotFound();
         }
     }
 
