@@ -96,6 +96,7 @@ jobs:
               run: |
                   newman run \
                     "https://api.getpostman.com/collections/12590735-d2637d88-8db0-440f-8fc4-311fb39720d5" \
+                    --folder "api" \
                     --environment "https://api.getpostman.com/environments/12590735-36583cbb-fb85-4c40-93e4-2f58748a3d6d" \
                     --postman-api-key "${{ secrets.POSTMAN_API_KEY }}" \
                     --env-var "baseUrl=http://localhost:5028"

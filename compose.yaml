@@ -18,27 +18,27 @@ services:
       timeout: 5s
       retries: 10
 
-  api:
-    build:
-      context: ./apiProjects/api
-      dockerfile: Dockerfile
-    ports:
-      - "5028:5028"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};
-    depends_on:
-      postgres:
-        condition: service_healthy
+  # api:
+  #   build:
+  #     context: ./apiProjects/api
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5028:5028"
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
 
-  client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - "5173:80"
-    depends_on:
-      - api
+  # client:
+  #   build:
+  #     context: ./client
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5173:80"
+  #   depends_on:
+  #     - api
 
 volumes:
   postgres_data:
