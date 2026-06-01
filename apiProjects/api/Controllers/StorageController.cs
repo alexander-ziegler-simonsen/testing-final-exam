@@ -58,7 +58,7 @@ namespace hospitalApi.Controllers
             if (output)
                 return Ok();
             else
-                return NoContent();
+                return NotFound();
         }
 
         // DELETE api/<MedicationStorageController>/5
