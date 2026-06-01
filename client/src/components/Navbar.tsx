@@ -42,6 +42,7 @@ export default function Navbar() {
                     Hospital System{" "}
                     {roleIcon && (
                         <Box as="span" bg="whiteAlpha.500" borderRadius="md"
+                        id="NavRoleIcon"
                             px={2} py={1} ml={2} display="inline-block" fontSize="2xl"
                             style={{ filter: "drop-shadow(0 0 3px rgba(255,255,255,0.9))" }}>
                             {roleIcon}

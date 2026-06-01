@@ -52,19 +52,19 @@ export default function Login() {
             <VStack gap={4}>
                 <Field.Root>
                     <Field.Label>Username</Field.Label>
-                    <Input placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <Input placeholder="username" id="InUsername" value={username} onChange={(e) => setUsername(e.target.value)} />
                 </Field.Root>
 
                 <Field.Root>
                     <Field.Label>Password</Field.Label>
-                    <Input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleLogin()} />
+                    <Input type="password" placeholder="password" id="InPassword" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleLogin()} />
                 </Field.Root>
 
                 {error && <Text color="red.500" id="login-error">
                     {error}
                 </Text>}
 
-                <Button bg="blue.500" width="100%" onClick={handleLogin} loading={loading}>
+                <Button bg="blue.500" width="100%" id="login-button" onClick={handleLogin} loading={loading}>
                     Login
                 </Button>
             </VStack>
