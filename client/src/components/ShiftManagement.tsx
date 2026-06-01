@@ -117,7 +117,7 @@ export default function ShiftManagement() {
         <Box>
             {/* Form */}
             <Box borderWidth={1} borderRadius="lg" p={6} mb={6}>
-                <Heading size="sm" mb={4}>
+                <Heading size="sm" mb={4} id="form-heading">
                     {editing ? `Editing shift #${editing.id}` : "Add Shift"}
                 </Heading>
                 <form onSubmit={handleSubmit}>

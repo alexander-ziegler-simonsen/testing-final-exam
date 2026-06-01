@@ -128,7 +128,7 @@ export default function TreatmentStaffManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Treatment</Text>
-                                <select value={form.fkTreatmentId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkTreatmentId: Number(event.target.value) }))} style={selectStyle} required>
+                                <select value={form.fkTreatmentId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkTreatmentId: Number(event.target.value) }))} style={selectStyle}>
                                     <option value="">Select treatment…</option>
                                     {treatments.map(treatment => (
                                         <option key={treatment.id} value={treatment.id}>
@@ -139,7 +139,7 @@ export default function TreatmentStaffManagement() {
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Staff member</Text>
-                                <select value={form.fkStaffId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkStaffId: Number(event.target.value) }))} style={selectStyle} required>
+                                <select value={form.fkStaffId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkStaffId: Number(event.target.value) }))} style={selectStyle}>
                                     <option value="">Select staff…</option>
                                     {staff.map(member => (
                                         <option key={member.id} value={member.id}>
@@ -184,7 +184,7 @@ export default function TreatmentStaffManagement() {
                             <Table.Row key={ts.id} bg={editing?.id === ts.id ? "blue.50" : undefined}>
                                 <Table.Cell>{ts.id}</Table.Cell>
                                 <Table.Cell>{treatmentLabel(ts.fkTreatmentId)}</Table.Cell>
-                                <Table.Cell>{staffLabel(ts.fkStaffId)}</Table.Cell>
+                                <Table.Cell id="staff-name-cell">{staffLabel(ts.fkStaffId)}</Table.Cell>
                                 <Table.Cell>
                                     <HStack gap={2} justify="flex-end">
                                         <Button size="xs" variant="outline" onClick={() => startEdit(ts)} disabled={deletingId === ts.id}>Edit</Button>

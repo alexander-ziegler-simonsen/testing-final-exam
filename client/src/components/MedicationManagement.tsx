@@ -107,7 +107,7 @@ export default function MedicationManagement() {
         <Box>
             {/* Form */}
             <Box borderWidth={1} borderRadius="lg" p={6} mb={6}>
-                <Heading size="sm" mb={4}>
+                <Heading size="sm" mb={4} id="form-heading">
                     {editing ? `Editing: ${editing.name ?? `#${editing.id}`}` : "Add Medication"}
                 </Heading>
                 <form onSubmit={handleSubmit}>
@@ -115,7 +115,7 @@ export default function MedicationManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Name *</Text>
-                                <Input value={form.name ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, name: event.target.value }))} placeholder="e.g. Paracetamol" required />
+                                <Input value={form.name ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, name: event.target.value }))} placeholder="e.g. Paracetamol" />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Generic Name</Text>

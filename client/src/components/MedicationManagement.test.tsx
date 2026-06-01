@@ -99,7 +99,7 @@ describe('MedicationManagement', () => {
             renderWithChakra(<MedicationManagement />)
 
             // Assert
-            await waitFor(() => expect(screen.getByText('Add Medication')).toBeInTheDocument())
+            await waitFor(() => expect(document.getElementById('form-heading')).toHaveTextContent('Add Medication'))
         })
     })
 
@@ -137,7 +137,7 @@ describe('MedicationManagement', () => {
             fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
 
             // Assert
-            expect(screen.getByText('Add Medication')).toBeInTheDocument()
+            expect(document.getElementById('form-heading')).toHaveTextContent('Add Medication')
         })
 
         it('calls medicationService.update on Save Changes', async () => {

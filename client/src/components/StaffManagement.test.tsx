@@ -77,8 +77,12 @@ describe('StaffManagement', () => {
             renderWithChakra(<StaffManagement />)
 
             // Assert
-            await waitFor(() => expect(screen.getByText('Nurse')).toBeInTheDocument())
-            expect(screen.getByText('Doctor')).toBeInTheDocument()
+            await waitFor(() => {
+                const cells = document.querySelectorAll('#role-cell')
+                const texts = Array.from(cells).map(c => c.textContent)
+                expect(texts).toContain('Nurse')
+                expect(texts).toContain('Doctor')
+            })
         })
 
         it('shows "No staff members yet." when list is empty', async () => {

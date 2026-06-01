@@ -91,13 +91,13 @@ export default function DepartmentManagement() {
         <Box>
             {/* Form */}
             <Box borderWidth={1} borderRadius="lg" p={6} mb={6}>
-                <Heading size="sm" mb={4}>{editing ? `Editing: ${editing.name}` : "Add Department"}</Heading>
+                <Heading size="sm" mb={4} id="form-heading">{editing ? `Editing: ${editing.name}` : "Add Department"}</Heading>
                 <form onSubmit={handleSubmit}>
                     <VStack align="stretch" gap={3}>
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Name</Text>
-                                <Input value={form.name ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, name: event.target.value }))} placeholder="e.g. Cardiology" required />
+                                <Input value={form.name ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, name: event.target.value }))} placeholder="e.g. Cardiology" />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Type</Text>

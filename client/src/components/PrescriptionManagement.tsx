@@ -144,7 +144,7 @@ export default function PrescriptionManagement() {
         <Box>
             {/* Form */}
             <Box borderWidth={1} borderRadius="lg" p={6} mb={6}>
-                <Heading size="sm" mb={4}>
+                <Heading size="sm" mb={4} id="form-heading">
                     {editing ? `Editing prescription #${editing.id}` : "Add Prescription"}
                 </Heading>
                 <form onSubmit={handleSubmit}>
@@ -152,7 +152,7 @@ export default function PrescriptionManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Medication</Text>
-                                <select value={form.fkMedicationId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkMedicationId: Number(event.target.value) }))} style={selectStyle} required>
+                                <select value={form.fkMedicationId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkMedicationId: Number(event.target.value) }))} style={selectStyle}>
                                     <option value="">Select medication…</option>
                                     {medications.map(med => (
                                         <option key={med.id} value={med.id}>
@@ -164,7 +164,7 @@ export default function PrescriptionManagement() {
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Treatment</Text>
-                                <select value={form.fkTreatmentId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkTreatmentId: Number(event.target.value) }))} style={selectStyle} required>
+                                <select value={form.fkTreatmentId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkTreatmentId: Number(event.target.value) }))} style={selectStyle}>
                                     <option value="">Select treatment…</option>
                                     {treatments.map(treatment => (
                                         <option key={treatment.id} value={treatment.id}>
@@ -178,7 +178,7 @@ export default function PrescriptionManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Prescribed by</Text>
-                                <select value={form.fkPrescribedByStaffId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkPrescribedByStaffId: Number(event.target.value) }))} style={selectStyle} required>
+                                <select value={form.fkPrescribedByStaffId || ""} onChange={event => setForm(prevForm => ({ ...prevForm, fkPrescribedByStaffId: Number(event.target.value) }))} style={selectStyle}>
                                     <option value="">Select staff…</option>
                                     {staff.map(member => (
                                         <option key={member.id} value={member.id}>
@@ -189,7 +189,7 @@ export default function PrescriptionManagement() {
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Doses</Text>
-                                <Input type="number" min={0.01} step="any" value={form.doses || ""} onChange={event => setForm(prevForm => ({ ...prevForm, doses: parseFloat(event.target.value) || 0 }))} placeholder="e.g. 2" required />
+                                <Input type="number" step="any" value={form.doses || ""} onChange={event => setForm(prevForm => ({ ...prevForm, doses: parseFloat(event.target.value) || 0 }))} placeholder="e.g. 2" />
                             </Box>
                         </HStack>
 

@@ -26,8 +26,8 @@ describe('Layout', () => {
         // Act
         renderWithProviders(<Layout />)
 
-        // Assert — Navbar renders a Login button when unauthenticated
-        expect(screen.getByRole('button', { name: /Login/i })).toBeInTheDocument()
+        // Assert — Navbar renders a Login link when unauthenticated
+        expect(screen.getByRole('link', { name: /Login/i })).toBeInTheDocument()
     })
 
     it('renders children via Outlet (content area is present)', () => {

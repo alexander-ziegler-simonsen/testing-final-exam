@@ -143,7 +143,7 @@ describe('PrescriptionManagement', () => {
             fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
 
             // Assert
-            expect(screen.getByText('Add Prescription')).toBeInTheDocument()
+            expect(document.getElementById('form-heading')).toHaveTextContent('Add Prescription')
         })
     })
 

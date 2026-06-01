@@ -84,7 +84,7 @@ describe('TreatmentStaffManagement', () => {
             renderWithChakra(<TreatmentStaffManagement />)
 
             // Assert
-            await waitFor(() => expect(screen.getByText(/Alice.*Nurse/)).toBeInTheDocument())
+            await waitFor(() => expect(screen.getByText('Alice Nurse')).toBeInTheDocument())
         })
 
         it('shows "No assignments yet." when list is empty', async () => {

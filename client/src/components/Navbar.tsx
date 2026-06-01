@@ -36,7 +36,7 @@ export default function Navbar() {
     ];
 
     return (
-        <Box bg="blue.500" color="white">
+        <Box as="nav" bg="blue.500" color="white">
             <Flex maxW="1280px" mx="auto" px={{ base: 4, md: 8 }} py={4} align="center">
                 <Heading size="md">
                     Hospital System{" "}

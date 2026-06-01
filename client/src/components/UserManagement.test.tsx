@@ -80,7 +80,7 @@ describe('UserManagement', () => {
             renderWithChakra(<UserManagement />)
 
             // Assert
-            await waitFor(() => expect(screen.getByText(/Jane.*Doe/)).toBeInTheDocument())
+            await waitFor(() => expect(screen.getByText('Jane Doe')).toBeInTheDocument())
         })
 
         it('shows "No accounts yet." when list is empty', async () => {

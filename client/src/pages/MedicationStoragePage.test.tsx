@@ -132,7 +132,7 @@ describe('MedicationStoragePage', () => {
             fireEvent.click(screen.getByRole('button', { name: /Hide/i }))
 
             // Assert
-            expect(screen.queryByText('Amount Missing')).not.toBeInTheDocument()
+            expect(document.getElementById('missing-reports-table')).toBeNull()
         })
     })
 })

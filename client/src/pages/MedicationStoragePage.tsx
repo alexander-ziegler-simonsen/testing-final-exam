@@ -75,7 +75,7 @@ export default function MedicationStoragePage() {
                 missingReports.length === 0 ? (
                     <Text color="gray.500">No missing reports yet.</Text>
                 ) : (
-                    <Table.Root size="sm">
+                    <Table.Root id="missing-reports-table" size="sm">
                         <Table.Header>
                             <Table.Row>
                                 <Table.ColumnHeader>ID</Table.ColumnHeader>

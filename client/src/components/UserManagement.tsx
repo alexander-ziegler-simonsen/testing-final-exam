@@ -108,16 +108,16 @@ export default function UserManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Username</Text>
-                                <Input value={registerForm.username} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, username: event.target.value }))} placeholder="e.g. jdoe" autoComplete="off" required />
+                                <Input value={registerForm.username} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, username: event.target.value }))} placeholder="e.g. jdoe" autoComplete="off" />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Password</Text>
-                                <Input type="password" value={registerForm.password} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, password: event.target.value }))} autoComplete="new-password" required />
+                                <Input type="password" value={registerForm.password} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, password: event.target.value }))} autoComplete="new-password" />
                             </Box>
                         </HStack>
                         <Box>
                             <Text fontWeight="medium" fontSize="sm" mb={1}>Staff member</Text>
-                            <select value={registerForm.fkStaffId || ""} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, fkStaffId: Number(event.target.value) }))} style={selectStyle} required>
+                            <select value={registerForm.fkStaffId || ""} onChange={event => setRegisterForm(prevForm => ({ ...prevForm, fkStaffId: Number(event.target.value) }))} style={selectStyle}>
                                 <option value="">Select staff…</option>
                                 {staff.map(member => (
                                     <option key={member.id} value={member.id}>

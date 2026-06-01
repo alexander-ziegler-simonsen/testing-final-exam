@@ -90,7 +90,7 @@ describe('ShiftManagement', () => {
             renderWithChakra(<ShiftManagement />)
 
             // Assert
-            await waitFor(() => expect(screen.getByText('Add Shift')).toBeInTheDocument())
+            await waitFor(() => expect(document.getElementById('form-heading')).toHaveTextContent('Add Shift'))
         })
     })
 
@@ -98,7 +98,7 @@ describe('ShiftManagement', () => {
         it('shows an error if end time is not after start time', async () => {
             // Act
             renderWithChakra(<ShiftManagement />)
-            await waitFor(() => expect(screen.getByText('Add Shift')).toBeInTheDocument())
+            await waitFor(() => expect(document.getElementById('form-heading')).toHaveTextContent('Add Shift'))
 
             // Set start = end
             const [startInput, endInput] = screen.getAllByDisplayValue(/T/)
@@ -133,7 +133,7 @@ describe('ShiftManagement', () => {
             fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
 
             // Assert
-            expect(screen.getByText('Add Shift')).toBeInTheDocument()
+            expect(document.getElementById('form-heading')).toHaveTextContent('Add Shift')
         })
     })
 

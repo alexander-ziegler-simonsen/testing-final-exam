@@ -113,11 +113,11 @@ export default function StaffManagement() {
                         <HStack gap={4}>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>First Name</Text>
-                                <Input value={form.firstname ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, firstname: event.target.value }))} placeholder="e.g. Jane" required />
+                                <Input value={form.firstname ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, firstname: event.target.value }))} placeholder="e.g. Jane" />
                             </Box>
                             <Box flex={1}>
                                 <Text fontWeight="medium" fontSize="sm" mb={1}>Last Name</Text>
-                                <Input value={form.lastname ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, lastname: event.target.value }))} placeholder="e.g. Doe" required />
+                                <Input value={form.lastname ?? ""} onChange={event => setForm(prevForm => ({ ...prevForm, lastname: event.target.value }))} placeholder="e.g. Doe" />
                             </Box>
                         </HStack>
 
@@ -166,7 +166,7 @@ export default function StaffManagement() {
                             <Table.Row key={member.id} bg={editing?.id === member.id ? "blue.50" : undefined}>
                                 <Table.Cell>{member.id}</Table.Cell>
                                 <Table.Cell>{member.firstname} {member.lastname}</Table.Cell>
-                                <Table.Cell>{roleLabel(member.fkRoleId)}</Table.Cell>
+                                <Table.Cell id="role-cell">{roleLabel(member.fkRoleId)}</Table.Cell>
                                 <Table.Cell>
                                     <HStack gap={2} justify="flex-end">
                                         <Button size="xs" variant="outline" onClick={() => startEdit(member)} disabled={deletingId === member.id}>

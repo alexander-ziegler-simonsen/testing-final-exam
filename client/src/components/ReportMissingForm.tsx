@@ -102,7 +102,7 @@ export default function ReportMissingForm({ storages, medications, onReported }:
 
                     <Box>
                         <Text fontWeight="medium" fontSize="sm" mb={1}>Amount Missing</Text>
-                        <Input type="number" min="0.01" step="any" placeholder="e.g. 5" value={amount} 
+                        <Input type="number" step="any" placeholder="e.g. 5" value={amount}
                             onChange={event => {
                                 setAmount(event.target.value)
                                 setFormError(null)

@@ -99,7 +99,7 @@ describe('DepartmentManagement', () => {
             renderWithChakra(<DepartmentManagement />)
 
             // Assert
-            await waitFor(() => expect(screen.getByText('Add Department')).toBeInTheDocument())
+            await waitFor(() => expect(document.getElementById('form-heading')).toHaveTextContent('Add Department'))
         })
     })
 
@@ -107,7 +107,7 @@ describe('DepartmentManagement', () => {
         it('shows validation error when name is empty on submit', async () => {
             // Act
             renderWithChakra(<DepartmentManagement />)
-            await waitFor(() => expect(screen.getByText('Add Department')).toBeInTheDocument())
+            await waitFor(() => expect(document.getElementById('form-heading')).toBeInTheDocument())
             fireEvent.click(screen.getByRole('button', { name: 'Add Department' }))
 
             // Assert
@@ -153,7 +153,7 @@ describe('DepartmentManagement', () => {
             fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
 
             // Assert
-            expect(screen.getByText('Add Department')).toBeInTheDocument()
+            expect(document.getElementById('form-heading')).toHaveTextContent('Add Department')
         })
 
         it('calls departmentService.update on Save Changes submit', async () => {
