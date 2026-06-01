@@ -60,7 +60,9 @@ export default function Login() {
                     <Input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleLogin()} />
                 </Field.Root>
 
-                {error && <Text color="red.500">{error}</Text>}
+                {error && <Text color="red.500" id="login-error">
+                    {error}
+                </Text>}
 
                 <Button bg="blue.500" width="100%" onClick={handleLogin} loading={loading}>
                     Login
