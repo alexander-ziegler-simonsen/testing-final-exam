@@ -41,7 +41,11 @@ export default function Navbar() {
                 <Heading size="md">
                     Hospital System{" "}
                     {roleIcon && (
-                        <Box as="span" bg="whiteAlpha.500" borderRadius="md" px={2} py={1} ml={2} display="inline-block" fontSize="2xl" style={{ filter: "drop-shadow(0 0 3px rgba(255,255,255,0.9))" }}>{roleIcon}</Box>
+                        <Box as="span" bg="whiteAlpha.500" borderRadius="md"
+                            px={2} py={1} ml={2} display="inline-block" fontSize="2xl"
+                            style={{ filter: "drop-shadow(0 0 3px rgba(255,255,255,0.9))" }}>
+                            {roleIcon}
+                        </Box>
                     )}
                 </Heading>
 
@@ -49,19 +53,25 @@ export default function Navbar() {
 
                 <Box>
                     {navItems.map((item) => (
-                        <Button key={item.id} id={item.id} asChild variant="outline" color="white" mr={2}>
+                        <Button key={item.id} id={item.id} asChild
+                            variant="outline" color="white" mr={2}>
                             <Link to={item.to}>{item.label}</Link>
                         </Button>
                     ))}
 
                     {isLoggedIn && dashboardRoute && (
-                        <Button id="NavDashboardBtn" asChild variant="solid" bg="whiteAlpha.300" color="white" mr={2}>
+                        <Button id="NavDashboardBtn" asChild variant="solid"
+                            bg="whiteAlpha.300" color="white" mr={2}>
                             <Link to={dashboardRoute}>Dashboard</Link>
                         </Button>
                     )}
 
                     {isLoggedIn ? (
-                        <Button id="NavLogoutBtn" variant="outline" borderColor="red.300" borderWidth="2px" color="red.300" bg="transparent" _hover={{ borderColor: "red.200", color: "red.200", bg: "transparent" }} onClick={handleLogout}>
+                        <Button id="NavLogoutBtn"
+                            variant="outline" borderColor="red.300"
+                            borderWidth="2px" color="red.300" bg="transparent"
+                            _hover={{ borderColor: "red.200", color: "red.200", bg: "transparent" }}
+                            onClick={handleLogout}>
                             Logout
                         </Button>
                     ) : (
