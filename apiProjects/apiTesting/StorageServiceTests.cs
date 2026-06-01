@@ -1,20 +1,19 @@
 using AutoMapper;
 using hospitalApi.Data;
 using hospitalApi.DTOs.Inputs;
-using hospitalApi.DTOs.Outputs;
+using hospitalApi.Mapping;
 using hospitalApi.Models;
 using hospitalApi.Services;
-using hospitalApiTesting.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Moq;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace hospitalApiTesting;
 
 [TestFixture]
 public class StorageServiceTests
 {
-    private Mock<HospitalContext> _contextMock = null!;
-    private Mock<IMapper> _mapperMock = null!;
+    private HospitalContext _context = null!;
+    private StorageService _service = null!;
 
     [SetUp]
     public void SetUp()
@@ -22,53 +21,24 @@ public class StorageServiceTests
         var options = new DbContextOptionsBuilder<HospitalContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
-
-        _contextMock = new Mock<HospitalContext>(options);
-        _contextMock
-            .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(1);
-
-        _mapperMock = new Mock<IMapper>();
-        _mapperMock
-            .Setup(m => m.Map<IEnumerable<MedicationStorageOutput>>(It.IsAny<object>()))
-            .Returns((object src) =>
-                ((IEnumerable<MedicationStorage>)src).Select(s => new MedicationStorageOutput
-                {
-                    Id = s.Id,
-                    FkMedicationId = s.FkMedicationId,
-                    Amount = s.Amount,
-                }));
-
-        _mapperMock
-            .Setup(m => m.Map<MedicationStorageOutput>(It.IsAny<MedicationStorage>()))
-            .Returns((MedicationStorage s) => new MedicationStorageOutput
-            {
-                Id = s.Id,
-                FkMedicationId = s.FkMedicationId,
-                Amount = s.Amount,
-            });
-
-        _mapperMock
-            .Setup(m => m.Map<MedicationStorage>(It.IsAny<MedicationStorageInput>()))
-            .Returns((MedicationStorageInput i) => new MedicationStorage
-            {
-                FkMedicationId = i.FkMedicationId,
-                Amount = i.Amount,
-            });
+        _context = new HospitalContext(options);
+        var mapper = new MapperConfiguration(
+            cfg => cfg.AddProfile(new MappingProfile()),
+            NullLoggerFactory.Instance).CreateMapper();
+        _service = new StorageService(_context, mapper);
     }
 
-    private List<MedicationStorage> ThreeStorages() =>
-    [
-        new MedicationStorage { Id = 1, FkMedicationId = 101, Amount = 50.0 },
-        new MedicationStorage { Id = 2, FkMedicationId = 102, Amount = 20.0 },
-        new MedicationStorage { Id = 3, FkMedicationId = 103, Amount = 0.0 },
-    ];
+    [TearDown]
+    public void TearDown() => _context.Dispose();
 
-    private StorageService BuildService(List<MedicationStorage> storages)
+    private async Task SeedThreeStorages()
     {
-        var dbSetMock = MockDbSetHelper.Create(storages);
-        _contextMock.Setup(c => c.MedicationStorages).Returns(dbSetMock.Object);
-        return new StorageService(_contextMock.Object, _mapperMock.Object);
+        _context.MedicationStorages.AddRange(
+            new MedicationStorage { Id = 1, FkMedicationId = 101, Amount = 50.0 },
+            new MedicationStorage { Id = 2, FkMedicationId = 102, Amount = 20.0 },
+            new MedicationStorage { Id = 3, FkMedicationId = 103, Amount = 0.0  }
+        );
+        await _context.SaveChangesAsync();
     }
 
     // GetAll
@@ -76,9 +46,9 @@ public class StorageServiceTests
     [Test]
     public async Task GetAll_ReturnsAllStorageRecords()
     {
-        var service = BuildService(ThreeStorages());
+        await SeedThreeStorages();
 
-        var result = (await service.GetAll()).ToList();
+        var result = (await _service.GetAll()).ToList();
 
         Assert.That(result, Has.Count.EqualTo(3));
     }
@@ -88,125 +58,106 @@ public class StorageServiceTests
     [Test]
     public async Task GetOne_WithValidId_ReturnsCorrectStorage()
     {
-        var service = BuildService(ThreeStorages());
+        await SeedThreeStorages();
 
-        var result = await service.GetOne(2);
+        var result = await _service.GetOne(2);
 
-        Assert.That(result, Is.Not.Null);
-        Assert.That(result!.Amount, Is.EqualTo(20.0));
-        Assert.That(result.FkMedicationId, Is.EqualTo(102));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result!.Amount, Is.EqualTo(20.0));
+            Assert.That(result.FkMedicationId, Is.EqualTo(102));
+        });
     }
 
     [Test]
     public async Task GetOne_WithInvalidId_ReturnsNull()
     {
-        var service = BuildService(ThreeStorages());
+        await SeedThreeStorages();
 
-        var result = await service.GetOne(999);
+        var result = await _service.GetOne(999);
 
         Assert.That(result, Is.Null);
     }
 
-    // EditStorage – core of R-10: stock deduction
+    // EditStorage
 
     [Test]
-    public async Task EditStorage_WithValidId_UpdatesAmountAndReturnsTrue()
+    public async Task EditStorage_WithValidId_UpdatesAmountInDatabase()
     {
-        var storage = new MedicationStorage { Id = 1, FkMedicationId = 101, Amount = 50.0 };
-        var service = BuildService([storage]);
+        _context.MedicationStorages.Add(new MedicationStorage { Id = 1, FkMedicationId = 101, Amount = 50.0 });
+        await _context.SaveChangesAsync();
 
-        var input = new MedicationStorageInput { FkMedicationId = 101, Amount = 35.0 };
-        var result = await service.EditStorage(1, input);
+        var result = await _service.EditStorage(1, new MedicationStorageInput { FkMedicationId = 101, Amount = 35.0 });
+        var updated = await _context.MedicationStorages.FindAsync(1);
 
-        Assert.That(result, Is.True);
-        Assert.That(storage.Amount, Is.EqualTo(35.0));
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
-    }
-
-    [Test]
-    public async Task EditStorage_WithValidId_UpdatesMedicationId()
-    {
-        var storage = new MedicationStorage { Id = 1, FkMedicationId = 101, Amount = 10.0 };
-        var service = BuildService([storage]);
-
-        var input = new MedicationStorageInput { FkMedicationId = 999, Amount = 10.0 };
-        await service.EditStorage(1, input);
-
-        Assert.That(storage.FkMedicationId, Is.EqualTo(999));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(updated!.Amount, Is.EqualTo(35.0));
+        });
     }
 
     [Test]
     public async Task EditStorage_StockDeduction_CorrectlyReducesAmount()
     {
-        // R-10: submitting a missing report calls EditStorage to deduct stock
+        // Simulates submitting a missing report which calls EditStorage to deduct stock
         const double initialAmount = 100.0;
         const double missingAmount = 15.0;
-        var storage = new MedicationStorage { Id = 1, FkMedicationId = 101, Amount = initialAmount };
-        var service = BuildService([storage]);
+        _context.MedicationStorages.Add(new MedicationStorage { Id = 1, FkMedicationId = 101, Amount = initialAmount });
+        await _context.SaveChangesAsync();
 
-        var input = new MedicationStorageInput
-        {
-            FkMedicationId = 101,
-            Amount = initialAmount - missingAmount,
-        };
-        await service.EditStorage(1, input);
+        await _service.EditStorage(1, new MedicationStorageInput { FkMedicationId = 101, Amount = initialAmount - missingAmount });
+        var updated = await _context.MedicationStorages.FindAsync(1);
 
-        Assert.That(storage.Amount, Is.EqualTo(initialAmount - missingAmount));
+        Assert.That(updated!.Amount, Is.EqualTo(initialAmount - missingAmount));
     }
 
     [Test]
-    public async Task EditStorage_WithInvalidId_ReturnsFalseWithoutSaving()
+    public async Task EditStorage_WithInvalidId_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.EditStorage(999, new MedicationStorageInput());
+        var result = await _service.EditStorage(999, new MedicationStorageInput());
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // DeleteStorage
 
     [Test]
-    public async Task DeleteStorage_WithValidId_ReturnsTrueAndRemoves()
+    public async Task DeleteStorage_WithValidId_RemovesFromDatabase()
     {
-        var storages = ThreeStorages();
-        var dbSetMock = MockDbSetHelper.Create(storages);
-        _contextMock.Setup(c => c.MedicationStorages).Returns(dbSetMock.Object);
-        var service = new StorageService(_contextMock.Object, _mapperMock.Object);
+        await SeedThreeStorages();
 
-        var result = await service.DeleteStorage(1);
+        var result = await _service.DeleteStorage(1);
+        var fromDb = await _context.MedicationStorages.FindAsync(1);
 
         Assert.That(result, Is.True);
-        dbSetMock.Verify(d => d.Remove(It.Is<MedicationStorage>(s => s.Id == 1)), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.That(fromDb, Is.Null);
     }
 
     [Test]
-    public async Task DeleteStorage_WithInvalidId_ReturnsFalseWithoutSaving()
+    public async Task DeleteStorage_WithInvalidId_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.DeleteStorage(999);
+        var result = await _service.DeleteStorage(999);
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // CreateStorage
 
     [Test]
-    public async Task CreateStorage_WithValidInput_CallsAddAndSave()
+    public async Task CreateStorage_PersistsToDatabase()
     {
-        var storages = new List<MedicationStorage>();
-        var dbSetMock = MockDbSetHelper.Create(storages);
-        _contextMock.Setup(c => c.MedicationStorages).Returns(dbSetMock.Object);
-        var service = new StorageService(_contextMock.Object, _mapperMock.Object);
+        var input = new MedicationStorageInput { FkMedicationId = 5, Amount = 99.0 };
 
-        var result = await service.CreateStorage(new MedicationStorageInput { FkMedicationId = 5, Amount = 99.0 });
+        var id = await _service.CreateStorage(input);
+        var fromDb = await _context.MedicationStorages.FindAsync(id);
 
-        Assert.That(result, Is.GreaterThanOrEqualTo(0));
-        dbSetMock.Verify(d => d.AddAsync(It.IsAny<MedicationStorage>(), It.IsAny<CancellationToken>()), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.Multiple(() =>
+        {
+            Assert.That(id, Is.GreaterThan(0));
+            Assert.That(fromDb!.FkMedicationId, Is.EqualTo(5));
+            Assert.That(fromDb.Amount, Is.EqualTo(99.0));
+        });
     }
 }

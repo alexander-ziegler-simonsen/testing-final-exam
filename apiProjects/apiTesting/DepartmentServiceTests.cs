@@ -1,20 +1,19 @@
 using AutoMapper;
 using hospitalApi.Data;
 using hospitalApi.DTOs.Inputs;
-using hospitalApi.DTOs.Outputs;
+using hospitalApi.Mapping;
 using hospitalApi.Models;
 using hospitalApi.Services;
-using hospitalApiTesting.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Moq;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace hospitalApiTesting;
 
 [TestFixture]
 public class DepartmentServiceTests
 {
-    private Mock<HospitalContext> _contextMock = null!;
-    private Mock<IMapper> _mapperMock = null!;
+    private HospitalContext _context = null!;
+    private DepartmentService _service = null!;
 
     [SetUp]
     public void SetUp()
@@ -22,65 +21,34 @@ public class DepartmentServiceTests
         var options = new DbContextOptionsBuilder<HospitalContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
-
-        _contextMock = new Mock<HospitalContext>(options);
-        _mapperMock = new Mock<IMapper>();
-
-        _contextMock
-            .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(1);
+        _context = new HospitalContext(options);
+        var mapper = new MapperConfiguration(
+            cfg => cfg.AddProfile(new MappingProfile()),
+            NullLoggerFactory.Instance).CreateMapper();
+        _service = new DepartmentService(_context, mapper);
     }
 
-    private DepartmentService BuildService(List<Department> departments)
+    [TearDown]
+    public void TearDown() => _context.Dispose();
+
+    private async Task SeedThreeDepartments()
     {
-        var dbSetMock = MockDbSetHelper.Create(departments);
-        _contextMock.Setup(c => c.Departments).Returns(dbSetMock.Object);
-
-        _mapperMock
-            .Setup(m => m.Map<IEnumerable<DepartmentOutput>>(It.IsAny<object>()))
-            .Returns((object src) =>
-                ((IEnumerable<Department>)src).Select(d => new DepartmentOutput
-                {
-                    Id = d.Id,
-                    Name = d.Name,
-                    Type = d.Type,
-                }));
-
-        _mapperMock
-            .Setup(m => m.Map<DepartmentOutput>(It.IsAny<Department>()))
-            .Returns((Department d) => new DepartmentOutput
-            {
-                Id = d.Id,
-                Name = d.Name,
-                Type = d.Type,
-            });
-
-        _mapperMock
-            .Setup(m => m.Map<Department>(It.IsAny<DepartmentInput>()))
-            .Returns((DepartmentInput input) => new Department
-            {
-                Name = input.Name,
-                Type = input.Type,
-            });
-
-        return new DepartmentService(_contextMock.Object, _mapperMock.Object);
+        _context.Departments.AddRange(
+            new Department { Id = 1, Name = "Cardiology",  Type = "Medical"  },
+            new Department { Id = 2, Name = "Orthopedics", Type = "Surgical" },
+            new Department { Id = 3, Name = "Pediatrics",  Type = "Medical"  }
+        );
+        await _context.SaveChangesAsync();
     }
-
-    private List<Department> ThreeDepartments() =>
-    [
-        new() { Id = 1, Name = "Cardiology",  Type = "Medical"  },
-        new() { Id = 2, Name = "Orthopedics", Type = "Surgical" },
-        new() { Id = 3, Name = "Pediatrics",  Type = "Medical"  },
-    ];
 
     // GetAll
 
     [Test]
     public async Task GetAll_ReturnsAllDepartments()
     {
-        var service = BuildService(ThreeDepartments());
+        await SeedThreeDepartments();
 
-        var result = (await service.GetAll()).ToList();
+        var result = (await _service.GetAll()).ToList();
 
         Assert.That(result, Has.Count.EqualTo(3));
     }
@@ -88,9 +56,9 @@ public class DepartmentServiceTests
     [Test]
     public async Task GetAll_MapsNameCorrectly()
     {
-        var service = BuildService(ThreeDepartments());
+        await SeedThreeDepartments();
 
-        var names = (await service.GetAll()).Select(d => d.Name).ToList();
+        var names = (await _service.GetAll()).Select(d => d.Name).ToList();
 
         Assert.That(names, Does.Contain("Cardiology"));
         Assert.That(names, Does.Contain("Orthopedics"));
@@ -99,9 +67,7 @@ public class DepartmentServiceTests
     [Test]
     public async Task GetAll_EmptyStore_ReturnsEmptyList()
     {
-        var service = BuildService([]);
-
-        var result = (await service.GetAll()).ToList();
+        var result = (await _service.GetAll()).ToList();
 
         Assert.That(result, Is.Empty);
     }
@@ -112,9 +78,9 @@ public class DepartmentServiceTests
     [TestCase(2, "Orthopedics")]
     public async Task GetOne_ExistingId_ReturnsMappedDepartment(int id, string expectedName)
     {
-        var service = BuildService(ThreeDepartments());
+        await SeedThreeDepartments();
 
-        var result = await service.GetOne(id);
+        var result = await _service.GetOne(id);
 
         Assert.That(result, Is.Not.Null);
         Assert.That(result!.Name, Is.EqualTo(expectedName));
@@ -123,9 +89,9 @@ public class DepartmentServiceTests
     [Test]
     public async Task GetOne_NonExistentId_ReturnsNull()
     {
-        var service = BuildService(ThreeDepartments());
+        await SeedThreeDepartments();
 
-        var result = await service.GetOne(999);
+        var result = await _service.GetOne(999);
 
         Assert.That(result, Is.Null);
     }
@@ -133,76 +99,67 @@ public class DepartmentServiceTests
     // CreateDepartment
 
     [Test]
-    public async Task CreateDepartment_AddsEntityAndSavesChanges()
+    public async Task CreateDepartment_PersistsToDatabase()
     {
-        var departments = new List<Department>();
-        var dbSetMock = MockDbSetHelper.Create(departments);
-        _contextMock.Setup(c => c.Departments).Returns(dbSetMock.Object);
-        _mapperMock
-            .Setup(m => m.Map<Department>(It.IsAny<DepartmentInput>()))
-            .Returns((DepartmentInput input) => new Department { Name = input.Name, Type = input.Type });
-        var service = new DepartmentService(_contextMock.Object, _mapperMock.Object);
+        var input = new DepartmentInput { Name = "Neurology", Type = "Medical" };
 
-        await service.CreateDepartment(new DepartmentInput { Name = "Neurology", Type = "Medical" });
+        var id = await _service.CreateDepartment(input);
+        var fromDb = await _context.Departments.FindAsync(id);
 
-        dbSetMock.Verify(s => s.AddAsync(It.Is<Department>(d => d.Name == "Neurology"), It.IsAny<CancellationToken>()), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.Multiple(() =>
+        {
+            Assert.That(id, Is.GreaterThan(0));
+            Assert.That(fromDb!.Name, Is.EqualTo("Neurology"));
+            Assert.That(fromDb.Type, Is.EqualTo("Medical"));
+        });
     }
 
     // EditDepartment
 
     [Test]
-    public async Task EditDepartment_WhenExists_UpdatesFieldsAndReturnsTrue()
+    public async Task EditDepartment_WhenExists_UpdatesFieldsInDatabase()
     {
-        var dept = new Department { Id = 1, Name = "OldName", Type = "OldType" };
-        var service = BuildService([dept]);
-        var input = new DepartmentInput { Name = "NewName", Type = "NewType" };
+        _context.Departments.Add(new Department { Id = 1, Name = "OldName", Type = "OldType" });
+        await _context.SaveChangesAsync();
 
-        var result = await service.EditDepartment(1, input);
+        var result = await _service.EditDepartment(1, new DepartmentInput { Name = "NewName", Type = "NewType" });
+        var updated = await _context.Departments.FindAsync(1);
 
-        Assert.That(result, Is.True);
-        Assert.That(dept.Name, Is.EqualTo("NewName"));
-        Assert.That(dept.Type, Is.EqualTo("NewType"));
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(updated!.Name, Is.EqualTo("NewName"));
+            Assert.That(updated.Type, Is.EqualTo("NewType"));
+        });
     }
 
     [Test]
-    public async Task EditDepartment_WhenNotFound_ReturnsFalseWithoutSaving()
+    public async Task EditDepartment_WhenNotFound_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.EditDepartment(99, new DepartmentInput { Name = "X" });
+        var result = await _service.EditDepartment(99, new DepartmentInput { Name = "X" });
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // DeleteDepartment
 
     [Test]
-    public async Task DeleteDepartment_WhenExists_ReturnsTrueAndSavesChanges()
+    public async Task DeleteDepartment_WhenExists_RemovesFromDatabase()
     {
-        var departments = ThreeDepartments();
-        var dbSetMock = MockDbSetHelper.Create(departments);
-        _contextMock.Setup(c => c.Departments).Returns(dbSetMock.Object);
-        _mapperMock.Setup(m => m.Map<DepartmentOutput>(It.IsAny<Department>())).Returns(new DepartmentOutput());
-        var service = new DepartmentService(_contextMock.Object, _mapperMock.Object);
+        await SeedThreeDepartments();
 
-        var result = await service.DeleteDepartment(2);
+        var result = await _service.DeleteDepartment(2);
+        var fromDb = await _context.Departments.FindAsync(2);
 
         Assert.That(result, Is.True);
-        dbSetMock.Verify(s => s.Remove(It.Is<Department>(d => d.Id == 2)), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.That(fromDb, Is.Null);
     }
 
     [Test]
-    public async Task DeleteDepartment_WhenNotFound_ReturnsFalseWithoutSaving()
+    public async Task DeleteDepartment_WhenNotFound_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.DeleteDepartment(99);
+        var result = await _service.DeleteDepartment(99);
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 }

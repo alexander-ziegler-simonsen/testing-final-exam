@@ -1,20 +1,19 @@
 using AutoMapper;
 using hospitalApi.Data;
 using hospitalApi.DTOs.Inputs;
-using hospitalApi.DTOs.Outputs;
+using hospitalApi.Mapping;
 using hospitalApi.Models;
 using hospitalApi.Services;
-using hospitalApiTesting.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Moq;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace hospitalApiTesting;
 
 [TestFixture]
 public class ShiftServiceTests
 {
-    private Mock<HospitalContext> _contextMock = null!;
-    private Mock<IMapper> _mapperMock = null!;
+    private HospitalContext _context = null!;
+    private ShiftService _service = null!;
 
     [SetUp]
     public void SetUp()
@@ -22,65 +21,42 @@ public class ShiftServiceTests
         var options = new DbContextOptionsBuilder<HospitalContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
-
-        _contextMock = new Mock<HospitalContext>(options);
-        _mapperMock = new Mock<IMapper>();
-
-        _contextMock
-            .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(1);
+        _context = new HospitalContext(options);
+        var mapper = new MapperConfiguration(
+            cfg => cfg.AddProfile(new MappingProfile()),
+            NullLoggerFactory.Instance).CreateMapper();
+        _service = new ShiftService(_context, mapper);
     }
 
-    private ShiftService BuildService(List<Shift> shifts)
-    {
-        var dbSetMock = MockDbSetHelper.Create(shifts);
-        _contextMock.Setup(c => c.Shifts).Returns(dbSetMock.Object);
-
-        _mapperMock
-            .Setup(m => m.Map<IEnumerable<ShiftOutput>>(It.IsAny<object>()))
-            .Returns((object src) =>
-                ((IEnumerable<Shift>)src).Select(s => new ShiftOutput
-                {
-                    Id = s.Id,
-                    StartTime = s.StartTime,
-                    EndTime = s.EndTime,
-                }));
-
-        _mapperMock
-            .Setup(m => m.Map<ShiftOutput>(It.IsAny<Shift>()))
-            .Returns((Shift s) => new ShiftOutput
-            {
-                Id = s.Id,
-                StartTime = s.StartTime,
-                EndTime = s.EndTime,
-            });
-
-        return new ShiftService(_contextMock.Object, _mapperMock.Object);
-    }
+    [TearDown]
+    public void TearDown() => _context.Dispose();
 
     // reference timestamps
-    private static readonly DateTime D1 = new DateTime(2025, 6, 1, 8, 0, 0);
-    private static readonly DateTime D2 = new DateTime(2025, 6, 1, 16, 0, 0);
-    private static readonly DateTime D3 = new DateTime(2025, 6, 2, 8, 0, 0);
-    private static readonly DateTime D4 = new DateTime(2025, 6, 2, 16, 0, 0);
-    private static readonly DateTime D5 = new DateTime(2025, 6, 3, 8, 0, 0);
-    private static readonly DateTime D6 = new DateTime(2025, 6, 3, 16, 0, 0);
+    private static readonly DateTime D1 = new(2025, 6, 1,  8, 0, 0);
+    private static readonly DateTime D2 = new(2025, 6, 1, 16, 0, 0);
+    private static readonly DateTime D3 = new(2025, 6, 2,  8, 0, 0);
+    private static readonly DateTime D4 = new(2025, 6, 2, 16, 0, 0);
+    private static readonly DateTime D5 = new(2025, 6, 3,  8, 0, 0);
+    private static readonly DateTime D6 = new(2025, 6, 3, 16, 0, 0);
 
-    private List<Shift> ThreeShifts() => new()
+    private async Task SeedThreeShifts()
     {
-        new Shift { Id = 1, StartTime = D1, EndTime = D2 }, // day 1
-        new Shift { Id = 2, StartTime = D3, EndTime = D4 }, // day 2
-        new Shift { Id = 3, StartTime = D5, EndTime = D6 }, // day 3
-    };
+        _context.Shifts.AddRange(
+            new Shift { Id = 1, StartTime = D1, EndTime = D2 }, // day 1
+            new Shift { Id = 2, StartTime = D3, EndTime = D4 }, // day 2
+            new Shift { Id = 3, StartTime = D5, EndTime = D6 }  // day 3
+        );
+        await _context.SaveChangesAsync();
+    }
 
     // filtering
 
     [Test]
     public async Task GetAll_WithNoFilters_ReturnsAllShifts()
     {
-        var service = BuildService(ThreeShifts());
+        await SeedThreeShifts();
 
-        var result = (await service.GetAll()).ToList();
+        var result = (await _service.GetAll()).ToList();
 
         Assert.That(result, Has.Count.EqualTo(3));
     }
@@ -88,11 +64,9 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_WithFromFilter_ExcludesShiftsEndingBeforeFrom()
     {
-        // from = start of day 2 → shift 1 (EndTime = D2) is excluded
-        // because EndTime < from
-        var service = BuildService(ThreeShifts());
-
-        var result = (await service.GetAll(from: D3)).ToList();
+        await SeedThreeShifts();
+        // from = start of day 2 → shift 1 (EndTime = D2) is excluded because EndTime < from
+        var result = (await _service.GetAll(from: D3)).ToList();
 
         Assert.That(result, Has.Count.EqualTo(2));
         Assert.That(result.Select(s => s.Id), Is.EquivalentTo(new[] { 2, 3 }));
@@ -101,10 +75,9 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_WithFromFilter_IncludesShiftWhoseEndTimeMeetsFrom()
     {
+        await SeedThreeShifts();
         // shift 1 ends at D2; from = D2 → EndTime >= from, so included
-        var service = BuildService(ThreeShifts());
-
-        var result = (await service.GetAll(from: D2)).ToList();
+        var result = (await _service.GetAll(from: D2)).ToList();
 
         Assert.That(result.Select(s => s.Id), Does.Contain(1));
     }
@@ -112,10 +85,9 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_WithToFilter_ExcludesShiftsStartingAfterTo()
     {
+        await SeedThreeShifts();
         // to = end of day 1 → shift 3 (StartTime = D5) is excluded
-        var service = BuildService(ThreeShifts());
-
-        var result = (await service.GetAll(to: D2)).ToList();
+        var result = (await _service.GetAll(to: D2)).ToList();
 
         Assert.That(result, Has.Count.EqualTo(1));
         Assert.That(result[0].Id, Is.EqualTo(1));
@@ -124,21 +96,22 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_WithToFilter_IncludesShiftWhoseStartTimeMeetsTo()
     {
+        await SeedThreeShifts();
         // shift 2 starts at D3; to = D3 → StartTime <= to, so included
-        var service = BuildService(ThreeShifts());
-
-        var result = (await service.GetAll(to: D3)).ToList();
+        var result = (await _service.GetAll(to: D3)).ToList();
 
         Assert.That(result.Select(s => s.Id), Does.Contain(2));
     }
 
     [Test]
-    public async Task GetAll_WithBothFilters_ReturnsOnlyOverlappingShifts()
+    public async Task GetAll_WithBothFilters_ReturnsOverlappingShifts()
     {
-        // from = D2 (start of window), to = D3 (end of window) → only shift 2
-        var service = BuildService(ThreeShifts());
-
-        var result = (await service.GetAll(from: D2, to: D3)).ToList();
+        await SeedThreeShifts();
+        // from=D2, to=D3:
+        //   shift 1 (End=D2>=D2 ✓, Start=D1<=D3 ✓) included
+        //   shift 2 (End=D4>=D2 ✓, Start=D3<=D3 ✓) included
+        //   shift 3 (End=D6>=D2 ✓, Start=D5<=D3 ✗) excluded
+        var result = (await _service.GetAll(from: D2, to: D3)).ToList();
 
         Assert.That(result.Select(s => s.Id), Is.EquivalentTo(new[] { 1, 2 }));
     }
@@ -146,10 +119,10 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_WithFiltersMatchingNoShift_ReturnsEmpty()
     {
-        var service = BuildService(ThreeShifts());
+        await SeedThreeShifts();
 
         var pastDate = D1.AddYears(-1);
-        var result = (await service.GetAll(from: pastDate, to: pastDate)).ToList();
+        var result = (await _service.GetAll(from: pastDate, to: pastDate)).ToList();
 
         Assert.That(result, Is.Empty);
     }
@@ -159,15 +132,14 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_SortByStartTimeAsc_ReturnsSortedResults()
     {
-        var unordered = new List<Shift>
-        {
+        _context.Shifts.AddRange(
             new Shift { Id = 3, StartTime = D5, EndTime = D6 },
             new Shift { Id = 1, StartTime = D1, EndTime = D2 },
-            new Shift { Id = 2, StartTime = D3, EndTime = D4 },
-        };
-        var service = BuildService(unordered);
+            new Shift { Id = 2, StartTime = D3, EndTime = D4 }
+        );
+        await _context.SaveChangesAsync();
 
-        var result = (await service.GetAll(sortBy: "starttime", sortDir: "asc"))
+        var result = (await _service.GetAll(sortBy: "starttime", sortDir: "asc"))
             .Select(s => s.Id).ToList();
 
         Assert.That(result, Is.EqualTo(new[] { 1, 2, 3 }));
@@ -176,9 +148,9 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_SortByStartTimeDesc_ReturnsSortedResults()
     {
-        var service = BuildService(ThreeShifts());
+        await SeedThreeShifts();
 
-        var result = (await service.GetAll(sortBy: "starttime", sortDir: "desc"))
+        var result = (await _service.GetAll(sortBy: "starttime", sortDir: "desc"))
             .Select(s => s.Id).ToList();
 
         Assert.That(result, Is.EqualTo(new[] { 3, 2, 1 }));
@@ -187,9 +159,9 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_SortByEndTimeDesc_ReturnsSortedResults()
     {
-        var service = BuildService(ThreeShifts());
+        await SeedThreeShifts();
 
-        var result = (await service.GetAll(sortBy: "endtime", sortDir: "desc"))
+        var result = (await _service.GetAll(sortBy: "endtime", sortDir: "desc"))
             .Select(s => s.Id).ToList();
 
         Assert.That(result, Is.EqualTo(new[] { 3, 2, 1 }));
@@ -198,15 +170,14 @@ public class ShiftServiceTests
     [Test]
     public async Task GetAll_WithUnknownSortBy_DefaultSortsByIdAsc()
     {
-        var unordered = new List<Shift>
-        {
+        _context.Shifts.AddRange(
             new Shift { Id = 3, StartTime = D5, EndTime = D6 },
             new Shift { Id = 1, StartTime = D1, EndTime = D2 },
-            new Shift { Id = 2, StartTime = D3, EndTime = D4 },
-        };
-        var service = BuildService(unordered);
+            new Shift { Id = 2, StartTime = D3, EndTime = D4 }
+        );
+        await _context.SaveChangesAsync();
 
-        var result = (await service.GetAll(sortBy: "unknown"))
+        var result = (await _service.GetAll(sortBy: "unknown"))
             .Select(s => s.Id).ToList();
 
         Assert.That(result, Is.EqualTo(new[] { 1, 2, 3 }));
@@ -217,9 +188,9 @@ public class ShiftServiceTests
     [Test]
     public async Task GetOne_WhenShiftExists_ReturnsMappedOutput()
     {
-        var service = BuildService(ThreeShifts());
+        await SeedThreeShifts();
 
-        var result = await service.GetOne(2);
+        var result = await _service.GetOne(2);
 
         Assert.That(result, Is.Not.Null);
         Assert.That(result.Id, Is.EqualTo(2));
@@ -228,9 +199,7 @@ public class ShiftServiceTests
     [Test]
     public async Task GetOne_WhenShiftNotFound_ReturnsNull()
     {
-        var service = BuildService(new List<Shift>());
-
-        var result = await service.GetOne(99);
+        var result = await _service.GetOne(99);
 
         Assert.That(result, Is.Null);
     }
@@ -238,58 +207,49 @@ public class ShiftServiceTests
     // DeleteShift
 
     [Test]
-    public async Task DeleteShift_WhenExists_ReturnsTrueAndSavesChanges()
+    public async Task DeleteShift_WhenExists_ReturnsTrueAndRemovesFromDatabase()
     {
-        var shifts = ThreeShifts();
-        var dbSetMock = MockDbSetHelper.Create(shifts);
-        _contextMock.Setup(c => c.Shifts).Returns(dbSetMock.Object);
-        _mapperMock.Setup(m => m.Map<ShiftOutput>(It.IsAny<Shift>())).Returns(new ShiftOutput());
-        var service = new ShiftService(_contextMock.Object, _mapperMock.Object);
+        await SeedThreeShifts();
 
-        var result = await service.DeleteShift(1);
+        var result = await _service.DeleteShift(1);
+        var fromDb = await _context.Shifts.FindAsync(1);
 
         Assert.That(result, Is.True);
-        dbSetMock.Verify(s => s.Remove(It.Is<Shift>(sh => sh.Id == 1)), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.That(fromDb, Is.Null);
     }
 
     [Test]
-    public async Task DeleteShift_WhenNotFound_ReturnsFalseWithoutSaving()
+    public async Task DeleteShift_WhenNotFound_ReturnsFalse()
     {
-        var service = BuildService(new List<Shift>());
-
-        var result = await service.DeleteShift(99);
+        var result = await _service.DeleteShift(99);
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // EditShift
 
     [Test]
-    public async Task EditShift_WhenExists_UpdatesTimesAndReturnsTrue()
+    public async Task EditShift_WhenExists_UpdatesTimesInDatabase()
     {
-        var shift = new Shift { Id = 1, StartTime = D1, EndTime = D2 };
-        var service = BuildService(new List<Shift> { shift });
-        var newEnd = D2.AddHours(4);
-        var input = new ShiftInput { StartTime = D3, EndTime = newEnd };
+        _context.Shifts.Add(new Shift { Id = 1, StartTime = D1, EndTime = D2 });
+        await _context.SaveChangesAsync();
 
-        var result = await service.EditShift(1, input);
+        var result = await _service.EditShift(1, new ShiftInput { StartTime = D3, EndTime = D4 });
+        var updated = await _context.Shifts.FindAsync(1);
 
-        Assert.That(result, Is.True);
-        Assert.That(shift.StartTime, Is.EqualTo(D3));
-        Assert.That(shift.EndTime, Is.EqualTo(newEnd));
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(updated!.StartTime, Is.EqualTo(D3));
+            Assert.That(updated.EndTime, Is.EqualTo(D4));
+        });
     }
 
     [Test]
-    public async Task EditShift_WhenNotFound_ReturnsFalseWithoutSaving()
+    public async Task EditShift_WhenNotFound_ReturnsFalse()
     {
-        var service = BuildService(new List<Shift>());
-
-        var result = await service.EditShift(99, new ShiftInput());
+        var result = await _service.EditShift(99, new ShiftInput());
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 }

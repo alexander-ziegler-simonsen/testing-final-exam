@@ -1,22 +1,21 @@
 using AutoMapper;
 using hospitalApi.Data;
 using hospitalApi.DTOs.Inputs;
-using hospitalApi.DTOs.Outputs;
+using hospitalApi.Mapping;
 using hospitalApi.Models;
 using hospitalApi.Services;
-using hospitalApiTesting.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Moq;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace hospitalApiTesting;
 
 [TestFixture]
 public class MissingStorageServiceTests
 {
-    private Mock<HospitalContext> _contextMock = null!;
-    private Mock<IMapper> _mapperMock = null!;
+    private HospitalContext _context = null!;
+    private MissingStorageService _service = null!;
 
-    private static readonly DateTime Ts = new DateTime(2025, 6, 1, 10, 0, 0);
+    private static readonly DateTime Ts = new(2025, 6, 1, 10, 0, 0);
 
     [SetUp]
     public void SetUp()
@@ -24,56 +23,24 @@ public class MissingStorageServiceTests
         var options = new DbContextOptionsBuilder<HospitalContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
-
-        _contextMock = new Mock<HospitalContext>(options);
-        _contextMock
-            .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(1);
-
-        _mapperMock = new Mock<IMapper>();
-        _mapperMock
-            .Setup(m => m.Map<IEnumerable<MedicationStorageMissingOutput>>(It.IsAny<object>()))
-            .Returns((object src) =>
-                ((IEnumerable<MedicationStorageMissing>)src).Select(m => new MedicationStorageMissingOutput
-                {
-                    Id = m.Id,
-                    FkMedicationStorageId = m.FkMedicationStorageId,
-                    AmountMissing = m.AmountMissing,
-                    WentMissingAt = m.WentMissingAt,
-                }));
-
-        _mapperMock
-            .Setup(m => m.Map<MedicationStorageMissingOutput>(It.IsAny<MedicationStorageMissing>()))
-            .Returns((MedicationStorageMissing m) => new MedicationStorageMissingOutput
-            {
-                Id = m.Id,
-                FkMedicationStorageId = m.FkMedicationStorageId,
-                AmountMissing = m.AmountMissing,
-                WentMissingAt = m.WentMissingAt,
-            });
-
-        _mapperMock
-            .Setup(m => m.Map<MedicationStorageMissing>(It.IsAny<MedicationStorageMissingInput>()))
-            .Returns((MedicationStorageMissingInput i) => new MedicationStorageMissing
-            {
-                FkMedicationStorageId = i.FkMedicationStorageId,
-                AmountMissing = i.AmountMissing,
-                WentMissingAt = i.WentMissingAt,
-            });
+        _context = new HospitalContext(options);
+        var mapper = new MapperConfiguration(
+            cfg => cfg.AddProfile(new MappingProfile()),
+            NullLoggerFactory.Instance).CreateMapper();
+        _service = new MissingStorageService(_context, mapper);
     }
 
-    private List<MedicationStorageMissing> ThreeRecords() =>
-    [
-        new MedicationStorageMissing { Id = 1, FkMedicationStorageId = 10, AmountMissing = 5.0, WentMissingAt = Ts },
-        new MedicationStorageMissing { Id = 2, FkMedicationStorageId = 20, AmountMissing = 12.5, WentMissingAt = Ts.AddDays(1) },
-        new MedicationStorageMissing { Id = 3, FkMedicationStorageId = 10, AmountMissing = 3.0, WentMissingAt = Ts.AddDays(2) },
-    ];
+    [TearDown]
+    public void TearDown() => _context.Dispose();
 
-    private MissingStorageService BuildService(List<MedicationStorageMissing> records)
+    private async Task SeedThreeRecords()
     {
-        var dbSetMock = MockDbSetHelper.Create(records);
-        _contextMock.Setup(c => c.MedicationStorageMissings).Returns(dbSetMock.Object);
-        return new MissingStorageService(_contextMock.Object, _mapperMock.Object);
+        _context.MedicationStorageMissings.AddRange(
+            new MedicationStorageMissing { Id = 1, FkMedicationStorageId = 10, AmountMissing = 5.0,  WentMissingAt = Ts },
+            new MedicationStorageMissing { Id = 2, FkMedicationStorageId = 20, AmountMissing = 12.5, WentMissingAt = Ts.AddDays(1) },
+            new MedicationStorageMissing { Id = 3, FkMedicationStorageId = 10, AmountMissing = 3.0,  WentMissingAt = Ts.AddDays(2) }
+        );
+        await _context.SaveChangesAsync();
     }
 
     // GetAll
@@ -81,9 +48,9 @@ public class MissingStorageServiceTests
     [Test]
     public async Task GetAll_ReturnsAllMissingRecords()
     {
-        var service = BuildService(ThreeRecords());
+        await SeedThreeRecords();
 
-        var result = (await service.GetAll()).ToList();
+        var result = (await _service.GetAll()).ToList();
 
         Assert.That(result, Has.Count.EqualTo(3));
     }
@@ -93,21 +60,24 @@ public class MissingStorageServiceTests
     [Test]
     public async Task GetOne_WithValidId_ReturnsCorrectRecord()
     {
-        var service = BuildService(ThreeRecords());
+        await SeedThreeRecords();
 
-        var result = await service.GetOne(2);
+        var result = await _service.GetOne(2);
 
-        Assert.That(result, Is.Not.Null);
-        Assert.That(result!.AmountMissing, Is.EqualTo(12.5));
-        Assert.That(result.FkMedicationStorageId, Is.EqualTo(20));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result!.AmountMissing, Is.EqualTo(12.5));
+            Assert.That(result.FkMedicationStorageId, Is.EqualTo(20));
+        });
     }
 
     [Test]
     public async Task GetOne_WithInvalidId_ReturnsNull()
     {
-        var service = BuildService(ThreeRecords());
+        await SeedThreeRecords();
 
-        var result = await service.GetOne(999);
+        var result = await _service.GetOne(999);
 
         Assert.That(result, Is.Null);
     }
@@ -115,90 +85,69 @@ public class MissingStorageServiceTests
     // CreateMissingStorage
 
     [Test]
-    public async Task CreateMissingStorage_WithValidInput_CallsAddAndSave()
+    public async Task CreateMissingStorage_PersistsToDatabase()
     {
-        var records = new List<MedicationStorageMissing>();
-        var dbSetMock = MockDbSetHelper.Create(records);
-        _contextMock.Setup(c => c.MedicationStorageMissings).Returns(dbSetMock.Object);
-        var service = new MissingStorageService(_contextMock.Object, _mapperMock.Object);
+        var input = new MedicationStorageMissingInput { FkMedicationStorageId = 5, AmountMissing = 8.0, WentMissingAt = Ts };
 
-        var input = new MedicationStorageMissingInput
+        var id = await _service.CreateMissingStorage(input);
+        var fromDb = await _context.MedicationStorageMissings.FindAsync(id);
+
+        Assert.Multiple(() =>
         {
-            FkMedicationStorageId = 5,
-            AmountMissing = 8.0,
-            WentMissingAt = Ts,
-        };
-        var result = await service.CreateMissingStorage(input);
-
-        Assert.That(result, Is.GreaterThanOrEqualTo(0));
-        dbSetMock.Verify(d => d.AddAsync(It.IsAny<MedicationStorageMissing>(), It.IsAny<CancellationToken>()), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+            Assert.That(id, Is.GreaterThan(0));
+            Assert.That(fromDb!.FkMedicationStorageId, Is.EqualTo(5));
+            Assert.That(fromDb.AmountMissing, Is.EqualTo(8.0));
+        });
     }
 
     // EditMissingStorage
 
     [Test]
-    public async Task EditMissingStorage_WithValidId_UpdatesFieldsAndReturnsTrue()
+    public async Task EditMissingStorage_WithValidId_UpdatesFieldsInDatabase()
     {
-        var record = new MedicationStorageMissing
-        {
-            Id = 1,
-            FkMedicationStorageId = 10,
-            AmountMissing = 5.0,
-            WentMissingAt = Ts,
-        };
-        var service = BuildService([record]);
+        _context.MedicationStorageMissings.Add(
+            new MedicationStorageMissing { Id = 1, FkMedicationStorageId = 10, AmountMissing = 5.0, WentMissingAt = Ts });
+        await _context.SaveChangesAsync();
 
-        var input = new MedicationStorageMissingInput
-        {
-            FkMedicationStorageId = 99,
-            AmountMissing = 20.0,
-            WentMissingAt = Ts.AddDays(5),
-        };
-        var result = await service.EditMissingStorage(1, input);
+        var input = new MedicationStorageMissingInput { FkMedicationStorageId = 99, AmountMissing = 20.0, WentMissingAt = Ts.AddDays(5) };
+        var result = await _service.EditMissingStorage(1, input);
+        var updated = await _context.MedicationStorageMissings.FindAsync(1);
 
-        Assert.That(result, Is.True);
-        Assert.That(record.AmountMissing, Is.EqualTo(20.0));
-        Assert.That(record.FkMedicationStorageId, Is.EqualTo(99));
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(updated!.AmountMissing, Is.EqualTo(20.0));
+            Assert.That(updated.FkMedicationStorageId, Is.EqualTo(99));
+        });
     }
 
     [Test]
-    public async Task EditMissingStorage_WithInvalidId_ReturnsFalseWithoutSaving()
+    public async Task EditMissingStorage_WithInvalidId_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.EditMissingStorage(999, new MedicationStorageMissingInput());
+        var result = await _service.EditMissingStorage(999, new MedicationStorageMissingInput());
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // DeleteMissingStorage
 
     [Test]
-    public async Task DeleteMissingStorage_WithValidId_ReturnsTrueAndRemoves()
+    public async Task DeleteMissingStorage_WithValidId_RemovesFromDatabase()
     {
-        var records = ThreeRecords();
-        var dbSetMock = MockDbSetHelper.Create(records);
-        _contextMock.Setup(c => c.MedicationStorageMissings).Returns(dbSetMock.Object);
-        var service = new MissingStorageService(_contextMock.Object, _mapperMock.Object);
+        await SeedThreeRecords();
 
-        var result = await service.DeleteMissingStorage(1);
+        var result = await _service.DeleteMissingStorage(1);
+        var fromDb = await _context.MedicationStorageMissings.FindAsync(1);
 
         Assert.That(result, Is.True);
-        dbSetMock.Verify(d => d.Remove(It.Is<MedicationStorageMissing>(r => r.Id == 1)), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.That(fromDb, Is.Null);
     }
 
     [Test]
-    public async Task DeleteMissingStorage_WithInvalidId_ReturnsFalseWithoutSaving()
+    public async Task DeleteMissingStorage_WithInvalidId_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.DeleteMissingStorage(999);
+        var result = await _service.DeleteMissingStorage(999);
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 }

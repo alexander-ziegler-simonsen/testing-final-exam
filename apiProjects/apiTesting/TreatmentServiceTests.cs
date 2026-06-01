@@ -1,24 +1,23 @@
 using AutoMapper;
 using hospitalApi.Data;
 using hospitalApi.DTOs.Inputs;
-using hospitalApi.DTOs.Outputs;
+using hospitalApi.Mapping;
 using hospitalApi.Models;
 using hospitalApi.Services;
-using hospitalApiTesting.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Moq;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace hospitalApiTesting;
 
 [TestFixture]
 public class TreatmentServiceTests
 {
-    private Mock<HospitalContext> _contextMock = null!;
-    private Mock<IMapper> _mapperMock = null!;
+    private HospitalContext _context = null!;
+    private TreatmentService _service = null!;
 
-    private static readonly DateTime T1 = new DateTime(2025, 1, 1, 8, 0, 0);
-    private static readonly DateTime T2 = new DateTime(2025, 1, 2, 8, 0, 0);
-    private static readonly DateTime T3 = new DateTime(2025, 1, 3, 8, 0, 0);
+    private static readonly DateTime T1 = new(2025, 1, 1, 8, 0, 0);
+    private static readonly DateTime T2 = new(2025, 1, 2, 8, 0, 0);
+    private static readonly DateTime T3 = new(2025, 1, 3, 8, 0, 0);
 
     [SetUp]
     public void SetUp()
@@ -26,56 +25,24 @@ public class TreatmentServiceTests
         var options = new DbContextOptionsBuilder<HospitalContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
-
-        _contextMock = new Mock<HospitalContext>(options);
-        _contextMock
-            .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(1);
-
-        _mapperMock = new Mock<IMapper>();
-        _mapperMock
-            .Setup(m => m.Map<IEnumerable<TreatmentOutput>>(It.IsAny<object>()))
-            .Returns((object src) =>
-                ((IEnumerable<Treatment>)src).Select(t => new TreatmentOutput
-                {
-                    Id = t.Id,
-                    FkPatientId = t.FkPatientId,
-                    Description = t.Description,
-                    Time = t.Time,
-                }));
-
-        _mapperMock
-            .Setup(m => m.Map<TreatmentOutput>(It.IsAny<Treatment>()))
-            .Returns((Treatment t) => new TreatmentOutput
-            {
-                Id = t.Id,
-                FkPatientId = t.FkPatientId,
-                Description = t.Description,
-                Time = t.Time,
-            });
-
-        _mapperMock
-            .Setup(m => m.Map<Treatment>(It.IsAny<TreatmentInput>()))
-            .Returns((TreatmentInput i) => new Treatment
-            {
-                FkPatientId = i.FkPatientId,
-                Description = i.Description,
-                Time = i.Time,
-            });
+        _context = new HospitalContext(options);
+        var mapper = new MapperConfiguration(
+            cfg => cfg.AddProfile(new MappingProfile()),
+            NullLoggerFactory.Instance).CreateMapper();
+        _service = new TreatmentService(_context, mapper);
     }
 
-    private List<Treatment> ThreeTreatments() =>
-    [
-        new Treatment { Id = 1, FkPatientId = 10, Description = "Alpha", Time = T3 },
-        new Treatment { Id = 2, FkPatientId = 20, Description = "Bravo", Time = T1 },
-        new Treatment { Id = 3, FkPatientId = 10, Description = "Charlie", Time = T2 },
-    ];
+    [TearDown]
+    public void TearDown() => _context.Dispose();
 
-    private TreatmentService BuildService(List<Treatment> treatments)
+    private async Task SeedThreeTreatments()
     {
-        var dbSetMock = MockDbSetHelper.Create(treatments);
-        _contextMock.Setup(c => c.Treatments).Returns(dbSetMock.Object);
-        return new TreatmentService(_contextMock.Object, _mapperMock.Object);
+        _context.Treatments.AddRange(
+            new Treatment { Id = 1, FkPatientId = 10, Description = "Alpha",   Time = T3 },
+            new Treatment { Id = 2, FkPatientId = 20, Description = "Bravo",   Time = T1 },
+            new Treatment { Id = 3, FkPatientId = 10, Description = "Charlie", Time = T2 }
+        );
+        await _context.SaveChangesAsync();
     }
 
     // GetAll – no filter
@@ -83,9 +50,9 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetAll_WithNoFilter_ReturnsAllTreatments()
     {
-        var service = BuildService(ThreeTreatments());
+        await SeedThreeTreatments();
 
-        var result = (await service.GetAll()).ToList();
+        var result = (await _service.GetAll()).ToList();
 
         Assert.That(result, Has.Count.EqualTo(3));
     }
@@ -95,9 +62,9 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetAll_FilterByDescription_ReturnsMatchingTreatments()
     {
-        var service = BuildService(ThreeTreatments());
+        await SeedThreeTreatments();
 
-        var result = (await service.GetAll(new TreatmentInput { Description = "alpha" })).ToList();
+        var result = (await _service.GetAll(new TreatmentInput { Description = "alpha" })).ToList();
 
         Assert.That(result, Has.Count.EqualTo(1));
         Assert.That(result[0].Description, Is.EqualTo("Alpha"));
@@ -106,9 +73,9 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetAll_FilterByDescription_IsCaseInsensitive()
     {
-        var service = BuildService(ThreeTreatments());
+        await SeedThreeTreatments();
 
-        var result = (await service.GetAll(new TreatmentInput { Description = "BRAVO" })).ToList();
+        var result = (await _service.GetAll(new TreatmentInput { Description = "BRAVO" })).ToList();
 
         Assert.That(result, Has.Count.EqualTo(1));
         Assert.That(result[0].Description, Is.EqualTo("Bravo"));
@@ -119,9 +86,9 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetAll_FilterByPatientId_ReturnsMatchingTreatments()
     {
-        var service = BuildService(ThreeTreatments());
+        await SeedThreeTreatments();
 
-        var result = (await service.GetAll(new TreatmentInput { FkPatientId = 10 })).ToList();
+        var result = (await _service.GetAll(new TreatmentInput { FkPatientId = 10 })).ToList();
 
         Assert.That(result, Has.Count.EqualTo(2));
         Assert.That(result.All(t => t.FkPatientId == 10), Is.True);
@@ -130,26 +97,24 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetAll_FilterByPatientId_WhenZero_ReturnsAll()
     {
-        var service = BuildService(ThreeTreatments());
-
+        await SeedThreeTreatments();
         // FkPatientId == 0 is the "no filter" sentinel
-        var result = (await service.GetAll(new TreatmentInput { FkPatientId = 0 })).ToList();
+        var result = (await _service.GetAll(new TreatmentInput { FkPatientId = 0 })).ToList();
 
         Assert.That(result, Has.Count.EqualTo(3));
     }
 
     // GetAll – sort
 
-    [TestCase("description", "asc", new[] { "Alpha", "Bravo", "Charlie" })]
+    [TestCase("description", "asc",  new[] { "Alpha", "Bravo", "Charlie" })]
     [TestCase("description", "desc", new[] { "Charlie", "Bravo", "Alpha" })]
     public async Task GetAll_SortByDescription_ReturnsCorrectOrder(
         string sortBy, string sortDir, string[] expected)
     {
-        var service = BuildService(ThreeTreatments());
+        await SeedThreeTreatments();
 
-        var result = (await service.GetAll(sortBy: sortBy, sortDir: sortDir))
-            .Select(t => t.Description)
-            .ToList();
+        var result = (await _service.GetAll(sortBy: sortBy, sortDir: sortDir))
+            .Select(t => t.Description).ToList();
 
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -157,11 +122,10 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetAll_SortByTimeAsc_ReturnsChronologicalOrder()
     {
-        var service = BuildService(ThreeTreatments());
+        await SeedThreeTreatments();
 
-        var result = (await service.GetAll(sortBy: "time", sortDir: "asc"))
-            .Select(t => t.Id)
-            .ToList();
+        var result = (await _service.GetAll(sortBy: "time", sortDir: "asc"))
+            .Select(t => t.Id).ToList();
 
         Assert.That(result, Is.EqualTo(new[] { 2, 3, 1 })); // T1, T2, T3
     }
@@ -169,17 +133,15 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetAll_UnknownSortBy_DefaultsSortById()
     {
-        var unordered = new List<Treatment>
-        {
+        _context.Treatments.AddRange(
             new Treatment { Id = 3, FkPatientId = 10, Description = "Z", Time = T1 },
             new Treatment { Id = 1, FkPatientId = 10, Description = "A", Time = T2 },
-            new Treatment { Id = 2, FkPatientId = 10, Description = "M", Time = T3 },
-        };
-        var service = BuildService(unordered);
+            new Treatment { Id = 2, FkPatientId = 10, Description = "M", Time = T3 }
+        );
+        await _context.SaveChangesAsync();
 
-        var result = (await service.GetAll(sortBy: "unknown"))
-            .Select(t => t.Id)
-            .ToList();
+        var result = (await _service.GetAll(sortBy: "unknown"))
+            .Select(t => t.Id).ToList();
 
         Assert.That(result, Is.EqualTo(new[] { 1, 2, 3 }));
     }
@@ -189,9 +151,9 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetOne_WithValidId_ReturnsCorrectTreatment()
     {
-        var service = BuildService(ThreeTreatments());
+        await SeedThreeTreatments();
 
-        var result = await service.GetOne(2);
+        var result = await _service.GetOne(2);
 
         Assert.That(result, Is.Not.Null);
         Assert.That(result!.Description, Is.EqualTo("Bravo"));
@@ -201,9 +163,9 @@ public class TreatmentServiceTests
     [Test]
     public async Task GetOne_WithInvalidId_ReturnsNull()
     {
-        var service = BuildService(ThreeTreatments());
+        await SeedThreeTreatments();
 
-        var result = await service.GetOne(999);
+        var result = await _service.GetOne(999);
 
         Assert.That(result, Is.Null);
     }
@@ -211,74 +173,68 @@ public class TreatmentServiceTests
     // EditTreatment
 
     [Test]
-    public async Task EditTreatment_WithValidId_UpdatesFieldsAndReturnsTrue()
+    public async Task EditTreatment_WithValidId_UpdatesFieldsInDatabase()
     {
-        var treatment = new Treatment { Id = 1, FkPatientId = 10, Description = "Old", Time = T1 };
-        var service = BuildService([treatment]);
+        _context.Treatments.Add(new Treatment { Id = 1, FkPatientId = 10, Description = "Old", Time = T1 });
+        await _context.SaveChangesAsync();
 
-        var input = new TreatmentInput { FkPatientId = 99, Description = "Updated", Time = T3 };
-        var result = await service.EditTreatment(1, input);
+        var result = await _service.EditTreatment(1, new TreatmentInput { FkPatientId = 99, Description = "Updated", Time = T3 });
+        var updated = await _context.Treatments.FindAsync(1);
 
-        Assert.That(result, Is.True);
-        Assert.That(treatment.Description, Is.EqualTo("Updated"));
-        Assert.That(treatment.FkPatientId, Is.EqualTo(99));
-        Assert.That(treatment.Time, Is.EqualTo(T3));
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(updated!.Description, Is.EqualTo("Updated"));
+            Assert.That(updated.FkPatientId, Is.EqualTo(99));
+            Assert.That(updated.Time, Is.EqualTo(T3));
+        });
     }
 
     [Test]
-    public async Task EditTreatment_WithInvalidId_ReturnsFalseWithoutSaving()
+    public async Task EditTreatment_WithInvalidId_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.EditTreatment(999, new TreatmentInput());
+        var result = await _service.EditTreatment(999, new TreatmentInput());
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // DeleteTreatment
 
     [Test]
-    public async Task DeleteTreatment_WithValidId_ReturnsTrueAndRemoves()
+    public async Task DeleteTreatment_WithValidId_RemovesFromDatabase()
     {
-        var treatments = ThreeTreatments();
-        var dbSetMock = MockDbSetHelper.Create(treatments);
-        _contextMock.Setup(c => c.Treatments).Returns(dbSetMock.Object);
-        var service = new TreatmentService(_contextMock.Object, _mapperMock.Object);
+        await SeedThreeTreatments();
 
-        var result = await service.DeleteTreatment(1);
+        var result = await _service.DeleteTreatment(1);
+        var fromDb = await _context.Treatments.FindAsync(1);
 
         Assert.That(result, Is.True);
-        dbSetMock.Verify(d => d.Remove(It.Is<Treatment>(t => t.Id == 1)), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.That(fromDb, Is.Null);
     }
 
     [Test]
-    public async Task DeleteTreatment_WithInvalidId_ReturnsFalseWithoutSaving()
+    public async Task DeleteTreatment_WithInvalidId_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.DeleteTreatment(999);
+        var result = await _service.DeleteTreatment(999);
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // CreateTreatment
 
     [Test]
-    public async Task CreateTreatment_WithValidInput_CallsAddAndSave()
+    public async Task CreateTreatment_PersistsToDatabase()
     {
-        var treatments = new List<Treatment>();
-        var dbSetMock = MockDbSetHelper.Create(treatments);
-        _contextMock.Setup(c => c.Treatments).Returns(dbSetMock.Object);
-        var service = new TreatmentService(_contextMock.Object, _mapperMock.Object);
+        var input = new TreatmentInput { FkPatientId = 5, Description = "New treatment", Time = T1 };
 
-        var input = new TreatmentInput { FkPatientId = 5, Description = "New", Time = T1 };
-        await service.CreateTreatment(input);
+        var id = await _service.CreateTreatment(input);
+        var fromDb = await _context.Treatments.FindAsync(id);
 
-        dbSetMock.Verify(d => d.AddAsync(It.IsAny<Treatment>(), It.IsAny<CancellationToken>()), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.Multiple(() =>
+        {
+            Assert.That(id, Is.GreaterThan(0));
+            Assert.That(fromDb!.Description, Is.EqualTo("New treatment"));
+            Assert.That(fromDb.FkPatientId, Is.EqualTo(5));
+        });
     }
 }

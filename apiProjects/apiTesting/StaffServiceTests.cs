@@ -1,20 +1,19 @@
 using AutoMapper;
 using hospitalApi.Data;
 using hospitalApi.DTOs.Inputs;
-using hospitalApi.DTOs.Outputs;
+using hospitalApi.Mapping;
 using hospitalApi.Models;
 using hospitalApi.Services;
-using hospitalApiTesting.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Moq;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace hospitalApiTesting;
 
 [TestFixture]
 public class StaffServiceTests
 {
-    private Mock<HospitalContext> _contextMock = null!;
-    private Mock<IMapper> _mapperMock = null!;
+    private HospitalContext _context = null!;
+    private StaffService _service = null!;
 
     [SetUp]
     public void SetUp()
@@ -22,47 +21,24 @@ public class StaffServiceTests
         var options = new DbContextOptionsBuilder<HospitalContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
-
-        _contextMock = new Mock<HospitalContext>(options);
-        _contextMock
-            .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(1);
-
-        _mapperMock = new Mock<IMapper>();
-        _mapperMock
-            .Setup(m => m.Map<List<StaffOutput>>(It.IsAny<object>()))
-            .Returns((object src) =>
-                ((IEnumerable<Staff>)src).Select(s => new StaffOutput
-                {
-                    Id = s.Id,
-                    Firstname = s.Firstname,
-                    Lastname = s.Lastname,
-                    FkRoleId = s.FkRoleId,
-                }).ToList());
-
-        _mapperMock
-            .Setup(m => m.Map<StaffOutput>(It.IsAny<Staff>()))
-            .Returns((Staff s) => new StaffOutput
-            {
-                Id = s.Id,
-                Firstname = s.Firstname,
-                Lastname = s.Lastname,
-                FkRoleId = s.FkRoleId,
-            });
+        _context = new HospitalContext(options);
+        var mapper = new MapperConfiguration(
+            cfg => cfg.AddProfile(new MappingProfile()),
+            NullLoggerFactory.Instance).CreateMapper();
+        _service = new StaffService(_context, mapper);
     }
 
-    private List<Staff> ThreeStaff() =>
-    [
-        new Staff { Id = 1, Firstname = "Alice",   Lastname = "Adams",   FkRoleId = 1 },
-        new Staff { Id = 2, Firstname = "Bob",     Lastname = "Brown",   FkRoleId = 2 },
-        new Staff { Id = 3, Firstname = "Charlie", Lastname = "Collins", FkRoleId = 1 },
-    ];
+    [TearDown]
+    public void TearDown() => _context.Dispose();
 
-    private StaffService BuildService(List<Staff> staff)
+    private async Task SeedThreeStaff()
     {
-        var dbSetMock = MockDbSetHelper.Create(staff);
-        _contextMock.Setup(c => c.Staff).Returns(dbSetMock.Object);
-        return new StaffService(_contextMock.Object, _mapperMock.Object);
+        _context.Staff.AddRange(
+            new Staff { Id = 1, Firstname = "Alice",   Lastname = "Adams",   FkRoleId = 1 },
+            new Staff { Id = 2, Firstname = "Bob",     Lastname = "Brown",   FkRoleId = 2 },
+            new Staff { Id = 3, Firstname = "Charlie", Lastname = "Collins", FkRoleId = 1 }
+        );
+        await _context.SaveChangesAsync();
     }
 
     // GetAll
@@ -70,9 +46,9 @@ public class StaffServiceTests
     [Test]
     public async Task GetAll_ReturnsAllStaffMembers()
     {
-        var service = BuildService(ThreeStaff());
+        await SeedThreeStaff();
 
-        var result = (await service.GetAll()).ToList();
+        var result = (await _service.GetAll()).ToList();
 
         Assert.That(result, Has.Count.EqualTo(3));
     }
@@ -82,9 +58,9 @@ public class StaffServiceTests
     [Test]
     public async Task GetOne_WithValidId_ReturnsCorrectStaff()
     {
-        var service = BuildService(ThreeStaff());
+        await SeedThreeStaff();
 
-        var result = await service.GetOne(2);
+        var result = await _service.GetOne(2);
 
         Assert.That(result, Is.Not.Null);
         Assert.That(result!.Firstname, Is.EqualTo("Bob"));
@@ -94,9 +70,9 @@ public class StaffServiceTests
     [Test]
     public async Task GetOne_WithInvalidId_ReturnsNull()
     {
-        var service = BuildService(ThreeStaff());
+        await SeedThreeStaff();
 
-        var result = await service.GetOne(999);
+        var result = await _service.GetOne(999);
 
         Assert.That(result, Is.Null);
     }
@@ -104,94 +80,68 @@ public class StaffServiceTests
     // EditStaff
 
     [Test]
-    public async Task EditStaff_WithValidId_UpdatesFieldsAndReturnsTrue()
+    public async Task EditStaff_WithValidId_UpdatesFieldsInDatabase()
     {
-        var staff = new Staff { Id = 1, Firstname = "Alice", Lastname = "Adams", FkRoleId = 1 };
-        var service = BuildService([staff]);
+        _context.Staff.Add(new Staff { Id = 1, Firstname = "Alice", Lastname = "Adams", FkRoleId = 1 });
+        await _context.SaveChangesAsync();
 
-        var input = new StaffInput { Firstname = "Alicia", Lastname = "Adams", FkRoleId = 2 };
-        var result = await service.EditStaff(1, input);
+        var result = await _service.EditStaff(1, new StaffInput { Firstname = "Alicia", Lastname = "Adams", FkRoleId = 2 });
+        var updated = await _context.Staff.FindAsync(1);
 
-        Assert.That(result, Is.True);
-        Assert.That(staff.Firstname, Is.EqualTo("Alicia"));
-        Assert.That(staff.FkRoleId, Is.EqualTo(2));
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(updated!.Firstname, Is.EqualTo("Alicia"));
+            Assert.That(updated.FkRoleId, Is.EqualTo(2));
+        });
     }
 
     [Test]
-    public async Task EditStaff_WithInvalidId_ReturnsFalseWithoutSaving()
+    public async Task EditStaff_WithInvalidId_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.EditStaff(999, new StaffInput());
+        var result = await _service.EditStaff(999, new StaffInput());
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // DeleteStaff
 
     [Test]
-    public async Task DeleteStaff_WithValidId_ReturnsTrueAndRemoves()
+    public async Task DeleteStaff_WithValidId_RemovesFromDatabase()
     {
-        var staff = ThreeStaff();
-        var dbSetMock = MockDbSetHelper.Create(staff);
-        _contextMock.Setup(c => c.Staff).Returns(dbSetMock.Object);
-        var service = new StaffService(_contextMock.Object, _mapperMock.Object);
+        await SeedThreeStaff();
 
-        var result = await service.DeleteStaff(2);
+        var result = await _service.DeleteStaff(2);
+        var fromDb = await _context.Staff.FindAsync(2);
 
         Assert.That(result, Is.True);
-        dbSetMock.Verify(d => d.Remove(It.Is<Staff>(s => s.Id == 2)), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.That(fromDb, Is.Null);
     }
 
     [Test]
-    public async Task DeleteStaff_WithInvalidId_ReturnsFalseWithoutSaving()
+    public async Task DeleteStaff_WithInvalidId_ReturnsFalse()
     {
-        var service = BuildService([]);
-
-        var result = await service.DeleteStaff(999);
+        var result = await _service.DeleteStaff(999);
 
         Assert.That(result, Is.False);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     // CreateStaff
 
     [Test]
-    public async Task CreateStaff_WithValidInput_CallsAddAndSave()
+    public async Task CreateStaff_PersistsToDatabase()
     {
-        var staff = new List<Staff>();
-        var dbSetMock = MockDbSetHelper.Create(staff);
-        _contextMock.Setup(c => c.Staff).Returns(dbSetMock.Object);
-        var service = new StaffService(_contextMock.Object, _mapperMock.Object);
+        var input = new StaffInput { Firstname = "Eve", Lastname = "Evans", FkRoleId = 3 };
 
-        var result = await service.CreateStaff(new StaffInput { Firstname = "Dave", Lastname = "Doe", FkRoleId = 1 });
+        var id = await _service.CreateStaff(input);
+        var fromDb = await _context.Staff.FindAsync(id);
 
-        Assert.That(result, Is.GreaterThanOrEqualTo(0));
-        dbSetMock.Verify(d => d.AddAsync(It.IsAny<Staff>(), It.IsAny<CancellationToken>()), Times.Once);
-        _contextMock.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
-    }
-
-    [Test]
-    public async Task CreateStaff_SetsFieldsFromInput()
-    {
-        Staff? captured = null;
-        var staff = new List<Staff>();
-        var dbSetMock = MockDbSetHelper.Create(staff);
-        dbSetMock
-            .Setup(d => d.AddAsync(It.IsAny<Staff>(), It.IsAny<CancellationToken>()))
-            .Callback<Staff, CancellationToken>((s, _) => captured = s)
-            .Returns(ValueTask.FromResult((Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Staff>)null!));
-        _contextMock.Setup(c => c.Staff).Returns(dbSetMock.Object);
-        var service = new StaffService(_contextMock.Object, _mapperMock.Object);
-
-        await service.CreateStaff(new StaffInput { Firstname = "Eve", Lastname = "Evans", FkRoleId = 3 });
-
-        Assert.That(captured, Is.Not.Null);
-        Assert.That(captured!.Firstname, Is.EqualTo("Eve"));
-        Assert.That(captured.Lastname, Is.EqualTo("Evans"));
-        Assert.That(captured.FkRoleId, Is.EqualTo(3));
+        Assert.Multiple(() =>
+        {
+            Assert.That(id, Is.GreaterThan(0));
+            Assert.That(fromDb!.Firstname, Is.EqualTo("Eve"));
+            Assert.That(fromDb.Lastname, Is.EqualTo("Evans"));
+            Assert.That(fromDb.FkRoleId, Is.EqualTo(3));
+        });
     }
 }
