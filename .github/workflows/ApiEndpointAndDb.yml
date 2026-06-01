@@ -87,10 +87,7 @@ jobs:
 
             - name: Wait for API
               run: |
-                  until curl -sf http://localhost:5028; do
-                    echo "Waiting for API..."
-                    sleep 2
-                  done
+                  timeout 90 bash -c 'until nc -z localhost 5028; do sleep 2; done'
 
             - name: Run Postman Collection
               run: |
