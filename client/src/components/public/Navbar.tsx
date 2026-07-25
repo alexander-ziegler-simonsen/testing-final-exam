@@ -1,23 +1,25 @@
-import { Bleed, Box, Button, Center, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 
 export default function Navbar() {
   return (
-    <Box w={"full"} alignItems={"center"} justifyContent={"center"} gap={6} display={"flex"} h={"auto"} marginBottom={2} p={2} bg={"gray.100"}>
-      <Box bg={"gray.100"}>
-        <Center>
-          <Text id="nav-logo" fontSize="2xl" fontWeight="bold">
-          Hospital
-        </Text>
-        </Center>
-      </Box>
-
+    <Box w={"full"} alignItems={"center"} justifyContent={"center"} gap={6} 
+    display={"flex"} h={"auto"} p={2} 
+    shadow={"xl"} 
+    borderBottomWidth={1} borderBottomColor={"gray.400"}
+    marginBottom={1}
+    bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500">
       {/* logo */}
+      <Box bg={"gray.100"}>
+        <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"}>
+          test
+        </Text>
+      </Box>
 
       {/* links */}
       <Box display={"flex"} gap={6} ml={8}>
         <Link id="nav-home-link" to="/">
-          Home tgs
+          Home
         </Link>
         <Link id="nav-about-link" to="/about">
           About
