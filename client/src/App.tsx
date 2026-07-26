@@ -39,8 +39,6 @@ function App() {
               <Route path="treatment" element={<Treatments />} />
             </Route>
           </Routes>
-    
-          
         </BrowserRouter>
   )
 }
