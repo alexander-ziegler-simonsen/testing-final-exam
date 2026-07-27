@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Stack, Container } from "@chakra-ui/react";
+import { Box, Heading, Text, Stack, Container, Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router";
 import MySidebar from "../components/Sidebar";
 import Navbar from "../components/public/Navbar";
@@ -6,11 +6,19 @@ import Navbar from "../components/public/Navbar";
 export default function DashboardLayout() {
     return (
         <>
-            <MySidebar />
-            <Navbar />
-            <Container>
-                <Outlet />
-            </Container>
+            <Flex direction="column" minH="100vh">
+                <Navbar />
+
+                {/* Flex horizontal layout for sidebar and body */}
+                <Flex flex="1" w="100%">
+                    <MySidebar />
+
+                    {/* Main page content area */}
+                    <Container flex="1" p="6" maxW="full">
+                        <Outlet />
+                    </Container>
+                </Flex>
+            </Flex>
         </>
     );
 }
