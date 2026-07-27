@@ -8,7 +8,8 @@
     "hotDebug": "pnpm dlx vite --debug hmr",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:browser": "vitest --config=vitest.browser.config.ts"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.36.1",
@@ -20,17 +21,20 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-icons": "^5.7.0",
-    "react-router": "^8.3.0"
+    "react-router": "^8.3.0",
+    "vitest": "^4.1.10"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
+    "@vitest/browser-playwright": "^4.1.10",
     "oxlint": "^1.71.0",
     "react-devtools": "^7.0.1",
     "typescript": "~6.0.2",
-    "vite": "^8.1.1"
+    "vite": "^8.1.1",
+    "vitest-browser-react": "^2.2.0"
   },
   "msw": {
     "workerDirectory": [
