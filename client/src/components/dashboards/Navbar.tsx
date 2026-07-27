@@ -11,10 +11,9 @@ export default function Navbar() {
             display={"flex"} h={"auto"} p={2}
             shadow={"xl"}
             borderBottomWidth={1} borderBottomColor={"gray.400"}
-            marginBottom={1}
             bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500">
             {/* logo */}
-            <Box bg={"gray.100"}>
+            <Box bg={"gray.100"} padding={2} rounded={18} m={0}>
                 <Link to={"/app"}>
                     <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"}>
                         Logo
