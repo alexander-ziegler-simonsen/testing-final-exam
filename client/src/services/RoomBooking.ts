@@ -15,4 +15,12 @@ export const RoomBookingService = {
     create: (newRoomBooking: RoomBooking) =>
         api.post<RoomBooking>(`${basePath}`, newRoomBooking)
             .then(r => r.data),
+
+    put: (id: number, changedRoomBooking: RoomBooking) =>
+        api.put<RoomBooking>(`${basePath}/${id}`, changedRoomBooking)
+            .then(r => r.data),
+
+    delete: (id: number) =>
+        api.put<RoomBooking>(`${basePath}/${id}`)
+            .then(r => r.data),
 }

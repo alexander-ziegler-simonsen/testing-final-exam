@@ -15,4 +15,12 @@ export const ShiftService = {
     create: (newShift: Shift) =>
         api.post<Shift>(`${basePath}`, newShift)
             .then(r => r.data),
+
+    put: (id: number, changedShift: Shift) =>
+        api.put<Shift>(`${basePath}/${id}`, changedShift)
+            .then(r => r.data),
+
+    delete: (id: number) =>
+        api.put<Shift>(`${basePath}/${id}`)
+            .then(r => r.data),
 }

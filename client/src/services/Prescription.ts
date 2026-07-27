@@ -15,4 +15,12 @@ export const PrescriptionService = {
     create: (newPrescription: Prescription) =>
         api.post<Prescription>(`${basePath}`, newPrescription)
             .then(r => r.data),
+
+    put: (id: number, changedPrescription: Prescription) =>
+        api.put<Prescription>(`${basePath}/${id}`, changedPrescription)
+            .then(r => r.data),
+
+    delete: (id: number) =>
+        api.put<Prescription>(`${basePath}/${id}`)
+            .then(r => r.data),
 }

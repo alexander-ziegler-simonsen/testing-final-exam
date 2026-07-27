@@ -15,4 +15,12 @@ export const StaffService = {
     create: (newStaff: Staff) =>
         api.post<Staff>(`${basePath}`, newStaff)
             .then(r => r.data),
+
+    put: (id: number, changedStaff: Staff) =>
+        api.put<Staff>(`${basePath}/${id}`, changedStaff)
+            .then(r => r.data),
+
+    delete: (id: number) =>
+        api.put<Staff>(`${basePath}/${id}`)
+            .then(r => r.data),
 }

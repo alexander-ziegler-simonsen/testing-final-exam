@@ -15,4 +15,12 @@ export const RoomService = {
     create: (newRoom: Room) =>
         api.post<Room>(`${basePath}`, newRoom)
             .then(r => r.data),
+
+    put: (id: number, changedRoom: Room) =>
+        api.put<Room>(`${basePath}/${id}`, changedRoom)
+            .then(r => r.data),
+
+    delete: (id: number) =>
+        api.put<Room>(`${basePath}/${id}`)
+            .then(r => r.data),
 }

@@ -15,4 +15,12 @@ export const MedicationStorageMissingService = {
     create: (newMedicationStorageMissing: MedicationStorageMissing) =>
         api.post<MedicationStorageMissing>(`${basePath}`, newMedicationStorageMissing)
             .then(r => r.data),
+
+    put: (id: number, changedMedicationStorageMissing: MedicationStorageMissing) =>
+        api.put<MedicationStorageMissing>(`${basePath}/${id}`, changedMedicationStorageMissing)
+            .then(r => r.data),
+
+    delete: (id: number) =>
+        api.put<MedicationStorageMissing>(`${basePath}/${id}`)
+            .then(r => r.data),
 }

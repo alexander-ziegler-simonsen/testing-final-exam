@@ -15,4 +15,12 @@ export const DepartmentService = {
     create: (newDepartment: Department) =>
         api.post<Department>(`${basePath}`, newDepartment)
             .then(r => r.data),
+
+    put: (id: number, changedDepartment: Department) =>
+        api.put<Department>(`${basePath}/${id}`, changedDepartment)
+            .then(r => r.data),
+
+    delete: (id: number) =>
+        api.put<Department>(`${basePath}/${id}`)
+            .then(r => r.data),
 }
