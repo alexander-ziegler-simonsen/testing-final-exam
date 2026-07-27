@@ -1,4 +1,3 @@
-import { Box, Heading, Text, Stack, Button } from "@chakra-ui/react";
 import Navbar from "../../components/public/Navbar";
 import { Link } from "react-router";
 
@@ -8,7 +7,7 @@ export default function Login() {
       <Navbar />
       <div>
         <p>this is login page</p>
-        <Link id="nav-doctors-link" to="/dashboard">
+        <Link id="nav-doctors-link" to="/app">
           dashboard
         </Link>
       </div>
