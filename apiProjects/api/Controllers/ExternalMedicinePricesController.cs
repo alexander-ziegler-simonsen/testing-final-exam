@@ -17,7 +17,7 @@ namespace hospitalApi.Controllers
             _externalApiService = externalApiService;
         }
 
-        // GET api/<ExternalMedicinePricesController>/productsByIngredient/
+        // GET api/<ExternalMedicinePricesController>/productsByName/
         [HttpGet("productsByName")]
         public async Task<IActionResult> GetMedicineProductsByName([FromQuery] string productName)
         {
