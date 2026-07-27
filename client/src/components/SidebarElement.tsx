@@ -15,7 +15,7 @@ export default function SidebarElement({ selected, title, icon, path }: SidebarE
                 <HStack gap={2}>
                     <Box marginRight={4}>{icon}</Box>
                     <Box marginEnd={"auto"}><Text fontWeight={"bold"} >{title}</Text></Box>
-                    <Box><Button variant={"outline"} p={3} fontWeight={"bold"} fontSize={18} rounded={48}><Link to={path}>open</Link></Button></Box>
+                    <Box><Link to={path}><Button variant={"outline"} p={3} fontWeight={"bold"} fontSize={18} rounded={48}>open</Button></Link></Box>
                 </HStack>
             </Box>
             <br />

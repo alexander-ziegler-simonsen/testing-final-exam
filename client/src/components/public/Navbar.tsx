@@ -12,7 +12,7 @@ export default function Navbar() {
       {/* logo */}
       <Box bg={"gray.100"}>
         <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"}>
-          test
+          Logo
         </Text>
       </Box>
 

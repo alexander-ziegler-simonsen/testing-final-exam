@@ -1,7 +1,7 @@
 import { Box, Heading, Text, Stack, Container, Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router";
 import MySidebar from "../components/Sidebar";
-import Navbar from "../components/public/Navbar";
+import Navbar from "../components/dashboards/Navbar";
 
 export default function DashboardLayout() {
     return (
