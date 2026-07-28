@@ -1,0 +1,8 @@
+
+services:
+  vitest-browser:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: pnpm run test:browser

@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/playwright:v1.62.0-noble
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN npm install -g corepack@latest && corepack enable && corepack prepare pnpm@10.33.0 --activate && pnpm install --frozen-lockfile
+
+COPY . .
+
+# CMD ["pnpm", "run", "vitest:browser"]
