@@ -42,10 +42,10 @@ export default function Overview() {
 
 
       
-      <br/>
+      {/* <br/>
       <Comp2 />
       <br/>
-      <Comp3 />
+      <Comp3 /> */}
       
     </>
   );
