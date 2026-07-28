@@ -60,6 +60,9 @@ importers:
       oxlint:
         specifier: ^1.71.0
         version: 1.76.0
+      playwright:
+        specifier: ^1.62.0
+        version: 1.62.0
       react-devtools:
         specifier: ^7.0.1
         version: 7.0.1

@@ -13,7 +13,8 @@
     "lint:fix-m": "oxlint --fix-suggestions",
     "lint:fix-d": "oxlint --fix-dangerously",
     "preview": "vite preview",
-    "test:browser": "vitest --config=vitest.browser.config.ts"
+    "test:browser": "vitest --config=vitest.browser.config.ts --browser.headless",
+    "test:browser-head": "vitest --config=vitest.browser.config.ts"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.36.1",
@@ -35,6 +36,7 @@
     "@vitejs/plugin-react": "^6.0.4",
     "@vitest/browser-playwright": "^4.1.10",
     "oxlint": "^1.71.0",
+    "playwright": "^1.62.0",
     "react-devtools": "^7.0.1",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
