@@ -6,3 +6,8 @@ services:
       - .:/app
       - /app/node_modules
     command: pnpm run test:browser
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
