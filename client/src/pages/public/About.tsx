@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Stack, Container, Stat, Grid, GridItem, Center } from "@chakra-ui/react";
+import { Box, Stack, Container, Stat, Grid, GridItem, Center } from "@chakra-ui/react";
 import Navbar from "../../components/public/Navbar";
 
 export default function About() {

@@ -1,5 +1,4 @@
-import { Box, Button, Center, Grid, GridItem, Text } from "@chakra-ui/react";
-import { Link } from "react-router";
+import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
 
 export default function Footer() {
     return (

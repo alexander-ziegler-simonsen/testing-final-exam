@@ -1,4 +1,4 @@
-import { Box, Button, Center, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 
 export default function Navbar() {

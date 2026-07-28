@@ -1,7 +1,5 @@
-import { Box, Heading, Text, Stack, Grid, GridItem, Wrap } from "@chakra-ui/react";
+import { Wrap } from "@chakra-ui/react";
 import InfoCard from "../../components/dashboards/InfoCard";
-import Comp3 from "../../components/dashboards/Comp3";
-import Comp2 from "../../components/dashboards/Comp2";
 
 export default function Overview() {
 

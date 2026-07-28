@@ -1,5 +1,5 @@
-import { Box, Button, CloseButton, Drawer, Flex, Portal, Text } from "@chakra-ui/react";
-import { LuMenu, LuCircleX, LuPackage, LuBriefcaseMedical, LuPill, LuPillBottle, LuArchive, LuBuilding2, LuShapes, LuPackageMinus, LuOctagonAlert, LuBed, LuUserRound, LuMicroscope, LuMicrochip, LuContactRound, LuClipboardPen, LuHospital, LuHeartPulse, LuHandHeart, LuWarehouse, LuStethoscope, LuActivity, LuCalendar } from "react-icons/lu"
+import { Box, Button, Drawer, Portal, Text } from "@chakra-ui/react";
+import { LuMenu, LuCircleX, LuPillBottle, LuBuilding2, LuShapes, LuContactRound, LuHeartPulse, LuStethoscope, LuCalendar } from "react-icons/lu"
 import SidebarElement from "./SidebarElement";
 import { useState } from "react";
 

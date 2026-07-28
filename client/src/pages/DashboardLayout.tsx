@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Stack, Container, Flex } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router";
 import MySidebar from "../components/Sidebar";
 import Navbar from "../components/dashboards/Navbar";
