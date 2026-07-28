@@ -1,9 +1,52 @@
-import { Box, Heading, Text, Stack } from "@chakra-ui/react";
+import { Box, Heading, Text, Stack, Grid, GridItem, Wrap } from "@chakra-ui/react";
+import InfoCard from "../../components/dashboards/InfoCard";
+import Comp3 from "../../components/dashboards/Comp3";
+import Comp2 from "../../components/dashboards/Comp2";
 
 export default function Overview() {
+
+  let data = [
+    {
+      title: "Patients",
+      value: "253",
+    },
+    {
+      title: "Staff",
+      value: "25",
+    },
+    {
+      title: "rooms in use",
+      value: "22",
+      type: "B1"
+    },
+    {
+      title: "rooms empty",
+      value: "34",
+    },
+    {
+      title: "missing reported medicin",
+      value: "22",
+      type: "unresolved"
+    }
+  ]
+
   return (
     <>
       <p>this is Overview page</p>
+
+      <Wrap rowGap={8} columnGap={6} p={4}>
+        {data.map((item, index) => (
+<InfoCard key={index} title={item.title} value={item.value} type={item.type} />
+        ))}
+      </Wrap>
+
+
+      
+      <br/>
+      <Comp2 />
+      <br/>
+      <Comp3 />
+      
     </>
   );
 }
