@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: `https://
-    ${import.meta.env.API_HOST || 'localhost'}
-    :${import.meta.env.API_PORT || '5028'}`,
+    // baseURL: `https://${import.meta.env.API_HOST || 'localhost'}:${import.meta.env.API_PORT || '5028'}/api`,
+    baseURL: `http://${import.meta.env.API_HOST || 'localhost'}:${import.meta.env.API_PORT || '5028'}/api`,
     headers: { 'Content-Type': 'application/json' },
 });
 
