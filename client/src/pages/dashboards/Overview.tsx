@@ -1,5 +1,7 @@
 import { Wrap } from "@chakra-ui/react";
 import InfoCard from "../../components/dashboards/InfoCard";
+import { FixedTimelineGrid } from "../../components/dashboards/SimpleTimeline";
+import { OverlappingTimeline } from "../../components/dashboards/OverlappingTimeLine";
 
 export default function Overview() {
 
@@ -39,7 +41,9 @@ export default function Overview() {
       </Wrap>
 
 
-      
+      <FixedTimelineGrid  />
+<br/><hr/>
+      <OverlappingTimeline />
       {/* <br/>
       <Comp2 />
       <br/>
