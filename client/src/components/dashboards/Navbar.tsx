@@ -1,9 +1,12 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
+import { useAuthStore } from "../../stores/AuthStore";
 
 export default function Navbar() {
+    const authStore = useAuthStore.getState();
+
     function logoutFunction() {
-        console.log("this is the logout button");
+        authStore.clearSession();
     }
 
     return (

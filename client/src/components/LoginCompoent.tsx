@@ -1,6 +1,8 @@
 import { Button, Input, Text } from "@chakra-ui/react";
 import { AuthService } from "../services/Auth";
 import { useState } from "react";
+import type { LoginResponse } from "../entites/LoginResponse";
+import { useAuthStore } from "../stores/AuthStore";
 
 export default function LoginCompoent() {
     const [username, setUsername] = useState<string>("");
@@ -10,8 +12,22 @@ export default function LoginCompoent() {
 
     async function loginFunc() {
         if (username.trim() !== "" && password.trim() !== "") {
-            let response = await AuthService.login({ username: username, password: password });
-            setFeedback(response.toString());
+            try {
+                let response: LoginResponse = await AuthService.login({ username: username, password: password });
+                console.log("test", response);
+                setFeedback("Login successful!");
+
+                // set the store here
+                useAuthStore.getState().setSession(response.token, {
+                    firstName: response.firstname!,
+                    lastName: response.lastname!,
+                    role: response.role as any // TODO - fix this later
+                })
+
+            } catch (error: any) {
+                console.error("login failed:", error);
+                setFeedback(JSON.stringify(error.response?.data?.message || "Wrong username or password."));
+            }
         }
         else {
             setFeedback("man! you forgot to fill the use and pass inputs, that is not okay man, try agian man!");
