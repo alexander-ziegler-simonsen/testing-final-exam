@@ -8,6 +8,9 @@ using hospitalApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.AspNetCore.Mvc.Controllers;
+// using Scalar.AspNetCore;
 
 // fix added to prevent problems with DateTime values
 // Allow writing DateTime(Kind=UTC) to PostgreSQL 'timestamp without time zone' columns
@@ -97,45 +100,39 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 
 
-// Swagger
 
 builder.Services.AddEndpointsApiExplorer();
 
-// does not work , since more than one DTO with the same name exist
-//builder.Services.AddSwaggerGen();
-
-// all on one page, hate it
-// builder.Services.AddSwaggerGen(options =>
-// {
-//     options.CustomSchemaIds(type => type.FullName);
-// });
-
-builder.Services.AddSwaggerGen(options =>
+builder.Services.AddOpenApi(options =>
 {
-    // options.SwaggerDoc("mysql-v1", new Microsoft.OpenApi.Models.OpenApiInfo
-    // {
-    //     Title = "Hospital API - MySQL",
-    //     Version = "mysql v1"
-    // });
+    options.CreateSchemaReferenceId = (type) =>
+    {
+        var id = OpenApiOptions.CreateDefaultSchemaReferenceId(type);
+        return id is null ? null : type.Type.FullName!.Replace("+", ".", StringComparison.Ordinal);
+    };
 
-    // still needed to avoid DTO name collisions
-    options.CustomSchemaIds(type => type.FullName);
+    options.AddOperationTransformer((operation, context, cancellationToken) =>
+    {
+        if (context.Description.ActionDescriptor is ControllerActionDescriptor action)
+        {
+            operation.OperationId = $"{action.ControllerName}_{action.ActionName}";
+        }
+        return Task.CompletedTask;
+    });
 });
-
 
 var app = builder.Build();
 
 
-// Swagger UI
+// Open API
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.MapOpenApi(); // now serves /openapi/v1.json instead of /swagger/v1/swagger.json
+    // app.MapScalarApiReference(); // UI page
     app.UseSwaggerUI(options =>
     {
-        // options.SwaggerEndpoint("/swagger/mysql-v1/swagger.json", "MySQL v1");
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-
+        options.SwaggerEndpoint("/openapi/v1.json", "v1"); 
     });
 }
 
