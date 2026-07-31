@@ -1,4 +1,5 @@
 import { setupWorker } from "msw/browser"
-import { Handlers } from "./Handler"
+import { createMswHandlers } from "../api/msw.gen"
 
-export const worker = setupWorker(...Handlers);
+const { all } = createMswHandlers();
+export const worker = setupWorker(...all());
