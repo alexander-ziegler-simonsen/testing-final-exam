@@ -979,6 +979,8 @@
             "name": "Firstname",
             "in": "query",
             "schema": {
+              "maxLength": 100,
+              "minLength": 2,
               "type": "string"
             }
           },
@@ -986,6 +988,8 @@
             "name": "Lastname",
             "in": "query",
             "schema": {
+              "maxLength": 100,
+              "minLength": 2,
               "type": "string"
             }
           },
@@ -993,6 +997,8 @@
             "name": "Gender",
             "in": "query",
             "schema": {
+              "maxLength": 50,
+              "minLength": 2,
               "type": "string"
             }
           },
@@ -1000,6 +1006,8 @@
             "name": "CprNumber",
             "in": "query",
             "schema": {
+              "maxLength": 10,
+              "minLength": 0,
               "type": "string"
             }
           },
@@ -2191,6 +2199,8 @@
             "name": "Description",
             "in": "query",
             "schema": {
+              "maxLength": 500,
+              "minLength": 2,
               "type": "string"
             }
           },
@@ -2741,12 +2751,16 @@
         "type": "object",
         "properties": {
           "name": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "type": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -2758,6 +2772,8 @@
         "type": "object",
         "properties": {
           "name": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "fkBuildingId": {
@@ -2774,9 +2790,13 @@
         "type": "object",
         "properties": {
           "username": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "password": {
+            "maxLength": 40,
+            "minLength": 8,
             "type": "string"
           }
         }
@@ -2785,36 +2805,48 @@
         "type": "object",
         "properties": {
           "name": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "genericName": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "brand": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "form": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "strength": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "category": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -2878,24 +2910,32 @@
         "type": "object",
         "properties": {
           "firstname": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "lastname": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "gender": {
+            "maxLength": 50,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "cprNumber": {
+            "maxLength": 10,
+            "minLength": 0,
             "type": [
               "null",
               "string"
@@ -2944,9 +2984,13 @@
         "type": "object",
         "properties": {
           "username": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "password": {
+            "maxLength": 40,
+            "minLength": 8,
             "type": "string"
           },
           "fkStaffId": {
@@ -3005,12 +3049,16 @@
         "type": "object",
         "properties": {
           "firstname": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "lastname": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -3038,6 +3086,8 @@
             "format": "int32"
           },
           "description": {
+            "maxLength": 500,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -3082,9 +3132,13 @@
             "format": "int32"
           },
           "name": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "address": {
+            "maxLength": 255,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -3104,12 +3158,16 @@
             "format": "int32"
           },
           "name": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "type": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -3129,6 +3187,8 @@
             "format": "int32"
           },
           "name": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "fkBuildingId": {
@@ -3189,36 +3249,48 @@
             "format": "int32"
           },
           "name": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "genericName": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "brand": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "form": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "strength": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "category": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -3306,24 +3378,32 @@
             "format": "int32"
           },
           "firstname": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "lastname": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "gender": {
+            "maxLength": 50,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "cprNumber": {
+            "maxLength": 10,
+            "minLength": 0,
             "type": [
               "null",
               "string"
@@ -3470,12 +3550,16 @@
             "format": "int32"
           },
           "firstname": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
             ]
           },
           "lastname": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -3511,6 +3595,8 @@
             "format": "int32"
           },
           "description": {
+            "maxLength": 500,
+            "minLength": 2,
             "type": [
               "null",
               "string"
@@ -3563,6 +3649,8 @@
             "format": "int32"
           },
           "username": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "fkStaffId": {
