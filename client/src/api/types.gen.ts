@@ -1721,7 +1721,7 @@ export type UserGetAllResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsUserOutputDto;
+    200: Array<HospitalApiDtosOutputsUserOutputDto>;
 };
 
 export type UserGetAllResponse = UserGetAllResponses[keyof UserGetAllResponses];

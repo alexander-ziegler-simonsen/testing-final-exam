@@ -705,7 +705,7 @@ export const zTreatmentStaffPutPath = z.object({
 /**
  * OK
  */
-export const zUserGetAllResponse = zHospitalApiDtosOutputsUserOutputDto;
+export const zUserGetAllResponse = z.array(zHospitalApiDtosOutputsUserOutputDto);
 
 export const zUserRegisterBody = zHospitalApiDtosInputsRegisterInputDto;
 
