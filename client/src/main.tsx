@@ -3,6 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { Provider } from './components/ui/provider.tsx'
+import { client } from './api/client.gen.ts'
+
+// set config for the client singleton instance, this is the default config for all requests made by the client.
+client.setConfig({
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+})
 
 // https://mswjs.io/docs/integrations/browser/#conditionally-enable-mocking
 async function enableMocking() {
