@@ -1,26 +1,47 @@
-import type { Prescription } from '../entites/Prescription';
-import { api } from './Api';
-
-const basePath = "/Prescription";
+import {
+    prescriptionGetAllPrescriptions,
+    prescriptionGet,
+    prescriptionPost,
+    prescriptionPut,
+    prescriptionDelete,
+} from '../api';
+import {
+    zHospitalApiDtosInputsPrescriptionInputDto,
+} from '../api/zod.gen';
+import type {
+    HospitalApiDtosOutputsPrescriptionOutputDto,
+    HospitalApiDtosInputsPrescriptionInputDto,
+} from '../api';
 
 export const PrescriptionService = {
-    getAll: () =>
-        api.get<Prescription[]>(basePath)
-            .then(r => r.data),
+    getAll: async (): Promise<HospitalApiDtosOutputsPrescriptionOutputDto[]> => {
+        const { data, error } = await prescriptionGetAllPrescriptions();
+        if (error) throw new Error('Failed to load prescriptions');
+        return data;
+    },
 
-    getById: (id: number) =>
-        api.get<Prescription>(`${basePath}/${id}`)
-            .then(r => r.data),
+    getById: async (id: number): Promise<HospitalApiDtosOutputsPrescriptionOutputDto> => {
+        const { data, error } = await prescriptionGet({ path: { id } });
+        if (error) throw new Error(`Failed to load prescription ${id}`);
+        return data;
+    },
 
-    create: (newPrescription: Prescription) =>
-        api.post<Prescription>(`${basePath}`, newPrescription)
-            .then(r => r.data),
+    create: async (newPrescription: HospitalApiDtosInputsPrescriptionInputDto): Promise<number> => {
+        const body = zHospitalApiDtosInputsPrescriptionInputDto.parse(newPrescription);
+        const { data, error } = await prescriptionPost({ body });
+        if (error) throw new Error('Failed to create prescription');
+        if (typeof data !== 'number') throw new Error('Failed to create prescription');
+        return data;
+    },
 
-    put: (id: number, changedPrescription: Prescription) =>
-        api.put<Prescription>(`${basePath}/${id}`, changedPrescription)
-            .then(r => r.data),
+    update: async (id: number, changedPrescription: HospitalApiDtosInputsPrescriptionInputDto): Promise<void> => {
+        const body = zHospitalApiDtosInputsPrescriptionInputDto.parse(changedPrescription);
+        const { error } = await prescriptionPut({ path: { id }, body });
+        if (error) throw new Error(`Failed to update prescription ${id}`);
+    },
 
-    delete: (id: number) =>
-        api.put<Prescription>(`${basePath}/${id}`)
-            .then(r => r.data),
-}
+    delete: async (id: number): Promise<void> => {
+        const { error } = await prescriptionDelete({ path: { id } });
+        if (error) throw new Error(`Failed to delete prescription ${id}`);
+    },
+};

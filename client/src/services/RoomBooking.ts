@@ -1,26 +1,47 @@
-import type { RoomBooking } from '../entites/RoomBooking';
-import { api } from './Api';
-
-const basePath = "/RoomBooking";
+import {
+    roomBookingGetAll,
+    roomBookingGet,
+    roomBookingPost,
+    roomBookingPut,
+    roomBookingDelete,
+} from '../api';
+import {
+    zHospitalApiDtosInputsRoomBookingInputDto,
+} from '../api/zod.gen';
+import type {
+    HospitalApiDtosOutputsRoomBookingOutputDto,
+    HospitalApiDtosInputsRoomBookingInputDto,
+} from '../api';
 
 export const RoomBookingService = {
-    getAll: () =>
-        api.get<RoomBooking[]>(basePath)
-            .then(r => r.data),
+    getAll: async (): Promise<HospitalApiDtosOutputsRoomBookingOutputDto[]> => {
+        const { data, error } = await roomBookingGetAll();
+        if (error) throw new Error('Failed to load room bookings');
+        return data;
+    },
 
-    getById: (id: number) =>
-        api.get<RoomBooking>(`${basePath}/${id}`)
-            .then(r => r.data),
+    getById: async (id: number): Promise<HospitalApiDtosOutputsRoomBookingOutputDto> => {
+        const { data, error } = await roomBookingGet({ path: { id } });
+        if (error) throw new Error(`Failed to load room booking ${id}`);
+        return data;
+    },
 
-    create: (newRoomBooking: RoomBooking) =>
-        api.post<RoomBooking>(`${basePath}`, newRoomBooking)
-            .then(r => r.data),
+    create: async (newRoomBooking: HospitalApiDtosInputsRoomBookingInputDto): Promise<number> => {
+        const body = zHospitalApiDtosInputsRoomBookingInputDto.parse(newRoomBooking);
+        const { data, error } = await roomBookingPost({ body });
+        if (error) throw new Error(error);
+        if (typeof data !== 'number') throw new Error('Failed to create room booking');
+        return data;
+    },
 
-    put: (id: number, changedRoomBooking: RoomBooking) =>
-        api.put<RoomBooking>(`${basePath}/${id}`, changedRoomBooking)
-            .then(r => r.data),
+    update: async (id: number, changedRoomBooking: HospitalApiDtosInputsRoomBookingInputDto): Promise<void> => {
+        const body = zHospitalApiDtosInputsRoomBookingInputDto.parse(changedRoomBooking);
+        const { error } = await roomBookingPut({ path: { id }, body });
+        if (error) throw new Error(typeof error === 'string' ? error : `Failed to update room booking ${id}`);
+    },
 
-    delete: (id: number) =>
-        api.put<RoomBooking>(`${basePath}/${id}`)
-            .then(r => r.data),
-}
+    delete: async (id: number): Promise<void> => {
+        const { error } = await roomBookingDelete({ path: { id } });
+        if (error) throw new Error(`Failed to delete room booking ${id}`);
+    },
+};

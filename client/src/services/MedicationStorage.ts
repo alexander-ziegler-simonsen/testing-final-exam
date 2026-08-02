@@ -1,26 +1,47 @@
-import type { MedicationStorage } from '../entites/MedicationStorage';
-import { api } from './Api';
-
-const basePath = "/MedicationStorage";
+import {
+    storageGetAllMedicationStorages,
+    storageGet,
+    storagePost,
+    storagePut,
+    storageDelete,
+} from '../api';
+import {
+    zHospitalApiDtosInputsMedicationStorageInputDto,
+} from '../api/zod.gen';
+import type {
+    HospitalApiDtosOutputsMedicationStorageOutputDto,
+    HospitalApiDtosInputsMedicationStorageInputDto,
+} from '../api';
 
 export const MedicationStorageService = {
-    getAll: () =>
-        api.get<MedicationStorage[]>(basePath)
-            .then(r => r.data),
+    getAll: async (): Promise<HospitalApiDtosOutputsMedicationStorageOutputDto[]> => {
+        const { data, error } = await storageGetAllMedicationStorages();
+        if (error) throw new Error('Failed to load medication storages');
+        return data;
+    },
 
-    getById: (id: number) =>
-        api.get<MedicationStorage>(`${basePath}/${id}`)
-            .then(r => r.data),
+    getById: async (id: number): Promise<HospitalApiDtosOutputsMedicationStorageOutputDto> => {
+        const { data, error } = await storageGet({ path: { id } });
+        if (error) throw new Error(`Failed to load medication storage ${id}`);
+        return data;
+    },
 
-    create: (newMedicationStorage: MedicationStorage) =>
-        api.post<MedicationStorage>(`${basePath}`, newMedicationStorage)
-            .then(r => r.data),
+    create: async (newMedicationStorage: HospitalApiDtosInputsMedicationStorageInputDto): Promise<number> => {
+        const body = zHospitalApiDtosInputsMedicationStorageInputDto.parse(newMedicationStorage);
+        const { data, error } = await storagePost({ body });
+        if (error) throw new Error('Failed to create medication storage');
+        if (typeof data !== 'number') throw new Error('Failed to create medication storage');
+        return data;
+    },
 
-    put: (id: number, changedMedicationStorage: MedicationStorage) =>
-        api.put<MedicationStorage>(`${basePath}/${id}`, changedMedicationStorage)
-            .then(r => r.data),
+    update: async (id: number, changedMedicationStorage: HospitalApiDtosInputsMedicationStorageInputDto): Promise<void> => {
+        const body = zHospitalApiDtosInputsMedicationStorageInputDto.parse(changedMedicationStorage);
+        const { error } = await storagePut({ path: { id }, body });
+        if (error) throw new Error(`Failed to update medication storage ${id}`);
+    },
 
-    delete: (id: number) =>
-        api.put<MedicationStorage>(`${basePath}/${id}`)
-            .then(r => r.data),
-}
+    delete: async (id: number): Promise<void> => {
+        const { error } = await storageDelete({ path: { id } });
+        if (error) throw new Error(`Failed to delete medication storage ${id}`);
+    },
+};

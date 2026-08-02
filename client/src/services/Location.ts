@@ -1,114 +1,62 @@
 import {
-locationGetAllLocations,
-locationGet,
-locationGetAllFloors,
-locationPostFloor,
-locationDeleteFloor,
-locationGetFloor,
-locationPutFloor,
+    locationGetAllLocations,
+    locationGet,
+    locationGetAllFloors,
+    locationPostFloor,
+    locationDeleteFloor,
+    locationGetFloor,
+    locationPutFloor,
 } from '../api';
-// import {
-// zLocationGetAllLocationsData,
-// zLocationGetAllFloorsData,
-// zLocationGetFloorData,
-// zLocationGetResponses,
-// zLocationGetErrors,
-// zLocationGetAllFloorsResponses,
-// zLocationGetAllFloorsErrors,
-// zLocationPostFloorResponses,
-// zLocationDeleteFloorResponses,
-// zLocationGetFloorResponses,
-// zLocationGetFloorErrors,
-// zLocationPutFloorResponses,
-// } from '../api/zod.gen';
 import type {
-LocationGetAllLocationsData,
-LocationGetAllFloorsData,
-LocationGetFloorData,
-LocationGetResponses,
-LocationGetErrors,
-LocationGetAllFloorsResponses,
-LocationGetAllFloorsErrors,
-LocationPostFloorResponses,
-LocationDeleteFloorResponses,
-LocationGetFloorResponses,
-LocationGetFloorErrors,
-LocationPutFloorResponses,
+    HospitalApiDtosOutputsLocationOutputDto,
+    HospitalApiDtosOutputsFloorRoomsOutputDto,
+    HospitalApiDtosInputsFloorInputDto,
 } from '../api';
-
-const basePath = "/Location";
+import {
+    zHospitalApiDtosInputsFloorInputDto,
+} from '../api/zod.gen';
 
 export const LocationService = {
-    getAll: async () : Promise<dto[]> =>
-    {
+    getAll: async (): Promise<HospitalApiDtosOutputsLocationOutputDto[]> => {
         const { data, error } = await locationGetAllLocations();
-        if (error) throw new Error("error message");
-        return data; 
+        if (error) throw new Error('Failed to load locations');
+        return data;
     },
 
-
-    getById: async (id: number) : Promise<dto[]> =>
-    {
-        const { data, error } = await locationGet(id);
-        if (error) throw new Error("error message");
-        return data; 
+    getById: async (id: number): Promise<HospitalApiDtosOutputsLocationOutputDto> => {
+        const { data, error } = await locationGet({ path: { id } });
+        if (error) throw new Error(`Failed to load location ${id}`);
+        return data;
     },
 
-
-    getAllFloorRooms: async () : Promise<dto[]> =>
-    {
+    getAllFloorRooms: async (): Promise<HospitalApiDtosOutputsFloorRoomsOutputDto[]> => {
         const { data, error } = await locationGetAllFloors();
-        if (error) throw new Error("error message");
-        return data; 
+        if (error) throw new Error('Failed to load floors');
+        return data;
     },
 
-
-    getOneFloorRooms: async (id: number) : Promise<dto[]> =>
-    {
-        const { data, error } = await endpoint();
-        if (error) throw new Error("error message");
-        return data; 
+    getOneFloorRooms: async (id: number): Promise<HospitalApiDtosOutputsFloorRoomsOutputDto> => {
+        const { data, error } = await locationGetFloor({ path: { id } });
+        if (error) throw new Error(`Failed to load floor ${id}`);
+        return data;
     },
 
-
-    putFloor: async (id: number, changedFloor: Floor) : Promise<dto[]> =>
-    {
-        const { data, error } = await endpoint();
-        if (error) throw new Error("error message");
-        return data; 
-    },
-        api.post<Floor>(`${basePath}/floor/${id}`, changedFloor)
-            .then(r => r.data),
-
-    createFloor: async (newFloor: Floor) : Promise<dto[]> =>
-    {
-        const { data, error } = await locationPostFloor(newFloor);
-        if (error) throw new Error("error message");
-        return data; 
+    createFloor: async (newFloor: HospitalApiDtosInputsFloorInputDto): Promise<number> => {
+        const body = zHospitalApiDtosInputsFloorInputDto.parse(newFloor);
+        const { data, error } = await locationPostFloor({ body });
+        if (error) throw new Error('Failed to create floor');
+        if (typeof data !== 'number') throw new Error('Failed to create floor');
+        return data;
     },
 
-
-    deleteFloor: async (id: number) : Promise<dto[]> =>
-    {
-        const { data, error } = await endpoint();
-        if (error) throw new Error("error message");
-        return data; 
+    putFloor: async (id: number, changedFloor: HospitalApiDtosInputsFloorInputDto): Promise<void> => {
+        const body = zHospitalApiDtosInputsFloorInputDto.parse(changedFloor);
+        const { error } = await locationPutFloor({ path: { id }, body });
+        if (error) throw new Error(`Failed to update floor ${id}`);
     },
 
-
-    put: async (id: number, changedLocation: Location) : Promise<dto[]> =>
-    {
-        const { data, error } = await endpoint();
-        if (error) throw new Error("error message");
-        return data; 
+    deleteFloor: async (id: number): Promise<void> => {
+        const { error } = await locationDeleteFloor({ path: { id } });
+        if (error) throw new Error(`Failed to delete floor ${id}`);
     },
-
-
-    delete: async (id: number) : Promise<dto[]> =>
-    {
-        const { data, error } = await endpoint();
-        if (error) throw new Error("error message");
-        return data; 
-    },
-
-}
+};

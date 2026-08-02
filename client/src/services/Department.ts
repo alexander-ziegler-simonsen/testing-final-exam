@@ -31,7 +31,8 @@ export const DepartmentService = {
         const body = zHospitalApiDtosInputsDepartmentInputDto.parse(newDepartment);
         const { data, error } = await departmentPost({ body });
         if (error) throw new Error('Failed to create department');
-        return data; // newId — only reliably typed once the Post attribute above is added
+        if (typeof data !== 'number') throw new Error('Failed to create department');
+        return data;
     },
 
     update: async (id: number, changedDepartment: HospitalApiDtosInputsDepartmentInputDto): Promise<void> => {

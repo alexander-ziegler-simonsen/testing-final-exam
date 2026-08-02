@@ -1,26 +1,59 @@
-import type { Treatment } from '../entites/Treatment';
-import { api } from './Api';
-
-const basePath = "/Treatment";
+import {
+    treatmentGetAllTreatments,
+    treatmentGet,
+    treatmentPost,
+    treatmentPut,
+    treatmentDelete,
+} from '../api';
+import {
+    zHospitalApiDtosInputsTreatmentInputDto,
+} from '../api/zod.gen';
+import type {
+    HospitalApiDtosOutputsTreatmentOutputDto,
+    HospitalApiDtosInputsTreatmentInputDto,
+} from '../api';
 
 export const TreatmentService = {
-    getAll: () =>
-        api.get<Treatment[]>(basePath)
-            .then(r => r.data),
+    getAll: async (
+        filter?: HospitalApiDtosInputsTreatmentInputDto,
+        sortBy?: string,
+        sortDir?: string,
+    ): Promise<HospitalApiDtosOutputsTreatmentOutputDto[]> => {
+        const { data, error } = await treatmentGetAllTreatments({
+            query: {
+                FkPatientId: filter?.fkPatientId,
+                Description: filter?.description ?? undefined,
+                Time: filter?.time,
+                sortBy,
+                sortDir,
+            },
+        });
+        if (error) throw new Error('Failed to load treatments');
+        return data;
+    },
 
-    getById: (id: number) =>
-        api.get<Treatment>(`${basePath}/${id}`)
-            .then(r => r.data),
+    getById: async (id: number): Promise<HospitalApiDtosOutputsTreatmentOutputDto> => {
+        const { data, error } = await treatmentGet({ path: { id } });
+        if (error) throw new Error(`Failed to load treatment ${id}`);
+        return data;
+    },
 
-    create: (newTreat: Treatment) =>
-        api.post<Treatment>(`${basePath}`, newTreat)
-            .then(r => r.data),
+    create: async (newTreatment: HospitalApiDtosInputsTreatmentInputDto): Promise<number> => {
+        const body = zHospitalApiDtosInputsTreatmentInputDto.parse(newTreatment);
+        const { data, error } = await treatmentPost({ body });
+        if (error) throw new Error('Failed to create treatment');
+        if (typeof data !== 'number') throw new Error('Failed to create treatment');
+        return data;
+    },
 
-    put: (id: number, changedTreatment: Treatment) =>
-        api.put<Treatment>(`${basePath}/${id}`, changedTreatment)
-            .then(r => r.data),
+    update: async (id: number, changedTreatment: HospitalApiDtosInputsTreatmentInputDto): Promise<void> => {
+        const body = zHospitalApiDtosInputsTreatmentInputDto.parse(changedTreatment);
+        const { error } = await treatmentPut({ path: { id }, body });
+        if (error) throw new Error(`Failed to update treatment ${id}`);
+    },
 
-    delete: (id: number) =>
-        api.put<Treatment>(`${basePath}/${id}`)
-            .then(r => r.data),
-}
+    delete: async (id: number): Promise<void> => {
+        const { error } = await treatmentDelete({ path: { id } });
+        if (error) throw new Error(`Failed to delete treatment ${id}`);
+    },
+};

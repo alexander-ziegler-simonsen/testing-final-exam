@@ -1,7 +1,12 @@
-import type { Room } from '../entites/Room';
-import { api } from './Api';
+import {
 
-const basePath = "/Room";
+} from '../api';
+import {
+
+} from '../api/zod.gen';
+import type {
+
+} from '../api';
 
 export const RoomService = {
     getAll: () =>
