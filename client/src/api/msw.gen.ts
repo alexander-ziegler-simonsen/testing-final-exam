@@ -78,7 +78,7 @@ export function handleDepartmentPost(response?: HandleDepartmentPostResponse | H
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -511,7 +511,7 @@ export function handleMedicinPost(response?: HandleMedicinPostResponse | HttpRes
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -658,7 +658,7 @@ export function handleMissingStoragePost(response?: HandleMissingStoragePostResp
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -805,7 +805,7 @@ export function handlePatientPost(response?: HandlePatientPostResponse | HttpRes
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -952,7 +952,7 @@ export function handlePrescriptionPost(response?: HandlePrescriptionPostResponse
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -1099,7 +1099,7 @@ export function handleRoomBookingPost(response?: HandleRoomBookingPostResponse |
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -1246,7 +1246,7 @@ export function handleShiftPost(response?: HandleShiftPostResponse | HttpRespons
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -1393,7 +1393,7 @@ export function handleStaffPost(response?: HandleStaffPostResponse | HttpRespons
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -1540,7 +1540,7 @@ export function handleStoragePost(response?: HandleStoragePostResponse | HttpRes
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -1687,7 +1687,7 @@ export function handleTreatmentPost(response?: HandleTreatmentPostResponse | Htt
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -1834,7 +1834,7 @@ export function handleTreatmentStaffPost(response?: HandleTreatmentStaffPostResp
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -1981,7 +1981,7 @@ export function handleUserRegister(response?: HandleUserRegisterResponse | HttpR
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;

@@ -35,6 +35,7 @@ export const departmentGetAllDepartments = <ThrowOnError extends boolean = false
 });
 
 export const departmentPost = <ThrowOnError extends boolean = false>(options: Options<DepartmentPostData, ThrowOnError>): RequestResult<DepartmentPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<DepartmentPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Department',
     ...options,
     headers: {
@@ -130,6 +131,7 @@ export const medicinGetAllMedicins = <ThrowOnError extends boolean = false>(opti
 });
 
 export const medicinPost = <ThrowOnError extends boolean = false>(options: Options<MedicinPostData, ThrowOnError>): RequestResult<MedicinPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<MedicinPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Medicin',
     ...options,
     headers: {
@@ -162,6 +164,7 @@ export const missingStorageGetAllMedicationStorageMissings = <ThrowOnError exten
 });
 
 export const missingStoragePost = <ThrowOnError extends boolean = false>(options: Options<MissingStoragePostData, ThrowOnError>): RequestResult<MissingStoragePostResponses, unknown, ThrowOnError> => (options.client ?? client).post<MissingStoragePostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/MissingStorage',
     ...options,
     headers: {
@@ -194,6 +197,7 @@ export const patientGetAllPatients = <ThrowOnError extends boolean = false>(opti
 });
 
 export const patientPost = <ThrowOnError extends boolean = false>(options: Options<PatientPostData, ThrowOnError>): RequestResult<PatientPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<PatientPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Patient',
     ...options,
     headers: {
@@ -226,6 +230,7 @@ export const prescriptionGetAllPrescriptions = <ThrowOnError extends boolean = f
 });
 
 export const prescriptionPost = <ThrowOnError extends boolean = false>(options: Options<PrescriptionPostData, ThrowOnError>): RequestResult<PrescriptionPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<PrescriptionPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Prescription',
     ...options,
     headers: {
@@ -258,6 +263,7 @@ export const roomBookingGetAll = <ThrowOnError extends boolean = false>(options?
 });
 
 export const roomBookingPost = <ThrowOnError extends boolean = false>(options: Options<RoomBookingPostData, ThrowOnError>): RequestResult<RoomBookingPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<RoomBookingPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/RoomBooking',
     ...options,
     headers: {
@@ -290,6 +296,7 @@ export const shiftGetAllShifts = <ThrowOnError extends boolean = false>(options?
 });
 
 export const shiftPost = <ThrowOnError extends boolean = false>(options: Options<ShiftPostData, ThrowOnError>): RequestResult<ShiftPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<ShiftPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Shift',
     ...options,
     headers: {
@@ -322,6 +329,7 @@ export const staffGetAllStaffs = <ThrowOnError extends boolean = false>(options?
 });
 
 export const staffPost = <ThrowOnError extends boolean = false>(options: Options<StaffPostData, ThrowOnError>): RequestResult<StaffPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<StaffPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Staff',
     ...options,
     headers: {
@@ -354,6 +362,7 @@ export const storageGetAllMedicationStorages = <ThrowOnError extends boolean = f
 });
 
 export const storagePost = <ThrowOnError extends boolean = false>(options: Options<StoragePostData, ThrowOnError>): RequestResult<StoragePostResponses, unknown, ThrowOnError> => (options.client ?? client).post<StoragePostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Storage',
     ...options,
     headers: {
@@ -386,6 +395,7 @@ export const treatmentGetAllTreatments = <ThrowOnError extends boolean = false>(
 });
 
 export const treatmentPost = <ThrowOnError extends boolean = false>(options: Options<TreatmentPostData, ThrowOnError>): RequestResult<TreatmentPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<TreatmentPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Treatment',
     ...options,
     headers: {
@@ -418,6 +428,7 @@ export const treatmentStaffGetAll = <ThrowOnError extends boolean = false>(optio
 });
 
 export const treatmentStaffPost = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffPostData, ThrowOnError>): RequestResult<TreatmentStaffPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<TreatmentStaffPostResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/TreatmentStaff',
     ...options,
     headers: {
@@ -450,6 +461,7 @@ export const userGetAll = <ThrowOnError extends boolean = false>(options?: Optio
 });
 
 export const userRegister = <ThrowOnError extends boolean = false>(options: Options<UserRegisterData, ThrowOnError>): RequestResult<UserRegisterResponses, unknown, ThrowOnError> => (options.client ?? client).post<UserRegisterResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     url: '/api/User/register',
     ...options,
     headers: {

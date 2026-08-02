@@ -316,8 +316,10 @@ export type DepartmentPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type DepartmentPostResponse = DepartmentPostResponses[keyof DepartmentPostResponses];
 
 export type DepartmentDeleteData = {
     body?: never;
@@ -647,8 +649,10 @@ export type MedicinPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type MedicinPostResponse = MedicinPostResponses[keyof MedicinPostResponses];
 
 export type MedicinDeleteData = {
     body?: never;
@@ -745,8 +749,10 @@ export type MissingStoragePostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type MissingStoragePostResponse = MissingStoragePostResponses[keyof MissingStoragePostResponses];
 
 export type MissingStorageDeleteData = {
     body?: never;
@@ -850,8 +856,10 @@ export type PatientPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type PatientPostResponse = PatientPostResponses[keyof PatientPostResponses];
 
 export type PatientDeleteData = {
     body?: never;
@@ -948,8 +956,10 @@ export type PrescriptionPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type PrescriptionPostResponse = PrescriptionPostResponses[keyof PrescriptionPostResponses];
 
 export type PrescriptionDeleteData = {
     body?: never;
@@ -1046,8 +1056,10 @@ export type RoomBookingPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type RoomBookingPostResponse = RoomBookingPostResponses[keyof RoomBookingPostResponses];
 
 export type RoomBookingDeleteData = {
     body?: never;
@@ -1149,8 +1161,10 @@ export type ShiftPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type ShiftPostResponse = ShiftPostResponses[keyof ShiftPostResponses];
 
 export type ShiftDeleteData = {
     body?: never;
@@ -1247,8 +1261,10 @@ export type StaffPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type StaffPostResponse = StaffPostResponses[keyof StaffPostResponses];
 
 export type StaffDeleteData = {
     body?: never;
@@ -1345,8 +1361,10 @@ export type StoragePostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type StoragePostResponse = StoragePostResponses[keyof StoragePostResponses];
 
 export type StorageDeleteData = {
     body?: never;
@@ -1449,8 +1467,10 @@ export type TreatmentPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type TreatmentPostResponse = TreatmentPostResponses[keyof TreatmentPostResponses];
 
 export type TreatmentDeleteData = {
     body?: never;
@@ -1547,8 +1567,10 @@ export type TreatmentStaffPostResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: number | string;
 };
+
+export type TreatmentStaffPostResponse = TreatmentStaffPostResponses[keyof TreatmentStaffPostResponses];
 
 export type TreatmentStaffDeleteData = {
     body?: never;
@@ -1645,8 +1667,10 @@ export type UserRegisterResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: boolean;
 };
+
+export type UserRegisterResponse = UserRegisterResponses[keyof UserRegisterResponses];
 
 export type UserChangePasswordData = {
     body: string;
