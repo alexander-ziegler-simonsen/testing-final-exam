@@ -40,6 +40,7 @@ namespace hospitalApi.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
         public async Task<ActionResult<int>> Post([FromBody] RoomBookingInputDto newRoomBooking)
         {
             bool available = await _roomBookingService.IsRoomAvailable(
@@ -60,6 +61,8 @@ namespace hospitalApi.Controllers
 
         // PUT: api/roombooking/5
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
         public async Task<ActionResult> Put(int id, [FromBody] RoomBookingInputDto newRoomBooking)
         {
             bool available = await _roomBookingService.IsRoomAvailable(
