@@ -43,7 +43,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<DepartmentController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] DepartmentInputDto newDepartment)
+        public async Task<ActionResult<int>> Post([FromBody] DepartmentInputDto newDepartment)
         {
             int newId = await _DepartmentService.CreateDepartment(newDepartment);
 

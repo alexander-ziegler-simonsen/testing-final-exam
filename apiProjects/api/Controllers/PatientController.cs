@@ -44,7 +44,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<PatientController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] PatientInputDto newPatient)
+        public async Task<ActionResult<int>> Post([FromBody] PatientInputDto newPatient)
         {
             int newId = await _PatientService.CreatePatient(newPatient);
 

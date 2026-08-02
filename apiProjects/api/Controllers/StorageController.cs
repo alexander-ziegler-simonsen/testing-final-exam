@@ -43,7 +43,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<MedicationStorageController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] MedicationStorageInputDto newMedicationStorage)
+        public async Task<ActionResult<int>> Post([FromBody] MedicationStorageInputDto newMedicationStorage)
         {
             int newId = await _MedicationStorageService.CreateStorage(newMedicationStorage);
 

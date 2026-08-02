@@ -38,7 +38,7 @@ namespace hospitalApi.Controllers
 
         // POST: api/roombooking
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] RoomBookingInputDto newRoomBooking)
+        public async Task<ActionResult<int>> Post([FromBody] RoomBookingInputDto newRoomBooking)
         {
             bool available = await _roomBookingService.IsRoomAvailable(
                 newRoomBooking.FkRoomId,

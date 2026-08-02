@@ -45,7 +45,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<ShiftController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] ShiftInputDto newShift)
+        public async Task<ActionResult<int>> Post([FromBody] ShiftInputDto newShift)
         {
             int newId = await _ShiftService.CreateShift(newShift);
 

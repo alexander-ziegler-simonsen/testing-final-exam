@@ -27,11 +27,11 @@ namespace hospitalApi.Controllers
 
         // POST api/user/register
         [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] RegisterInputDto input)
+        public async Task<ActionResult<bool>> Register([FromBody] RegisterInputDto input)
         {
             bool success = await _userService.Register(input);
             if (success)
-                return Ok();
+                return Ok(true);
             else
                 // Returns Conflict when username already exists
                 return Conflict("Username already taken.");

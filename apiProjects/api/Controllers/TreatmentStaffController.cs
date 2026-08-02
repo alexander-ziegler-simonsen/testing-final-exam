@@ -40,7 +40,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<TreatmentStaffController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] TreatmentStaffInputDto input)
+        public async Task<ActionResult<int>> Post([FromBody] TreatmentStaffInputDto input)
         {
             int newId = await _TreatmentStaffService.CreateTreatmentStaff(input);
 

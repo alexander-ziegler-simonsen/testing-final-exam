@@ -43,7 +43,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<MedicinController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] MedicationInputDto newMedicin)
+        public async Task<ActionResult<int>> Post([FromBody] MedicationInputDto newMedicin)
         {
             int newId = await _MedicinService.CreateMedication(newMedicin);
 
