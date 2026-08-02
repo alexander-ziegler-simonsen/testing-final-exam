@@ -18,6 +18,8 @@ namespace hospitalApi.Controllers
 
         // GET: api/roombooking
         [HttpGet]
+        [ProducesResponseType(typeof(RoomBookingOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<RoomBookingOutput>> GetAll()
         {
             return await _roomBookingService.GetAll();
@@ -25,6 +27,8 @@ namespace hospitalApi.Controllers
 
         // GET: api/roombooking/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(RoomBookingOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<RoomBookingOutput>> Get(int id)
         {
             var output = await _roomBookingService.GetOne(id);

@@ -19,6 +19,8 @@ namespace hospitalApi.Controllers
 
         // GET: api/<PatientController>
         [HttpGet]
+        [ProducesResponseType(typeof(PatientOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<PatientOutput>> GetAllPatients(
             [FromQuery] PatientInput? filter = null,
             [FromQuery] string? sortBy = null,
@@ -29,6 +31,8 @@ namespace hospitalApi.Controllers
 
         // GET api/<PatientController>/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(PatientOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PatientOutput>> Get(int id)
         {
             PatientOutput output = await _PatientService.GetOne(id);

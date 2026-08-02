@@ -19,6 +19,8 @@ namespace hospitalApi.Controllers
 
         // GET: api/<ShiftController>
         [HttpGet]
+        [ProducesResponseType(typeof(ShiftOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<ShiftOutput>> GetAllShifts(
             [FromQuery] DateTime? from = null,
             [FromQuery] DateTime? to = null,
@@ -30,6 +32,8 @@ namespace hospitalApi.Controllers
 
         // GET api/<ShiftController>/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ShiftOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ShiftOutput>> Get(int id)
         {
             ShiftOutput output = await _ShiftService.GetOne(id);

@@ -1,4 +1,5 @@
 using hospitalApi.DTOs.Inputs;
+using hospitalApi.DTOs.Outputs;
 using hospitalApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,9 @@ namespace hospitalApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] LoginInput credentials)
+        [ProducesResponseType(typeof(LoginOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<LoginOutput>> Login([FromBody] LoginInput credentials)
         {
             var result = await _authService.Login(credentials);
             return result == null ? Unauthorized() : Ok(result);

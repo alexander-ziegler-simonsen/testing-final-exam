@@ -19,29 +19,35 @@ namespace hospitalApi.Controllers
 
         // GET api/<ExternalMedicinePricesController>/productsByName/
         [HttpGet("productsByName")]
-        public async Task<IActionResult> GetMedicineProductsByName([FromQuery] string productName)
+        [ProducesResponseType(typeof(MedicineProductOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IEnumerable<MedicineProductOutput>> GetMedicineProductsByName([FromQuery] string productName)
         {
             var output = await _externalApiService.GetMedicineProductsByNameAsync(productName);
 
-            return Ok(output);
+            return output;
         }
 
         // GET api/<ExternalMedicinePricesController>/productsByIngredient
         [HttpGet("productsByIngredient")]
-        public async Task<IActionResult> GetMedicineProductsByIngredients([FromQuery] string ingredientName)
+        [ProducesResponseType(typeof(MedicineProductOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IEnumerable<MedicineProductOutput>> GetMedicineProductsByIngredients([FromQuery] string ingredientName)
         {
             var output = await _externalApiService.GetMedicineProductsByIngredientsAsync(ingredientName);
 
-            return Ok(output);
+            return output;
         }
 
         // GET api/<ExternalMedicinePricesController>/productDetails
         [HttpGet("productDetails")]
-        public async Task<IActionResult> GetMedicineProductDetailsAsync([FromQuery] string productDetailId)
+        [ProducesResponseType(typeof(MedicineDetailOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<MedicineDetailOutput>> GetMedicineProductDetailsAsync([FromQuery] string productDetailId)
         {
             var output = await _externalApiService.GetMedicineProductDetailsAsync(productDetailId);
 
-            return Ok(output);
+            return output;
         }
 
     }

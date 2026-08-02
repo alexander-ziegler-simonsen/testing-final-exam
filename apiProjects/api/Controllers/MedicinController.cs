@@ -19,6 +19,8 @@ namespace hospitalApi.Controllers
 
         // GET: api/<MedicinController>
         [HttpGet]
+        [ProducesResponseType(typeof(MedicationOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<MedicationOutput>> GetAllMedicins()
         {
             var output = await _MedicinService.GetAll();
@@ -28,6 +30,8 @@ namespace hospitalApi.Controllers
 
         // GET api/<MedicinController>/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(MedicationOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<MedicationOutput>> Get(int id)
         {
             MedicationOutput output = await _MedicinService.GetOne(id);
