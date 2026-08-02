@@ -1,7 +1,7 @@
 import { Button, Input, Text } from "@chakra-ui/react";
 import { AuthService } from "../services/Auth";
 import { useState } from "react";
-import type { LoginResponse } from "../entites/LoginResponse";
+import type { HospitalApiDtosOutputsLoginOutputDto } from "../api";
 import { useAuthStore } from "../stores/AuthStore";
 
 export default function LoginCompoent() {
@@ -13,7 +13,7 @@ export default function LoginCompoent() {
     async function loginFunc() {
         if (username.trim() !== "" && password.trim() !== "") {
             try {
-                let response: LoginResponse = await AuthService.login({ username: username, password: password });
+                let response: HospitalApiDtosOutputsLoginOutputDto = await AuthService.login({ username: username, password: password });
                 console.log("test", response);
                 setFeedback("Login successful!");
 
