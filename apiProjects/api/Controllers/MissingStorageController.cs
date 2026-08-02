@@ -19,7 +19,7 @@ namespace hospitalApi.Controllers
 
         // GET: api/<MedicationStorageMissingController>
         [HttpGet]
-        [ProducesResponseType(typeof(MedicationStorageMissingOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MedicationStorageMissingOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<MedicationStorageMissingOutputDto>> GetAllMedicationStorageMissings()
         {
@@ -43,6 +43,8 @@ namespace hospitalApi.Controllers
 
         // POST api/<MedicationStorageMissingController>
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<int>> Post([FromBody] MedicationStorageMissingInputDto newMedicationStorageMissing)
         {
             int newId = await _MedicationStorageMissingService.CreateMissingStorage(newMedicationStorageMissing);

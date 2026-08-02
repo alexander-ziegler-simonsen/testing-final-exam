@@ -18,7 +18,7 @@ namespace hospitalApi.Controllers
 
         // GET: api/<PrescriptionController>
         [HttpGet]
-        [ProducesResponseType(typeof(PrescriptionOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<PrescriptionOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<PrescriptionOutputDto>> GetAllPrescriptions()
         {
@@ -41,6 +41,8 @@ namespace hospitalApi.Controllers
 
         // POST api/<PrescriptionController>
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<int>> Post([FromBody] PrescriptionInputDto newPrescription)
         {
             int newId = await _PrescriptionService.CreatePrescription(newPrescription);

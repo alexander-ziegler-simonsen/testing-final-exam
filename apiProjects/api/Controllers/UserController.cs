@@ -27,6 +27,8 @@ namespace hospitalApi.Controllers
 
         // POST api/user/register
         [HttpPost("register")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<bool>> Register([FromBody] RegisterInputDto input)
         {
             bool success = await _userService.Register(input);

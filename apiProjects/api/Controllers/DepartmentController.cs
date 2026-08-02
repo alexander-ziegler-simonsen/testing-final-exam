@@ -19,7 +19,7 @@ namespace hospitalApi.Controllers
 
         // GET: api/<DepartmentController>
         [HttpGet]
-        [ProducesResponseType(typeof(DepartmentOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<DepartmentOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IEnumerable<DepartmentOutputDto>> GetAllDepartments()
         {
@@ -43,6 +43,8 @@ namespace hospitalApi.Controllers
 
         // POST api/<DepartmentController>
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<int>> Post([FromBody] DepartmentInputDto newDepartment)
         {
             int newId = await _DepartmentService.CreateDepartment(newDepartment);

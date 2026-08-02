@@ -19,7 +19,7 @@ namespace hospitalApi.Controllers
 
         // GET: api/<StaffController>
         [HttpGet]
-        [ProducesResponseType(typeof(StaffOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<StaffOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<StaffOutputDto>> GetAllStaffs()
         {
@@ -43,6 +43,8 @@ namespace hospitalApi.Controllers
 
         // POST api/<StaffController>
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<int>> Post([FromBody] StaffInputDto newStaff)
         {
             int newId = await _StaffService.CreateStaff(newStaff);

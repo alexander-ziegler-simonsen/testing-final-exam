@@ -18,7 +18,7 @@ namespace hospitalApi.Controllers
 
         // GET: api/roombooking
         [HttpGet]
-        [ProducesResponseType(typeof(RoomBookingOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<RoomBookingOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<RoomBookingOutputDto>> GetAll()
         {
@@ -38,6 +38,8 @@ namespace hospitalApi.Controllers
 
         // POST: api/roombooking
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<int>> Post([FromBody] RoomBookingInputDto newRoomBooking)
         {
             bool available = await _roomBookingService.IsRoomAvailable(

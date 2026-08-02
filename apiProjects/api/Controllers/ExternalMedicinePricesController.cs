@@ -19,7 +19,7 @@ namespace hospitalApi.Controllers
 
         // GET api/<ExternalMedicinePricesController>/productsByName/
         [HttpGet("productsByName")]
-        [ProducesResponseType(typeof(MedicineProductOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MedicineProductOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<MedicineProductOutputDto>> GetMedicineProductsByName([FromQuery] string productName)
         {
@@ -30,7 +30,7 @@ namespace hospitalApi.Controllers
 
         // GET api/<ExternalMedicinePricesController>/productsByIngredient
         [HttpGet("productsByIngredient")]
-        [ProducesResponseType(typeof(MedicineProductOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MedicineProductOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<MedicineProductOutputDto>> GetMedicineProductsByIngredients([FromQuery] string ingredientName)
         {

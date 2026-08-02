@@ -19,7 +19,7 @@ namespace hospitalApi.Controllers
 
         // GET: api/<ShiftController>
         [HttpGet]
-        [ProducesResponseType(typeof(ShiftOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ShiftOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<ShiftOutputDto>> GetAllShifts(
             [FromQuery] DateTime? from = null,
@@ -45,6 +45,8 @@ namespace hospitalApi.Controllers
 
         // POST api/<ShiftController>
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<int>> Post([FromBody] ShiftInputDto newShift)
         {
             int newId = await _ShiftService.CreateShift(newShift);
