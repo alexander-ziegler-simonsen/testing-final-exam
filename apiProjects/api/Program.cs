@@ -119,6 +119,19 @@ builder.Services.AddOpenApi(options =>
         }
         return Task.CompletedTask;
     });
+    // .NET's default schema generation marks int/number types as also accepting
+    // fix that makes it so that it shows up as a int/null in the OpenAPI schema instead of string/number/null
+    // https://svrooij.io/2025/12/19/openapi-dotnet-10-number-quirk/ 
+    options.AddSchemaTransformer((schema, context, cancellationToken) =>
+    {
+        if (schema.Type is { } type && type.HasFlag(Microsoft.OpenApi.JsonSchemaType.String) &&
+            (type.HasFlag(Microsoft.OpenApi.JsonSchemaType.Integer) || type.HasFlag(Microsoft.OpenApi.JsonSchemaType.Number)))
+        {
+            schema.Type = type & ~Microsoft.OpenApi.JsonSchemaType.String;
+            schema.Pattern = null;
+        }
+        return Task.CompletedTask;
+    });
 });
 
 var app = builder.Build();
