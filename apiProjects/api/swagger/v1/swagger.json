@@ -3460,17 +3460,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
+                  }
                 }
               }
             }

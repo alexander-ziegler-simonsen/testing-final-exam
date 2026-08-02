@@ -18,7 +18,7 @@ namespace hospitalApi.Controllers
 
         // GET: api/user
         [HttpGet]
-        [ProducesResponseType(typeof(UserOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<UserOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<UserOutputDto>> GetAll()
         {
