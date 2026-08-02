@@ -47,7 +47,7 @@ export type HospitalApiDtosInputsDepartmentInputDto = {
 
 export type HospitalApiDtosInputsFloorInputDto = {
     name?: string;
-    fkBuildingId?: number | string;
+    fkBuildingId?: number;
 };
 
 export type HospitalApiDtosInputsLoginInputDto = {
@@ -66,13 +66,13 @@ export type HospitalApiDtosInputsMedicationInputDto = {
 };
 
 export type HospitalApiDtosInputsMedicationStorageInputDto = {
-    fkMedicationId?: number | string;
-    amount?: number | string;
+    fkMedicationId?: number;
+    amount?: number;
 };
 
 export type HospitalApiDtosInputsMedicationStorageMissingInputDto = {
-    fkMedicationStorageId?: number | string;
-    amountMissing?: number | string;
+    fkMedicationStorageId?: number;
+    amountMissing?: number;
     wentMissingAt?: string;
 };
 
@@ -84,23 +84,23 @@ export type HospitalApiDtosInputsPatientInputDto = {
 };
 
 export type HospitalApiDtosInputsPrescriptionInputDto = {
-    fkMedicationId?: number | string;
-    fkTreatmentId?: number | string;
-    fkPrescribedByStaffId?: number | string;
-    doses?: number | string;
+    fkMedicationId?: number;
+    fkTreatmentId?: number;
+    fkPrescribedByStaffId?: number;
+    doses?: number;
 };
 
 export type HospitalApiDtosInputsRegisterInputDto = {
     username?: string;
     password?: string;
-    fkStaffId?: number | string;
+    fkStaffId?: number;
 };
 
 export type HospitalApiDtosInputsRoomBookingInputDto = {
-    fkRoomId?: number | string;
+    fkRoomId?: number;
     startTime?: string;
     endTime?: string;
-    fkPatientId?: number | string;
+    fkPatientId?: number;
 };
 
 export type HospitalApiDtosInputsShiftInputDto = {
@@ -111,36 +111,36 @@ export type HospitalApiDtosInputsShiftInputDto = {
 export type HospitalApiDtosInputsStaffInputDto = {
     firstname?: null | string;
     lastname?: null | string;
-    fkRoleId?: number | string;
+    fkRoleId?: number;
 };
 
 export type HospitalApiDtosInputsTreatmentInputDto = {
-    fkPatientId?: number | string;
+    fkPatientId?: number;
     description?: null | string;
     time?: string;
 };
 
 export type HospitalApiDtosInputsTreatmentStaffInputDto = {
-    fkTreatmentId?: number | string;
-    fkStaffId?: number | string;
+    fkTreatmentId?: number;
+    fkStaffId?: number;
 };
 
 export type HospitalApiDtosOutputsBuildingOutputDto = {
-    id?: number | string;
+    id?: number;
     name?: string;
     address?: null | string;
 };
 
 export type HospitalApiDtosOutputsDepartmentOutputDto = {
-    id?: number | string;
+    id?: number;
     name?: null | string;
     type?: null | string;
 };
 
 export type HospitalApiDtosOutputsFloorOutputDto = {
-    id?: number | string;
+    id?: number;
     name?: string;
-    fkBuildingId?: number | string;
+    fkBuildingId?: number;
 };
 
 export type HospitalApiDtosOutputsFloorRoomsOutputDto = {
@@ -155,14 +155,14 @@ export type HospitalApiDtosOutputsLocationOutputDto = {
 
 export type HospitalApiDtosOutputsLoginOutputDto = {
     token: string;
-    staffId?: number | string;
+    staffId?: number;
     firstname?: null | string;
     lastname?: null | string;
     role?: string;
 };
 
 export type HospitalApiDtosOutputsMedicationOutputDto = {
-    id?: number | string;
+    id?: number;
     name?: null | string;
     genericName?: null | string;
     brand?: null | string;
@@ -173,20 +173,20 @@ export type HospitalApiDtosOutputsMedicationOutputDto = {
 };
 
 export type HospitalApiDtosOutputsMedicationStorageMissingOutputDto = {
-    id?: number | string;
-    fkMedicationStorageId?: number | string;
-    amountMissing?: number | string;
+    id?: number;
+    fkMedicationStorageId?: number;
+    amountMissing?: number;
     wentMissingAt?: string;
 };
 
 export type HospitalApiDtosOutputsMedicationStorageOutputDto = {
-    id?: number | string;
-    fkMedicationId?: number | string;
-    amount?: number | string;
+    id?: number;
+    fkMedicationId?: number;
+    amount?: number;
 };
 
 export type HospitalApiDtosOutputsPatientOutputDto = {
-    id?: number | string;
+    id?: number;
     firstname?: null | string;
     lastname?: null | string;
     gender?: null | string;
@@ -194,63 +194,63 @@ export type HospitalApiDtosOutputsPatientOutputDto = {
 };
 
 export type HospitalApiDtosOutputsPrescriptionOutputDto = {
-    id?: number | string;
-    fkMedicationId?: number | string;
-    fkTreatmentId?: number | string;
-    fkPrescribedByStaffId?: number | string;
-    doses?: number | string;
+    id?: number;
+    fkMedicationId?: number;
+    fkTreatmentId?: number;
+    fkPrescribedByStaffId?: number;
+    doses?: number;
 };
 
 export type HospitalApiDtosOutputsRoomBookingOutputDto = {
-    id?: number | string;
-    fkRoomId?: number | string;
+    id?: number;
+    fkRoomId?: number;
     startTime?: string;
     endTime?: string;
-    fkPatientId?: number | string;
+    fkPatientId?: number;
 };
 
 export type HospitalApiDtosOutputsRoomOutputDto = {
-    id?: number | string;
+    id?: number;
     name?: string;
-    fkFloorId?: number | string;
+    fkFloorId?: number;
 };
 
 export type HospitalApiDtosOutputsShiftOutputDto = {
-    id?: number | string;
+    id?: number;
     startTime?: string;
     endTime?: string;
 };
 
 export type HospitalApiDtosOutputsStaffOutputDto = {
-    id?: number | string;
+    id?: number;
     firstname?: null | string;
     lastname?: null | string;
-    fkRoleId?: number | string;
+    fkRoleId?: number;
 };
 
 export type HospitalApiDtosOutputsTreatmentOutputDto = {
-    id?: number | string;
-    fkPatientId?: number | string;
+    id?: number;
+    fkPatientId?: number;
     description?: null | string;
     time?: string;
 };
 
 export type HospitalApiDtosOutputsTreatmentStaffOutputDto = {
-    id?: number | string;
-    fkTreatmentId?: number | string;
-    fkStaffId?: number | string;
+    id?: number;
+    fkTreatmentId?: number;
+    fkStaffId?: number;
 };
 
 export type HospitalApiDtosOutputsUserOutputDto = {
-    id?: number | string;
+    id?: number;
     username?: string;
-    fkStaffId?: number | string;
+    fkStaffId?: number;
 };
 
 export type MicrosoftAspNetCoreMvcProblemDetails = {
     type?: null | string;
     title?: null | string;
-    status?: null | number | string;
+    status?: null | number;
     detail?: null | string;
     instance?: null | string;
 };
@@ -316,7 +316,7 @@ export type DepartmentPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -328,7 +328,7 @@ export type DepartmentPostResponse = DepartmentPostResponses[keyof DepartmentPos
 export type DepartmentDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Department/{id}';
@@ -344,7 +344,7 @@ export type DepartmentDeleteResponses = {
 export type DepartmentGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Department/{id}';
@@ -371,7 +371,7 @@ export type DepartmentGetResponse = DepartmentGetResponses[keyof DepartmentGetRe
 export type DepartmentPutData = {
     body: HospitalApiDtosInputsDepartmentInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Department/{id}';
@@ -493,7 +493,7 @@ export type LocationGetAllLocationsResponse = LocationGetAllLocationsResponses[k
 export type LocationGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Location/{id}';
@@ -537,7 +537,7 @@ export type LocationGetAllFloorsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsFloorRoomsOutputDto;
+    200: Array<HospitalApiDtosOutputsFloorRoomsOutputDto>;
 };
 
 export type LocationGetAllFloorsResponse = LocationGetAllFloorsResponses[keyof LocationGetAllFloorsResponses];
@@ -553,11 +553,7 @@ export type LocationPostFloorResponses = {
     /**
      * OK
      */
-    200: number | string;
-    /**
-     * No Content
-     */
-    204: void;
+    200: number;
 };
 
 export type LocationPostFloorResponse = LocationPostFloorResponses[keyof LocationPostFloorResponses];
@@ -565,7 +561,7 @@ export type LocationPostFloorResponse = LocationPostFloorResponses[keyof Locatio
 export type LocationDeleteFloorData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Location/floor/{id}';
@@ -581,7 +577,7 @@ export type LocationDeleteFloorResponses = {
 export type LocationGetFloorData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Location/floor/{id}';
@@ -608,18 +604,29 @@ export type LocationGetFloorResponse = LocationGetFloorResponses[keyof LocationG
 export type LocationPutFloorData = {
     body: HospitalApiDtosInputsFloorInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Location/floor/{id}';
 };
 
+export type LocationPutFloorErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type LocationPutFloorError = LocationPutFloorErrors[keyof LocationPutFloorErrors];
+
 export type LocationPutFloorResponses = {
     /**
-     * OK
+     * No Content
      */
-    200: unknown;
+    204: void;
 };
+
+export type LocationPutFloorResponse = LocationPutFloorResponses[keyof LocationPutFloorResponses];
 
 export type MedicinGetAllMedicinsData = {
     body?: never;
@@ -657,7 +664,7 @@ export type MedicinPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -669,7 +676,7 @@ export type MedicinPostResponse = MedicinPostResponses[keyof MedicinPostResponse
 export type MedicinDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Medicin/{id}';
@@ -685,7 +692,7 @@ export type MedicinDeleteResponses = {
 export type MedicinGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Medicin/{id}';
@@ -712,7 +719,7 @@ export type MedicinGetResponse = MedicinGetResponses[keyof MedicinGetResponses];
 export type MedicinPutData = {
     body: HospitalApiDtosInputsMedicationInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Medicin/{id}';
@@ -761,7 +768,7 @@ export type MissingStoragePostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -773,7 +780,7 @@ export type MissingStoragePostResponse = MissingStoragePostResponses[keyof Missi
 export type MissingStorageDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/MissingStorage/{id}';
@@ -789,7 +796,7 @@ export type MissingStorageDeleteResponses = {
 export type MissingStorageGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/MissingStorage/{id}';
@@ -816,7 +823,7 @@ export type MissingStorageGetResponse = MissingStorageGetResponses[keyof Missing
 export type MissingStoragePutData = {
     body: HospitalApiDtosInputsMedicationStorageMissingInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/MissingStorage/{id}';
@@ -872,7 +879,7 @@ export type PatientPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -884,7 +891,7 @@ export type PatientPostResponse = PatientPostResponses[keyof PatientPostResponse
 export type PatientDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Patient/{id}';
@@ -900,7 +907,7 @@ export type PatientDeleteResponses = {
 export type PatientGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Patient/{id}';
@@ -927,7 +934,7 @@ export type PatientGetResponse = PatientGetResponses[keyof PatientGetResponses];
 export type PatientPutData = {
     body: HospitalApiDtosInputsPatientInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Patient/{id}';
@@ -976,7 +983,7 @@ export type PrescriptionPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -988,7 +995,7 @@ export type PrescriptionPostResponse = PrescriptionPostResponses[keyof Prescript
 export type PrescriptionDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Prescription/{id}';
@@ -1004,7 +1011,7 @@ export type PrescriptionDeleteResponses = {
 export type PrescriptionGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Prescription/{id}';
@@ -1031,7 +1038,7 @@ export type PrescriptionGetResponse = PrescriptionGetResponses[keyof Prescriptio
 export type PrescriptionPutData = {
     body: HospitalApiDtosInputsPrescriptionInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Prescription/{id}';
@@ -1076,11 +1083,20 @@ export type RoomBookingPostData = {
     url: '/api/RoomBooking';
 };
 
+export type RoomBookingPostErrors = {
+    /**
+     * Conflict
+     */
+    409: string;
+};
+
+export type RoomBookingPostError = RoomBookingPostErrors[keyof RoomBookingPostErrors];
+
 export type RoomBookingPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -1092,7 +1108,7 @@ export type RoomBookingPostResponse = RoomBookingPostResponses[keyof RoomBooking
 export type RoomBookingDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/RoomBooking/{id}';
@@ -1108,7 +1124,7 @@ export type RoomBookingDeleteResponses = {
 export type RoomBookingGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/RoomBooking/{id}';
@@ -1135,18 +1151,24 @@ export type RoomBookingGetResponse = RoomBookingGetResponses[keyof RoomBookingGe
 export type RoomBookingPutData = {
     body: HospitalApiDtosInputsRoomBookingInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/RoomBooking/{id}';
 };
 
-export type RoomBookingPutResponses = {
+export type RoomBookingPutErrors = {
     /**
-     * OK
+     * Not Found
      */
-    200: unknown;
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+    /**
+     * Conflict
+     */
+    409: string;
 };
+
+export type RoomBookingPutError = RoomBookingPutErrors[keyof RoomBookingPutErrors];
 
 export type ShiftGetAllShiftsData = {
     body?: never;
@@ -1189,7 +1211,7 @@ export type ShiftPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -1201,7 +1223,7 @@ export type ShiftPostResponse = ShiftPostResponses[keyof ShiftPostResponses];
 export type ShiftDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Shift/{id}';
@@ -1217,7 +1239,7 @@ export type ShiftDeleteResponses = {
 export type ShiftGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Shift/{id}';
@@ -1244,7 +1266,7 @@ export type ShiftGetResponse = ShiftGetResponses[keyof ShiftGetResponses];
 export type ShiftPutData = {
     body: HospitalApiDtosInputsShiftInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Shift/{id}';
@@ -1293,7 +1315,7 @@ export type StaffPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -1305,7 +1327,7 @@ export type StaffPostResponse = StaffPostResponses[keyof StaffPostResponses];
 export type StaffDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Staff/{id}';
@@ -1321,7 +1343,7 @@ export type StaffDeleteResponses = {
 export type StaffGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Staff/{id}';
@@ -1348,7 +1370,7 @@ export type StaffGetResponse = StaffGetResponses[keyof StaffGetResponses];
 export type StaffPutData = {
     body: HospitalApiDtosInputsStaffInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Staff/{id}';
@@ -1397,7 +1419,7 @@ export type StoragePostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -1409,7 +1431,7 @@ export type StoragePostResponse = StoragePostResponses[keyof StoragePostResponse
 export type StorageDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Storage/{id}';
@@ -1425,7 +1447,7 @@ export type StorageDeleteResponses = {
 export type StorageGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Storage/{id}';
@@ -1452,7 +1474,7 @@ export type StorageGetResponse = StorageGetResponses[keyof StorageGetResponses];
 export type StoragePutData = {
     body: HospitalApiDtosInputsMedicationStorageInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Storage/{id}';
@@ -1469,7 +1491,7 @@ export type TreatmentGetAllTreatmentsData = {
     body?: never;
     path?: never;
     query?: {
-        FkPatientId?: number | string;
+        FkPatientId?: number;
         Description?: string;
         Time?: string;
         sortBy?: string;
@@ -1507,7 +1529,7 @@ export type TreatmentPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -1519,7 +1541,7 @@ export type TreatmentPostResponse = TreatmentPostResponses[keyof TreatmentPostRe
 export type TreatmentDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Treatment/{id}';
@@ -1535,7 +1557,7 @@ export type TreatmentDeleteResponses = {
 export type TreatmentGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Treatment/{id}';
@@ -1562,7 +1584,7 @@ export type TreatmentGetResponse = TreatmentGetResponses[keyof TreatmentGetRespo
 export type TreatmentPutData = {
     body: HospitalApiDtosInputsTreatmentInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/Treatment/{id}';
@@ -1611,7 +1633,7 @@ export type TreatmentStaffPostResponses = {
     /**
      * OK
      */
-    200: number | string;
+    200: number;
     /**
      * No Content
      */
@@ -1623,7 +1645,7 @@ export type TreatmentStaffPostResponse = TreatmentStaffPostResponses[keyof Treat
 export type TreatmentStaffDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/TreatmentStaff/{id}';
@@ -1639,7 +1661,7 @@ export type TreatmentStaffDeleteResponses = {
 export type TreatmentStaffGetData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/TreatmentStaff/{id}';
@@ -1666,7 +1688,7 @@ export type TreatmentStaffGetResponse = TreatmentStaffGetResponses[keyof Treatme
 export type TreatmentStaffPutData = {
     body: HospitalApiDtosInputsTreatmentStaffInputDto;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/TreatmentStaff/{id}';
@@ -1727,7 +1749,7 @@ export type UserRegisterResponse = UserRegisterResponses[keyof UserRegisterRespo
 export type UserChangePasswordData = {
     body: string;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/User/{id}/password';
@@ -1743,7 +1765,7 @@ export type UserChangePasswordResponses = {
 export type UserDeleteData = {
     body?: never;
     path: {
-        id: number | string;
+        id: number;
     };
     query?: never;
     url: '/api/User/{id}';

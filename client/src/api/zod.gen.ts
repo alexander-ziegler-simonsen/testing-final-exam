@@ -45,10 +45,7 @@ export const zHospitalApiDtosInputsDepartmentInputDto = z.object({
 
 export const zHospitalApiDtosInputsFloorInputDto = z.object({
     name: z.string().min(2).max(100).optional(),
-    fkBuildingId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkBuildingId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosInputsLoginInputDto = z.object({
@@ -67,25 +64,13 @@ export const zHospitalApiDtosInputsMedicationInputDto = z.object({
 });
 
 export const zHospitalApiDtosInputsMedicationStorageInputDto = z.object({
-    fkMedicationId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    amount: z.union([
-        z.number(),
-        z.string().regex(/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/)
-    ]).optional()
+    fkMedicationId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    amount: z.number().optional()
 });
 
 export const zHospitalApiDtosInputsMedicationStorageMissingInputDto = z.object({
-    fkMedicationStorageId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    amountMissing: z.union([
-        z.number(),
-        z.string().regex(/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/)
-    ]).optional(),
+    fkMedicationStorageId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    amountMissing: z.number().optional(),
     wentMissingAt: z.iso.datetime().optional()
 });
 
@@ -97,44 +82,23 @@ export const zHospitalApiDtosInputsPatientInputDto = z.object({
 });
 
 export const zHospitalApiDtosInputsPrescriptionInputDto = z.object({
-    fkMedicationId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkTreatmentId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkPrescribedByStaffId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    doses: z.union([
-        z.number(),
-        z.string().regex(/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/)
-    ]).optional()
+    fkMedicationId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkTreatmentId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkPrescribedByStaffId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    doses: z.number().optional()
 });
 
 export const zHospitalApiDtosInputsRegisterInputDto = z.object({
     username: z.string().min(2).max(100).optional(),
     password: z.string().min(8).max(40).optional(),
-    fkStaffId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkStaffId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosInputsRoomBookingInputDto = z.object({
-    fkRoomId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    fkRoomId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     startTime: z.iso.datetime().optional(),
     endTime: z.iso.datetime().optional(),
-    fkPatientId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkPatientId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosInputsShiftInputDto = z.object({
@@ -145,78 +109,48 @@ export const zHospitalApiDtosInputsShiftInputDto = z.object({
 export const zHospitalApiDtosInputsStaffInputDto = z.object({
     firstname: z.string().min(2).max(100).nullish(),
     lastname: z.string().min(2).max(100).nullish(),
-    fkRoleId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkRoleId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosInputsTreatmentInputDto = z.object({
-    fkPatientId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    fkPatientId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     description: z.string().min(2).max(500).nullish(),
     time: z.iso.datetime().optional()
 });
 
 export const zHospitalApiDtosInputsTreatmentStaffInputDto = z.object({
-    fkTreatmentId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkStaffId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkTreatmentId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkStaffId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosOutputsBuildingOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     name: z.string().min(2).max(100).optional(),
     address: z.string().min(2).max(255).nullish()
 });
 
 export const zHospitalApiDtosOutputsDepartmentOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     name: z.string().min(2).max(100).nullish(),
     type: z.string().min(2).max(100).nullish()
 });
 
 export const zHospitalApiDtosOutputsFloorOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     name: z.string().min(2).max(100).optional(),
-    fkBuildingId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkBuildingId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosOutputsLoginOutputDto = z.object({
     token: z.string().min(0).max(255),
-    staffId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    staffId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     firstname: z.string().min(2).max(100).nullish(),
     lastname: z.string().min(2).max(100).nullish(),
     role: z.string().optional()
 });
 
 export const zHospitalApiDtosOutputsMedicationOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     name: z.string().min(2).max(100).nullish(),
     genericName: z.string().min(2).max(100).nullish(),
     brand: z.string().min(2).max(100).nullish(),
@@ -227,41 +161,20 @@ export const zHospitalApiDtosOutputsMedicationOutputDto = z.object({
 });
 
 export const zHospitalApiDtosOutputsMedicationStorageMissingOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkMedicationStorageId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    amountMissing: z.union([
-        z.number(),
-        z.string().regex(/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkMedicationStorageId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    amountMissing: z.number().optional(),
     wentMissingAt: z.iso.datetime().optional()
 });
 
 export const zHospitalApiDtosOutputsMedicationStorageOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkMedicationId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    amount: z.union([
-        z.number(),
-        z.string().regex(/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/)
-    ]).optional()
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkMedicationId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    amount: z.number().optional()
 });
 
 export const zHospitalApiDtosOutputsPatientOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     firstname: z.string().min(2).max(100).nullish(),
     lastname: z.string().min(2).max(100).nullish(),
     gender: z.string().min(2).max(50).nullish(),
@@ -269,55 +182,25 @@ export const zHospitalApiDtosOutputsPatientOutputDto = z.object({
 });
 
 export const zHospitalApiDtosOutputsPrescriptionOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkMedicationId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkTreatmentId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkPrescribedByStaffId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    doses: z.union([
-        z.number(),
-        z.string().regex(/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/)
-    ]).optional()
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkMedicationId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkTreatmentId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkPrescribedByStaffId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    doses: z.number().optional()
 });
 
 export const zHospitalApiDtosOutputsRoomBookingOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkRoomId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkRoomId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     startTime: z.iso.datetime().optional(),
     endTime: z.iso.datetime().optional(),
-    fkPatientId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkPatientId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosOutputsRoomOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     name: z.string().optional(),
-    fkFloorId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkFloorId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosOutputsFloorRoomsOutputDto = z.object({
@@ -331,74 +214,41 @@ export const zHospitalApiDtosOutputsLocationOutputDto = z.object({
 });
 
 export const zHospitalApiDtosOutputsShiftOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     startTime: z.iso.datetime().optional(),
     endTime: z.iso.datetime().optional()
 });
 
 export const zHospitalApiDtosOutputsStaffOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     firstname: z.string().min(2).max(100).nullish(),
     lastname: z.string().min(2).max(100).nullish(),
-    fkRoleId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkRoleId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosOutputsTreatmentOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkPatientId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkPatientId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     description: z.string().min(2).max(500).nullish(),
     time: z.iso.datetime().optional()
 });
 
 export const zHospitalApiDtosOutputsTreatmentStaffOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkTreatmentId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
-    fkStaffId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkTreatmentId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
+    fkStaffId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zHospitalApiDtosOutputsUserOutputDto = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     username: z.string().min(2).max(100).optional(),
-    fkStaffId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional()
+    fkStaffId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
 export const zMicrosoftAspNetCoreMvcProblemDetails = z.object({
     type: z.string().nullish(),
     title: z.string().nullish(),
-    status: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).nullish(),
+    status: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).nullish(),
     detail: z.string().nullish(),
     instance: z.string().nullish()
 });
@@ -418,25 +268,16 @@ export const zDepartmentGetAllDepartmentsResponse = z.array(zHospitalApiDtosOutp
 export const zDepartmentPostBody = zHospitalApiDtosInputsDepartmentInputDto;
 
 export const zDepartmentPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zDepartmentDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zDepartmentGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -447,10 +288,7 @@ export const zDepartmentGetResponse = zHospitalApiDtosOutputsDepartmentOutputDto
 export const zDepartmentPutBody = zHospitalApiDtosInputsDepartmentInputDto;
 
 export const zDepartmentPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zExternalMedicinePricesGetMedicineProductsByNameQuery = z.object({
@@ -486,10 +324,7 @@ export const zExternalMedicinePricesGetMedicineProductDetailsResponse = zHospita
 export const zLocationGetAllLocationsResponse = z.array(zHospitalApiDtosOutputsLocationOutputDto);
 
 export const zLocationGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -500,30 +335,21 @@ export const zLocationGetResponse = zHospitalApiDtosOutputsLocationOutputDto;
 /**
  * OK
  */
-export const zLocationGetAllFloorsResponse = zHospitalApiDtosOutputsFloorRoomsOutputDto;
+export const zLocationGetAllFloorsResponse = z.array(zHospitalApiDtosOutputsFloorRoomsOutputDto);
 
 export const zLocationPostFloorBody = zHospitalApiDtosInputsFloorInputDto;
 
-export const zLocationPostFloorResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
-    z.void()
-]);
+/**
+ * OK
+ */
+export const zLocationPostFloorResponse = z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' });
 
 export const zLocationDeleteFloorPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zLocationGetFloorPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -534,11 +360,13 @@ export const zLocationGetFloorResponse = zHospitalApiDtosOutputsFloorRoomsOutput
 export const zLocationPutFloorBody = zHospitalApiDtosInputsFloorInputDto;
 
 export const zLocationPutFloorPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
+
+/**
+ * No Content
+ */
+export const zLocationPutFloorResponse = z.void();
 
 /**
  * OK
@@ -548,25 +376,16 @@ export const zMedicinGetAllMedicinsResponse = z.array(zHospitalApiDtosOutputsMed
 export const zMedicinPostBody = zHospitalApiDtosInputsMedicationInputDto;
 
 export const zMedicinPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zMedicinDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zMedicinGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -577,10 +396,7 @@ export const zMedicinGetResponse = zHospitalApiDtosOutputsMedicationOutputDto;
 export const zMedicinPutBody = zHospitalApiDtosInputsMedicationInputDto;
 
 export const zMedicinPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -591,25 +407,16 @@ export const zMissingStorageGetAllMedicationStorageMissingsResponse = z.array(zH
 export const zMissingStoragePostBody = zHospitalApiDtosInputsMedicationStorageMissingInputDto;
 
 export const zMissingStoragePostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zMissingStorageDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zMissingStorageGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -620,10 +427,7 @@ export const zMissingStorageGetResponse = zHospitalApiDtosOutputsMedicationStora
 export const zMissingStoragePutBody = zHospitalApiDtosInputsMedicationStorageMissingInputDto;
 
 export const zMissingStoragePutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zPatientGetAllPatientsQuery = z.object({
@@ -643,25 +447,16 @@ export const zPatientGetAllPatientsResponse = z.array(zHospitalApiDtosOutputsPat
 export const zPatientPostBody = zHospitalApiDtosInputsPatientInputDto;
 
 export const zPatientPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zPatientDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zPatientGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -672,10 +467,7 @@ export const zPatientGetResponse = zHospitalApiDtosOutputsPatientOutputDto;
 export const zPatientPutBody = zHospitalApiDtosInputsPatientInputDto;
 
 export const zPatientPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -686,25 +478,16 @@ export const zPrescriptionGetAllPrescriptionsResponse = z.array(zHospitalApiDtos
 export const zPrescriptionPostBody = zHospitalApiDtosInputsPrescriptionInputDto;
 
 export const zPrescriptionPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zPrescriptionDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zPrescriptionGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -715,10 +498,7 @@ export const zPrescriptionGetResponse = zHospitalApiDtosOutputsPrescriptionOutpu
 export const zPrescriptionPutBody = zHospitalApiDtosInputsPrescriptionInputDto;
 
 export const zPrescriptionPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -729,25 +509,16 @@ export const zRoomBookingGetAllResponse = z.array(zHospitalApiDtosOutputsRoomBoo
 export const zRoomBookingPostBody = zHospitalApiDtosInputsRoomBookingInputDto;
 
 export const zRoomBookingPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zRoomBookingDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zRoomBookingGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -758,10 +529,7 @@ export const zRoomBookingGetResponse = zHospitalApiDtosOutputsRoomBookingOutputD
 export const zRoomBookingPutBody = zHospitalApiDtosInputsRoomBookingInputDto;
 
 export const zRoomBookingPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zShiftGetAllShiftsQuery = z.object({
@@ -779,25 +547,16 @@ export const zShiftGetAllShiftsResponse = z.array(zHospitalApiDtosOutputsShiftOu
 export const zShiftPostBody = zHospitalApiDtosInputsShiftInputDto;
 
 export const zShiftPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zShiftDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zShiftGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -808,10 +567,7 @@ export const zShiftGetResponse = zHospitalApiDtosOutputsShiftOutputDto;
 export const zShiftPutBody = zHospitalApiDtosInputsShiftInputDto;
 
 export const zShiftPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -822,25 +578,16 @@ export const zStaffGetAllStaffsResponse = z.array(zHospitalApiDtosOutputsStaffOu
 export const zStaffPostBody = zHospitalApiDtosInputsStaffInputDto;
 
 export const zStaffPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zStaffDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zStaffGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -851,10 +598,7 @@ export const zStaffGetResponse = zHospitalApiDtosOutputsStaffOutputDto;
 export const zStaffPutBody = zHospitalApiDtosInputsStaffInputDto;
 
 export const zStaffPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -865,25 +609,16 @@ export const zStorageGetAllMedicationStoragesResponse = z.array(zHospitalApiDtos
 export const zStoragePostBody = zHospitalApiDtosInputsMedicationStorageInputDto;
 
 export const zStoragePostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zStorageDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zStorageGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -894,17 +629,11 @@ export const zStorageGetResponse = zHospitalApiDtosOutputsMedicationStorageOutpu
 export const zStoragePutBody = zHospitalApiDtosInputsMedicationStorageInputDto;
 
 export const zStoragePutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zTreatmentGetAllTreatmentsQuery = z.object({
-    FkPatientId: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]).optional(),
+    FkPatientId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
     Description: z.string().min(2).max(500).optional(),
     Time: z.iso.datetime().optional(),
     sortBy: z.string().optional(),
@@ -919,25 +648,16 @@ export const zTreatmentGetAllTreatmentsResponse = z.array(zHospitalApiDtosOutput
 export const zTreatmentPostBody = zHospitalApiDtosInputsTreatmentInputDto;
 
 export const zTreatmentPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zTreatmentDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zTreatmentGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -948,10 +668,7 @@ export const zTreatmentGetResponse = zHospitalApiDtosOutputsTreatmentOutputDto;
 export const zTreatmentPutBody = zHospitalApiDtosInputsTreatmentInputDto;
 
 export const zTreatmentPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -962,25 +679,16 @@ export const zTreatmentStaffGetAllResponse = z.array(zHospitalApiDtosOutputsTrea
 export const zTreatmentStaffPostBody = zHospitalApiDtosInputsTreatmentStaffInputDto;
 
 export const zTreatmentStaffPostResponse = z.union([
-    z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ]),
+    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
 
 export const zTreatmentStaffDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zTreatmentStaffGetPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -991,10 +699,7 @@ export const zTreatmentStaffGetResponse = zHospitalApiDtosOutputsTreatmentStaffO
 export const zTreatmentStaffPutBody = zHospitalApiDtosInputsTreatmentStaffInputDto;
 
 export const zTreatmentStaffPutPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 /**
@@ -1012,15 +717,9 @@ export const zUserRegisterResponse = z.union([
 export const zUserChangePasswordBody = z.string();
 
 export const zUserChangePasswordPath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
 export const zUserDeletePath = z.object({
-    id: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
