@@ -87,17 +87,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
+                  }
                 }
               }
             }
@@ -155,35 +164,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -200,11 +200,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -263,11 +259,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -309,11 +301,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -346,17 +334,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  }
                 }
               }
             }
@@ -405,17 +402,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
+                  }
                 }
               }
             }
@@ -514,17 +520,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
+                  }
                 }
               }
             }
@@ -564,11 +579,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -697,35 +708,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -742,11 +744,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -805,11 +803,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -851,11 +845,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -879,17 +869,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
+                  }
                 }
               }
             }
@@ -947,35 +946,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -992,11 +982,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1055,11 +1041,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1101,11 +1083,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1129,17 +1107,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
+                  }
                 }
               }
             }
@@ -1197,35 +1184,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -1242,11 +1220,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1305,11 +1279,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1351,11 +1321,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1432,17 +1398,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
+                  }
                 }
               }
             }
@@ -1500,35 +1475,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -1545,11 +1511,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1608,11 +1570,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1654,11 +1612,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1682,17 +1636,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
+                  }
                 }
               }
             }
@@ -1750,35 +1713,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -1795,11 +1749,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1858,11 +1808,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1904,11 +1850,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -1932,17 +1874,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
+                  }
                 }
               }
             }
@@ -2000,35 +1951,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -2045,11 +1987,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2108,11 +2046,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2154,11 +2088,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2215,17 +2145,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
+                  }
                 }
               }
             }
@@ -2283,35 +2222,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -2328,11 +2258,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2391,11 +2317,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2437,11 +2359,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2465,17 +2383,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
+                  }
                 }
               }
             }
@@ -2533,35 +2460,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -2578,11 +2496,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2641,11 +2555,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2687,11 +2597,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2715,17 +2621,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
+                  }
                 }
               }
             }
@@ -2783,35 +2698,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -2828,11 +2734,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2891,11 +2793,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2937,11 +2835,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -2964,11 +2858,7 @@
             "name": "FkPatientId",
             "in": "query",
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           },
@@ -3011,17 +2901,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
+                  }
                 }
               }
             }
@@ -3079,35 +2978,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -3124,11 +3014,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -3187,11 +3073,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -3233,11 +3115,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -3261,17 +3139,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
+                  }
                 }
               }
             }
@@ -3329,35 +3216,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "pattern": "^-?(?:0|[1-9]\\d*)$",
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "integer",
                   "format": "int32"
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -3374,11 +3252,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -3437,11 +3311,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -3483,11 +3353,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -3595,6 +3461,9 @@
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -3611,11 +3480,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -3659,11 +3524,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -3876,11 +3737,7 @@
             "type": "string"
           },
           "fkBuildingId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -3963,19 +3820,11 @@
         "type": "object",
         "properties": {
           "fkMedicationId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "amount": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
+            "type": "number",
             "format": "double"
           }
         }
@@ -3984,19 +3833,11 @@
         "type": "object",
         "properties": {
           "fkMedicationStorageId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "amountMissing": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
+            "type": "number",
             "format": "double"
           },
           "wentMissingAt": {
@@ -4046,35 +3887,19 @@
         "type": "object",
         "properties": {
           "fkMedicationId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkTreatmentId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkPrescribedByStaffId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "doses": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
+            "type": "number",
             "format": "double"
           }
         }
@@ -4093,11 +3918,7 @@
             "type": "string"
           },
           "fkStaffId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4106,11 +3927,7 @@
         "type": "object",
         "properties": {
           "fkRoomId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "startTime": {
@@ -4122,11 +3939,7 @@
             "format": "date-time"
           },
           "fkPatientId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4164,11 +3977,7 @@
             ]
           },
           "fkRoleId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4177,11 +3986,7 @@
         "type": "object",
         "properties": {
           "fkPatientId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "description": {
@@ -4202,19 +4007,11 @@
         "type": "object",
         "properties": {
           "fkTreatmentId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkStaffId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4223,11 +4020,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "name": {
@@ -4249,11 +4042,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "name": {
@@ -4278,11 +4067,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "name": {
@@ -4291,11 +4076,7 @@
             "type": "string"
           },
           "fkBuildingId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4348,11 +4129,7 @@
             "type": "string"
           },
           "staffId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "firstname": {
@@ -4380,11 +4157,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "name": {
@@ -4447,27 +4220,15 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkMedicationStorageId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "amountMissing": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
+            "type": "number",
             "format": "double"
           },
           "wentMissingAt": {
@@ -4480,27 +4241,15 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkMedicationId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "amount": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
+            "type": "number",
             "format": "double"
           }
         }
@@ -4509,11 +4258,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "firstname": {
@@ -4554,43 +4299,23 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkMedicationId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkTreatmentId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkPrescribedByStaffId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "doses": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
+            "type": "number",
             "format": "double"
           }
         }
@@ -4599,19 +4324,11 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkRoomId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "startTime": {
@@ -4623,11 +4340,7 @@
             "format": "date-time"
           },
           "fkPatientId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4636,22 +4349,14 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "name": {
             "type": "string"
           },
           "fkFloorId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4660,11 +4365,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "startTime": {
@@ -4681,11 +4382,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "firstname": {
@@ -4705,11 +4402,7 @@
             ]
           },
           "fkRoleId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4718,19 +4411,11 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkPatientId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "description": {
@@ -4751,27 +4436,15 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkTreatmentId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "fkStaffId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4780,11 +4453,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "username": {
@@ -4793,11 +4462,7 @@
             "type": "string"
           },
           "fkStaffId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           }
         }
@@ -4818,11 +4483,9 @@
             ]
           },
           "status": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
               "null",
-              "integer",
-              "string"
+              "integer"
             ],
             "format": "int32"
           },
