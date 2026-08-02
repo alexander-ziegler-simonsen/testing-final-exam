@@ -19,6 +19,8 @@ namespace hospitalApi.Controllers
 
         // GET: api/<DepartmentController>
         [HttpGet]
+        [ProducesResponseType(typeof(DepartmentOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IEnumerable<DepartmentOutputDto>> GetAllDepartments()
         {
             var output = await _DepartmentService.GetAll();
@@ -28,6 +30,8 @@ namespace hospitalApi.Controllers
 
         // GET api/<DepartmentController>/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(DepartmentOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<DepartmentOutputDto>> Get(int id)
         {
             DepartmentOutputDto output = await _DepartmentService.GetOne(id);
