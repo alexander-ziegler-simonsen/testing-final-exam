@@ -287,11 +287,20 @@ export type DepartmentGetAllDepartmentsData = {
     url: '/api/Department';
 };
 
+export type DepartmentGetAllDepartmentsErrors = {
+    /**
+     * Unauthorized
+     */
+    401: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type DepartmentGetAllDepartmentsError = DepartmentGetAllDepartmentsErrors[keyof DepartmentGetAllDepartmentsErrors];
+
 export type DepartmentGetAllDepartmentsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsDepartmentOutputDto>;
+    200: HospitalApiDtosOutputsDepartmentOutputDto;
 };
 
 export type DepartmentGetAllDepartmentsResponse = DepartmentGetAllDepartmentsResponses[keyof DepartmentGetAllDepartmentsResponses];
@@ -334,6 +343,15 @@ export type DepartmentGetData = {
     query?: never;
     url: '/api/Department/{id}';
 };
+
+export type DepartmentGetErrors = {
+    /**
+     * Unauthorized
+     */
+    401: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type DepartmentGetError = DepartmentGetErrors[keyof DepartmentGetErrors];
 
 export type DepartmentGetResponses = {
     /**
