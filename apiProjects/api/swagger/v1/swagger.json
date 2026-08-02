@@ -33,7 +33,44 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutput"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutput"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutput"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -242,7 +279,44 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -264,7 +338,44 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -286,7 +397,44 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutput"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutput"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -303,26 +451,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -371,6 +530,26 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -387,26 +566,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -518,6 +708,26 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
           }
         }
       },
@@ -606,26 +816,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -702,6 +923,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -793,26 +1034,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -889,6 +1141,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1033,26 +1305,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1129,6 +1412,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1220,26 +1523,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1316,6 +1630,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1407,26 +1741,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1503,6 +1848,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1627,26 +1992,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1723,6 +2099,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1814,26 +2210,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -1910,6 +2317,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -2001,26 +2428,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -2097,6 +2535,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -2234,26 +2692,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -2330,6 +2799,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -2421,26 +2910,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -2517,6 +3017,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -2608,26 +3128,37 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
-                  }
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -2747,6 +3278,174 @@
   },
   "components": {
     "schemas": {
+      "hospitalApi.DTOs.External.MedicineDetailOutput": {
+        "type": "object",
+        "properties": {
+          "navn": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "varenummer": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "styrke": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "pakning": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "virksomtStof": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "firma": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "atcKode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "dosisdispensering": {
+            "type": "boolean"
+          },
+          "udleveringsgruppe": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "prisPrPakning": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "prisPrEnhed": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "aip": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "tilskudBeregnesAf": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "udgaaet": {
+            "type": "boolean"
+          },
+          "udgaaetDato": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "dosering": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "indikation": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "trafikAdvarsel": {
+            "type": "boolean"
+          },
+          "ddd": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "opbevaringsbetingelser": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "nbsSpeciale": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "haandkoeb": {
+            "type": "boolean"
+          },
+          "tilskudKode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "tilskudTekst": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "hospitalApi.DTOs.External.MedicineProductOutput": {
+        "required": [
+          "navn",
+          "varenummer",
+          "firma",
+          "styrke",
+          "detaljer",
+          "pakning"
+        ],
+        "type": "object",
+        "properties": {
+          "navn": {
+            "type": "string"
+          },
+          "varenummer": {
+            "type": "string"
+          },
+          "firma": {
+            "type": "string"
+          },
+          "styrke": {
+            "type": "string"
+          },
+          "detaljer": {
+            "type": "string"
+          },
+          "pakning": {
+            "type": "string"
+          }
+        }
+      },
       "hospitalApi.DTOs.Inputs.DepartmentInput": {
         "type": "object",
         "properties": {
@@ -3237,6 +3936,46 @@
           }
         }
       },
+      "hospitalApi.DTOs.Outputs.LoginOutput": {
+        "required": [
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "staffId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "firstname": {
+            "maxLength": 100,
+            "minLength": 2,
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "lastname": {
+            "maxLength": 100,
+            "minLength": 2,
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
       "hospitalApi.DTOs.Outputs.MedicationOutput": {
         "type": "object",
         "properties": {
@@ -3660,6 +4399,44 @@
               "string"
             ],
             "format": "int32"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "title": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instance": {
+            "type": [
+              "null",
+              "string"
+            ]
           }
         }
       }
