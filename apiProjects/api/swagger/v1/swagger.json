@@ -15,17 +15,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.LoginInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.LoginInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.LoginInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.LoginInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.LoginInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.LoginInputDto"
               }
             }
           },
@@ -37,17 +37,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LoginOutputDto"
                 }
               }
             }
@@ -89,7 +89,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutput"
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
                   }
                 }
               },
@@ -97,7 +97,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutput"
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
                   }
                 }
               },
@@ -105,7 +105,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutput"
+                    "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
                   }
                 }
               }
@@ -122,17 +122,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInputDto"
               }
             }
           },
@@ -172,17 +172,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
                 }
               }
             }
@@ -213,17 +213,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.DepartmentInputDto"
               }
             }
           },
@@ -283,17 +283,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
                 }
               }
             }
@@ -342,17 +342,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineProductOutputDto"
                 }
               }
             }
@@ -401,17 +401,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.External.MedicineDetailOutputDto"
                 }
               }
             }
@@ -451,17 +451,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
                 }
               }
             }
@@ -516,17 +516,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.LocationOutputDto"
                 }
               }
             }
@@ -566,17 +566,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutputDto"
                 }
               }
             }
@@ -612,17 +612,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInputDto"
               }
             }
           },
@@ -694,17 +694,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutputDto"
                 }
               }
             }
@@ -755,17 +755,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.FloorInputDto"
               }
             }
           },
@@ -816,17 +816,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
                 }
               }
             }
@@ -862,17 +862,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInputDto"
               }
             }
           },
@@ -912,17 +912,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationOutputDto"
                 }
               }
             }
@@ -973,17 +973,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationInputDto"
               }
             }
           },
@@ -1034,17 +1034,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
                 }
               }
             }
@@ -1080,17 +1080,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto"
               }
             }
           },
@@ -1130,17 +1130,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto"
                 }
               }
             }
@@ -1191,17 +1191,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto"
               }
             }
           },
@@ -1305,17 +1305,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
                 }
               }
             }
@@ -1351,17 +1351,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInputDto"
               }
             }
           },
@@ -1401,17 +1401,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PatientOutputDto"
                 }
               }
             }
@@ -1462,17 +1462,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PatientInputDto"
               }
             }
           },
@@ -1523,17 +1523,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
                 }
               }
             }
@@ -1569,17 +1569,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInputDto"
               }
             }
           },
@@ -1619,17 +1619,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.PrescriptionOutputDto"
                 }
               }
             }
@@ -1680,17 +1680,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.PrescriptionInputDto"
               }
             }
           },
@@ -1741,17 +1741,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
                 }
               }
             }
@@ -1787,17 +1787,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInputDto"
               }
             }
           },
@@ -1837,17 +1837,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomBookingOutputDto"
                 }
               }
             }
@@ -1898,17 +1898,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RoomBookingInputDto"
               }
             }
           },
@@ -1992,17 +1992,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
                 }
               }
             }
@@ -2038,17 +2038,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInputDto"
               }
             }
           },
@@ -2088,17 +2088,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.ShiftOutputDto"
                 }
               }
             }
@@ -2149,17 +2149,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.ShiftInputDto"
               }
             }
           },
@@ -2210,17 +2210,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
                 }
               }
             }
@@ -2256,17 +2256,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInputDto"
               }
             }
           },
@@ -2306,17 +2306,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
                 }
               }
             }
@@ -2367,17 +2367,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.StaffInputDto"
               }
             }
           },
@@ -2428,17 +2428,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
                 }
               }
             }
@@ -2474,17 +2474,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInputDto"
               }
             }
           },
@@ -2524,17 +2524,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.MedicationStorageOutputDto"
                 }
               }
             }
@@ -2585,17 +2585,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.MedicationStorageInputDto"
               }
             }
           },
@@ -2692,17 +2692,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
                 }
               }
             }
@@ -2738,17 +2738,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInputDto"
               }
             }
           },
@@ -2788,17 +2788,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentOutputDto"
                 }
               }
             }
@@ -2849,17 +2849,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentInputDto"
               }
             }
           },
@@ -2910,17 +2910,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
                 }
               }
             }
@@ -2956,17 +2956,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInputDto"
               }
             }
           },
@@ -3006,17 +3006,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto"
                 }
               }
             }
@@ -3067,17 +3067,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.TreatmentStaffInputDto"
               }
             }
           },
@@ -3128,17 +3128,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutput"
+                  "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.UserOutputDto"
                 }
               }
             }
@@ -3176,17 +3176,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RegisterInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RegisterInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RegisterInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RegisterInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RegisterInput"
+                "$ref": "#/components/schemas/hospitalApi.DTOs.Inputs.RegisterInputDto"
               }
             }
           },
@@ -3278,7 +3278,7 @@
   },
   "components": {
     "schemas": {
-      "hospitalApi.DTOs.External.MedicineDetailOutput": {
+      "hospitalApi.DTOs.External.MedicineDetailOutputDto": {
         "type": "object",
         "properties": {
           "navn": {
@@ -3415,7 +3415,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.External.MedicineProductOutput": {
+      "hospitalApi.DTOs.External.MedicineProductOutputDto": {
         "required": [
           "navn",
           "varenummer",
@@ -3446,7 +3446,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.DepartmentInput": {
+      "hospitalApi.DTOs.Inputs.DepartmentInputDto": {
         "type": "object",
         "properties": {
           "name": {
@@ -3467,7 +3467,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.FloorInput": {
+      "hospitalApi.DTOs.Inputs.FloorInputDto": {
         "type": "object",
         "properties": {
           "name": {
@@ -3485,7 +3485,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.LoginInput": {
+      "hospitalApi.DTOs.Inputs.LoginInputDto": {
         "type": "object",
         "properties": {
           "username": {
@@ -3500,7 +3500,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.MedicationInput": {
+      "hospitalApi.DTOs.Inputs.MedicationInputDto": {
         "type": "object",
         "properties": {
           "name": {
@@ -3559,7 +3559,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.MedicationStorageInput": {
+      "hospitalApi.DTOs.Inputs.MedicationStorageInputDto": {
         "type": "object",
         "properties": {
           "fkMedicationId": {
@@ -3580,7 +3580,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.MedicationStorageMissingInput": {
+      "hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto": {
         "type": "object",
         "properties": {
           "fkMedicationStorageId": {
@@ -3605,7 +3605,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.PatientInput": {
+      "hospitalApi.DTOs.Inputs.PatientInputDto": {
         "type": "object",
         "properties": {
           "firstname": {
@@ -3642,7 +3642,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.PrescriptionInput": {
+      "hospitalApi.DTOs.Inputs.PrescriptionInputDto": {
         "type": "object",
         "properties": {
           "fkMedicationId": {
@@ -3679,7 +3679,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.RegisterInput": {
+      "hospitalApi.DTOs.Inputs.RegisterInputDto": {
         "type": "object",
         "properties": {
           "username": {
@@ -3702,7 +3702,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.RoomBookingInput": {
+      "hospitalApi.DTOs.Inputs.RoomBookingInputDto": {
         "type": "object",
         "properties": {
           "fkRoomId": {
@@ -3731,7 +3731,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.ShiftInput": {
+      "hospitalApi.DTOs.Inputs.ShiftInputDto": {
         "type": "object",
         "properties": {
           "startTime": {
@@ -3744,7 +3744,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.StaffInput": {
+      "hospitalApi.DTOs.Inputs.StaffInputDto": {
         "type": "object",
         "properties": {
           "firstname": {
@@ -3773,7 +3773,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.TreatmentInput": {
+      "hospitalApi.DTOs.Inputs.TreatmentInputDto": {
         "type": "object",
         "properties": {
           "fkPatientId": {
@@ -3798,7 +3798,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Inputs.TreatmentStaffInput": {
+      "hospitalApi.DTOs.Inputs.TreatmentStaffInputDto": {
         "type": "object",
         "properties": {
           "fkTreatmentId": {
@@ -3819,7 +3819,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.BuildingOutput": {
+      "hospitalApi.DTOs.Outputs.BuildingOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -3845,7 +3845,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.DepartmentOutput": {
+      "hospitalApi.DTOs.Outputs.DepartmentOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -3874,7 +3874,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.FloorOutput": {
+      "hospitalApi.DTOs.Outputs.FloorOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -3900,7 +3900,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.FloorRoomsOutput": {
+      "hospitalApi.DTOs.Outputs.FloorRoomsOutputDto": {
         "required": [
           "floor",
           "rooms"
@@ -3908,17 +3908,17 @@
         "type": "object",
         "properties": {
           "floor": {
-            "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorOutput"
+            "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorOutputDto"
           },
           "rooms": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomOutput"
+              "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.RoomOutputDto"
             }
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.LocationOutput": {
+      "hospitalApi.DTOs.Outputs.LocationOutputDto": {
         "required": [
           "building",
           "floorsWithRooms"
@@ -3926,17 +3926,17 @@
         "type": "object",
         "properties": {
           "building": {
-            "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.BuildingOutput"
+            "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.BuildingOutputDto"
           },
           "floorsWithRooms": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutput"
+              "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.FloorRoomsOutputDto"
             }
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.LoginOutput": {
+      "hospitalApi.DTOs.Outputs.LoginOutputDto": {
         "required": [
           "token"
         ],
@@ -3976,7 +3976,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.MedicationOutput": {
+      "hospitalApi.DTOs.Outputs.MedicationOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4043,7 +4043,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.MedicationStorageMissingOutput": {
+      "hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4076,7 +4076,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.MedicationStorageOutput": {
+      "hospitalApi.DTOs.Outputs.MedicationStorageOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4105,7 +4105,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.PatientOutput": {
+      "hospitalApi.DTOs.Outputs.PatientOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4150,7 +4150,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.PrescriptionOutput": {
+      "hospitalApi.DTOs.Outputs.PrescriptionOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4195,7 +4195,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.RoomBookingOutput": {
+      "hospitalApi.DTOs.Outputs.RoomBookingOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4232,7 +4232,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.RoomOutput": {
+      "hospitalApi.DTOs.Outputs.RoomOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4256,7 +4256,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.ShiftOutput": {
+      "hospitalApi.DTOs.Outputs.ShiftOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4277,7 +4277,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.StaffOutput": {
+      "hospitalApi.DTOs.Outputs.StaffOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4314,7 +4314,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.TreatmentOutput": {
+      "hospitalApi.DTOs.Outputs.TreatmentOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4347,7 +4347,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.TreatmentStaffOutput": {
+      "hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -4376,7 +4376,7 @@
           }
         }
       },
-      "hospitalApi.DTOs.Outputs.UserOutput": {
+      "hospitalApi.DTOs.Outputs.UserOutputDto": {
         "type": "object",
         "properties": {
           "id": {
