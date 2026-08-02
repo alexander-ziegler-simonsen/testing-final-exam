@@ -4,7 +4,7 @@ export default defineConfig({
     input: "../apiProjects/api/swagger/v1/swagger.json",
     output: "src/api",
     plugins: [ 
-        "zod",
+        { name: 'zod', includeInEntry: true },
         'msw',
         { name: "@hey-api/sdk" },
         { name: "@hey-api/client-axios" }

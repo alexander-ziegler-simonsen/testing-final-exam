@@ -14,6 +14,7 @@
     "lint:fix-d": "oxlint --fix-dangerously",
     "preview": "vite preview",
     "test": "vitest",
+    "openapi": "openapi-ts",
     "coverage": "vitest run --coverage",
     "test:browser": "vitest --config=vitest.browser.config.ts --browser.headless",
     "test:browser-head": "vitest --config=vitest.browser.config.ts"
