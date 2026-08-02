@@ -1,19 +1,32 @@
-import type { MedicineDetail } from '../entites/MedicineDetail';
-import type { MedicineProduct } from '../entites/MedicineProduct';
-import { api } from './Api';
+import {
+externalMedicinePricesGetMedicineProductsByName,
+externalMedicinePricesGetMedicineProductsByIngredients,
+externalMedicinePricesGetMedicineProductDetails,
+} from '../api';
+// import {
 
-const basePath = "/ExternalMedicinePrices";
+// } from '../api/zod.gen';
+import type {
+ExternalMedicinePricesGetMedicineProductsByNameData,
+ExternalMedicinePricesGetMedicineProductDetailsData
+} from '../api';
 
 export const ExternalMedicinePricesService = {
-    getAllByName: (productName: string) =>
-        api.get<MedicineProduct[]>(`${basePath}/productsByName/${productName}`)
-            .then(r => r.data),
+    getAllByName: async (productName: string): Promise<ExternalMedicinePricesGetMedicineProductsByNameData[]> =>{
+        const { data, error } = await externalMedicinePricesGetMedicineProductsByName({ query: { productName } });    
+        if(error) throw new Error('Failed to fetch any products by that name');
+        return data;
+    },
 
-    getAllByIngredient: (IngredientName: string) =>
-        api.get<MedicineProduct[]>(`${basePath}/productsByIngredient/${IngredientName}`)
-            .then(r => r.data),
+    getAllByIngredient: async (IngredientName: string): Promise<ExternalMedicinePricesGetMedicineProductsByNameData[]> =>{
+        const { data, error } = await externalMedicinePricesGetMedicineProductsByIngredients({ query: { IngredientName } });
+        if(error) throw new Error('Failed to fetch any products by that ingredient');
+        return data;
+    },
 
-    productDetails: (id: number) =>
-        api.get<MedicineDetail>(`${basePath}/productDetails/${id}`)
-            .then(r => r.data),
+    productDetails: async (id: number): Promise<ExternalMedicinePricesGetMedicineProductDetailsData> =>{
+        const { data, error } = await externalMedicinePricesGetMedicineProductDetails({ path: { id } });
+if(error) throw new Error('Failed to fetch product details');
+        return data;
+    },
 }

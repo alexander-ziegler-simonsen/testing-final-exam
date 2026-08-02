@@ -1,44 +1,114 @@
-import type { Floor } from '../entites/Floor';
-import type { FloorRooms } from '../entites/FloorRooms';
-import type { Location } from '../entites/Location';
-import { api } from './Api';
+import {
+locationGetAllLocations,
+locationGet,
+locationGetAllFloors,
+locationPostFloor,
+locationDeleteFloor,
+locationGetFloor,
+locationPutFloor,
+} from '../api';
+// import {
+// zLocationGetAllLocationsData,
+// zLocationGetAllFloorsData,
+// zLocationGetFloorData,
+// zLocationGetResponses,
+// zLocationGetErrors,
+// zLocationGetAllFloorsResponses,
+// zLocationGetAllFloorsErrors,
+// zLocationPostFloorResponses,
+// zLocationDeleteFloorResponses,
+// zLocationGetFloorResponses,
+// zLocationGetFloorErrors,
+// zLocationPutFloorResponses,
+// } from '../api/zod.gen';
+import type {
+LocationGetAllLocationsData,
+LocationGetAllFloorsData,
+LocationGetFloorData,
+LocationGetResponses,
+LocationGetErrors,
+LocationGetAllFloorsResponses,
+LocationGetAllFloorsErrors,
+LocationPostFloorResponses,
+LocationDeleteFloorResponses,
+LocationGetFloorResponses,
+LocationGetFloorErrors,
+LocationPutFloorResponses,
+} from '../api';
 
 const basePath = "/Location";
 
 export const LocationService = {
-    getAll: () =>
-        api.get<Location[]>(basePath)
-            .then(r => r.data),
+    getAll: async () : Promise<dto[]> =>
+    {
+        const { data, error } = await locationGetAllLocations();
+        if (error) throw new Error("error message");
+        return data; 
+    },
 
-    getById: (id: number) =>
-        api.get<Location>(`${basePath}/${id}`)
-            .then(r => r.data),
 
-    getAllFloorRooms: () =>
-        api.get<FloorRooms[]>(`${basePath}/floor`)
-            .then(r => r.data),
+    getById: async (id: number) : Promise<dto[]> =>
+    {
+        const { data, error } = await locationGet(id);
+        if (error) throw new Error("error message");
+        return data; 
+    },
 
-    getOneFloorRooms: (id: number) =>
-        api.get<FloorRooms>(`${basePath}/floor/${id}`)
-            .then(r => r.data),
 
-    putFloor: (id: number, changedFloor: Floor) =>
+    getAllFloorRooms: async () : Promise<dto[]> =>
+    {
+        const { data, error } = await locationGetAllFloors();
+        if (error) throw new Error("error message");
+        return data; 
+    },
+
+
+    getOneFloorRooms: async (id: number) : Promise<dto[]> =>
+    {
+        const { data, error } = await endpoint();
+        if (error) throw new Error("error message");
+        return data; 
+    },
+
+
+    putFloor: async (id: number, changedFloor: Floor) : Promise<dto[]> =>
+    {
+        const { data, error } = await endpoint();
+        if (error) throw new Error("error message");
+        return data; 
+    },
         api.post<Floor>(`${basePath}/floor/${id}`, changedFloor)
             .then(r => r.data),
 
-    createFloor: (newFloor: Floor) =>
-        api.post<Floor>(`${basePath}/floor`, newFloor)
-            .then(r => r.data),
+    createFloor: async (newFloor: Floor) : Promise<dto[]> =>
+    {
+        const { data, error } = await locationPostFloor(newFloor);
+        if (error) throw new Error("error message");
+        return data; 
+    },
 
-    deleteFloor: (id: number) =>
-        api.delete<Floor>(`${basePath}/floor/${id}`)
-            .then(r => r.data),
 
-    put: (id: number, changedLocation: Location) =>
-        api.put<Location>(`${basePath}/${id}`, changedLocation)
-            .then(r => r.data),
+    deleteFloor: async (id: number) : Promise<dto[]> =>
+    {
+        const { data, error } = await endpoint();
+        if (error) throw new Error("error message");
+        return data; 
+    },
 
-    delete: (id: number) =>
-        api.put<Location>(`${basePath}/${id}`)
-            .then(r => r.data),
+
+    put: async (id: number, changedLocation: Location) : Promise<dto[]> =>
+    {
+        const { data, error } = await endpoint();
+        if (error) throw new Error("error message");
+        return data; 
+    },
+
+
+    delete: async (id: number) : Promise<dto[]> =>
+    {
+        const { data, error } = await endpoint();
+        if (error) throw new Error("error message");
+        return data; 
+    },
+
 }
