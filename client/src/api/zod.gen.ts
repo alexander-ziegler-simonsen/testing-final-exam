@@ -2,7 +2,7 @@
 
 import * as z from 'zod';
 
-export const zHospitalApiDtosExternalMedicineDetailOutput = z.object({
+export const zHospitalApiDtosExternalMedicineDetailOutputDto = z.object({
     navn: z.string().nullish(),
     varenummer: z.string().nullish(),
     styrke: z.string().nullish(),
@@ -29,7 +29,7 @@ export const zHospitalApiDtosExternalMedicineDetailOutput = z.object({
     tilskudTekst: z.string().nullish()
 });
 
-export const zHospitalApiDtosExternalMedicineProductOutput = z.object({
+export const zHospitalApiDtosExternalMedicineProductOutputDto = z.object({
     navn: z.string(),
     varenummer: z.string(),
     firma: z.string(),
@@ -38,12 +38,12 @@ export const zHospitalApiDtosExternalMedicineProductOutput = z.object({
     pakning: z.string()
 });
 
-export const zHospitalApiDtosInputsDepartmentInput = z.object({
+export const zHospitalApiDtosInputsDepartmentInputDto = z.object({
     name: z.string().min(2).max(100).nullish(),
     type: z.string().min(2).max(100).nullish()
 });
 
-export const zHospitalApiDtosInputsFloorInput = z.object({
+export const zHospitalApiDtosInputsFloorInputDto = z.object({
     name: z.string().min(2).max(100).optional(),
     fkBuildingId: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
@@ -51,12 +51,12 @@ export const zHospitalApiDtosInputsFloorInput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosInputsLoginInput = z.object({
+export const zHospitalApiDtosInputsLoginInputDto = z.object({
     username: z.string().min(2).max(100).optional(),
     password: z.string().min(8).max(40).optional()
 });
 
-export const zHospitalApiDtosInputsMedicationInput = z.object({
+export const zHospitalApiDtosInputsMedicationInputDto = z.object({
     name: z.string().min(2).max(100).nullish(),
     genericName: z.string().min(2).max(100).nullish(),
     brand: z.string().min(2).max(100).nullish(),
@@ -66,7 +66,7 @@ export const zHospitalApiDtosInputsMedicationInput = z.object({
     description: z.string().nullish()
 });
 
-export const zHospitalApiDtosInputsMedicationStorageInput = z.object({
+export const zHospitalApiDtosInputsMedicationStorageInputDto = z.object({
     fkMedicationId: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -77,7 +77,7 @@ export const zHospitalApiDtosInputsMedicationStorageInput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosInputsMedicationStorageMissingInput = z.object({
+export const zHospitalApiDtosInputsMedicationStorageMissingInputDto = z.object({
     fkMedicationStorageId: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -89,14 +89,14 @@ export const zHospitalApiDtosInputsMedicationStorageMissingInput = z.object({
     wentMissingAt: z.iso.datetime().optional()
 });
 
-export const zHospitalApiDtosInputsPatientInput = z.object({
+export const zHospitalApiDtosInputsPatientInputDto = z.object({
     firstname: z.string().min(2).max(100).nullish(),
     lastname: z.string().min(2).max(100).nullish(),
     gender: z.string().min(2).max(50).nullish(),
     cprNumber: z.string().min(0).max(10).nullish()
 });
 
-export const zHospitalApiDtosInputsPrescriptionInput = z.object({
+export const zHospitalApiDtosInputsPrescriptionInputDto = z.object({
     fkMedicationId: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -115,7 +115,7 @@ export const zHospitalApiDtosInputsPrescriptionInput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosInputsRegisterInput = z.object({
+export const zHospitalApiDtosInputsRegisterInputDto = z.object({
     username: z.string().min(2).max(100).optional(),
     password: z.string().min(8).max(40).optional(),
     fkStaffId: z.union([
@@ -124,7 +124,7 @@ export const zHospitalApiDtosInputsRegisterInput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosInputsRoomBookingInput = z.object({
+export const zHospitalApiDtosInputsRoomBookingInputDto = z.object({
     fkRoomId: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -137,12 +137,12 @@ export const zHospitalApiDtosInputsRoomBookingInput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosInputsShiftInput = z.object({
+export const zHospitalApiDtosInputsShiftInputDto = z.object({
     startTime: z.iso.datetime().optional(),
     endTime: z.iso.datetime().optional()
 });
 
-export const zHospitalApiDtosInputsStaffInput = z.object({
+export const zHospitalApiDtosInputsStaffInputDto = z.object({
     firstname: z.string().min(2).max(100).nullish(),
     lastname: z.string().min(2).max(100).nullish(),
     fkRoleId: z.union([
@@ -151,7 +151,7 @@ export const zHospitalApiDtosInputsStaffInput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosInputsTreatmentInput = z.object({
+export const zHospitalApiDtosInputsTreatmentInputDto = z.object({
     fkPatientId: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -160,7 +160,7 @@ export const zHospitalApiDtosInputsTreatmentInput = z.object({
     time: z.iso.datetime().optional()
 });
 
-export const zHospitalApiDtosInputsTreatmentStaffInput = z.object({
+export const zHospitalApiDtosInputsTreatmentStaffInputDto = z.object({
     fkTreatmentId: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -171,7 +171,7 @@ export const zHospitalApiDtosInputsTreatmentStaffInput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosOutputsBuildingOutput = z.object({
+export const zHospitalApiDtosOutputsBuildingOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -180,7 +180,7 @@ export const zHospitalApiDtosOutputsBuildingOutput = z.object({
     address: z.string().min(2).max(255).nullish()
 });
 
-export const zHospitalApiDtosOutputsDepartmentOutput = z.object({
+export const zHospitalApiDtosOutputsDepartmentOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -189,7 +189,7 @@ export const zHospitalApiDtosOutputsDepartmentOutput = z.object({
     type: z.string().min(2).max(100).nullish()
 });
 
-export const zHospitalApiDtosOutputsFloorOutput = z.object({
+export const zHospitalApiDtosOutputsFloorOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -201,7 +201,7 @@ export const zHospitalApiDtosOutputsFloorOutput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosOutputsLoginOutput = z.object({
+export const zHospitalApiDtosOutputsLoginOutputDto = z.object({
     token: z.string().min(0).max(255),
     staffId: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
@@ -212,7 +212,7 @@ export const zHospitalApiDtosOutputsLoginOutput = z.object({
     role: z.string().optional()
 });
 
-export const zHospitalApiDtosOutputsMedicationOutput = z.object({
+export const zHospitalApiDtosOutputsMedicationOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -226,7 +226,7 @@ export const zHospitalApiDtosOutputsMedicationOutput = z.object({
     description: z.string().nullish()
 });
 
-export const zHospitalApiDtosOutputsMedicationStorageMissingOutput = z.object({
+export const zHospitalApiDtosOutputsMedicationStorageMissingOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -242,7 +242,7 @@ export const zHospitalApiDtosOutputsMedicationStorageMissingOutput = z.object({
     wentMissingAt: z.iso.datetime().optional()
 });
 
-export const zHospitalApiDtosOutputsMedicationStorageOutput = z.object({
+export const zHospitalApiDtosOutputsMedicationStorageOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -257,7 +257,7 @@ export const zHospitalApiDtosOutputsMedicationStorageOutput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosOutputsPatientOutput = z.object({
+export const zHospitalApiDtosOutputsPatientOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -268,7 +268,7 @@ export const zHospitalApiDtosOutputsPatientOutput = z.object({
     cprNumber: z.string().min(0).max(10).nullish()
 });
 
-export const zHospitalApiDtosOutputsPrescriptionOutput = z.object({
+export const zHospitalApiDtosOutputsPrescriptionOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -291,7 +291,7 @@ export const zHospitalApiDtosOutputsPrescriptionOutput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosOutputsRoomBookingOutput = z.object({
+export const zHospitalApiDtosOutputsRoomBookingOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -308,7 +308,7 @@ export const zHospitalApiDtosOutputsRoomBookingOutput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosOutputsRoomOutput = z.object({
+export const zHospitalApiDtosOutputsRoomOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -320,17 +320,17 @@ export const zHospitalApiDtosOutputsRoomOutput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosOutputsFloorRoomsOutput = z.object({
-    floor: zHospitalApiDtosOutputsFloorOutput,
-    rooms: z.array(zHospitalApiDtosOutputsRoomOutput)
+export const zHospitalApiDtosOutputsFloorRoomsOutputDto = z.object({
+    floor: zHospitalApiDtosOutputsFloorOutputDto,
+    rooms: z.array(zHospitalApiDtosOutputsRoomOutputDto)
 });
 
-export const zHospitalApiDtosOutputsLocationOutput = z.object({
-    building: zHospitalApiDtosOutputsBuildingOutput,
-    floorsWithRooms: z.array(zHospitalApiDtosOutputsFloorRoomsOutput)
+export const zHospitalApiDtosOutputsLocationOutputDto = z.object({
+    building: zHospitalApiDtosOutputsBuildingOutputDto,
+    floorsWithRooms: z.array(zHospitalApiDtosOutputsFloorRoomsOutputDto)
 });
 
-export const zHospitalApiDtosOutputsShiftOutput = z.object({
+export const zHospitalApiDtosOutputsShiftOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -339,7 +339,7 @@ export const zHospitalApiDtosOutputsShiftOutput = z.object({
     endTime: z.iso.datetime().optional()
 });
 
-export const zHospitalApiDtosOutputsStaffOutput = z.object({
+export const zHospitalApiDtosOutputsStaffOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -352,7 +352,7 @@ export const zHospitalApiDtosOutputsStaffOutput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosOutputsTreatmentOutput = z.object({
+export const zHospitalApiDtosOutputsTreatmentOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -365,7 +365,7 @@ export const zHospitalApiDtosOutputsTreatmentOutput = z.object({
     time: z.iso.datetime().optional()
 });
 
-export const zHospitalApiDtosOutputsTreatmentStaffOutput = z.object({
+export const zHospitalApiDtosOutputsTreatmentStaffOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -380,7 +380,7 @@ export const zHospitalApiDtosOutputsTreatmentStaffOutput = z.object({
     ]).optional()
 });
 
-export const zHospitalApiDtosOutputsUserOutput = z.object({
+export const zHospitalApiDtosOutputsUserOutputDto = z.object({
     id: z.union([
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
@@ -403,19 +403,19 @@ export const zMicrosoftAspNetCoreMvcProblemDetails = z.object({
     instance: z.string().nullish()
 });
 
-export const zAuthLoginBody = zHospitalApiDtosInputsLoginInput;
+export const zAuthLoginBody = zHospitalApiDtosInputsLoginInputDto;
 
 /**
  * OK
  */
-export const zAuthLoginResponse = zHospitalApiDtosOutputsLoginOutput;
+export const zAuthLoginResponse = zHospitalApiDtosOutputsLoginOutputDto;
 
 /**
  * OK
  */
-export const zDepartmentGetAllDepartmentsResponse = z.array(zHospitalApiDtosOutputsDepartmentOutput);
+export const zDepartmentGetAllDepartmentsResponse = z.array(zHospitalApiDtosOutputsDepartmentOutputDto);
 
-export const zDepartmentPostBody = zHospitalApiDtosInputsDepartmentInput;
+export const zDepartmentPostBody = zHospitalApiDtosInputsDepartmentInputDto;
 
 export const zDepartmentDeletePath = z.object({
     id: z.union([
@@ -434,9 +434,9 @@ export const zDepartmentGetPath = z.object({
 /**
  * OK
  */
-export const zDepartmentGetResponse = zHospitalApiDtosOutputsDepartmentOutput;
+export const zDepartmentGetResponse = zHospitalApiDtosOutputsDepartmentOutputDto;
 
-export const zDepartmentPutBody = zHospitalApiDtosInputsDepartmentInput;
+export const zDepartmentPutBody = zHospitalApiDtosInputsDepartmentInputDto;
 
 export const zDepartmentPutPath = z.object({
     id: z.union([
@@ -452,7 +452,7 @@ export const zExternalMedicinePricesGetMedicineProductsByNameQuery = z.object({
 /**
  * OK
  */
-export const zExternalMedicinePricesGetMedicineProductsByNameResponse = zHospitalApiDtosExternalMedicineProductOutput;
+export const zExternalMedicinePricesGetMedicineProductsByNameResponse = zHospitalApiDtosExternalMedicineProductOutputDto;
 
 export const zExternalMedicinePricesGetMedicineProductsByIngredientsQuery = z.object({
     ingredientName: z.string().optional()
@@ -461,7 +461,7 @@ export const zExternalMedicinePricesGetMedicineProductsByIngredientsQuery = z.ob
 /**
  * OK
  */
-export const zExternalMedicinePricesGetMedicineProductsByIngredientsResponse = zHospitalApiDtosExternalMedicineProductOutput;
+export const zExternalMedicinePricesGetMedicineProductsByIngredientsResponse = zHospitalApiDtosExternalMedicineProductOutputDto;
 
 export const zExternalMedicinePricesGetMedicineProductDetailsQuery = z.object({
     productDetailId: z.string().optional()
@@ -470,12 +470,12 @@ export const zExternalMedicinePricesGetMedicineProductDetailsQuery = z.object({
 /**
  * OK
  */
-export const zExternalMedicinePricesGetMedicineProductDetailsResponse = zHospitalApiDtosExternalMedicineDetailOutput;
+export const zExternalMedicinePricesGetMedicineProductDetailsResponse = zHospitalApiDtosExternalMedicineDetailOutputDto;
 
 /**
  * OK
  */
-export const zLocationGetAllLocationsResponse = zHospitalApiDtosOutputsLocationOutput;
+export const zLocationGetAllLocationsResponse = zHospitalApiDtosOutputsLocationOutputDto;
 
 export const zLocationGetPath = z.object({
     id: z.union([
@@ -487,14 +487,14 @@ export const zLocationGetPath = z.object({
 /**
  * OK
  */
-export const zLocationGetResponse = zHospitalApiDtosOutputsLocationOutput;
+export const zLocationGetResponse = zHospitalApiDtosOutputsLocationOutputDto;
 
 /**
  * OK
  */
-export const zLocationGetAllFloorsResponse = zHospitalApiDtosOutputsFloorRoomsOutput;
+export const zLocationGetAllFloorsResponse = zHospitalApiDtosOutputsFloorRoomsOutputDto;
 
-export const zLocationPostFloorBody = zHospitalApiDtosInputsFloorInput;
+export const zLocationPostFloorBody = zHospitalApiDtosInputsFloorInputDto;
 
 /**
  * OK
@@ -521,9 +521,9 @@ export const zLocationGetFloorPath = z.object({
 /**
  * OK
  */
-export const zLocationGetFloorResponse = zHospitalApiDtosOutputsFloorRoomsOutput;
+export const zLocationGetFloorResponse = zHospitalApiDtosOutputsFloorRoomsOutputDto;
 
-export const zLocationPutFloorBody = zHospitalApiDtosInputsFloorInput;
+export const zLocationPutFloorBody = zHospitalApiDtosInputsFloorInputDto;
 
 export const zLocationPutFloorPath = z.object({
     id: z.union([
@@ -535,9 +535,9 @@ export const zLocationPutFloorPath = z.object({
 /**
  * OK
  */
-export const zMedicinGetAllMedicinsResponse = zHospitalApiDtosOutputsMedicationOutput;
+export const zMedicinGetAllMedicinsResponse = zHospitalApiDtosOutputsMedicationOutputDto;
 
-export const zMedicinPostBody = zHospitalApiDtosInputsMedicationInput;
+export const zMedicinPostBody = zHospitalApiDtosInputsMedicationInputDto;
 
 export const zMedicinDeletePath = z.object({
     id: z.union([
@@ -556,9 +556,9 @@ export const zMedicinGetPath = z.object({
 /**
  * OK
  */
-export const zMedicinGetResponse = zHospitalApiDtosOutputsMedicationOutput;
+export const zMedicinGetResponse = zHospitalApiDtosOutputsMedicationOutputDto;
 
-export const zMedicinPutBody = zHospitalApiDtosInputsMedicationInput;
+export const zMedicinPutBody = zHospitalApiDtosInputsMedicationInputDto;
 
 export const zMedicinPutPath = z.object({
     id: z.union([
@@ -570,9 +570,9 @@ export const zMedicinPutPath = z.object({
 /**
  * OK
  */
-export const zMissingStorageGetAllMedicationStorageMissingsResponse = zHospitalApiDtosOutputsMedicationStorageMissingOutput;
+export const zMissingStorageGetAllMedicationStorageMissingsResponse = zHospitalApiDtosOutputsMedicationStorageMissingOutputDto;
 
-export const zMissingStoragePostBody = zHospitalApiDtosInputsMedicationStorageMissingInput;
+export const zMissingStoragePostBody = zHospitalApiDtosInputsMedicationStorageMissingInputDto;
 
 export const zMissingStorageDeletePath = z.object({
     id: z.union([
@@ -591,9 +591,9 @@ export const zMissingStorageGetPath = z.object({
 /**
  * OK
  */
-export const zMissingStorageGetResponse = zHospitalApiDtosOutputsMedicationStorageMissingOutput;
+export const zMissingStorageGetResponse = zHospitalApiDtosOutputsMedicationStorageMissingOutputDto;
 
-export const zMissingStoragePutBody = zHospitalApiDtosInputsMedicationStorageMissingInput;
+export const zMissingStoragePutBody = zHospitalApiDtosInputsMedicationStorageMissingInputDto;
 
 export const zMissingStoragePutPath = z.object({
     id: z.union([
@@ -614,9 +614,9 @@ export const zPatientGetAllPatientsQuery = z.object({
 /**
  * OK
  */
-export const zPatientGetAllPatientsResponse = zHospitalApiDtosOutputsPatientOutput;
+export const zPatientGetAllPatientsResponse = zHospitalApiDtosOutputsPatientOutputDto;
 
-export const zPatientPostBody = zHospitalApiDtosInputsPatientInput;
+export const zPatientPostBody = zHospitalApiDtosInputsPatientInputDto;
 
 export const zPatientDeletePath = z.object({
     id: z.union([
@@ -635,9 +635,9 @@ export const zPatientGetPath = z.object({
 /**
  * OK
  */
-export const zPatientGetResponse = zHospitalApiDtosOutputsPatientOutput;
+export const zPatientGetResponse = zHospitalApiDtosOutputsPatientOutputDto;
 
-export const zPatientPutBody = zHospitalApiDtosInputsPatientInput;
+export const zPatientPutBody = zHospitalApiDtosInputsPatientInputDto;
 
 export const zPatientPutPath = z.object({
     id: z.union([
@@ -649,9 +649,9 @@ export const zPatientPutPath = z.object({
 /**
  * OK
  */
-export const zPrescriptionGetAllPrescriptionsResponse = zHospitalApiDtosOutputsPrescriptionOutput;
+export const zPrescriptionGetAllPrescriptionsResponse = zHospitalApiDtosOutputsPrescriptionOutputDto;
 
-export const zPrescriptionPostBody = zHospitalApiDtosInputsPrescriptionInput;
+export const zPrescriptionPostBody = zHospitalApiDtosInputsPrescriptionInputDto;
 
 export const zPrescriptionDeletePath = z.object({
     id: z.union([
@@ -670,9 +670,9 @@ export const zPrescriptionGetPath = z.object({
 /**
  * OK
  */
-export const zPrescriptionGetResponse = zHospitalApiDtosOutputsPrescriptionOutput;
+export const zPrescriptionGetResponse = zHospitalApiDtosOutputsPrescriptionOutputDto;
 
-export const zPrescriptionPutBody = zHospitalApiDtosInputsPrescriptionInput;
+export const zPrescriptionPutBody = zHospitalApiDtosInputsPrescriptionInputDto;
 
 export const zPrescriptionPutPath = z.object({
     id: z.union([
@@ -684,9 +684,9 @@ export const zPrescriptionPutPath = z.object({
 /**
  * OK
  */
-export const zRoomBookingGetAllResponse = zHospitalApiDtosOutputsRoomBookingOutput;
+export const zRoomBookingGetAllResponse = zHospitalApiDtosOutputsRoomBookingOutputDto;
 
-export const zRoomBookingPostBody = zHospitalApiDtosInputsRoomBookingInput;
+export const zRoomBookingPostBody = zHospitalApiDtosInputsRoomBookingInputDto;
 
 export const zRoomBookingDeletePath = z.object({
     id: z.union([
@@ -705,9 +705,9 @@ export const zRoomBookingGetPath = z.object({
 /**
  * OK
  */
-export const zRoomBookingGetResponse = zHospitalApiDtosOutputsRoomBookingOutput;
+export const zRoomBookingGetResponse = zHospitalApiDtosOutputsRoomBookingOutputDto;
 
-export const zRoomBookingPutBody = zHospitalApiDtosInputsRoomBookingInput;
+export const zRoomBookingPutBody = zHospitalApiDtosInputsRoomBookingInputDto;
 
 export const zRoomBookingPutPath = z.object({
     id: z.union([
@@ -726,9 +726,9 @@ export const zShiftGetAllShiftsQuery = z.object({
 /**
  * OK
  */
-export const zShiftGetAllShiftsResponse = zHospitalApiDtosOutputsShiftOutput;
+export const zShiftGetAllShiftsResponse = zHospitalApiDtosOutputsShiftOutputDto;
 
-export const zShiftPostBody = zHospitalApiDtosInputsShiftInput;
+export const zShiftPostBody = zHospitalApiDtosInputsShiftInputDto;
 
 export const zShiftDeletePath = z.object({
     id: z.union([
@@ -747,9 +747,9 @@ export const zShiftGetPath = z.object({
 /**
  * OK
  */
-export const zShiftGetResponse = zHospitalApiDtosOutputsShiftOutput;
+export const zShiftGetResponse = zHospitalApiDtosOutputsShiftOutputDto;
 
-export const zShiftPutBody = zHospitalApiDtosInputsShiftInput;
+export const zShiftPutBody = zHospitalApiDtosInputsShiftInputDto;
 
 export const zShiftPutPath = z.object({
     id: z.union([
@@ -761,9 +761,9 @@ export const zShiftPutPath = z.object({
 /**
  * OK
  */
-export const zStaffGetAllStaffsResponse = zHospitalApiDtosOutputsStaffOutput;
+export const zStaffGetAllStaffsResponse = zHospitalApiDtosOutputsStaffOutputDto;
 
-export const zStaffPostBody = zHospitalApiDtosInputsStaffInput;
+export const zStaffPostBody = zHospitalApiDtosInputsStaffInputDto;
 
 export const zStaffDeletePath = z.object({
     id: z.union([
@@ -782,9 +782,9 @@ export const zStaffGetPath = z.object({
 /**
  * OK
  */
-export const zStaffGetResponse = zHospitalApiDtosOutputsStaffOutput;
+export const zStaffGetResponse = zHospitalApiDtosOutputsStaffOutputDto;
 
-export const zStaffPutBody = zHospitalApiDtosInputsStaffInput;
+export const zStaffPutBody = zHospitalApiDtosInputsStaffInputDto;
 
 export const zStaffPutPath = z.object({
     id: z.union([
@@ -796,9 +796,9 @@ export const zStaffPutPath = z.object({
 /**
  * OK
  */
-export const zStorageGetAllMedicationStoragesResponse = zHospitalApiDtosOutputsMedicationStorageOutput;
+export const zStorageGetAllMedicationStoragesResponse = zHospitalApiDtosOutputsMedicationStorageOutputDto;
 
-export const zStoragePostBody = zHospitalApiDtosInputsMedicationStorageInput;
+export const zStoragePostBody = zHospitalApiDtosInputsMedicationStorageInputDto;
 
 export const zStorageDeletePath = z.object({
     id: z.union([
@@ -817,9 +817,9 @@ export const zStorageGetPath = z.object({
 /**
  * OK
  */
-export const zStorageGetResponse = zHospitalApiDtosOutputsMedicationStorageOutput;
+export const zStorageGetResponse = zHospitalApiDtosOutputsMedicationStorageOutputDto;
 
-export const zStoragePutBody = zHospitalApiDtosInputsMedicationStorageInput;
+export const zStoragePutBody = zHospitalApiDtosInputsMedicationStorageInputDto;
 
 export const zStoragePutPath = z.object({
     id: z.union([
@@ -842,9 +842,9 @@ export const zTreatmentGetAllTreatmentsQuery = z.object({
 /**
  * OK
  */
-export const zTreatmentGetAllTreatmentsResponse = zHospitalApiDtosOutputsTreatmentOutput;
+export const zTreatmentGetAllTreatmentsResponse = zHospitalApiDtosOutputsTreatmentOutputDto;
 
-export const zTreatmentPostBody = zHospitalApiDtosInputsTreatmentInput;
+export const zTreatmentPostBody = zHospitalApiDtosInputsTreatmentInputDto;
 
 export const zTreatmentDeletePath = z.object({
     id: z.union([
@@ -863,9 +863,9 @@ export const zTreatmentGetPath = z.object({
 /**
  * OK
  */
-export const zTreatmentGetResponse = zHospitalApiDtosOutputsTreatmentOutput;
+export const zTreatmentGetResponse = zHospitalApiDtosOutputsTreatmentOutputDto;
 
-export const zTreatmentPutBody = zHospitalApiDtosInputsTreatmentInput;
+export const zTreatmentPutBody = zHospitalApiDtosInputsTreatmentInputDto;
 
 export const zTreatmentPutPath = z.object({
     id: z.union([
@@ -877,9 +877,9 @@ export const zTreatmentPutPath = z.object({
 /**
  * OK
  */
-export const zTreatmentStaffGetAllResponse = zHospitalApiDtosOutputsTreatmentStaffOutput;
+export const zTreatmentStaffGetAllResponse = zHospitalApiDtosOutputsTreatmentStaffOutputDto;
 
-export const zTreatmentStaffPostBody = zHospitalApiDtosInputsTreatmentStaffInput;
+export const zTreatmentStaffPostBody = zHospitalApiDtosInputsTreatmentStaffInputDto;
 
 export const zTreatmentStaffDeletePath = z.object({
     id: z.union([
@@ -898,9 +898,9 @@ export const zTreatmentStaffGetPath = z.object({
 /**
  * OK
  */
-export const zTreatmentStaffGetResponse = zHospitalApiDtosOutputsTreatmentStaffOutput;
+export const zTreatmentStaffGetResponse = zHospitalApiDtosOutputsTreatmentStaffOutputDto;
 
-export const zTreatmentStaffPutBody = zHospitalApiDtosInputsTreatmentStaffInput;
+export const zTreatmentStaffPutBody = zHospitalApiDtosInputsTreatmentStaffInputDto;
 
 export const zTreatmentStaffPutPath = z.object({
     id: z.union([
@@ -912,9 +912,9 @@ export const zTreatmentStaffPutPath = z.object({
 /**
  * OK
  */
-export const zUserGetAllResponse = zHospitalApiDtosOutputsUserOutput;
+export const zUserGetAllResponse = zHospitalApiDtosOutputsUserOutputDto;
 
-export const zUserRegisterBody = zHospitalApiDtosInputsRegisterInput;
+export const zUserRegisterBody = zHospitalApiDtosInputsRegisterInputDto;
 
 export const zUserChangePasswordBody = z.string();
 

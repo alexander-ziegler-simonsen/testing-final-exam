@@ -4,7 +4,7 @@ export type ClientOptions = {
     baseURL: `${string}://${string}` | (string & {});
 };
 
-export type HospitalApiDtosExternalMedicineDetailOutput = {
+export type HospitalApiDtosExternalMedicineDetailOutputDto = {
     navn?: null | string;
     varenummer?: null | string;
     styrke?: null | string;
@@ -31,7 +31,7 @@ export type HospitalApiDtosExternalMedicineDetailOutput = {
     tilskudTekst?: null | string;
 };
 
-export type HospitalApiDtosExternalMedicineProductOutput = {
+export type HospitalApiDtosExternalMedicineProductOutputDto = {
     navn: string;
     varenummer: string;
     firma: string;
@@ -40,22 +40,22 @@ export type HospitalApiDtosExternalMedicineProductOutput = {
     pakning: string;
 };
 
-export type HospitalApiDtosInputsDepartmentInput = {
+export type HospitalApiDtosInputsDepartmentInputDto = {
     name?: null | string;
     type?: null | string;
 };
 
-export type HospitalApiDtosInputsFloorInput = {
+export type HospitalApiDtosInputsFloorInputDto = {
     name?: string;
     fkBuildingId?: number | string;
 };
 
-export type HospitalApiDtosInputsLoginInput = {
+export type HospitalApiDtosInputsLoginInputDto = {
     username?: string;
     password?: string;
 };
 
-export type HospitalApiDtosInputsMedicationInput = {
+export type HospitalApiDtosInputsMedicationInputDto = {
     name?: null | string;
     genericName?: null | string;
     brand?: null | string;
@@ -65,95 +65,95 @@ export type HospitalApiDtosInputsMedicationInput = {
     description?: null | string;
 };
 
-export type HospitalApiDtosInputsMedicationStorageInput = {
+export type HospitalApiDtosInputsMedicationStorageInputDto = {
     fkMedicationId?: number | string;
     amount?: number | string;
 };
 
-export type HospitalApiDtosInputsMedicationStorageMissingInput = {
+export type HospitalApiDtosInputsMedicationStorageMissingInputDto = {
     fkMedicationStorageId?: number | string;
     amountMissing?: number | string;
     wentMissingAt?: string;
 };
 
-export type HospitalApiDtosInputsPatientInput = {
+export type HospitalApiDtosInputsPatientInputDto = {
     firstname?: null | string;
     lastname?: null | string;
     gender?: null | string;
     cprNumber?: null | string;
 };
 
-export type HospitalApiDtosInputsPrescriptionInput = {
+export type HospitalApiDtosInputsPrescriptionInputDto = {
     fkMedicationId?: number | string;
     fkTreatmentId?: number | string;
     fkPrescribedByStaffId?: number | string;
     doses?: number | string;
 };
 
-export type HospitalApiDtosInputsRegisterInput = {
+export type HospitalApiDtosInputsRegisterInputDto = {
     username?: string;
     password?: string;
     fkStaffId?: number | string;
 };
 
-export type HospitalApiDtosInputsRoomBookingInput = {
+export type HospitalApiDtosInputsRoomBookingInputDto = {
     fkRoomId?: number | string;
     startTime?: string;
     endTime?: string;
     fkPatientId?: number | string;
 };
 
-export type HospitalApiDtosInputsShiftInput = {
+export type HospitalApiDtosInputsShiftInputDto = {
     startTime?: string;
     endTime?: string;
 };
 
-export type HospitalApiDtosInputsStaffInput = {
+export type HospitalApiDtosInputsStaffInputDto = {
     firstname?: null | string;
     lastname?: null | string;
     fkRoleId?: number | string;
 };
 
-export type HospitalApiDtosInputsTreatmentInput = {
+export type HospitalApiDtosInputsTreatmentInputDto = {
     fkPatientId?: number | string;
     description?: null | string;
     time?: string;
 };
 
-export type HospitalApiDtosInputsTreatmentStaffInput = {
+export type HospitalApiDtosInputsTreatmentStaffInputDto = {
     fkTreatmentId?: number | string;
     fkStaffId?: number | string;
 };
 
-export type HospitalApiDtosOutputsBuildingOutput = {
+export type HospitalApiDtosOutputsBuildingOutputDto = {
     id?: number | string;
     name?: string;
     address?: null | string;
 };
 
-export type HospitalApiDtosOutputsDepartmentOutput = {
+export type HospitalApiDtosOutputsDepartmentOutputDto = {
     id?: number | string;
     name?: null | string;
     type?: null | string;
 };
 
-export type HospitalApiDtosOutputsFloorOutput = {
+export type HospitalApiDtosOutputsFloorOutputDto = {
     id?: number | string;
     name?: string;
     fkBuildingId?: number | string;
 };
 
-export type HospitalApiDtosOutputsFloorRoomsOutput = {
-    floor: HospitalApiDtosOutputsFloorOutput;
-    rooms: Array<HospitalApiDtosOutputsRoomOutput>;
+export type HospitalApiDtosOutputsFloorRoomsOutputDto = {
+    floor: HospitalApiDtosOutputsFloorOutputDto;
+    rooms: Array<HospitalApiDtosOutputsRoomOutputDto>;
 };
 
-export type HospitalApiDtosOutputsLocationOutput = {
-    building: HospitalApiDtosOutputsBuildingOutput;
-    floorsWithRooms: Array<HospitalApiDtosOutputsFloorRoomsOutput>;
+export type HospitalApiDtosOutputsLocationOutputDto = {
+    building: HospitalApiDtosOutputsBuildingOutputDto;
+    floorsWithRooms: Array<HospitalApiDtosOutputsFloorRoomsOutputDto>;
 };
 
-export type HospitalApiDtosOutputsLoginOutput = {
+export type HospitalApiDtosOutputsLoginOutputDto = {
     token: string;
     staffId?: number | string;
     firstname?: null | string;
@@ -161,7 +161,7 @@ export type HospitalApiDtosOutputsLoginOutput = {
     role?: string;
 };
 
-export type HospitalApiDtosOutputsMedicationOutput = {
+export type HospitalApiDtosOutputsMedicationOutputDto = {
     id?: number | string;
     name?: null | string;
     genericName?: null | string;
@@ -172,20 +172,20 @@ export type HospitalApiDtosOutputsMedicationOutput = {
     description?: null | string;
 };
 
-export type HospitalApiDtosOutputsMedicationStorageMissingOutput = {
+export type HospitalApiDtosOutputsMedicationStorageMissingOutputDto = {
     id?: number | string;
     fkMedicationStorageId?: number | string;
     amountMissing?: number | string;
     wentMissingAt?: string;
 };
 
-export type HospitalApiDtosOutputsMedicationStorageOutput = {
+export type HospitalApiDtosOutputsMedicationStorageOutputDto = {
     id?: number | string;
     fkMedicationId?: number | string;
     amount?: number | string;
 };
 
-export type HospitalApiDtosOutputsPatientOutput = {
+export type HospitalApiDtosOutputsPatientOutputDto = {
     id?: number | string;
     firstname?: null | string;
     lastname?: null | string;
@@ -193,7 +193,7 @@ export type HospitalApiDtosOutputsPatientOutput = {
     cprNumber?: null | string;
 };
 
-export type HospitalApiDtosOutputsPrescriptionOutput = {
+export type HospitalApiDtosOutputsPrescriptionOutputDto = {
     id?: number | string;
     fkMedicationId?: number | string;
     fkTreatmentId?: number | string;
@@ -201,7 +201,7 @@ export type HospitalApiDtosOutputsPrescriptionOutput = {
     doses?: number | string;
 };
 
-export type HospitalApiDtosOutputsRoomBookingOutput = {
+export type HospitalApiDtosOutputsRoomBookingOutputDto = {
     id?: number | string;
     fkRoomId?: number | string;
     startTime?: string;
@@ -209,39 +209,39 @@ export type HospitalApiDtosOutputsRoomBookingOutput = {
     fkPatientId?: number | string;
 };
 
-export type HospitalApiDtosOutputsRoomOutput = {
+export type HospitalApiDtosOutputsRoomOutputDto = {
     id?: number | string;
     name?: string;
     fkFloorId?: number | string;
 };
 
-export type HospitalApiDtosOutputsShiftOutput = {
+export type HospitalApiDtosOutputsShiftOutputDto = {
     id?: number | string;
     startTime?: string;
     endTime?: string;
 };
 
-export type HospitalApiDtosOutputsStaffOutput = {
+export type HospitalApiDtosOutputsStaffOutputDto = {
     id?: number | string;
     firstname?: null | string;
     lastname?: null | string;
     fkRoleId?: number | string;
 };
 
-export type HospitalApiDtosOutputsTreatmentOutput = {
+export type HospitalApiDtosOutputsTreatmentOutputDto = {
     id?: number | string;
     fkPatientId?: number | string;
     description?: null | string;
     time?: string;
 };
 
-export type HospitalApiDtosOutputsTreatmentStaffOutput = {
+export type HospitalApiDtosOutputsTreatmentStaffOutputDto = {
     id?: number | string;
     fkTreatmentId?: number | string;
     fkStaffId?: number | string;
 };
 
-export type HospitalApiDtosOutputsUserOutput = {
+export type HospitalApiDtosOutputsUserOutputDto = {
     id?: number | string;
     username?: string;
     fkStaffId?: number | string;
@@ -256,7 +256,7 @@ export type MicrosoftAspNetCoreMvcProblemDetails = {
 };
 
 export type AuthLoginData = {
-    body: HospitalApiDtosInputsLoginInput;
+    body: HospitalApiDtosInputsLoginInputDto;
     path?: never;
     query?: never;
     url: '/api/Auth/login';
@@ -275,7 +275,7 @@ export type AuthLoginResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsLoginOutput;
+    200: HospitalApiDtosOutputsLoginOutputDto;
 };
 
 export type AuthLoginResponse = AuthLoginResponses[keyof AuthLoginResponses];
@@ -291,13 +291,13 @@ export type DepartmentGetAllDepartmentsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsDepartmentOutput>;
+    200: Array<HospitalApiDtosOutputsDepartmentOutputDto>;
 };
 
 export type DepartmentGetAllDepartmentsResponse = DepartmentGetAllDepartmentsResponses[keyof DepartmentGetAllDepartmentsResponses];
 
 export type DepartmentPostData = {
-    body: HospitalApiDtosInputsDepartmentInput;
+    body: HospitalApiDtosInputsDepartmentInputDto;
     path?: never;
     query?: never;
     url: '/api/Department';
@@ -339,13 +339,13 @@ export type DepartmentGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsDepartmentOutput;
+    200: HospitalApiDtosOutputsDepartmentOutputDto;
 };
 
 export type DepartmentGetResponse = DepartmentGetResponses[keyof DepartmentGetResponses];
 
 export type DepartmentPutData = {
-    body: HospitalApiDtosInputsDepartmentInput;
+    body: HospitalApiDtosInputsDepartmentInputDto;
     path: {
         id: number | string;
     };
@@ -382,7 +382,7 @@ export type ExternalMedicinePricesGetMedicineProductsByNameResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosExternalMedicineProductOutput;
+    200: HospitalApiDtosExternalMedicineProductOutputDto;
 };
 
 export type ExternalMedicinePricesGetMedicineProductsByNameResponse = ExternalMedicinePricesGetMedicineProductsByNameResponses[keyof ExternalMedicinePricesGetMedicineProductsByNameResponses];
@@ -409,7 +409,7 @@ export type ExternalMedicinePricesGetMedicineProductsByIngredientsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosExternalMedicineProductOutput;
+    200: HospitalApiDtosExternalMedicineProductOutputDto;
 };
 
 export type ExternalMedicinePricesGetMedicineProductsByIngredientsResponse = ExternalMedicinePricesGetMedicineProductsByIngredientsResponses[keyof ExternalMedicinePricesGetMedicineProductsByIngredientsResponses];
@@ -436,7 +436,7 @@ export type ExternalMedicinePricesGetMedicineProductDetailsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosExternalMedicineDetailOutput;
+    200: HospitalApiDtosExternalMedicineDetailOutputDto;
 };
 
 export type ExternalMedicinePricesGetMedicineProductDetailsResponse = ExternalMedicinePricesGetMedicineProductDetailsResponses[keyof ExternalMedicinePricesGetMedicineProductDetailsResponses];
@@ -461,7 +461,7 @@ export type LocationGetAllLocationsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsLocationOutput;
+    200: HospitalApiDtosOutputsLocationOutputDto;
 };
 
 export type LocationGetAllLocationsResponse = LocationGetAllLocationsResponses[keyof LocationGetAllLocationsResponses];
@@ -488,7 +488,7 @@ export type LocationGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsLocationOutput;
+    200: HospitalApiDtosOutputsLocationOutputDto;
 };
 
 export type LocationGetResponse = LocationGetResponses[keyof LocationGetResponses];
@@ -513,13 +513,13 @@ export type LocationGetAllFloorsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsFloorRoomsOutput;
+    200: HospitalApiDtosOutputsFloorRoomsOutputDto;
 };
 
 export type LocationGetAllFloorsResponse = LocationGetAllFloorsResponses[keyof LocationGetAllFloorsResponses];
 
 export type LocationPostFloorData = {
-    body: HospitalApiDtosInputsFloorInput;
+    body: HospitalApiDtosInputsFloorInputDto;
     path?: never;
     query?: never;
     url: '/api/Location/floor';
@@ -572,13 +572,13 @@ export type LocationGetFloorResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsFloorRoomsOutput;
+    200: HospitalApiDtosOutputsFloorRoomsOutputDto;
 };
 
 export type LocationGetFloorResponse = LocationGetFloorResponses[keyof LocationGetFloorResponses];
 
 export type LocationPutFloorData = {
-    body: HospitalApiDtosInputsFloorInput;
+    body: HospitalApiDtosInputsFloorInputDto;
     path: {
         id: number | string;
     };
@@ -613,13 +613,13 @@ export type MedicinGetAllMedicinsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationOutput;
+    200: HospitalApiDtosOutputsMedicationOutputDto;
 };
 
 export type MedicinGetAllMedicinsResponse = MedicinGetAllMedicinsResponses[keyof MedicinGetAllMedicinsResponses];
 
 export type MedicinPostData = {
-    body: HospitalApiDtosInputsMedicationInput;
+    body: HospitalApiDtosInputsMedicationInputDto;
     path?: never;
     query?: never;
     url: '/api/Medicin';
@@ -670,13 +670,13 @@ export type MedicinGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationOutput;
+    200: HospitalApiDtosOutputsMedicationOutputDto;
 };
 
 export type MedicinGetResponse = MedicinGetResponses[keyof MedicinGetResponses];
 
 export type MedicinPutData = {
-    body: HospitalApiDtosInputsMedicationInput;
+    body: HospitalApiDtosInputsMedicationInputDto;
     path: {
         id: number | string;
     };
@@ -711,13 +711,13 @@ export type MissingStorageGetAllMedicationStorageMissingsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationStorageMissingOutput;
+    200: HospitalApiDtosOutputsMedicationStorageMissingOutputDto;
 };
 
 export type MissingStorageGetAllMedicationStorageMissingsResponse = MissingStorageGetAllMedicationStorageMissingsResponses[keyof MissingStorageGetAllMedicationStorageMissingsResponses];
 
 export type MissingStoragePostData = {
-    body: HospitalApiDtosInputsMedicationStorageMissingInput;
+    body: HospitalApiDtosInputsMedicationStorageMissingInputDto;
     path?: never;
     query?: never;
     url: '/api/MissingStorage';
@@ -768,13 +768,13 @@ export type MissingStorageGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationStorageMissingOutput;
+    200: HospitalApiDtosOutputsMedicationStorageMissingOutputDto;
 };
 
 export type MissingStorageGetResponse = MissingStorageGetResponses[keyof MissingStorageGetResponses];
 
 export type MissingStoragePutData = {
-    body: HospitalApiDtosInputsMedicationStorageMissingInput;
+    body: HospitalApiDtosInputsMedicationStorageMissingInputDto;
     path: {
         id: number | string;
     };
@@ -816,13 +816,13 @@ export type PatientGetAllPatientsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsPatientOutput;
+    200: HospitalApiDtosOutputsPatientOutputDto;
 };
 
 export type PatientGetAllPatientsResponse = PatientGetAllPatientsResponses[keyof PatientGetAllPatientsResponses];
 
 export type PatientPostData = {
-    body: HospitalApiDtosInputsPatientInput;
+    body: HospitalApiDtosInputsPatientInputDto;
     path?: never;
     query?: never;
     url: '/api/Patient';
@@ -873,13 +873,13 @@ export type PatientGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsPatientOutput;
+    200: HospitalApiDtosOutputsPatientOutputDto;
 };
 
 export type PatientGetResponse = PatientGetResponses[keyof PatientGetResponses];
 
 export type PatientPutData = {
-    body: HospitalApiDtosInputsPatientInput;
+    body: HospitalApiDtosInputsPatientInputDto;
     path: {
         id: number | string;
     };
@@ -914,13 +914,13 @@ export type PrescriptionGetAllPrescriptionsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsPrescriptionOutput;
+    200: HospitalApiDtosOutputsPrescriptionOutputDto;
 };
 
 export type PrescriptionGetAllPrescriptionsResponse = PrescriptionGetAllPrescriptionsResponses[keyof PrescriptionGetAllPrescriptionsResponses];
 
 export type PrescriptionPostData = {
-    body: HospitalApiDtosInputsPrescriptionInput;
+    body: HospitalApiDtosInputsPrescriptionInputDto;
     path?: never;
     query?: never;
     url: '/api/Prescription';
@@ -971,13 +971,13 @@ export type PrescriptionGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsPrescriptionOutput;
+    200: HospitalApiDtosOutputsPrescriptionOutputDto;
 };
 
 export type PrescriptionGetResponse = PrescriptionGetResponses[keyof PrescriptionGetResponses];
 
 export type PrescriptionPutData = {
-    body: HospitalApiDtosInputsPrescriptionInput;
+    body: HospitalApiDtosInputsPrescriptionInputDto;
     path: {
         id: number | string;
     };
@@ -1012,13 +1012,13 @@ export type RoomBookingGetAllResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsRoomBookingOutput;
+    200: HospitalApiDtosOutputsRoomBookingOutputDto;
 };
 
 export type RoomBookingGetAllResponse = RoomBookingGetAllResponses[keyof RoomBookingGetAllResponses];
 
 export type RoomBookingPostData = {
-    body: HospitalApiDtosInputsRoomBookingInput;
+    body: HospitalApiDtosInputsRoomBookingInputDto;
     path?: never;
     query?: never;
     url: '/api/RoomBooking';
@@ -1069,13 +1069,13 @@ export type RoomBookingGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsRoomBookingOutput;
+    200: HospitalApiDtosOutputsRoomBookingOutputDto;
 };
 
 export type RoomBookingGetResponse = RoomBookingGetResponses[keyof RoomBookingGetResponses];
 
 export type RoomBookingPutData = {
-    body: HospitalApiDtosInputsRoomBookingInput;
+    body: HospitalApiDtosInputsRoomBookingInputDto;
     path: {
         id: number | string;
     };
@@ -1115,13 +1115,13 @@ export type ShiftGetAllShiftsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsShiftOutput;
+    200: HospitalApiDtosOutputsShiftOutputDto;
 };
 
 export type ShiftGetAllShiftsResponse = ShiftGetAllShiftsResponses[keyof ShiftGetAllShiftsResponses];
 
 export type ShiftPostData = {
-    body: HospitalApiDtosInputsShiftInput;
+    body: HospitalApiDtosInputsShiftInputDto;
     path?: never;
     query?: never;
     url: '/api/Shift';
@@ -1172,13 +1172,13 @@ export type ShiftGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsShiftOutput;
+    200: HospitalApiDtosOutputsShiftOutputDto;
 };
 
 export type ShiftGetResponse = ShiftGetResponses[keyof ShiftGetResponses];
 
 export type ShiftPutData = {
-    body: HospitalApiDtosInputsShiftInput;
+    body: HospitalApiDtosInputsShiftInputDto;
     path: {
         id: number | string;
     };
@@ -1213,13 +1213,13 @@ export type StaffGetAllStaffsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsStaffOutput;
+    200: HospitalApiDtosOutputsStaffOutputDto;
 };
 
 export type StaffGetAllStaffsResponse = StaffGetAllStaffsResponses[keyof StaffGetAllStaffsResponses];
 
 export type StaffPostData = {
-    body: HospitalApiDtosInputsStaffInput;
+    body: HospitalApiDtosInputsStaffInputDto;
     path?: never;
     query?: never;
     url: '/api/Staff';
@@ -1270,13 +1270,13 @@ export type StaffGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsStaffOutput;
+    200: HospitalApiDtosOutputsStaffOutputDto;
 };
 
 export type StaffGetResponse = StaffGetResponses[keyof StaffGetResponses];
 
 export type StaffPutData = {
-    body: HospitalApiDtosInputsStaffInput;
+    body: HospitalApiDtosInputsStaffInputDto;
     path: {
         id: number | string;
     };
@@ -1311,13 +1311,13 @@ export type StorageGetAllMedicationStoragesResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationStorageOutput;
+    200: HospitalApiDtosOutputsMedicationStorageOutputDto;
 };
 
 export type StorageGetAllMedicationStoragesResponse = StorageGetAllMedicationStoragesResponses[keyof StorageGetAllMedicationStoragesResponses];
 
 export type StoragePostData = {
-    body: HospitalApiDtosInputsMedicationStorageInput;
+    body: HospitalApiDtosInputsMedicationStorageInputDto;
     path?: never;
     query?: never;
     url: '/api/Storage';
@@ -1368,13 +1368,13 @@ export type StorageGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationStorageOutput;
+    200: HospitalApiDtosOutputsMedicationStorageOutputDto;
 };
 
 export type StorageGetResponse = StorageGetResponses[keyof StorageGetResponses];
 
 export type StoragePutData = {
-    body: HospitalApiDtosInputsMedicationStorageInput;
+    body: HospitalApiDtosInputsMedicationStorageInputDto;
     path: {
         id: number | string;
     };
@@ -1415,13 +1415,13 @@ export type TreatmentGetAllTreatmentsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsTreatmentOutput;
+    200: HospitalApiDtosOutputsTreatmentOutputDto;
 };
 
 export type TreatmentGetAllTreatmentsResponse = TreatmentGetAllTreatmentsResponses[keyof TreatmentGetAllTreatmentsResponses];
 
 export type TreatmentPostData = {
-    body: HospitalApiDtosInputsTreatmentInput;
+    body: HospitalApiDtosInputsTreatmentInputDto;
     path?: never;
     query?: never;
     url: '/api/Treatment';
@@ -1472,13 +1472,13 @@ export type TreatmentGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsTreatmentOutput;
+    200: HospitalApiDtosOutputsTreatmentOutputDto;
 };
 
 export type TreatmentGetResponse = TreatmentGetResponses[keyof TreatmentGetResponses];
 
 export type TreatmentPutData = {
-    body: HospitalApiDtosInputsTreatmentInput;
+    body: HospitalApiDtosInputsTreatmentInputDto;
     path: {
         id: number | string;
     };
@@ -1513,13 +1513,13 @@ export type TreatmentStaffGetAllResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsTreatmentStaffOutput;
+    200: HospitalApiDtosOutputsTreatmentStaffOutputDto;
 };
 
 export type TreatmentStaffGetAllResponse = TreatmentStaffGetAllResponses[keyof TreatmentStaffGetAllResponses];
 
 export type TreatmentStaffPostData = {
-    body: HospitalApiDtosInputsTreatmentStaffInput;
+    body: HospitalApiDtosInputsTreatmentStaffInputDto;
     path?: never;
     query?: never;
     url: '/api/TreatmentStaff';
@@ -1570,13 +1570,13 @@ export type TreatmentStaffGetResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsTreatmentStaffOutput;
+    200: HospitalApiDtosOutputsTreatmentStaffOutputDto;
 };
 
 export type TreatmentStaffGetResponse = TreatmentStaffGetResponses[keyof TreatmentStaffGetResponses];
 
 export type TreatmentStaffPutData = {
-    body: HospitalApiDtosInputsTreatmentStaffInput;
+    body: HospitalApiDtosInputsTreatmentStaffInputDto;
     path: {
         id: number | string;
     };
@@ -1611,13 +1611,13 @@ export type UserGetAllResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsUserOutput;
+    200: HospitalApiDtosOutputsUserOutputDto;
 };
 
 export type UserGetAllResponse = UserGetAllResponses[keyof UserGetAllResponses];
 
 export type UserRegisterData = {
-    body: HospitalApiDtosInputsRegisterInput;
+    body: HospitalApiDtosInputsRegisterInputDto;
     path?: never;
     query?: never;
     url: '/api/User/register';
