@@ -46,7 +46,7 @@ namespace hospitalApi.Controllers
 
         // GET api/location/floor
         [HttpGet("floor")]
-        [ProducesResponseType(typeof(FloorRoomsOutputDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<FloorRoomsOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<FloorRoomsOutputDto>> GetAllFloors()
         {
@@ -68,7 +68,6 @@ namespace hospitalApi.Controllers
         // POST api/location/floor
         [HttpPost("floor")]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<int>> PostFloor([FromBody] FloorInputDto input)
         {
             var newId = await _locationService.PostOneFloor(input);
@@ -77,6 +76,8 @@ namespace hospitalApi.Controllers
 
         // PUT api/location/floor/5
         [HttpPut("floor/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> PutFloor(int id, [FromBody] FloorInputDto input)
         {
             var success = await _locationService.EditOnefloor(id, input);
