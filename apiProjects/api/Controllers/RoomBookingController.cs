@@ -18,18 +18,18 @@ namespace hospitalApi.Controllers
 
         // GET: api/roombooking
         [HttpGet]
-        [ProducesResponseType(typeof(RoomBookingOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RoomBookingOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<RoomBookingOutput>> GetAll()
+        public async Task<IEnumerable<RoomBookingOutputDto>> GetAll()
         {
             return await _roomBookingService.GetAll();
         }
 
         // GET: api/roombooking/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(RoomBookingOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RoomBookingOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<RoomBookingOutput>> Get(int id)
+        public async Task<ActionResult<RoomBookingOutputDto>> Get(int id)
         {
             var output = await _roomBookingService.GetOne(id);
             if (output == null) return NotFound();
@@ -38,7 +38,7 @@ namespace hospitalApi.Controllers
 
         // POST: api/roombooking
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] RoomBookingInput newRoomBooking)
+        public async Task<ActionResult> Post([FromBody] RoomBookingInputDto newRoomBooking)
         {
             bool available = await _roomBookingService.IsRoomAvailable(
                 newRoomBooking.FkRoomId,
@@ -58,7 +58,7 @@ namespace hospitalApi.Controllers
 
         // PUT: api/roombooking/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] RoomBookingInput newRoomBooking)
+        public async Task<ActionResult> Put(int id, [FromBody] RoomBookingInputDto newRoomBooking)
         {
             bool available = await _roomBookingService.IsRoomAvailable(
                 newRoomBooking.FkRoomId,

@@ -19,22 +19,22 @@ namespace hospitalApi.Services
             _mapper = mapper;
             _missing = dbContext.MedicationStorageMissings;
         }
-        public async Task<IEnumerable<MedicationStorageMissingOutput>> GetAll()
+        public async Task<IEnumerable<MedicationStorageMissingOutputDto>> GetAll()
         {
             var entities = await _missing.ToListAsync();
-            return _mapper.Map<IEnumerable<MedicationStorageMissingOutput>>(entities);
+            return _mapper.Map<IEnumerable<MedicationStorageMissingOutputDto>>(entities);
         }
 
-        public async Task<MedicationStorageMissingOutput> GetOne(int id)
+        public async Task<MedicationStorageMissingOutputDto> GetOne(int id)
         {
             var entity = await _missing.FirstOrDefaultAsync(m => m.Id == id);
             if (entity == null)
                 return null;
 
-            return _mapper.Map<MedicationStorageMissingOutput>(entity);
+            return _mapper.Map<MedicationStorageMissingOutputDto>(entity);
         }
 
-        public async Task<bool> EditMissingStorage(int MissingStorageId, MedicationStorageMissingInput editedMissingStorageData)
+        public async Task<bool> EditMissingStorage(int MissingStorageId, MedicationStorageMissingInputDto editedMissingStorageData)
         {
             var entity = await _missing.FirstOrDefaultAsync(m => m.Id == MissingStorageId);
             if (entity == null)
@@ -59,7 +59,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreateMissingStorage(MedicationStorageMissingInput newMissingStorage)
+        public async Task<int> CreateMissingStorage(MedicationStorageMissingInputDto newMissingStorage)
         {
             var entity = _mapper.Map<MedicationStorageMissing>(newMissingStorage);
             await _missing.AddAsync(entity);

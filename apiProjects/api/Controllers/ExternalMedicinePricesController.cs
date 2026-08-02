@@ -19,9 +19,9 @@ namespace hospitalApi.Controllers
 
         // GET api/<ExternalMedicinePricesController>/productsByName/
         [HttpGet("productsByName")]
-        [ProducesResponseType(typeof(MedicineProductOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MedicineProductOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<MedicineProductOutput>> GetMedicineProductsByName([FromQuery] string productName)
+        public async Task<IEnumerable<MedicineProductOutputDto>> GetMedicineProductsByName([FromQuery] string productName)
         {
             var output = await _externalApiService.GetMedicineProductsByNameAsync(productName);
 
@@ -30,9 +30,9 @@ namespace hospitalApi.Controllers
 
         // GET api/<ExternalMedicinePricesController>/productsByIngredient
         [HttpGet("productsByIngredient")]
-        [ProducesResponseType(typeof(MedicineProductOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MedicineProductOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<MedicineProductOutput>> GetMedicineProductsByIngredients([FromQuery] string ingredientName)
+        public async Task<IEnumerable<MedicineProductOutputDto>> GetMedicineProductsByIngredients([FromQuery] string ingredientName)
         {
             var output = await _externalApiService.GetMedicineProductsByIngredientsAsync(ingredientName);
 
@@ -41,9 +41,9 @@ namespace hospitalApi.Controllers
 
         // GET api/<ExternalMedicinePricesController>/productDetails
         [HttpGet("productDetails")]
-        [ProducesResponseType(typeof(MedicineDetailOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MedicineDetailOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<MedicineDetailOutput>> GetMedicineProductDetailsAsync([FromQuery] string productDetailId)
+        public async Task<ActionResult<MedicineDetailOutputDto>> GetMedicineProductDetailsAsync([FromQuery] string productDetailId)
         {
             var output = await _externalApiService.GetMedicineProductDetailsAsync(productDetailId);
 

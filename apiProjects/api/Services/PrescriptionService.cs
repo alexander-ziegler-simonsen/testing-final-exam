@@ -21,22 +21,22 @@ namespace hospitalApi.Services
             prescriptions = dbContext.Prescriptions;
         }
 
-        public async Task<IEnumerable<PrescriptionOutput>> GetAll()
+        public async Task<IEnumerable<PrescriptionOutputDto>> GetAll()
         {
             var entities = await prescriptions.ToListAsync();
-            return _mapper.Map<IEnumerable<PrescriptionOutput>>(entities);
+            return _mapper.Map<IEnumerable<PrescriptionOutputDto>>(entities);
         }
 
-        public async Task<PrescriptionOutput> GetOne(int id)
+        public async Task<PrescriptionOutputDto> GetOne(int id)
         {
             var entity = await prescriptions.FirstOrDefaultAsync(p => p.Id == id);
             if (entity == null)
                 return null;
 
-            return _mapper.Map<PrescriptionOutput>(entity);
+            return _mapper.Map<PrescriptionOutputDto>(entity);
         }
 
-        public async Task<bool> EditPrescription(int PrescriptionId, PrescriptionInput editedPrescriptionData)
+        public async Task<bool> EditPrescription(int PrescriptionId, PrescriptionInputDto editedPrescriptionData)
         {
             var entity = await prescriptions.FirstOrDefaultAsync(p => p.Id == PrescriptionId);
             if (entity == null)
@@ -62,7 +62,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreatePrescription(PrescriptionInput newPrescription)
+        public async Task<int> CreatePrescription(PrescriptionInputDto newPrescription)
         {
             var entity = _mapper.Map<Prescription>(newPrescription);
             await prescriptions.AddAsync(entity);

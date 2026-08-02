@@ -17,9 +17,9 @@ namespace hospitalApi.Controllers
         }
 
         [HttpPost("login")]
-        [ProducesResponseType(typeof(LoginOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LoginOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<LoginOutput>> Login([FromBody] LoginInput credentials)
+        public async Task<ActionResult<LoginOutputDto>> Login([FromBody] LoginInputDto credentials)
         {
             var result = await _authService.Login(credentials);
             return result == null ? Unauthorized() : Ok(result);

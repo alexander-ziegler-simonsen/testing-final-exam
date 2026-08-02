@@ -19,22 +19,22 @@ namespace hospitalApi.Services
             _mapper = mapper;
             storages = dbContext.MedicationStorages;
         }
-        public async Task<IEnumerable<MedicationStorageOutput>> GetAll()
+        public async Task<IEnumerable<MedicationStorageOutputDto>> GetAll()
         {
             var entities = await storages.ToListAsync();
-            return _mapper.Map<IEnumerable<MedicationStorageOutput>>(entities);
+            return _mapper.Map<IEnumerable<MedicationStorageOutputDto>>(entities);
         }
 
-        public async Task<MedicationStorageOutput> GetOne(int id)
+        public async Task<MedicationStorageOutputDto?> GetOne(int id)
         {
             var entity = await storages.FirstOrDefaultAsync(s => s.Id == id);
             if (entity == null)
                 return null;
 
-            return _mapper.Map<MedicationStorageOutput>(entity);
+            return _mapper.Map<MedicationStorageOutputDto>(entity);
         }
 
-        public async Task<bool> EditStorage(int StorageId, MedicationStorageInput editedStorageData)
+        public async Task<bool> EditStorage(int StorageId, MedicationStorageInputDto editedStorageData)
         {
             var entity = await storages.FirstOrDefaultAsync(s => s.Id == StorageId);
             if (entity == null)
@@ -58,7 +58,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreateStorage(MedicationStorageInput newStorage)
+        public async Task<int> CreateStorage(MedicationStorageInputDto newStorage)
         {
             var entity = _mapper.Map<MedicationStorage>(newStorage);
             await storages.AddAsync(entity);

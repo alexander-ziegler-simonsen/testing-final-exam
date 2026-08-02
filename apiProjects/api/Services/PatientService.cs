@@ -21,7 +21,7 @@ namespace hospitalApi.Services
             _patients = dbContext.Patients;
         }
 
-        public async Task<IEnumerable<PatientOutput>> GetAll(PatientInput? filter = null, string? sortBy = null, string? sortDir = "asc")
+        public async Task<IEnumerable<PatientOutputDto>> GetAll(PatientInputDto? filter = null, string? sortBy = null, string? sortDir = "asc")
         {
             IQueryable<Patient> query = _patients;
 
@@ -48,20 +48,20 @@ namespace hospitalApi.Services
             };
 
             var entities = await query.ToListAsync();
-            return _mapper.Map<List<PatientOutput>>(entities);
+            return _mapper.Map<List<PatientOutputDto>>(entities);
         }
 
-        public async Task<PatientOutput?> GetOne(int id)
+        public async Task<PatientOutputDto?> GetOne(int id)
         {
             var entity = await _patients.FirstOrDefaultAsync(p => p.Id == id);
 
             if (entity == null)
                 return null;
 
-            return _mapper.Map<PatientOutput>(entity);
+            return _mapper.Map<PatientOutputDto>(entity);
         }
 
-        public async Task<bool> EditPatient(int patientId, PatientInput editedPatientData)
+        public async Task<bool> EditPatient(int patientId, PatientInputDto editedPatientData)
         {
             var entity = await _patients.FirstOrDefaultAsync(p => p.Id == patientId);
 
@@ -89,7 +89,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreatePatient(PatientInput newPatient)
+        public async Task<int> CreatePatient(PatientInputDto newPatient)
         {
             var entity = new Patient
             {

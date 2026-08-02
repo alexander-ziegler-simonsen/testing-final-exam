@@ -18,9 +18,9 @@ namespace hospitalApi.Controllers
 
         // GET: api/<PrescriptionController>
         [HttpGet]
-        [ProducesResponseType(typeof(PrescriptionOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PrescriptionOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<PrescriptionOutput>> GetAllPrescriptions()
+        public async Task<IEnumerable<PrescriptionOutputDto>> GetAllPrescriptions()
         {
             var output = await _PrescriptionService.GetAll();
             return output;
@@ -28,11 +28,11 @@ namespace hospitalApi.Controllers
 
         // GET api/<PrescriptionController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(PrescriptionOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PrescriptionOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PrescriptionOutput>> Get(int id)
+        public async Task<ActionResult<PrescriptionOutputDto>> Get(int id)
         {
-            PrescriptionOutput output = await _PrescriptionService.GetOne(id);
+            PrescriptionOutputDto output = await _PrescriptionService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -41,7 +41,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<PrescriptionController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] PrescriptionInput newPrescription)
+        public async Task<ActionResult> Post([FromBody] PrescriptionInputDto newPrescription)
         {
             int newId = await _PrescriptionService.CreatePrescription(newPrescription);
 
@@ -53,7 +53,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<PrescriptionController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] PrescriptionInput newPrescription)
+        public async Task<ActionResult> Put(int id, [FromBody] PrescriptionInputDto newPrescription)
         {
             bool output = await _PrescriptionService.EditPrescription(id, newPrescription);
 

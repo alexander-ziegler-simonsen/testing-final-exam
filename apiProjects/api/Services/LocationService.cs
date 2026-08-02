@@ -28,16 +28,16 @@ namespace hospitalApi.Services
             _mapper = mapper;
         }
 
-        public async Task<List<LocationOutput>> getAllLocations()
+        public async Task<List<LocationOutputDto>> getAllLocations()
         {
             var entities = await _buildings
                 .Include(b => b.Floors)
                     .ThenInclude(f => f.Rooms)
                 .ToListAsync();
 
-            return _mapper.Map<List<LocationOutput>>(entities);
+            return _mapper.Map<List<LocationOutputDto>>(entities);
         }
-        public async Task<LocationOutput> getOneLocations(int buildingId)
+        public async Task<LocationOutputDto> getOneLocations(int buildingId)
         {
             var entity = await _buildings
                 .Include(b => b.Floors)
@@ -47,19 +47,19 @@ namespace hospitalApi.Services
             if (entity == null)
                 return null;
 
-            return _mapper.Map<LocationOutput>(entity);
+            return _mapper.Map<LocationOutputDto>(entity);
         }
 
-        public async Task<List<FloorRoomsOutput>> getOneAllFloors()
+        public async Task<List<FloorRoomsOutputDto>> getOneAllFloors()
         {
             var entities = await _floors
                 .Include(f => f.Rooms)
                 .ToListAsync();
 
-            return _mapper.Map<List<FloorRoomsOutput>>(entities);
+            return _mapper.Map<List<FloorRoomsOutputDto>>(entities);
         }
 
-        public async Task<FloorRoomsOutput> getOneFloorWithRooms(int floorId)
+        public async Task<FloorRoomsOutputDto> getOneFloorWithRooms(int floorId)
         {
             var entity = await _floors
                 .Include(f => f.Rooms)
@@ -68,10 +68,10 @@ namespace hospitalApi.Services
             if (entity == null)
                 return null;
 
-            return _mapper.Map<FloorRoomsOutput>(entity);
+            return _mapper.Map<FloorRoomsOutputDto>(entity);
         }
 
-        public async Task<bool> EditOnefloor(int id, FloorInput input)
+        public async Task<bool> EditOnefloor(int id, FloorInputDto input)
         {
             var entity = await _floors.FirstOrDefaultAsync(f => f.Id == id);
             if (entity == null)
@@ -84,7 +84,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> PostOneFloor(FloorInput input)
+        public async Task<int> PostOneFloor(FloorInputDto input)
         {
             var entity = _mapper.Map<Floor>(input);
             await _floors.AddAsync(entity);

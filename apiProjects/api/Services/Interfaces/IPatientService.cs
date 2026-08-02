@@ -5,11 +5,11 @@ namespace hospitalApi.Services.Interfaces
 {
     public interface IPatientService
     {
-        Task<IEnumerable<PatientOutput>> GetAll(PatientInput? filter = null, string? sortBy = null, string? sortDir = "asc");
-        Task<PatientOutput?> GetOne(int id);
-        Task<bool> EditPatient(int patientId, PatientInput editedPatientData);
+        Task<IEnumerable<PatientOutputDto>> GetAll(PatientInputDto? filter = null, string? sortBy = null, string? sortDir = "asc");
+        Task<PatientOutputDto?> GetOne(int id);
+        Task<bool> EditPatient(int patientId, PatientInputDto editedPatientData);
         Task<bool> DeletePatient(int id);
-        Task<int> CreatePatient(PatientInput newPatient);
+        Task<int> CreatePatient(PatientInputDto newPatient);
 
 
     }

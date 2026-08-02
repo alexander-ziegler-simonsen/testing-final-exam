@@ -22,9 +22,9 @@ namespace hospitalApi.Controllers
 
         // GET: api/<LocationController>
         [HttpGet]
-        [ProducesResponseType(typeof(LocationOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LocationOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<LocationOutput>> GetAllLocations()
+        public async Task<IEnumerable<LocationOutputDto>> GetAllLocations()
         {
             var output = await _locationService.getAllLocations();
 
@@ -33,11 +33,11 @@ namespace hospitalApi.Controllers
 
         // GET api/<LocationController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(LocationOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LocationOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<LocationOutput>> Get(int id)
+        public async Task<ActionResult<LocationOutputDto>> Get(int id)
         {
-            LocationOutput output = await _locationService.getOneLocations(id);
+            LocationOutputDto output = await _locationService.getOneLocations(id);
             if (output == null)
                 return NotFound();
             else
@@ -46,18 +46,18 @@ namespace hospitalApi.Controllers
 
         // GET api/location/floor
         [HttpGet("floor")]
-        [ProducesResponseType(typeof(FloorRoomsOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(FloorRoomsOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<FloorRoomsOutput>> GetAllFloors()
+        public async Task<IEnumerable<FloorRoomsOutputDto>> GetAllFloors()
         {
             return await _locationService.getOneAllFloors();
         }
 
         // GET api/location/floor/5
         [HttpGet("floor/{id}")]
-        [ProducesResponseType(typeof(FloorRoomsOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(FloorRoomsOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<FloorRoomsOutput>> GetFloor(int id)
+        public async Task<ActionResult<FloorRoomsOutputDto>> GetFloor(int id)
         {
             var output = await _locationService.getOneFloorWithRooms(id);
             if (output == null)
@@ -67,7 +67,7 @@ namespace hospitalApi.Controllers
 
         // POST api/location/floor
         [HttpPost("floor")]
-        public async Task<ActionResult<int>> PostFloor([FromBody] FloorInput input)
+        public async Task<ActionResult<int>> PostFloor([FromBody] FloorInputDto input)
         {
             var newId = await _locationService.PostOneFloor(input);
             return Ok(newId);
@@ -75,7 +75,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/location/floor/5
         [HttpPut("floor/{id}")]
-        public async Task<ActionResult> PutFloor(int id, [FromBody] FloorInput input)
+        public async Task<ActionResult> PutFloor(int id, [FromBody] FloorInputDto input)
         {
             var success = await _locationService.EditOnefloor(id, input);
             if (!success)

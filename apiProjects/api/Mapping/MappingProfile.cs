@@ -9,34 +9,34 @@ namespace hospitalApi.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Room, RoomOutput>();
-            CreateMap<Floor, FloorOutput>();
-            CreateMap<FloorInput, Floor>();
-            CreateMap<Medication, MedicationOutput>();
-            CreateMap<MedicationInput, Medication>();
-            CreateMap<MedicationStorage, MedicationStorageOutput>();
-            CreateMap<MedicationStorageInput, MedicationStorage>();
-            CreateMap<MedicationStorageMissing, MedicationStorageMissingOutput>();
-            CreateMap<MedicationStorageMissingInput, MedicationStorageMissing>();
-            CreateMap<RoomBooking, RoomBookingOutput>();
-            CreateMap<RoomBookingInput, RoomBooking>();
-            CreateMap<Shift, ShiftOutput>();
-            CreateMap<ShiftInput, Shift>();
-            CreateMap<ShiftStaff, ShiftStaffOutput>();
-            CreateMap<Treatment, TreatmentOutput>();
-            CreateMap<TreatmentInput, Treatment>();
-            CreateMap<TreatmentStaff, TreatmentStaffOutput>();
-            CreateMap<TreatmentStaffInput, TreatmentStaff>();
-            CreateMap<Patient, PatientOutput>();
-            CreateMap<Department, DepartmentOutput>();
-            CreateMap<DepartmentInput, Department>();
-            CreateMap<DepartmentStaff, DepartmentStaffOutput>();
-            CreateMap<Building, BuildingOutput>();
-            CreateMap<Prescription, PrescriptionOutput>();
-            CreateMap<PrescriptionInput, Prescription>();
-            CreateMap<Staff, StaffOutput>();
+            CreateMap<Room, RoomOutputDto>();
+            CreateMap<Floor, FloorOutputDto>();
+            CreateMap<FloorInputDto, Floor>();
+            CreateMap<Medication, MedicationOutputDto>();
+            CreateMap<MedicationInputDto, Medication>();
+            CreateMap<MedicationStorage, MedicationStorageOutputDto>();
+            CreateMap<MedicationStorageInputDto, MedicationStorage>();
+            CreateMap<MedicationStorageMissing, MedicationStorageMissingOutputDto>();
+            CreateMap<MedicationStorageMissingInputDto, MedicationStorageMissing>();
+            CreateMap<RoomBooking, RoomBookingOutputDto>();
+            CreateMap<RoomBookingInputDto, RoomBooking>();
+            CreateMap<Shift, ShiftOutputDto>();
+            CreateMap<ShiftInputDto, Shift>();
+            CreateMap<ShiftStaff, ShiftStaffOutputDto>();
+            CreateMap<Treatment, TreatmentOutputDto>();
+            CreateMap<TreatmentInputDto, Treatment>();
+            CreateMap<TreatmentStaff, TreatmentStaffOutputDto>();
+            CreateMap<TreatmentStaffInputDto, TreatmentStaff>();
+            CreateMap<Patient, PatientOutputDto>();
+            CreateMap<Department, DepartmentOutputDto>();
+            CreateMap<DepartmentInputDto, Department>();
+            CreateMap<DepartmentStaff, DepartmentStaffOutputDto>();
+            CreateMap<Building, BuildingOutputDto>();
+            CreateMap<Prescription, PrescriptionOutputDto>();
+            CreateMap<PrescriptionInputDto, Prescription>();
+            CreateMap<Staff, StaffOutputDto>();
 
-            CreateMap<User, LoginOutput>()
+            CreateMap<User, LoginOutputDto>()
                 .ForMember(dest => dest.StaffId, opt => opt.MapFrom(src => src.FkStaff.Id))
                 .ForMember(dest => dest.Firstname, opt => opt.MapFrom(src => src.FkStaff.Firstname))
                 .ForMember(dest => dest.Lastname, opt => opt.MapFrom(src => src.FkStaff.Lastname))
@@ -44,11 +44,11 @@ namespace hospitalApi.Mapping
                 .ForMember(dest => dest.Token, opt => opt.Ignore());
 
             // custom mappings
-            CreateMap<Building, LocationOutput>()
+            CreateMap<Building, LocationOutputDto>()
                 .ForMember(dest => dest.Building, opt => opt.MapFrom(src => src))
                 .ForMember(dest => dest.FloorsWithRooms, opt => opt.MapFrom(src => src.Floors));
 
-            CreateMap<Floor, FloorRoomsOutput>()
+            CreateMap<Floor, FloorRoomsOutputDto>()
                 .ForMember(dest => dest.Floor, opt => opt.MapFrom(src => src))
                 .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Rooms));
         }

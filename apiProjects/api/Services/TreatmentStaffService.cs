@@ -21,22 +21,22 @@ namespace hospitalApi.Services
             treatmentStaffs = dbContext.TreatmentStaffs;
         }
 
-        public async Task<IEnumerable<TreatmentStaffOutput>> GetAll()
+        public async Task<IEnumerable<TreatmentStaffOutputDto>> GetAll()
         {
             var entities = await treatmentStaffs.ToListAsync();
-            return _mapper.Map<IEnumerable<TreatmentStaffOutput>>(entities);
+            return _mapper.Map<IEnumerable<TreatmentStaffOutputDto>>(entities);
         }
 
-        public async Task<TreatmentStaffOutput> GetOne(int id)
+        public async Task<TreatmentStaffOutputDto?> GetOne(int id)
         {
             var entity = await treatmentStaffs.FirstOrDefaultAsync(ts => ts.Id == id);
             if (entity == null)
                 return null;
 
-            return _mapper.Map<TreatmentStaffOutput>(entity);
+            return _mapper.Map<TreatmentStaffOutputDto>(entity);
         }
 
-        public async Task<int> CreateTreatmentStaff(TreatmentStaffInput input)
+        public async Task<int> CreateTreatmentStaff(TreatmentStaffInputDto input)
         {
             var entity = _mapper.Map<TreatmentStaff>(input);
             await treatmentStaffs.AddAsync(entity);
@@ -44,7 +44,7 @@ namespace hospitalApi.Services
             return entity.Id;
         }
 
-        public async Task<bool> EditTreatmentStaff(int id, TreatmentStaffInput input)
+        public async Task<bool> EditTreatmentStaff(int id, TreatmentStaffInputDto input)
         {
             var entity = await treatmentStaffs.FirstOrDefaultAsync(ts => ts.Id == id);
             if (entity == null)

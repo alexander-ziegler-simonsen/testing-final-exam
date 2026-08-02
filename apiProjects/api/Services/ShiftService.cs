@@ -20,7 +20,7 @@ namespace hospitalApi.Services
             shifts = dbContext.Shifts;
         }
 
-        public async Task<IEnumerable<ShiftOutput>> GetAll(DateTime? from = null, DateTime? to = null, string? sortBy = null, string? sortDir = "asc")
+        public async Task<IEnumerable<ShiftOutputDto>> GetAll(DateTime? from = null, DateTime? to = null, string? sortBy = null, string? sortDir = "asc")
         {
             IQueryable<Shift> query = shifts;
 
@@ -39,19 +39,19 @@ namespace hospitalApi.Services
             };
 
             var entities = await query.ToListAsync();
-            return _mapper.Map<IEnumerable<ShiftOutput>>(entities);
+            return _mapper.Map<IEnumerable<ShiftOutputDto>>(entities);
         }
 
-        public async Task<ShiftOutput> GetOne(int id)
+        public async Task<ShiftOutputDto> GetOne(int id)
         {
             var entity = await shifts.FirstOrDefaultAsync(s => s.Id == id);
             if (entity == null)
                 return null;
 
-            return _mapper.Map<ShiftOutput>(entity);
+            return _mapper.Map<ShiftOutputDto>(entity);
         }
 
-        public async Task<bool> EditShift(int ShiftId, ShiftInput editedShiftData)
+        public async Task<bool> EditShift(int ShiftId, ShiftInputDto editedShiftData)
         {
             var entity = await shifts.FirstOrDefaultAsync(s => s.Id == ShiftId);
             if (entity == null)
@@ -75,7 +75,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreateShift(ShiftInput newShift)
+        public async Task<int> CreateShift(ShiftInputDto newShift)
         {
             var entity = _mapper.Map<Shift>(newShift);
             await shifts.AddAsync(entity);

@@ -19,9 +19,9 @@ namespace hospitalApi.Controllers
 
         // GET: api/<MedicationStorageMissingController>
         [HttpGet]
-        [ProducesResponseType(typeof(MedicationStorageMissingOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MedicationStorageMissingOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<MedicationStorageMissingOutput>> GetAllMedicationStorageMissings()
+        public async Task<IEnumerable<MedicationStorageMissingOutputDto>> GetAllMedicationStorageMissings()
         {
             var output = await _MedicationStorageMissingService.GetAll();
 
@@ -30,11 +30,11 @@ namespace hospitalApi.Controllers
 
         // GET api/<MedicationStorageMissingController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(MedicationStorageMissingOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MedicationStorageMissingOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<MedicationStorageMissingOutput>> Get(int id)
+        public async Task<ActionResult<MedicationStorageMissingOutputDto>> Get(int id)
         {
-            MedicationStorageMissingOutput output = await _MedicationStorageMissingService.GetOne(id);
+            MedicationStorageMissingOutputDto output = await _MedicationStorageMissingService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -43,7 +43,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<MedicationStorageMissingController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] MedicationStorageMissingInput newMedicationStorageMissing)
+        public async Task<ActionResult> Post([FromBody] MedicationStorageMissingInputDto newMedicationStorageMissing)
         {
             int newId = await _MedicationStorageMissingService.CreateMissingStorage(newMedicationStorageMissing);
 
@@ -55,7 +55,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<MedicationStorageMissingController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] MedicationStorageMissingInput newMedicationStorageMissing)
+        public async Task<ActionResult> Put(int id, [FromBody] MedicationStorageMissingInputDto newMedicationStorageMissing)
         {
             bool output = await _MedicationStorageMissingService.EditMissingStorage(id, newMedicationStorageMissing);
 

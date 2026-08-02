@@ -16,10 +16,10 @@ namespace hospitalApi.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<UserOutput>> GetAll()
+        public async Task<IEnumerable<UserOutputDto>> GetAll()
         {
             return await _context.Users
-                .Select(u => new UserOutput
+                .Select(u => new UserOutputDto
                 {
                     Id = u.Id,
                     Username = u.Username,
@@ -28,7 +28,7 @@ namespace hospitalApi.Services
                 .ToListAsync();
         }
 
-        public async Task<bool> Register(RegisterInput input)
+        public async Task<bool> Register(RegisterInputDto input)
         {
             // Reject duplicate usernames
             bool exists = await _context.Users.AnyAsync(u => u.Username == input.Username);

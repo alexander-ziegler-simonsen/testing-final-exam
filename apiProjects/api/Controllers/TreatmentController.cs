@@ -19,10 +19,10 @@ namespace hospitalApi.Controllers
 
         // GET: api/<TreatmentController>
         [HttpGet]
-        [ProducesResponseType(typeof(TreatmentOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TreatmentOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<TreatmentOutput>> GetAllTreatments(
-            [FromQuery] TreatmentInput? filter = null,
+        public async Task<IEnumerable<TreatmentOutputDto>> GetAllTreatments(
+            [FromQuery] TreatmentInputDto? filter = null,
             [FromQuery] string? sortBy = null,
             [FromQuery] string? sortDir = "asc")
         {
@@ -31,11 +31,11 @@ namespace hospitalApi.Controllers
 
         // GET api/<TreatmentController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(TreatmentOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TreatmentOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TreatmentOutput>> Get(int id)
+        public async Task<ActionResult<TreatmentOutputDto>> Get(int id)
         {
-            TreatmentOutput output = await _TreatmentService.GetOne(id);
+            TreatmentOutputDto output = await _TreatmentService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -44,7 +44,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<TreatmentController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] TreatmentInput newTreatment)
+        public async Task<ActionResult> Post([FromBody] TreatmentInputDto newTreatment)
         {
             int newId = await _TreatmentService.CreateTreatment(newTreatment);
             return Ok(newId);
@@ -52,7 +52,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<TreatmentController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] TreatmentInput newTreatment)
+        public async Task<ActionResult> Put(int id, [FromBody] TreatmentInputDto newTreatment)
         {
             bool output = await _TreatmentService.EditTreatment(id, newTreatment);
 

@@ -5,6 +5,6 @@ namespace hospitalApi.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<LoginOutput?> Login(LoginInput credentials);
+        Task<LoginOutputDto?> Login(LoginInputDto credentials);
     }
 }

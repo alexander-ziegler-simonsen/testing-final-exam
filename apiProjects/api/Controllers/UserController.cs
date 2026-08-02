@@ -18,16 +18,16 @@ namespace hospitalApi.Controllers
 
         // GET: api/user
         [HttpGet]
-        [ProducesResponseType(typeof(UserOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(UserOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<UserOutput>> GetAll()
+        public async Task<IEnumerable<UserOutputDto>> GetAll()
         {
             return await _userService.GetAll();
         }
 
         // POST api/user/register
         [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] RegisterInput input)
+        public async Task<ActionResult> Register([FromBody] RegisterInputDto input)
         {
             bool success = await _userService.Register(input);
             if (success)

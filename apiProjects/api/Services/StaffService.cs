@@ -19,23 +19,23 @@ namespace hospitalApi.Services
             _mapper = mapper;
             staffs = dbContext.Staff;
         }
-        public async Task<IEnumerable<StaffOutput>> GetAll()
+        public async Task<IEnumerable<StaffOutputDto>> GetAll()
         {
             var entities = await staffs.ToListAsync();
-            return _mapper.Map<List<StaffOutput>>(entities);
+            return _mapper.Map<List<StaffOutputDto>>(entities);
         }
 
-        public async Task<StaffOutput?> GetOne(int id)
+        public async Task<StaffOutputDto?> GetOne(int id)
         {
             var entity = await staffs.FirstOrDefaultAsync(s => s.Id == id);
 
             if (entity == null)
                 return null;
 
-            return _mapper.Map<StaffOutput>(entity);
+            return _mapper.Map<StaffOutputDto>(entity);
         }
 
-        public async Task<bool> EditStaff(int StaffId, StaffInput editedStaffData)
+        public async Task<bool> EditStaff(int StaffId, StaffInputDto editedStaffData)
         {
             var entity = await staffs.FirstOrDefaultAsync(s => s.Id == StaffId);
 
@@ -62,7 +62,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreateStaff(StaffInput newStaff)
+        public async Task<int> CreateStaff(StaffInputDto newStaff)
         {
             var entity = new Staff
             {

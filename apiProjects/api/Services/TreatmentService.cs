@@ -19,7 +19,7 @@ namespace hospitalApi.Services
             _mapper = mapper;
             treatments = dbContext.Treatments;
         }
-        public async Task<IEnumerable<TreatmentOutput>> GetAll(TreatmentInput? filter = null, string? sortBy = null, string? sortDir = "asc")
+        public async Task<IEnumerable<TreatmentOutputDto>> GetAll(TreatmentInputDto? filter = null, string? sortBy = null, string? sortDir = "asc")
         {
             IQueryable<Treatment> query = treatments;
 
@@ -41,19 +41,19 @@ namespace hospitalApi.Services
             };
 
             var entities = await query.ToListAsync();
-            return _mapper.Map<IEnumerable<TreatmentOutput>>(entities);
+            return _mapper.Map<IEnumerable<TreatmentOutputDto>>(entities);
         }
 
-        public async Task<TreatmentOutput> GetOne(int id)
+        public async Task<TreatmentOutputDto> GetOne(int id)
         {
             var entity = await treatments.FirstOrDefaultAsync(t => t.Id == id);
             if (entity == null)
                 return null;
 
-            return _mapper.Map<TreatmentOutput>(entity);
+            return _mapper.Map<TreatmentOutputDto>(entity);
         }
 
-        public async Task<bool> EditTreatment(int TreatmentId, TreatmentInput editedTreatmentData)
+        public async Task<bool> EditTreatment(int TreatmentId, TreatmentInputDto editedTreatmentData)
         {
             var entity = await treatments.FirstOrDefaultAsync(t => t.Id == TreatmentId);
             if (entity == null)
@@ -78,7 +78,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreateTreatment(TreatmentInput newTreatment)
+        public async Task<int> CreateTreatment(TreatmentInputDto newTreatment)
         {
             var entity = _mapper.Map<Treatment>(newTreatment);
             await treatments.AddAsync(entity);

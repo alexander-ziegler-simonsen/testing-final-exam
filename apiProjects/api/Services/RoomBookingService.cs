@@ -21,20 +21,20 @@ namespace hospitalApi.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<RoomBookingOutput>> GetAll()
+        public async Task<IEnumerable<RoomBookingOutputDto>> GetAll()
         {
             var entities = await _bookings.ToListAsync();
-            return _mapper.Map<IEnumerable<RoomBookingOutput>>(entities);
+            return _mapper.Map<IEnumerable<RoomBookingOutputDto>>(entities);
         }
 
-        public async Task<RoomBookingOutput?> GetOne(int id)
+        public async Task<RoomBookingOutputDto?> GetOne(int id)
         {
             var entity = await _bookings.FirstOrDefaultAsync(r => r.Id == id);
             if (entity == null) return null;
-            return _mapper.Map<RoomBookingOutput>(entity);
+            return _mapper.Map<RoomBookingOutputDto>(entity);
         }
 
-        public async Task<bool> EditRoomBooking(int roomBookingId, RoomBookingInput editedRoomBookingData)
+        public async Task<bool> EditRoomBooking(int roomBookingId, RoomBookingInputDto editedRoomBookingData)
         {
             var entity = await _bookings.FirstOrDefaultAsync(r => r.Id == roomBookingId);
             if (entity == null) return false;
@@ -58,7 +58,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreateRoomBooking(RoomBookingInput newRoomBooking)
+        public async Task<int> CreateRoomBooking(RoomBookingInputDto newRoomBooking)
         {
             var entity = _mapper.Map<RoomBooking>(newRoomBooking);
             await _bookings.AddAsync(entity);

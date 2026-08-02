@@ -19,9 +19,9 @@ namespace hospitalApi.Controllers
 
         // GET: api/<ShiftController>
         [HttpGet]
-        [ProducesResponseType(typeof(ShiftOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ShiftOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<ShiftOutput>> GetAllShifts(
+        public async Task<IEnumerable<ShiftOutputDto>> GetAllShifts(
             [FromQuery] DateTime? from = null,
             [FromQuery] DateTime? to = null,
             [FromQuery] string? sortBy = null,
@@ -32,11 +32,11 @@ namespace hospitalApi.Controllers
 
         // GET api/<ShiftController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ShiftOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ShiftOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ShiftOutput>> Get(int id)
+        public async Task<ActionResult<ShiftOutputDto>> Get(int id)
         {
-            ShiftOutput output = await _ShiftService.GetOne(id);
+            ShiftOutputDto output = await _ShiftService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -45,7 +45,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<ShiftController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] ShiftInput newShift)
+        public async Task<ActionResult> Post([FromBody] ShiftInputDto newShift)
         {
             int newId = await _ShiftService.CreateShift(newShift);
 
@@ -57,7 +57,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<ShiftController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] ShiftInput newShift)
+        public async Task<ActionResult> Put(int id, [FromBody] ShiftInputDto newShift)
         {
             bool output = await _ShiftService.EditShift(id, newShift);
 

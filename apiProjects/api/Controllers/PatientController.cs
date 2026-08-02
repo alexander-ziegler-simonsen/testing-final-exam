@@ -19,10 +19,10 @@ namespace hospitalApi.Controllers
 
         // GET: api/<PatientController>
         [HttpGet]
-        [ProducesResponseType(typeof(PatientOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PatientOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<PatientOutput>> GetAllPatients(
-            [FromQuery] PatientInput? filter = null,
+        public async Task<IEnumerable<PatientOutputDto>> GetAllPatients(
+            [FromQuery] PatientInputDto? filter = null,
             [FromQuery] string? sortBy = null,
             [FromQuery] string? sortDir = "asc")
         {
@@ -31,11 +31,11 @@ namespace hospitalApi.Controllers
 
         // GET api/<PatientController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(PatientOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PatientOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PatientOutput>> Get(int id)
+        public async Task<ActionResult<PatientOutputDto>> Get(int id)
         {
-            PatientOutput output = await _PatientService.GetOne(id);
+            PatientOutputDto output = await _PatientService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -44,7 +44,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<PatientController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] PatientInput newPatient)
+        public async Task<ActionResult> Post([FromBody] PatientInputDto newPatient)
         {
             int newId = await _PatientService.CreatePatient(newPatient);
 
@@ -56,7 +56,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<PatientController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] PatientInput newPatient)
+        public async Task<ActionResult> Put(int id, [FromBody] PatientInputDto newPatient)
         {
             bool output = await _PatientService.EditPatient(id, newPatient);
 

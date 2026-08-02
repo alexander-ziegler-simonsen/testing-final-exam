@@ -20,22 +20,22 @@ namespace hospitalApi.Services
             departments = dbContext.Departments;
         }
 
-        public async Task<IEnumerable<DepartmentOutput>> GetAll()
+        public async Task<IEnumerable<DepartmentOutputDto>> GetAll()
         {
             var entities = await departments.ToListAsync();
-            return _mapper.Map<IEnumerable<DepartmentOutput>>(entities);
+            return _mapper.Map<IEnumerable<DepartmentOutputDto>>(entities);
         }
 
-        public async Task<DepartmentOutput> GetOne(int id)
+        public async Task<DepartmentOutputDto> GetOne(int id)
         {
             var entity = await departments.FirstOrDefaultAsync(d => d.Id == id);
             if (entity == null)
                 return null;
 
-            return _mapper.Map<DepartmentOutput>(entity);
+            return _mapper.Map<DepartmentOutputDto>(entity);
         }
 
-        public async Task<bool> EditDepartment(int DepartmentId, DepartmentInput editedDepartmentData)
+        public async Task<bool> EditDepartment(int DepartmentId, DepartmentInputDto editedDepartmentData)
         {
             var entity = await departments.FirstOrDefaultAsync(d => d.Id == DepartmentId);
             if (entity == null)
@@ -59,7 +59,7 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreateDepartment(DepartmentInput newDepartment)
+        public async Task<int> CreateDepartment(DepartmentInputDto newDepartment)
         {
             var entity = _mapper.Map<Department>(newDepartment);
             await departments.AddAsync(entity);

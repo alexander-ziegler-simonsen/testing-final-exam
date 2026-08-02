@@ -4,8 +4,8 @@ namespace hospitalApi.Services.Interfaces
 {
     public interface IExternalApiService
     {
-        Task<IEnumerable<MedicineProductOutput>> GetMedicineProductsByNameAsync(string productName);
-        Task<IEnumerable<MedicineProductOutput>> GetMedicineProductsByIngredientsAsync(string ingredientName);
-        Task<MedicineDetailOutput> GetMedicineProductDetailsAsync(string productDetailId);
+        Task<IEnumerable<MedicineProductOutputDto>> GetMedicineProductsByNameAsync(string productName);
+        Task<IEnumerable<MedicineProductOutputDto>> GetMedicineProductsByIngredientsAsync(string ingredientName);
+        Task<MedicineDetailOutputDto> GetMedicineProductDetailsAsync(string productDetailId);
     }
 }

@@ -19,9 +19,9 @@ namespace hospitalApi.Controllers
 
         // GET: api/<StaffController>
         [HttpGet]
-        [ProducesResponseType(typeof(StaffOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(StaffOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<StaffOutput>> GetAllStaffs()
+        public async Task<IEnumerable<StaffOutputDto>> GetAllStaffs()
         {
             var output = await _StaffService.GetAll();
 
@@ -30,11 +30,11 @@ namespace hospitalApi.Controllers
 
         // GET api/<StaffController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(StaffOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(StaffOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<StaffOutput>> Get(int id)
+        public async Task<ActionResult<StaffOutputDto>> Get(int id)
         {
-            StaffOutput output = await _StaffService.GetOne(id);
+            StaffOutputDto output = await _StaffService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -43,7 +43,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<StaffController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] StaffInput newStaff)
+        public async Task<ActionResult> Post([FromBody] StaffInputDto newStaff)
         {
             int newId = await _StaffService.CreateStaff(newStaff);
 
@@ -55,7 +55,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<StaffController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] StaffInput newStaff)
+        public async Task<ActionResult> Put(int id, [FromBody] StaffInputDto newStaff)
         {
             bool output = await _StaffService.EditStaff(id, newStaff);
 

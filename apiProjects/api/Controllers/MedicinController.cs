@@ -19,9 +19,9 @@ namespace hospitalApi.Controllers
 
         // GET: api/<MedicinController>
         [HttpGet]
-        [ProducesResponseType(typeof(MedicationOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MedicationOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<MedicationOutput>> GetAllMedicins()
+        public async Task<IEnumerable<MedicationOutputDto>> GetAllMedicins()
         {
             var output = await _MedicinService.GetAll();
 
@@ -30,11 +30,11 @@ namespace hospitalApi.Controllers
 
         // GET api/<MedicinController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(MedicationOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MedicationOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<MedicationOutput>> Get(int id)
+        public async Task<ActionResult<MedicationOutputDto>> Get(int id)
         {
-            MedicationOutput output = await _MedicinService.GetOne(id);
+            MedicationOutputDto output = await _MedicinService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -43,7 +43,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<MedicinController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] MedicationInput newMedicin)
+        public async Task<ActionResult> Post([FromBody] MedicationInputDto newMedicin)
         {
             int newId = await _MedicinService.CreateMedication(newMedicin);
 
@@ -55,7 +55,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<MedicinController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] MedicationInput newMedicin)
+        public async Task<ActionResult> Put(int id, [FromBody] MedicationInputDto newMedicin)
         {
             bool output = await _MedicinService.EditMedication(id, newMedicin);
 

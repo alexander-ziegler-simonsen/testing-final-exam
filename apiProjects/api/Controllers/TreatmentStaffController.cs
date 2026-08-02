@@ -18,20 +18,20 @@ namespace hospitalApi.Controllers
 
         // GET: api/<TreatmentStaffController>
         [HttpGet]
-        [ProducesResponseType(typeof(TreatmentStaffOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TreatmentStaffOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IEnumerable<TreatmentStaffOutput>> GetAll()
+        public async Task<IEnumerable<TreatmentStaffOutputDto>> GetAll()
         {
             return await _TreatmentStaffService.GetAll();
         }
 
         // GET api/<TreatmentStaffController>/5
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(TreatmentStaffOutput), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TreatmentStaffOutputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TreatmentStaffOutput>> Get(int id)
+        public async Task<ActionResult<TreatmentStaffOutputDto>> Get(int id)
         {
-            TreatmentStaffOutput output = await _TreatmentStaffService.GetOne(id);
+            TreatmentStaffOutputDto output = await _TreatmentStaffService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -40,7 +40,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<TreatmentStaffController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] TreatmentStaffInput input)
+        public async Task<ActionResult> Post([FromBody] TreatmentStaffInputDto input)
         {
             int newId = await _TreatmentStaffService.CreateTreatmentStaff(input);
 
@@ -52,7 +52,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<TreatmentStaffController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] TreatmentStaffInput input)
+        public async Task<ActionResult> Put(int id, [FromBody] TreatmentStaffInputDto input)
         {
             bool output = await _TreatmentStaffService.EditTreatmentStaff(id, input);
 

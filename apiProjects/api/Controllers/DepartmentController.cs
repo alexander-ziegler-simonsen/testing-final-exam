@@ -19,7 +19,7 @@ namespace hospitalApi.Controllers
 
         // GET: api/<DepartmentController>
         [HttpGet]
-        public async Task<IEnumerable<DepartmentOutput>> GetAllDepartments()
+        public async Task<IEnumerable<DepartmentOutputDto>> GetAllDepartments()
         {
             var output = await _DepartmentService.GetAll();
 
@@ -28,9 +28,9 @@ namespace hospitalApi.Controllers
 
         // GET api/<DepartmentController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DepartmentOutput>> Get(int id)
+        public async Task<ActionResult<DepartmentOutputDto>> Get(int id)
         {
-            DepartmentOutput output = await _DepartmentService.GetOne(id);
+            DepartmentOutputDto output = await _DepartmentService.GetOne(id);
             if (output == null)
                 return NotFound();
             else
@@ -39,7 +39,7 @@ namespace hospitalApi.Controllers
 
         // POST api/<DepartmentController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] DepartmentInput newDepartment)
+        public async Task<ActionResult> Post([FromBody] DepartmentInputDto newDepartment)
         {
             int newId = await _DepartmentService.CreateDepartment(newDepartment);
 
@@ -51,7 +51,7 @@ namespace hospitalApi.Controllers
 
         // PUT api/<DepartmentController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] DepartmentInput newDepartment)
+        public async Task<ActionResult> Put(int id, [FromBody] DepartmentInputDto newDepartment)
         {
             bool output = await _DepartmentService.EditDepartment(id, newDepartment);
 

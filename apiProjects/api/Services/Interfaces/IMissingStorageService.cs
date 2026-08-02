@@ -5,10 +5,10 @@ namespace hospitalApi.Services.Interfaces
 {
     public interface IMissingStorageService
     {
-        Task<IEnumerable<MedicationStorageMissingOutput>> GetAll();
-        Task<MedicationStorageMissingOutput> GetOne(int id);
-        Task<bool> EditMissingStorage(int MissingStorageId, MedicationStorageMissingInput editedMissingStorageData);
+        Task<IEnumerable<MedicationStorageMissingOutputDto>> GetAll();
+        Task<MedicationStorageMissingOutputDto> GetOne(int id);
+        Task<bool> EditMissingStorage(int MissingStorageId, MedicationStorageMissingInputDto editedMissingStorageData);
         Task<bool> DeleteMissingStorage(int id);
-        Task<int> CreateMissingStorage(MedicationStorageMissingInput newMissingStorage);
+        Task<int> CreateMissingStorage(MedicationStorageMissingInputDto newMissingStorage);
     }
 }

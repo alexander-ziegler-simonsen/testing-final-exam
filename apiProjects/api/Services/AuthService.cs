@@ -24,7 +24,7 @@ namespace hospitalApi.Services
             _mapper = mapper;
         }
 
-        public async Task<LoginOutput?> Login(LoginInput credentials)
+        public async Task<LoginOutputDto?> Login(LoginInputDto credentials)
         {
             var user = await _context.Users
                 .Include(u => u.FkStaff)
@@ -40,7 +40,7 @@ namespace hospitalApi.Services
             if (hashedInput != user.PasswordHash)
                 return null;
 
-            var output = _mapper.Map<LoginOutput>(user);
+            var output = _mapper.Map<LoginOutputDto>(user);
             output.Token = GenerateToken(user);
 
             return output;
