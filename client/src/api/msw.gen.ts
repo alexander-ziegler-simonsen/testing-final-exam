@@ -24,7 +24,7 @@ export function handleAuthLogin(response?: HandleAuthLoginResponse | HttpRespons
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -198,7 +198,7 @@ export function handleExternalMedicinePricesGetMedicineProductsByName(response?:
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -225,7 +225,7 @@ export function handleExternalMedicinePricesGetMedicineProductsByIngredients(res
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -252,7 +252,7 @@ export function handleExternalMedicinePricesGetMedicineProductDetails(response?:
         }
         const body = response?.body;
         if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;

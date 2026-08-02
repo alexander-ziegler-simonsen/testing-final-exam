@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AuthLoginData, AuthLoginResponses, DepartmentDeleteData, DepartmentDeleteResponses, DepartmentGetAllDepartmentsData, DepartmentGetAllDepartmentsResponses, DepartmentGetData, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, ExternalMedicinePricesGetMedicineProductDetailsData, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsData, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameData, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorData, LocationDeleteFloorResponses, LocationGetAllFloorsData, LocationGetAllFloorsResponses, LocationGetAllLocationsData, LocationGetAllLocationsResponses, LocationGetData, LocationGetFloorData, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteData, MedicinDeleteResponses, MedicinGetAllMedicinsData, MedicinGetAllMedicinsResponses, MedicinGetData, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteData, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsData, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetData, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteData, PatientDeleteResponses, PatientGetAllPatientsData, PatientGetAllPatientsResponses, PatientGetData, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PrescriptionDeleteData, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsData, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetData, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteData, RoomBookingDeleteResponses, RoomBookingGetAllData, RoomBookingGetAllResponses, RoomBookingGetData, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, RoomBookingPutResponses, ShiftDeleteData, ShiftDeleteResponses, ShiftGetAllShiftsData, ShiftGetAllShiftsResponses, ShiftGetData, ShiftGetResponses, ShiftPostData, ShiftPostResponses, ShiftPutData, ShiftPutResponses, StaffDeleteData, StaffDeleteResponses, StaffGetAllStaffsData, StaffGetAllStaffsResponses, StaffGetData, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteData, StorageDeleteResponses, StorageGetAllMedicationStoragesData, StorageGetAllMedicationStoragesResponses, StorageGetData, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteData, TreatmentDeleteResponses, TreatmentGetAllTreatmentsData, TreatmentGetAllTreatmentsResponses, TreatmentGetData, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteData, TreatmentStaffDeleteResponses, TreatmentStaffGetAllData, TreatmentStaffGetAllResponses, TreatmentStaffGetData, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteData, UserDeleteResponses, UserGetAllData, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
+import type { AuthLoginData, AuthLoginErrors, AuthLoginResponses, DepartmentDeleteData, DepartmentDeleteResponses, DepartmentGetAllDepartmentsData, DepartmentGetAllDepartmentsResponses, DepartmentGetData, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, ExternalMedicinePricesGetMedicineProductDetailsData, ExternalMedicinePricesGetMedicineProductDetailsErrors, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsData, ExternalMedicinePricesGetMedicineProductsByIngredientsErrors, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameData, ExternalMedicinePricesGetMedicineProductsByNameErrors, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorData, LocationDeleteFloorResponses, LocationGetAllFloorsData, LocationGetAllFloorsErrors, LocationGetAllFloorsResponses, LocationGetAllLocationsData, LocationGetAllLocationsErrors, LocationGetAllLocationsResponses, LocationGetData, LocationGetErrors, LocationGetFloorData, LocationGetFloorErrors, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteData, MedicinDeleteResponses, MedicinGetAllMedicinsData, MedicinGetAllMedicinsErrors, MedicinGetAllMedicinsResponses, MedicinGetData, MedicinGetErrors, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteData, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsData, MissingStorageGetAllMedicationStorageMissingsErrors, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetData, MissingStorageGetErrors, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteData, PatientDeleteResponses, PatientGetAllPatientsData, PatientGetAllPatientsErrors, PatientGetAllPatientsResponses, PatientGetData, PatientGetErrors, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PrescriptionDeleteData, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsData, PrescriptionGetAllPrescriptionsErrors, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetData, PrescriptionGetErrors, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteData, RoomBookingDeleteResponses, RoomBookingGetAllData, RoomBookingGetAllErrors, RoomBookingGetAllResponses, RoomBookingGetData, RoomBookingGetErrors, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, RoomBookingPutResponses, ShiftDeleteData, ShiftDeleteResponses, ShiftGetAllShiftsData, ShiftGetAllShiftsErrors, ShiftGetAllShiftsResponses, ShiftGetData, ShiftGetErrors, ShiftGetResponses, ShiftPostData, ShiftPostResponses, ShiftPutData, ShiftPutResponses, StaffDeleteData, StaffDeleteResponses, StaffGetAllStaffsData, StaffGetAllStaffsErrors, StaffGetAllStaffsResponses, StaffGetData, StaffGetErrors, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteData, StorageDeleteResponses, StorageGetAllMedicationStoragesData, StorageGetAllMedicationStoragesErrors, StorageGetAllMedicationStoragesResponses, StorageGetData, StorageGetErrors, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteData, TreatmentDeleteResponses, TreatmentGetAllTreatmentsData, TreatmentGetAllTreatmentsErrors, TreatmentGetAllTreatmentsResponses, TreatmentGetData, TreatmentGetErrors, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteData, TreatmentStaffDeleteResponses, TreatmentStaffGetAllData, TreatmentStaffGetAllErrors, TreatmentStaffGetAllResponses, TreatmentStaffGetData, TreatmentStaffGetErrors, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteData, UserDeleteResponses, UserGetAllData, UserGetAllErrors, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -18,7 +18,8 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: keyof ClientMeta extends never ? Record<string, unknown> : ClientMeta;
 };
 
-export const authLogin = <ThrowOnError extends boolean = false>(options: Options<AuthLoginData, ThrowOnError>): RequestResult<AuthLoginResponses, unknown, ThrowOnError> => (options.client ?? client).post<AuthLoginResponses, unknown, ThrowOnError>({
+export const authLogin = <ThrowOnError extends boolean = false>(options: Options<AuthLoginData, ThrowOnError>): RequestResult<AuthLoginResponses, AuthLoginErrors, ThrowOnError> => (options.client ?? client).post<AuthLoginResponses, AuthLoginErrors, ThrowOnError>({
+    responseType: 'json',
     url: '/api/Auth/login',
     ...options,
     headers: {
@@ -59,25 +60,37 @@ export const departmentPut = <ThrowOnError extends boolean = false>(options: Opt
     }
 });
 
-export const externalMedicinePricesGetMedicineProductsByName = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductsByNameData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductsByNameResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductsByNameResponses, unknown, ThrowOnError>({ url: '/api/ExternalMedicinePrices/productsByName', ...options });
+export const externalMedicinePricesGetMedicineProductsByName = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductsByNameData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductsByNameResponses, ExternalMedicinePricesGetMedicineProductsByNameErrors, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductsByNameResponses, ExternalMedicinePricesGetMedicineProductsByNameErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/api/ExternalMedicinePrices/productsByName',
+    ...options
+});
 
-export const externalMedicinePricesGetMedicineProductsByIngredients = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductsByIngredientsData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, unknown, ThrowOnError>({ url: '/api/ExternalMedicinePrices/productsByIngredient', ...options });
+export const externalMedicinePricesGetMedicineProductsByIngredients = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductsByIngredientsData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsErrors, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/api/ExternalMedicinePrices/productsByIngredient',
+    ...options
+});
 
-export const externalMedicinePricesGetMedicineProductDetails = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductDetailsData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductDetailsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductDetailsResponses, unknown, ThrowOnError>({ url: '/api/ExternalMedicinePrices/productDetails', ...options });
+export const externalMedicinePricesGetMedicineProductDetails = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductDetailsData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductDetailsErrors, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductDetailsErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/api/ExternalMedicinePrices/productDetails',
+    ...options
+});
 
-export const locationGetAllLocations = <ThrowOnError extends boolean = false>(options?: Options<LocationGetAllLocationsData, ThrowOnError>): RequestResult<LocationGetAllLocationsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<LocationGetAllLocationsResponses, unknown, ThrowOnError>({
+export const locationGetAllLocations = <ThrowOnError extends boolean = false>(options?: Options<LocationGetAllLocationsData, ThrowOnError>): RequestResult<LocationGetAllLocationsResponses, LocationGetAllLocationsErrors, ThrowOnError> => (options?.client ?? client).get<LocationGetAllLocationsResponses, LocationGetAllLocationsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Location',
     ...options
 });
 
-export const locationGet = <ThrowOnError extends boolean = false>(options: Options<LocationGetData, ThrowOnError>): RequestResult<LocationGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<LocationGetResponses, unknown, ThrowOnError>({
+export const locationGet = <ThrowOnError extends boolean = false>(options: Options<LocationGetData, ThrowOnError>): RequestResult<LocationGetResponses, LocationGetErrors, ThrowOnError> => (options.client ?? client).get<LocationGetResponses, LocationGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Location/{id}',
     ...options
 });
 
-export const locationGetAllFloors = <ThrowOnError extends boolean = false>(options?: Options<LocationGetAllFloorsData, ThrowOnError>): RequestResult<LocationGetAllFloorsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<LocationGetAllFloorsResponses, unknown, ThrowOnError>({
+export const locationGetAllFloors = <ThrowOnError extends boolean = false>(options?: Options<LocationGetAllFloorsData, ThrowOnError>): RequestResult<LocationGetAllFloorsResponses, LocationGetAllFloorsErrors, ThrowOnError> => (options?.client ?? client).get<LocationGetAllFloorsResponses, LocationGetAllFloorsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Location/floor',
     ...options
@@ -95,7 +108,7 @@ export const locationPostFloor = <ThrowOnError extends boolean = false>(options:
 
 export const locationDeleteFloor = <ThrowOnError extends boolean = false>(options: Options<LocationDeleteFloorData, ThrowOnError>): RequestResult<LocationDeleteFloorResponses, unknown, ThrowOnError> => (options.client ?? client).delete<LocationDeleteFloorResponses, unknown, ThrowOnError>({ url: '/api/Location/floor/{id}', ...options });
 
-export const locationGetFloor = <ThrowOnError extends boolean = false>(options: Options<LocationGetFloorData, ThrowOnError>): RequestResult<LocationGetFloorResponses, unknown, ThrowOnError> => (options.client ?? client).get<LocationGetFloorResponses, unknown, ThrowOnError>({
+export const locationGetFloor = <ThrowOnError extends boolean = false>(options: Options<LocationGetFloorData, ThrowOnError>): RequestResult<LocationGetFloorResponses, LocationGetFloorErrors, ThrowOnError> => (options.client ?? client).get<LocationGetFloorResponses, LocationGetFloorErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Location/floor/{id}',
     ...options
@@ -110,7 +123,7 @@ export const locationPutFloor = <ThrowOnError extends boolean = false>(options: 
     }
 });
 
-export const medicinGetAllMedicins = <ThrowOnError extends boolean = false>(options?: Options<MedicinGetAllMedicinsData, ThrowOnError>): RequestResult<MedicinGetAllMedicinsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<MedicinGetAllMedicinsResponses, unknown, ThrowOnError>({
+export const medicinGetAllMedicins = <ThrowOnError extends boolean = false>(options?: Options<MedicinGetAllMedicinsData, ThrowOnError>): RequestResult<MedicinGetAllMedicinsResponses, MedicinGetAllMedicinsErrors, ThrowOnError> => (options?.client ?? client).get<MedicinGetAllMedicinsResponses, MedicinGetAllMedicinsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Medicin',
     ...options
@@ -127,7 +140,7 @@ export const medicinPost = <ThrowOnError extends boolean = false>(options: Optio
 
 export const medicinDelete = <ThrowOnError extends boolean = false>(options: Options<MedicinDeleteData, ThrowOnError>): RequestResult<MedicinDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<MedicinDeleteResponses, unknown, ThrowOnError>({ url: '/api/Medicin/{id}', ...options });
 
-export const medicinGet = <ThrowOnError extends boolean = false>(options: Options<MedicinGetData, ThrowOnError>): RequestResult<MedicinGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<MedicinGetResponses, unknown, ThrowOnError>({
+export const medicinGet = <ThrowOnError extends boolean = false>(options: Options<MedicinGetData, ThrowOnError>): RequestResult<MedicinGetResponses, MedicinGetErrors, ThrowOnError> => (options.client ?? client).get<MedicinGetResponses, MedicinGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Medicin/{id}',
     ...options
@@ -142,7 +155,7 @@ export const medicinPut = <ThrowOnError extends boolean = false>(options: Option
     }
 });
 
-export const missingStorageGetAllMedicationStorageMissings = <ThrowOnError extends boolean = false>(options?: Options<MissingStorageGetAllMedicationStorageMissingsData, ThrowOnError>): RequestResult<MissingStorageGetAllMedicationStorageMissingsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<MissingStorageGetAllMedicationStorageMissingsResponses, unknown, ThrowOnError>({
+export const missingStorageGetAllMedicationStorageMissings = <ThrowOnError extends boolean = false>(options?: Options<MissingStorageGetAllMedicationStorageMissingsData, ThrowOnError>): RequestResult<MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetAllMedicationStorageMissingsErrors, ThrowOnError> => (options?.client ?? client).get<MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetAllMedicationStorageMissingsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/MissingStorage',
     ...options
@@ -159,7 +172,7 @@ export const missingStoragePost = <ThrowOnError extends boolean = false>(options
 
 export const missingStorageDelete = <ThrowOnError extends boolean = false>(options: Options<MissingStorageDeleteData, ThrowOnError>): RequestResult<MissingStorageDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<MissingStorageDeleteResponses, unknown, ThrowOnError>({ url: '/api/MissingStorage/{id}', ...options });
 
-export const missingStorageGet = <ThrowOnError extends boolean = false>(options: Options<MissingStorageGetData, ThrowOnError>): RequestResult<MissingStorageGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<MissingStorageGetResponses, unknown, ThrowOnError>({
+export const missingStorageGet = <ThrowOnError extends boolean = false>(options: Options<MissingStorageGetData, ThrowOnError>): RequestResult<MissingStorageGetResponses, MissingStorageGetErrors, ThrowOnError> => (options.client ?? client).get<MissingStorageGetResponses, MissingStorageGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/MissingStorage/{id}',
     ...options
@@ -174,7 +187,7 @@ export const missingStoragePut = <ThrowOnError extends boolean = false>(options:
     }
 });
 
-export const patientGetAllPatients = <ThrowOnError extends boolean = false>(options?: Options<PatientGetAllPatientsData, ThrowOnError>): RequestResult<PatientGetAllPatientsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<PatientGetAllPatientsResponses, unknown, ThrowOnError>({
+export const patientGetAllPatients = <ThrowOnError extends boolean = false>(options?: Options<PatientGetAllPatientsData, ThrowOnError>): RequestResult<PatientGetAllPatientsResponses, PatientGetAllPatientsErrors, ThrowOnError> => (options?.client ?? client).get<PatientGetAllPatientsResponses, PatientGetAllPatientsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Patient',
     ...options
@@ -191,7 +204,7 @@ export const patientPost = <ThrowOnError extends boolean = false>(options: Optio
 
 export const patientDelete = <ThrowOnError extends boolean = false>(options: Options<PatientDeleteData, ThrowOnError>): RequestResult<PatientDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<PatientDeleteResponses, unknown, ThrowOnError>({ url: '/api/Patient/{id}', ...options });
 
-export const patientGet = <ThrowOnError extends boolean = false>(options: Options<PatientGetData, ThrowOnError>): RequestResult<PatientGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<PatientGetResponses, unknown, ThrowOnError>({
+export const patientGet = <ThrowOnError extends boolean = false>(options: Options<PatientGetData, ThrowOnError>): RequestResult<PatientGetResponses, PatientGetErrors, ThrowOnError> => (options.client ?? client).get<PatientGetResponses, PatientGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Patient/{id}',
     ...options
@@ -206,7 +219,7 @@ export const patientPut = <ThrowOnError extends boolean = false>(options: Option
     }
 });
 
-export const prescriptionGetAllPrescriptions = <ThrowOnError extends boolean = false>(options?: Options<PrescriptionGetAllPrescriptionsData, ThrowOnError>): RequestResult<PrescriptionGetAllPrescriptionsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<PrescriptionGetAllPrescriptionsResponses, unknown, ThrowOnError>({
+export const prescriptionGetAllPrescriptions = <ThrowOnError extends boolean = false>(options?: Options<PrescriptionGetAllPrescriptionsData, ThrowOnError>): RequestResult<PrescriptionGetAllPrescriptionsResponses, PrescriptionGetAllPrescriptionsErrors, ThrowOnError> => (options?.client ?? client).get<PrescriptionGetAllPrescriptionsResponses, PrescriptionGetAllPrescriptionsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Prescription',
     ...options
@@ -223,7 +236,7 @@ export const prescriptionPost = <ThrowOnError extends boolean = false>(options: 
 
 export const prescriptionDelete = <ThrowOnError extends boolean = false>(options: Options<PrescriptionDeleteData, ThrowOnError>): RequestResult<PrescriptionDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<PrescriptionDeleteResponses, unknown, ThrowOnError>({ url: '/api/Prescription/{id}', ...options });
 
-export const prescriptionGet = <ThrowOnError extends boolean = false>(options: Options<PrescriptionGetData, ThrowOnError>): RequestResult<PrescriptionGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<PrescriptionGetResponses, unknown, ThrowOnError>({
+export const prescriptionGet = <ThrowOnError extends boolean = false>(options: Options<PrescriptionGetData, ThrowOnError>): RequestResult<PrescriptionGetResponses, PrescriptionGetErrors, ThrowOnError> => (options.client ?? client).get<PrescriptionGetResponses, PrescriptionGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Prescription/{id}',
     ...options
@@ -238,7 +251,7 @@ export const prescriptionPut = <ThrowOnError extends boolean = false>(options: O
     }
 });
 
-export const roomBookingGetAll = <ThrowOnError extends boolean = false>(options?: Options<RoomBookingGetAllData, ThrowOnError>): RequestResult<RoomBookingGetAllResponses, unknown, ThrowOnError> => (options?.client ?? client).get<RoomBookingGetAllResponses, unknown, ThrowOnError>({
+export const roomBookingGetAll = <ThrowOnError extends boolean = false>(options?: Options<RoomBookingGetAllData, ThrowOnError>): RequestResult<RoomBookingGetAllResponses, RoomBookingGetAllErrors, ThrowOnError> => (options?.client ?? client).get<RoomBookingGetAllResponses, RoomBookingGetAllErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/RoomBooking',
     ...options
@@ -255,7 +268,7 @@ export const roomBookingPost = <ThrowOnError extends boolean = false>(options: O
 
 export const roomBookingDelete = <ThrowOnError extends boolean = false>(options: Options<RoomBookingDeleteData, ThrowOnError>): RequestResult<RoomBookingDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<RoomBookingDeleteResponses, unknown, ThrowOnError>({ url: '/api/RoomBooking/{id}', ...options });
 
-export const roomBookingGet = <ThrowOnError extends boolean = false>(options: Options<RoomBookingGetData, ThrowOnError>): RequestResult<RoomBookingGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<RoomBookingGetResponses, unknown, ThrowOnError>({
+export const roomBookingGet = <ThrowOnError extends boolean = false>(options: Options<RoomBookingGetData, ThrowOnError>): RequestResult<RoomBookingGetResponses, RoomBookingGetErrors, ThrowOnError> => (options.client ?? client).get<RoomBookingGetResponses, RoomBookingGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/RoomBooking/{id}',
     ...options
@@ -270,7 +283,7 @@ export const roomBookingPut = <ThrowOnError extends boolean = false>(options: Op
     }
 });
 
-export const shiftGetAllShifts = <ThrowOnError extends boolean = false>(options?: Options<ShiftGetAllShiftsData, ThrowOnError>): RequestResult<ShiftGetAllShiftsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ShiftGetAllShiftsResponses, unknown, ThrowOnError>({
+export const shiftGetAllShifts = <ThrowOnError extends boolean = false>(options?: Options<ShiftGetAllShiftsData, ThrowOnError>): RequestResult<ShiftGetAllShiftsResponses, ShiftGetAllShiftsErrors, ThrowOnError> => (options?.client ?? client).get<ShiftGetAllShiftsResponses, ShiftGetAllShiftsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Shift',
     ...options
@@ -287,7 +300,7 @@ export const shiftPost = <ThrowOnError extends boolean = false>(options: Options
 
 export const shiftDelete = <ThrowOnError extends boolean = false>(options: Options<ShiftDeleteData, ThrowOnError>): RequestResult<ShiftDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<ShiftDeleteResponses, unknown, ThrowOnError>({ url: '/api/Shift/{id}', ...options });
 
-export const shiftGet = <ThrowOnError extends boolean = false>(options: Options<ShiftGetData, ThrowOnError>): RequestResult<ShiftGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<ShiftGetResponses, unknown, ThrowOnError>({
+export const shiftGet = <ThrowOnError extends boolean = false>(options: Options<ShiftGetData, ThrowOnError>): RequestResult<ShiftGetResponses, ShiftGetErrors, ThrowOnError> => (options.client ?? client).get<ShiftGetResponses, ShiftGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Shift/{id}',
     ...options
@@ -302,7 +315,7 @@ export const shiftPut = <ThrowOnError extends boolean = false>(options: Options<
     }
 });
 
-export const staffGetAllStaffs = <ThrowOnError extends boolean = false>(options?: Options<StaffGetAllStaffsData, ThrowOnError>): RequestResult<StaffGetAllStaffsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<StaffGetAllStaffsResponses, unknown, ThrowOnError>({
+export const staffGetAllStaffs = <ThrowOnError extends boolean = false>(options?: Options<StaffGetAllStaffsData, ThrowOnError>): RequestResult<StaffGetAllStaffsResponses, StaffGetAllStaffsErrors, ThrowOnError> => (options?.client ?? client).get<StaffGetAllStaffsResponses, StaffGetAllStaffsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Staff',
     ...options
@@ -319,7 +332,7 @@ export const staffPost = <ThrowOnError extends boolean = false>(options: Options
 
 export const staffDelete = <ThrowOnError extends boolean = false>(options: Options<StaffDeleteData, ThrowOnError>): RequestResult<StaffDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<StaffDeleteResponses, unknown, ThrowOnError>({ url: '/api/Staff/{id}', ...options });
 
-export const staffGet = <ThrowOnError extends boolean = false>(options: Options<StaffGetData, ThrowOnError>): RequestResult<StaffGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<StaffGetResponses, unknown, ThrowOnError>({
+export const staffGet = <ThrowOnError extends boolean = false>(options: Options<StaffGetData, ThrowOnError>): RequestResult<StaffGetResponses, StaffGetErrors, ThrowOnError> => (options.client ?? client).get<StaffGetResponses, StaffGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Staff/{id}',
     ...options
@@ -334,7 +347,7 @@ export const staffPut = <ThrowOnError extends boolean = false>(options: Options<
     }
 });
 
-export const storageGetAllMedicationStorages = <ThrowOnError extends boolean = false>(options?: Options<StorageGetAllMedicationStoragesData, ThrowOnError>): RequestResult<StorageGetAllMedicationStoragesResponses, unknown, ThrowOnError> => (options?.client ?? client).get<StorageGetAllMedicationStoragesResponses, unknown, ThrowOnError>({
+export const storageGetAllMedicationStorages = <ThrowOnError extends boolean = false>(options?: Options<StorageGetAllMedicationStoragesData, ThrowOnError>): RequestResult<StorageGetAllMedicationStoragesResponses, StorageGetAllMedicationStoragesErrors, ThrowOnError> => (options?.client ?? client).get<StorageGetAllMedicationStoragesResponses, StorageGetAllMedicationStoragesErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Storage',
     ...options
@@ -351,7 +364,7 @@ export const storagePost = <ThrowOnError extends boolean = false>(options: Optio
 
 export const storageDelete = <ThrowOnError extends boolean = false>(options: Options<StorageDeleteData, ThrowOnError>): RequestResult<StorageDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<StorageDeleteResponses, unknown, ThrowOnError>({ url: '/api/Storage/{id}', ...options });
 
-export const storageGet = <ThrowOnError extends boolean = false>(options: Options<StorageGetData, ThrowOnError>): RequestResult<StorageGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<StorageGetResponses, unknown, ThrowOnError>({
+export const storageGet = <ThrowOnError extends boolean = false>(options: Options<StorageGetData, ThrowOnError>): RequestResult<StorageGetResponses, StorageGetErrors, ThrowOnError> => (options.client ?? client).get<StorageGetResponses, StorageGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Storage/{id}',
     ...options
@@ -366,7 +379,7 @@ export const storagePut = <ThrowOnError extends boolean = false>(options: Option
     }
 });
 
-export const treatmentGetAllTreatments = <ThrowOnError extends boolean = false>(options?: Options<TreatmentGetAllTreatmentsData, ThrowOnError>): RequestResult<TreatmentGetAllTreatmentsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<TreatmentGetAllTreatmentsResponses, unknown, ThrowOnError>({
+export const treatmentGetAllTreatments = <ThrowOnError extends boolean = false>(options?: Options<TreatmentGetAllTreatmentsData, ThrowOnError>): RequestResult<TreatmentGetAllTreatmentsResponses, TreatmentGetAllTreatmentsErrors, ThrowOnError> => (options?.client ?? client).get<TreatmentGetAllTreatmentsResponses, TreatmentGetAllTreatmentsErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Treatment',
     ...options
@@ -383,7 +396,7 @@ export const treatmentPost = <ThrowOnError extends boolean = false>(options: Opt
 
 export const treatmentDelete = <ThrowOnError extends boolean = false>(options: Options<TreatmentDeleteData, ThrowOnError>): RequestResult<TreatmentDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<TreatmentDeleteResponses, unknown, ThrowOnError>({ url: '/api/Treatment/{id}', ...options });
 
-export const treatmentGet = <ThrowOnError extends boolean = false>(options: Options<TreatmentGetData, ThrowOnError>): RequestResult<TreatmentGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<TreatmentGetResponses, unknown, ThrowOnError>({
+export const treatmentGet = <ThrowOnError extends boolean = false>(options: Options<TreatmentGetData, ThrowOnError>): RequestResult<TreatmentGetResponses, TreatmentGetErrors, ThrowOnError> => (options.client ?? client).get<TreatmentGetResponses, TreatmentGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/Treatment/{id}',
     ...options
@@ -398,7 +411,7 @@ export const treatmentPut = <ThrowOnError extends boolean = false>(options: Opti
     }
 });
 
-export const treatmentStaffGetAll = <ThrowOnError extends boolean = false>(options?: Options<TreatmentStaffGetAllData, ThrowOnError>): RequestResult<TreatmentStaffGetAllResponses, unknown, ThrowOnError> => (options?.client ?? client).get<TreatmentStaffGetAllResponses, unknown, ThrowOnError>({
+export const treatmentStaffGetAll = <ThrowOnError extends boolean = false>(options?: Options<TreatmentStaffGetAllData, ThrowOnError>): RequestResult<TreatmentStaffGetAllResponses, TreatmentStaffGetAllErrors, ThrowOnError> => (options?.client ?? client).get<TreatmentStaffGetAllResponses, TreatmentStaffGetAllErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/TreatmentStaff',
     ...options
@@ -415,7 +428,7 @@ export const treatmentStaffPost = <ThrowOnError extends boolean = false>(options
 
 export const treatmentStaffDelete = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffDeleteData, ThrowOnError>): RequestResult<TreatmentStaffDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<TreatmentStaffDeleteResponses, unknown, ThrowOnError>({ url: '/api/TreatmentStaff/{id}', ...options });
 
-export const treatmentStaffGet = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffGetData, ThrowOnError>): RequestResult<TreatmentStaffGetResponses, unknown, ThrowOnError> => (options.client ?? client).get<TreatmentStaffGetResponses, unknown, ThrowOnError>({
+export const treatmentStaffGet = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffGetData, ThrowOnError>): RequestResult<TreatmentStaffGetResponses, TreatmentStaffGetErrors, ThrowOnError> => (options.client ?? client).get<TreatmentStaffGetResponses, TreatmentStaffGetErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/TreatmentStaff/{id}',
     ...options
@@ -430,7 +443,7 @@ export const treatmentStaffPut = <ThrowOnError extends boolean = false>(options:
     }
 });
 
-export const userGetAll = <ThrowOnError extends boolean = false>(options?: Options<UserGetAllData, ThrowOnError>): RequestResult<UserGetAllResponses, unknown, ThrowOnError> => (options?.client ?? client).get<UserGetAllResponses, unknown, ThrowOnError>({
+export const userGetAll = <ThrowOnError extends boolean = false>(options?: Options<UserGetAllData, ThrowOnError>): RequestResult<UserGetAllResponses, UserGetAllErrors, ThrowOnError> => (options?.client ?? client).get<UserGetAllResponses, UserGetAllErrors, ThrowOnError>({
     responseType: 'json',
     url: '/api/User',
     ...options

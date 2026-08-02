@@ -4,6 +4,42 @@ export type ClientOptions = {
     baseURL: `${string}://${string}` | (string & {});
 };
 
+export type HospitalApiDtosExternalMedicineDetailOutput = {
+    navn?: null | string;
+    varenummer?: null | string;
+    styrke?: null | string;
+    pakning?: null | string;
+    virksomtStof?: null | string;
+    firma?: null | string;
+    atcKode?: null | string;
+    dosisdispensering?: boolean;
+    udleveringsgruppe?: null | string;
+    prisPrPakning?: null | string;
+    prisPrEnhed?: null | string;
+    aip?: null | string;
+    tilskudBeregnesAf?: null | string;
+    udgaaet?: boolean;
+    udgaaetDato?: null | string;
+    dosering?: null | string;
+    indikation?: null | string;
+    trafikAdvarsel?: boolean;
+    ddd?: null | string;
+    opbevaringsbetingelser?: null | string;
+    nbsSpeciale?: null | string;
+    haandkoeb?: boolean;
+    tilskudKode?: null | string;
+    tilskudTekst?: null | string;
+};
+
+export type HospitalApiDtosExternalMedicineProductOutput = {
+    navn: string;
+    varenummer: string;
+    firma: string;
+    styrke: string;
+    detaljer: string;
+    pakning: string;
+};
+
 export type HospitalApiDtosInputsDepartmentInput = {
     name?: null | string;
     type?: null | string;
@@ -117,6 +153,14 @@ export type HospitalApiDtosOutputsLocationOutput = {
     floorsWithRooms: Array<HospitalApiDtosOutputsFloorRoomsOutput>;
 };
 
+export type HospitalApiDtosOutputsLoginOutput = {
+    token: string;
+    staffId?: number | string;
+    firstname?: null | string;
+    lastname?: null | string;
+    role?: string;
+};
+
 export type HospitalApiDtosOutputsMedicationOutput = {
     id?: number | string;
     name?: null | string;
@@ -203,6 +247,14 @@ export type HospitalApiDtosOutputsUserOutput = {
     fkStaffId?: number | string;
 };
 
+export type MicrosoftAspNetCoreMvcProblemDetails = {
+    type?: null | string;
+    title?: null | string;
+    status?: null | number | string;
+    detail?: null | string;
+    instance?: null | string;
+};
+
 export type AuthLoginData = {
     body: HospitalApiDtosInputsLoginInput;
     path?: never;
@@ -210,12 +262,23 @@ export type AuthLoginData = {
     url: '/api/Auth/login';
 };
 
+export type AuthLoginErrors = {
+    /**
+     * Unauthorized
+     */
+    401: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type AuthLoginError = AuthLoginErrors[keyof AuthLoginErrors];
+
 export type AuthLoginResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: HospitalApiDtosOutputsLoginOutput;
 };
+
+export type AuthLoginResponse = AuthLoginResponses[keyof AuthLoginResponses];
 
 export type DepartmentGetAllDepartmentsData = {
     body?: never;
@@ -306,12 +369,23 @@ export type ExternalMedicinePricesGetMedicineProductsByNameData = {
     url: '/api/ExternalMedicinePrices/productsByName';
 };
 
+export type ExternalMedicinePricesGetMedicineProductsByNameErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type ExternalMedicinePricesGetMedicineProductsByNameError = ExternalMedicinePricesGetMedicineProductsByNameErrors[keyof ExternalMedicinePricesGetMedicineProductsByNameErrors];
+
 export type ExternalMedicinePricesGetMedicineProductsByNameResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: HospitalApiDtosExternalMedicineProductOutput;
 };
+
+export type ExternalMedicinePricesGetMedicineProductsByNameResponse = ExternalMedicinePricesGetMedicineProductsByNameResponses[keyof ExternalMedicinePricesGetMedicineProductsByNameResponses];
 
 export type ExternalMedicinePricesGetMedicineProductsByIngredientsData = {
     body?: never;
@@ -322,12 +396,23 @@ export type ExternalMedicinePricesGetMedicineProductsByIngredientsData = {
     url: '/api/ExternalMedicinePrices/productsByIngredient';
 };
 
+export type ExternalMedicinePricesGetMedicineProductsByIngredientsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type ExternalMedicinePricesGetMedicineProductsByIngredientsError = ExternalMedicinePricesGetMedicineProductsByIngredientsErrors[keyof ExternalMedicinePricesGetMedicineProductsByIngredientsErrors];
+
 export type ExternalMedicinePricesGetMedicineProductsByIngredientsResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: HospitalApiDtosExternalMedicineProductOutput;
 };
+
+export type ExternalMedicinePricesGetMedicineProductsByIngredientsResponse = ExternalMedicinePricesGetMedicineProductsByIngredientsResponses[keyof ExternalMedicinePricesGetMedicineProductsByIngredientsResponses];
 
 export type ExternalMedicinePricesGetMedicineProductDetailsData = {
     body?: never;
@@ -338,12 +423,23 @@ export type ExternalMedicinePricesGetMedicineProductDetailsData = {
     url: '/api/ExternalMedicinePrices/productDetails';
 };
 
+export type ExternalMedicinePricesGetMedicineProductDetailsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type ExternalMedicinePricesGetMedicineProductDetailsError = ExternalMedicinePricesGetMedicineProductDetailsErrors[keyof ExternalMedicinePricesGetMedicineProductDetailsErrors];
+
 export type ExternalMedicinePricesGetMedicineProductDetailsResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: HospitalApiDtosExternalMedicineDetailOutput;
 };
+
+export type ExternalMedicinePricesGetMedicineProductDetailsResponse = ExternalMedicinePricesGetMedicineProductDetailsResponses[keyof ExternalMedicinePricesGetMedicineProductDetailsResponses];
 
 export type LocationGetAllLocationsData = {
     body?: never;
@@ -352,11 +448,20 @@ export type LocationGetAllLocationsData = {
     url: '/api/Location';
 };
 
+export type LocationGetAllLocationsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type LocationGetAllLocationsError = LocationGetAllLocationsErrors[keyof LocationGetAllLocationsErrors];
+
 export type LocationGetAllLocationsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsLocationOutput>;
+    200: HospitalApiDtosOutputsLocationOutput;
 };
 
 export type LocationGetAllLocationsResponse = LocationGetAllLocationsResponses[keyof LocationGetAllLocationsResponses];
@@ -369,6 +474,15 @@ export type LocationGetData = {
     query?: never;
     url: '/api/Location/{id}';
 };
+
+export type LocationGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type LocationGetError = LocationGetErrors[keyof LocationGetErrors];
 
 export type LocationGetResponses = {
     /**
@@ -386,11 +500,20 @@ export type LocationGetAllFloorsData = {
     url: '/api/Location/floor';
 };
 
+export type LocationGetAllFloorsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type LocationGetAllFloorsError = LocationGetAllFloorsErrors[keyof LocationGetAllFloorsErrors];
+
 export type LocationGetAllFloorsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsFloorRoomsOutput>;
+    200: HospitalApiDtosOutputsFloorRoomsOutput;
 };
 
 export type LocationGetAllFloorsResponse = LocationGetAllFloorsResponses[keyof LocationGetAllFloorsResponses];
@@ -436,6 +559,15 @@ export type LocationGetFloorData = {
     url: '/api/Location/floor/{id}';
 };
 
+export type LocationGetFloorErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type LocationGetFloorError = LocationGetFloorErrors[keyof LocationGetFloorErrors];
+
 export type LocationGetFloorResponses = {
     /**
      * OK
@@ -468,11 +600,20 @@ export type MedicinGetAllMedicinsData = {
     url: '/api/Medicin';
 };
 
+export type MedicinGetAllMedicinsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type MedicinGetAllMedicinsError = MedicinGetAllMedicinsErrors[keyof MedicinGetAllMedicinsErrors];
+
 export type MedicinGetAllMedicinsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsMedicationOutput>;
+    200: HospitalApiDtosOutputsMedicationOutput;
 };
 
 export type MedicinGetAllMedicinsResponse = MedicinGetAllMedicinsResponses[keyof MedicinGetAllMedicinsResponses];
@@ -516,6 +657,15 @@ export type MedicinGetData = {
     url: '/api/Medicin/{id}';
 };
 
+export type MedicinGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type MedicinGetError = MedicinGetErrors[keyof MedicinGetErrors];
+
 export type MedicinGetResponses = {
     /**
      * OK
@@ -548,11 +698,20 @@ export type MissingStorageGetAllMedicationStorageMissingsData = {
     url: '/api/MissingStorage';
 };
 
+export type MissingStorageGetAllMedicationStorageMissingsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type MissingStorageGetAllMedicationStorageMissingsError = MissingStorageGetAllMedicationStorageMissingsErrors[keyof MissingStorageGetAllMedicationStorageMissingsErrors];
+
 export type MissingStorageGetAllMedicationStorageMissingsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsMedicationStorageMissingOutput>;
+    200: HospitalApiDtosOutputsMedicationStorageMissingOutput;
 };
 
 export type MissingStorageGetAllMedicationStorageMissingsResponse = MissingStorageGetAllMedicationStorageMissingsResponses[keyof MissingStorageGetAllMedicationStorageMissingsResponses];
@@ -596,6 +755,15 @@ export type MissingStorageGetData = {
     url: '/api/MissingStorage/{id}';
 };
 
+export type MissingStorageGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type MissingStorageGetError = MissingStorageGetErrors[keyof MissingStorageGetErrors];
+
 export type MissingStorageGetResponses = {
     /**
      * OK
@@ -635,11 +803,20 @@ export type PatientGetAllPatientsData = {
     url: '/api/Patient';
 };
 
+export type PatientGetAllPatientsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type PatientGetAllPatientsError = PatientGetAllPatientsErrors[keyof PatientGetAllPatientsErrors];
+
 export type PatientGetAllPatientsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsPatientOutput>;
+    200: HospitalApiDtosOutputsPatientOutput;
 };
 
 export type PatientGetAllPatientsResponse = PatientGetAllPatientsResponses[keyof PatientGetAllPatientsResponses];
@@ -683,6 +860,15 @@ export type PatientGetData = {
     url: '/api/Patient/{id}';
 };
 
+export type PatientGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type PatientGetError = PatientGetErrors[keyof PatientGetErrors];
+
 export type PatientGetResponses = {
     /**
      * OK
@@ -715,11 +901,20 @@ export type PrescriptionGetAllPrescriptionsData = {
     url: '/api/Prescription';
 };
 
+export type PrescriptionGetAllPrescriptionsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type PrescriptionGetAllPrescriptionsError = PrescriptionGetAllPrescriptionsErrors[keyof PrescriptionGetAllPrescriptionsErrors];
+
 export type PrescriptionGetAllPrescriptionsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsPrescriptionOutput>;
+    200: HospitalApiDtosOutputsPrescriptionOutput;
 };
 
 export type PrescriptionGetAllPrescriptionsResponse = PrescriptionGetAllPrescriptionsResponses[keyof PrescriptionGetAllPrescriptionsResponses];
@@ -763,6 +958,15 @@ export type PrescriptionGetData = {
     url: '/api/Prescription/{id}';
 };
 
+export type PrescriptionGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type PrescriptionGetError = PrescriptionGetErrors[keyof PrescriptionGetErrors];
+
 export type PrescriptionGetResponses = {
     /**
      * OK
@@ -795,11 +999,20 @@ export type RoomBookingGetAllData = {
     url: '/api/RoomBooking';
 };
 
+export type RoomBookingGetAllErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type RoomBookingGetAllError = RoomBookingGetAllErrors[keyof RoomBookingGetAllErrors];
+
 export type RoomBookingGetAllResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsRoomBookingOutput>;
+    200: HospitalApiDtosOutputsRoomBookingOutput;
 };
 
 export type RoomBookingGetAllResponse = RoomBookingGetAllResponses[keyof RoomBookingGetAllResponses];
@@ -843,6 +1056,15 @@ export type RoomBookingGetData = {
     url: '/api/RoomBooking/{id}';
 };
 
+export type RoomBookingGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type RoomBookingGetError = RoomBookingGetErrors[keyof RoomBookingGetErrors];
+
 export type RoomBookingGetResponses = {
     /**
      * OK
@@ -880,11 +1102,20 @@ export type ShiftGetAllShiftsData = {
     url: '/api/Shift';
 };
 
+export type ShiftGetAllShiftsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type ShiftGetAllShiftsError = ShiftGetAllShiftsErrors[keyof ShiftGetAllShiftsErrors];
+
 export type ShiftGetAllShiftsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsShiftOutput>;
+    200: HospitalApiDtosOutputsShiftOutput;
 };
 
 export type ShiftGetAllShiftsResponse = ShiftGetAllShiftsResponses[keyof ShiftGetAllShiftsResponses];
@@ -928,6 +1159,15 @@ export type ShiftGetData = {
     url: '/api/Shift/{id}';
 };
 
+export type ShiftGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type ShiftGetError = ShiftGetErrors[keyof ShiftGetErrors];
+
 export type ShiftGetResponses = {
     /**
      * OK
@@ -960,11 +1200,20 @@ export type StaffGetAllStaffsData = {
     url: '/api/Staff';
 };
 
+export type StaffGetAllStaffsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type StaffGetAllStaffsError = StaffGetAllStaffsErrors[keyof StaffGetAllStaffsErrors];
+
 export type StaffGetAllStaffsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsStaffOutput>;
+    200: HospitalApiDtosOutputsStaffOutput;
 };
 
 export type StaffGetAllStaffsResponse = StaffGetAllStaffsResponses[keyof StaffGetAllStaffsResponses];
@@ -1008,6 +1257,15 @@ export type StaffGetData = {
     url: '/api/Staff/{id}';
 };
 
+export type StaffGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type StaffGetError = StaffGetErrors[keyof StaffGetErrors];
+
 export type StaffGetResponses = {
     /**
      * OK
@@ -1040,11 +1298,20 @@ export type StorageGetAllMedicationStoragesData = {
     url: '/api/Storage';
 };
 
+export type StorageGetAllMedicationStoragesErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type StorageGetAllMedicationStoragesError = StorageGetAllMedicationStoragesErrors[keyof StorageGetAllMedicationStoragesErrors];
+
 export type StorageGetAllMedicationStoragesResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsMedicationStorageOutput>;
+    200: HospitalApiDtosOutputsMedicationStorageOutput;
 };
 
 export type StorageGetAllMedicationStoragesResponse = StorageGetAllMedicationStoragesResponses[keyof StorageGetAllMedicationStoragesResponses];
@@ -1088,6 +1355,15 @@ export type StorageGetData = {
     url: '/api/Storage/{id}';
 };
 
+export type StorageGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type StorageGetError = StorageGetErrors[keyof StorageGetErrors];
+
 export type StorageGetResponses = {
     /**
      * OK
@@ -1126,11 +1402,20 @@ export type TreatmentGetAllTreatmentsData = {
     url: '/api/Treatment';
 };
 
+export type TreatmentGetAllTreatmentsErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type TreatmentGetAllTreatmentsError = TreatmentGetAllTreatmentsErrors[keyof TreatmentGetAllTreatmentsErrors];
+
 export type TreatmentGetAllTreatmentsResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsTreatmentOutput>;
+    200: HospitalApiDtosOutputsTreatmentOutput;
 };
 
 export type TreatmentGetAllTreatmentsResponse = TreatmentGetAllTreatmentsResponses[keyof TreatmentGetAllTreatmentsResponses];
@@ -1174,6 +1459,15 @@ export type TreatmentGetData = {
     url: '/api/Treatment/{id}';
 };
 
+export type TreatmentGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type TreatmentGetError = TreatmentGetErrors[keyof TreatmentGetErrors];
+
 export type TreatmentGetResponses = {
     /**
      * OK
@@ -1206,11 +1500,20 @@ export type TreatmentStaffGetAllData = {
     url: '/api/TreatmentStaff';
 };
 
+export type TreatmentStaffGetAllErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type TreatmentStaffGetAllError = TreatmentStaffGetAllErrors[keyof TreatmentStaffGetAllErrors];
+
 export type TreatmentStaffGetAllResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsTreatmentStaffOutput>;
+    200: HospitalApiDtosOutputsTreatmentStaffOutput;
 };
 
 export type TreatmentStaffGetAllResponse = TreatmentStaffGetAllResponses[keyof TreatmentStaffGetAllResponses];
@@ -1254,6 +1557,15 @@ export type TreatmentStaffGetData = {
     url: '/api/TreatmentStaff/{id}';
 };
 
+export type TreatmentStaffGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type TreatmentStaffGetError = TreatmentStaffGetErrors[keyof TreatmentStaffGetErrors];
+
 export type TreatmentStaffGetResponses = {
     /**
      * OK
@@ -1286,11 +1598,20 @@ export type UserGetAllData = {
     url: '/api/User';
 };
 
+export type UserGetAllErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type UserGetAllError = UserGetAllErrors[keyof UserGetAllErrors];
+
 export type UserGetAllResponses = {
     /**
      * OK
      */
-    200: Array<HospitalApiDtosOutputsUserOutput>;
+    200: HospitalApiDtosOutputsUserOutput;
 };
 
 export type UserGetAllResponse = UserGetAllResponses[keyof UserGetAllResponses];

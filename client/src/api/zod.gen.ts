@@ -2,6 +2,42 @@
 
 import * as z from 'zod';
 
+export const zHospitalApiDtosExternalMedicineDetailOutput = z.object({
+    navn: z.string().nullish(),
+    varenummer: z.string().nullish(),
+    styrke: z.string().nullish(),
+    pakning: z.string().nullish(),
+    virksomtStof: z.string().nullish(),
+    firma: z.string().nullish(),
+    atcKode: z.string().nullish(),
+    dosisdispensering: z.boolean().optional(),
+    udleveringsgruppe: z.string().nullish(),
+    prisPrPakning: z.string().nullish(),
+    prisPrEnhed: z.string().nullish(),
+    aip: z.string().nullish(),
+    tilskudBeregnesAf: z.string().nullish(),
+    udgaaet: z.boolean().optional(),
+    udgaaetDato: z.string().nullish(),
+    dosering: z.string().nullish(),
+    indikation: z.string().nullish(),
+    trafikAdvarsel: z.boolean().optional(),
+    ddd: z.string().nullish(),
+    opbevaringsbetingelser: z.string().nullish(),
+    nbsSpeciale: z.string().nullish(),
+    haandkoeb: z.boolean().optional(),
+    tilskudKode: z.string().nullish(),
+    tilskudTekst: z.string().nullish()
+});
+
+export const zHospitalApiDtosExternalMedicineProductOutput = z.object({
+    navn: z.string(),
+    varenummer: z.string(),
+    firma: z.string(),
+    styrke: z.string(),
+    detaljer: z.string(),
+    pakning: z.string()
+});
+
 export const zHospitalApiDtosInputsDepartmentInput = z.object({
     name: z.string().min(2).max(100).nullish(),
     type: z.string().min(2).max(100).nullish()
@@ -163,6 +199,17 @@ export const zHospitalApiDtosOutputsFloorOutput = z.object({
         z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
         z.string().regex(/^-?(?:0|[1-9]\d*)$/)
     ]).optional()
+});
+
+export const zHospitalApiDtosOutputsLoginOutput = z.object({
+    token: z.string().min(0).max(255),
+    staffId: z.union([
+        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
+        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
+    ]).optional(),
+    firstname: z.string().min(2).max(100).nullish(),
+    lastname: z.string().min(2).max(100).nullish(),
+    role: z.string().optional()
 });
 
 export const zHospitalApiDtosOutputsMedicationOutput = z.object({
@@ -345,7 +392,23 @@ export const zHospitalApiDtosOutputsUserOutput = z.object({
     ]).optional()
 });
 
+export const zMicrosoftAspNetCoreMvcProblemDetails = z.object({
+    type: z.string().nullish(),
+    title: z.string().nullish(),
+    status: z.union([
+        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
+        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
+    ]).nullish(),
+    detail: z.string().nullish(),
+    instance: z.string().nullish()
+});
+
 export const zAuthLoginBody = zHospitalApiDtosInputsLoginInput;
+
+/**
+ * OK
+ */
+export const zAuthLoginResponse = zHospitalApiDtosOutputsLoginOutput;
 
 /**
  * OK
@@ -386,9 +449,19 @@ export const zExternalMedicinePricesGetMedicineProductsByNameQuery = z.object({
     productName: z.string().optional()
 });
 
+/**
+ * OK
+ */
+export const zExternalMedicinePricesGetMedicineProductsByNameResponse = zHospitalApiDtosExternalMedicineProductOutput;
+
 export const zExternalMedicinePricesGetMedicineProductsByIngredientsQuery = z.object({
     ingredientName: z.string().optional()
 });
+
+/**
+ * OK
+ */
+export const zExternalMedicinePricesGetMedicineProductsByIngredientsResponse = zHospitalApiDtosExternalMedicineProductOutput;
 
 export const zExternalMedicinePricesGetMedicineProductDetailsQuery = z.object({
     productDetailId: z.string().optional()
@@ -397,7 +470,12 @@ export const zExternalMedicinePricesGetMedicineProductDetailsQuery = z.object({
 /**
  * OK
  */
-export const zLocationGetAllLocationsResponse = z.array(zHospitalApiDtosOutputsLocationOutput);
+export const zExternalMedicinePricesGetMedicineProductDetailsResponse = zHospitalApiDtosExternalMedicineDetailOutput;
+
+/**
+ * OK
+ */
+export const zLocationGetAllLocationsResponse = zHospitalApiDtosOutputsLocationOutput;
 
 export const zLocationGetPath = z.object({
     id: z.union([
@@ -414,7 +492,7 @@ export const zLocationGetResponse = zHospitalApiDtosOutputsLocationOutput;
 /**
  * OK
  */
-export const zLocationGetAllFloorsResponse = z.array(zHospitalApiDtosOutputsFloorRoomsOutput);
+export const zLocationGetAllFloorsResponse = zHospitalApiDtosOutputsFloorRoomsOutput;
 
 export const zLocationPostFloorBody = zHospitalApiDtosInputsFloorInput;
 
@@ -457,7 +535,7 @@ export const zLocationPutFloorPath = z.object({
 /**
  * OK
  */
-export const zMedicinGetAllMedicinsResponse = z.array(zHospitalApiDtosOutputsMedicationOutput);
+export const zMedicinGetAllMedicinsResponse = zHospitalApiDtosOutputsMedicationOutput;
 
 export const zMedicinPostBody = zHospitalApiDtosInputsMedicationInput;
 
@@ -492,7 +570,7 @@ export const zMedicinPutPath = z.object({
 /**
  * OK
  */
-export const zMissingStorageGetAllMedicationStorageMissingsResponse = z.array(zHospitalApiDtosOutputsMedicationStorageMissingOutput);
+export const zMissingStorageGetAllMedicationStorageMissingsResponse = zHospitalApiDtosOutputsMedicationStorageMissingOutput;
 
 export const zMissingStoragePostBody = zHospitalApiDtosInputsMedicationStorageMissingInput;
 
@@ -536,7 +614,7 @@ export const zPatientGetAllPatientsQuery = z.object({
 /**
  * OK
  */
-export const zPatientGetAllPatientsResponse = z.array(zHospitalApiDtosOutputsPatientOutput);
+export const zPatientGetAllPatientsResponse = zHospitalApiDtosOutputsPatientOutput;
 
 export const zPatientPostBody = zHospitalApiDtosInputsPatientInput;
 
@@ -571,7 +649,7 @@ export const zPatientPutPath = z.object({
 /**
  * OK
  */
-export const zPrescriptionGetAllPrescriptionsResponse = z.array(zHospitalApiDtosOutputsPrescriptionOutput);
+export const zPrescriptionGetAllPrescriptionsResponse = zHospitalApiDtosOutputsPrescriptionOutput;
 
 export const zPrescriptionPostBody = zHospitalApiDtosInputsPrescriptionInput;
 
@@ -606,7 +684,7 @@ export const zPrescriptionPutPath = z.object({
 /**
  * OK
  */
-export const zRoomBookingGetAllResponse = z.array(zHospitalApiDtosOutputsRoomBookingOutput);
+export const zRoomBookingGetAllResponse = zHospitalApiDtosOutputsRoomBookingOutput;
 
 export const zRoomBookingPostBody = zHospitalApiDtosInputsRoomBookingInput;
 
@@ -648,7 +726,7 @@ export const zShiftGetAllShiftsQuery = z.object({
 /**
  * OK
  */
-export const zShiftGetAllShiftsResponse = z.array(zHospitalApiDtosOutputsShiftOutput);
+export const zShiftGetAllShiftsResponse = zHospitalApiDtosOutputsShiftOutput;
 
 export const zShiftPostBody = zHospitalApiDtosInputsShiftInput;
 
@@ -683,7 +761,7 @@ export const zShiftPutPath = z.object({
 /**
  * OK
  */
-export const zStaffGetAllStaffsResponse = z.array(zHospitalApiDtosOutputsStaffOutput);
+export const zStaffGetAllStaffsResponse = zHospitalApiDtosOutputsStaffOutput;
 
 export const zStaffPostBody = zHospitalApiDtosInputsStaffInput;
 
@@ -718,7 +796,7 @@ export const zStaffPutPath = z.object({
 /**
  * OK
  */
-export const zStorageGetAllMedicationStoragesResponse = z.array(zHospitalApiDtosOutputsMedicationStorageOutput);
+export const zStorageGetAllMedicationStoragesResponse = zHospitalApiDtosOutputsMedicationStorageOutput;
 
 export const zStoragePostBody = zHospitalApiDtosInputsMedicationStorageInput;
 
@@ -764,7 +842,7 @@ export const zTreatmentGetAllTreatmentsQuery = z.object({
 /**
  * OK
  */
-export const zTreatmentGetAllTreatmentsResponse = z.array(zHospitalApiDtosOutputsTreatmentOutput);
+export const zTreatmentGetAllTreatmentsResponse = zHospitalApiDtosOutputsTreatmentOutput;
 
 export const zTreatmentPostBody = zHospitalApiDtosInputsTreatmentInput;
 
@@ -799,7 +877,7 @@ export const zTreatmentPutPath = z.object({
 /**
  * OK
  */
-export const zTreatmentStaffGetAllResponse = z.array(zHospitalApiDtosOutputsTreatmentStaffOutput);
+export const zTreatmentStaffGetAllResponse = zHospitalApiDtosOutputsTreatmentStaffOutput;
 
 export const zTreatmentStaffPostBody = zHospitalApiDtosInputsTreatmentStaffInput;
 
@@ -834,7 +912,7 @@ export const zTreatmentStaffPutPath = z.object({
 /**
  * OK
  */
-export const zUserGetAllResponse = z.array(zHospitalApiDtosOutputsUserOutput);
+export const zUserGetAllResponse = zHospitalApiDtosOutputsUserOutput;
 
 export const zUserRegisterBody = zHospitalApiDtosInputsRegisterInput;
 
