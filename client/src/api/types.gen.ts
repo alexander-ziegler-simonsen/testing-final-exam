@@ -300,7 +300,7 @@ export type DepartmentGetAllDepartmentsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsDepartmentOutputDto;
+    200: Array<HospitalApiDtosOutputsDepartmentOutputDto>;
 };
 
 export type DepartmentGetAllDepartmentsResponse = DepartmentGetAllDepartmentsResponses[keyof DepartmentGetAllDepartmentsResponses];
@@ -317,6 +317,10 @@ export type DepartmentPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type DepartmentPostResponse = DepartmentPostResponses[keyof DepartmentPostResponses];
@@ -402,7 +406,7 @@ export type ExternalMedicinePricesGetMedicineProductsByNameResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosExternalMedicineProductOutputDto;
+    200: Array<HospitalApiDtosExternalMedicineProductOutputDto>;
 };
 
 export type ExternalMedicinePricesGetMedicineProductsByNameResponse = ExternalMedicinePricesGetMedicineProductsByNameResponses[keyof ExternalMedicinePricesGetMedicineProductsByNameResponses];
@@ -429,7 +433,7 @@ export type ExternalMedicinePricesGetMedicineProductsByIngredientsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosExternalMedicineProductOutputDto;
+    200: Array<HospitalApiDtosExternalMedicineProductOutputDto>;
 };
 
 export type ExternalMedicinePricesGetMedicineProductsByIngredientsResponse = ExternalMedicinePricesGetMedicineProductsByIngredientsResponses[keyof ExternalMedicinePricesGetMedicineProductsByIngredientsResponses];
@@ -481,7 +485,7 @@ export type LocationGetAllLocationsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsLocationOutputDto;
+    200: Array<HospitalApiDtosOutputsLocationOutputDto>;
 };
 
 export type LocationGetAllLocationsResponse = LocationGetAllLocationsResponses[keyof LocationGetAllLocationsResponses];
@@ -550,6 +554,10 @@ export type LocationPostFloorResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type LocationPostFloorResponse = LocationPostFloorResponses[keyof LocationPostFloorResponses];
@@ -633,7 +641,7 @@ export type MedicinGetAllMedicinsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationOutputDto;
+    200: Array<HospitalApiDtosOutputsMedicationOutputDto>;
 };
 
 export type MedicinGetAllMedicinsResponse = MedicinGetAllMedicinsResponses[keyof MedicinGetAllMedicinsResponses];
@@ -650,6 +658,10 @@ export type MedicinPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type MedicinPostResponse = MedicinPostResponses[keyof MedicinPostResponses];
@@ -733,7 +745,7 @@ export type MissingStorageGetAllMedicationStorageMissingsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationStorageMissingOutputDto;
+    200: Array<HospitalApiDtosOutputsMedicationStorageMissingOutputDto>;
 };
 
 export type MissingStorageGetAllMedicationStorageMissingsResponse = MissingStorageGetAllMedicationStorageMissingsResponses[keyof MissingStorageGetAllMedicationStorageMissingsResponses];
@@ -750,6 +762,10 @@ export type MissingStoragePostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type MissingStoragePostResponse = MissingStoragePostResponses[keyof MissingStoragePostResponses];
@@ -840,7 +856,7 @@ export type PatientGetAllPatientsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsPatientOutputDto;
+    200: Array<HospitalApiDtosOutputsPatientOutputDto>;
 };
 
 export type PatientGetAllPatientsResponse = PatientGetAllPatientsResponses[keyof PatientGetAllPatientsResponses];
@@ -857,6 +873,10 @@ export type PatientPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type PatientPostResponse = PatientPostResponses[keyof PatientPostResponses];
@@ -940,7 +960,7 @@ export type PrescriptionGetAllPrescriptionsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsPrescriptionOutputDto;
+    200: Array<HospitalApiDtosOutputsPrescriptionOutputDto>;
 };
 
 export type PrescriptionGetAllPrescriptionsResponse = PrescriptionGetAllPrescriptionsResponses[keyof PrescriptionGetAllPrescriptionsResponses];
@@ -957,6 +977,10 @@ export type PrescriptionPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type PrescriptionPostResponse = PrescriptionPostResponses[keyof PrescriptionPostResponses];
@@ -1040,7 +1064,7 @@ export type RoomBookingGetAllResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsRoomBookingOutputDto;
+    200: Array<HospitalApiDtosOutputsRoomBookingOutputDto>;
 };
 
 export type RoomBookingGetAllResponse = RoomBookingGetAllResponses[keyof RoomBookingGetAllResponses];
@@ -1057,6 +1081,10 @@ export type RoomBookingPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type RoomBookingPostResponse = RoomBookingPostResponses[keyof RoomBookingPostResponses];
@@ -1145,7 +1173,7 @@ export type ShiftGetAllShiftsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsShiftOutputDto;
+    200: Array<HospitalApiDtosOutputsShiftOutputDto>;
 };
 
 export type ShiftGetAllShiftsResponse = ShiftGetAllShiftsResponses[keyof ShiftGetAllShiftsResponses];
@@ -1162,6 +1190,10 @@ export type ShiftPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type ShiftPostResponse = ShiftPostResponses[keyof ShiftPostResponses];
@@ -1245,7 +1277,7 @@ export type StaffGetAllStaffsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsStaffOutputDto;
+    200: Array<HospitalApiDtosOutputsStaffOutputDto>;
 };
 
 export type StaffGetAllStaffsResponse = StaffGetAllStaffsResponses[keyof StaffGetAllStaffsResponses];
@@ -1262,6 +1294,10 @@ export type StaffPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type StaffPostResponse = StaffPostResponses[keyof StaffPostResponses];
@@ -1345,7 +1381,7 @@ export type StorageGetAllMedicationStoragesResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsMedicationStorageOutputDto;
+    200: Array<HospitalApiDtosOutputsMedicationStorageOutputDto>;
 };
 
 export type StorageGetAllMedicationStoragesResponse = StorageGetAllMedicationStoragesResponses[keyof StorageGetAllMedicationStoragesResponses];
@@ -1362,6 +1398,10 @@ export type StoragePostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type StoragePostResponse = StoragePostResponses[keyof StoragePostResponses];
@@ -1451,7 +1491,7 @@ export type TreatmentGetAllTreatmentsResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsTreatmentOutputDto;
+    200: Array<HospitalApiDtosOutputsTreatmentOutputDto>;
 };
 
 export type TreatmentGetAllTreatmentsResponse = TreatmentGetAllTreatmentsResponses[keyof TreatmentGetAllTreatmentsResponses];
@@ -1468,6 +1508,10 @@ export type TreatmentPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type TreatmentPostResponse = TreatmentPostResponses[keyof TreatmentPostResponses];
@@ -1551,7 +1595,7 @@ export type TreatmentStaffGetAllResponses = {
     /**
      * OK
      */
-    200: HospitalApiDtosOutputsTreatmentStaffOutputDto;
+    200: Array<HospitalApiDtosOutputsTreatmentStaffOutputDto>;
 };
 
 export type TreatmentStaffGetAllResponse = TreatmentStaffGetAllResponses[keyof TreatmentStaffGetAllResponses];
@@ -1568,6 +1612,10 @@ export type TreatmentStaffPostResponses = {
      * OK
      */
     200: number | string;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type TreatmentStaffPostResponse = TreatmentStaffPostResponses[keyof TreatmentStaffPostResponses];
@@ -1668,6 +1716,10 @@ export type UserRegisterResponses = {
      * OK
      */
     200: boolean;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type UserRegisterResponse = UserRegisterResponses[keyof UserRegisterResponses];

@@ -68,10 +68,17 @@ export type HandleDepartmentPostResponse = {
     status?: 200;
 };
 
+type ToResponseUnion<T> = {
+    [K in Extract<keyof T, number>]: {
+        status: K;
+        body: T[K];
+    };
+}[Extract<keyof T, number>];
+
 /**
  * Handler for the `POST /api/Department` operation.
  */
-export function handleDepartmentPost(response?: HandleDepartmentPostResponse | HttpResponseResolver<never, DepartmentPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleDepartmentPost(response?: HandleDepartmentPostResponse | ToResponseUnion<DepartmentPostResponses> | HttpResponseResolver<never, DepartmentPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, DepartmentPostData['body']>(`${options?.baseUrl ?? '*'}/api/Department`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -357,7 +364,7 @@ export type HandleLocationPostFloorResponse = {
 /**
  * Handler for the `POST /api/Location/floor` operation.
  */
-export function handleLocationPostFloor(response?: HandleLocationPostFloorResponse | HttpResponseResolver<never, LocationPostFloorData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleLocationPostFloor(response?: HandleLocationPostFloorResponse | ToResponseUnion<LocationPostFloorResponses> | HttpResponseResolver<never, LocationPostFloorData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, LocationPostFloorData['body']>(`${options?.baseUrl ?? '*'}/api/Location/floor`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -504,7 +511,7 @@ export type HandleMedicinPostResponse = {
 /**
  * Handler for the `POST /api/Medicin` operation.
  */
-export function handleMedicinPost(response?: HandleMedicinPostResponse | HttpResponseResolver<never, MedicinPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleMedicinPost(response?: HandleMedicinPostResponse | ToResponseUnion<MedicinPostResponses> | HttpResponseResolver<never, MedicinPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, MedicinPostData['body']>(`${options?.baseUrl ?? '*'}/api/Medicin`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -651,7 +658,7 @@ export type HandleMissingStoragePostResponse = {
 /**
  * Handler for the `POST /api/MissingStorage` operation.
  */
-export function handleMissingStoragePost(response?: HandleMissingStoragePostResponse | HttpResponseResolver<never, MissingStoragePostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleMissingStoragePost(response?: HandleMissingStoragePostResponse | ToResponseUnion<MissingStoragePostResponses> | HttpResponseResolver<never, MissingStoragePostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, MissingStoragePostData['body']>(`${options?.baseUrl ?? '*'}/api/MissingStorage`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -798,7 +805,7 @@ export type HandlePatientPostResponse = {
 /**
  * Handler for the `POST /api/Patient` operation.
  */
-export function handlePatientPost(response?: HandlePatientPostResponse | HttpResponseResolver<never, PatientPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handlePatientPost(response?: HandlePatientPostResponse | ToResponseUnion<PatientPostResponses> | HttpResponseResolver<never, PatientPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, PatientPostData['body']>(`${options?.baseUrl ?? '*'}/api/Patient`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -945,7 +952,7 @@ export type HandlePrescriptionPostResponse = {
 /**
  * Handler for the `POST /api/Prescription` operation.
  */
-export function handlePrescriptionPost(response?: HandlePrescriptionPostResponse | HttpResponseResolver<never, PrescriptionPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handlePrescriptionPost(response?: HandlePrescriptionPostResponse | ToResponseUnion<PrescriptionPostResponses> | HttpResponseResolver<never, PrescriptionPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, PrescriptionPostData['body']>(`${options?.baseUrl ?? '*'}/api/Prescription`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -1092,7 +1099,7 @@ export type HandleRoomBookingPostResponse = {
 /**
  * Handler for the `POST /api/RoomBooking` operation.
  */
-export function handleRoomBookingPost(response?: HandleRoomBookingPostResponse | HttpResponseResolver<never, RoomBookingPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleRoomBookingPost(response?: HandleRoomBookingPostResponse | ToResponseUnion<RoomBookingPostResponses> | HttpResponseResolver<never, RoomBookingPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, RoomBookingPostData['body']>(`${options?.baseUrl ?? '*'}/api/RoomBooking`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -1239,7 +1246,7 @@ export type HandleShiftPostResponse = {
 /**
  * Handler for the `POST /api/Shift` operation.
  */
-export function handleShiftPost(response?: HandleShiftPostResponse | HttpResponseResolver<never, ShiftPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleShiftPost(response?: HandleShiftPostResponse | ToResponseUnion<ShiftPostResponses> | HttpResponseResolver<never, ShiftPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, ShiftPostData['body']>(`${options?.baseUrl ?? '*'}/api/Shift`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -1386,7 +1393,7 @@ export type HandleStaffPostResponse = {
 /**
  * Handler for the `POST /api/Staff` operation.
  */
-export function handleStaffPost(response?: HandleStaffPostResponse | HttpResponseResolver<never, StaffPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleStaffPost(response?: HandleStaffPostResponse | ToResponseUnion<StaffPostResponses> | HttpResponseResolver<never, StaffPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, StaffPostData['body']>(`${options?.baseUrl ?? '*'}/api/Staff`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -1533,7 +1540,7 @@ export type HandleStoragePostResponse = {
 /**
  * Handler for the `POST /api/Storage` operation.
  */
-export function handleStoragePost(response?: HandleStoragePostResponse | HttpResponseResolver<never, StoragePostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleStoragePost(response?: HandleStoragePostResponse | ToResponseUnion<StoragePostResponses> | HttpResponseResolver<never, StoragePostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, StoragePostData['body']>(`${options?.baseUrl ?? '*'}/api/Storage`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -1680,7 +1687,7 @@ export type HandleTreatmentPostResponse = {
 /**
  * Handler for the `POST /api/Treatment` operation.
  */
-export function handleTreatmentPost(response?: HandleTreatmentPostResponse | HttpResponseResolver<never, TreatmentPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleTreatmentPost(response?: HandleTreatmentPostResponse | ToResponseUnion<TreatmentPostResponses> | HttpResponseResolver<never, TreatmentPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, TreatmentPostData['body']>(`${options?.baseUrl ?? '*'}/api/Treatment`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -1827,7 +1834,7 @@ export type HandleTreatmentStaffPostResponse = {
 /**
  * Handler for the `POST /api/TreatmentStaff` operation.
  */
-export function handleTreatmentStaffPost(response?: HandleTreatmentStaffPostResponse | HttpResponseResolver<never, TreatmentStaffPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleTreatmentStaffPost(response?: HandleTreatmentStaffPostResponse | ToResponseUnion<TreatmentStaffPostResponses> | HttpResponseResolver<never, TreatmentStaffPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, TreatmentStaffPostData['body']>(`${options?.baseUrl ?? '*'}/api/TreatmentStaff`, info => {
         if (typeof response === 'function') {
             return response(info);
@@ -1974,7 +1981,7 @@ export type HandleUserRegisterResponse = {
 /**
  * Handler for the `POST /api/User/register` operation.
  */
-export function handleUserRegister(response?: HandleUserRegisterResponse | HttpResponseResolver<never, UserRegisterData['body']>, options?: RequestHandlerOptions): HttpHandler {
+export function handleUserRegister(response?: HandleUserRegisterResponse | ToResponseUnion<UserRegisterResponses> | HttpResponseResolver<never, UserRegisterData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, UserRegisterData['body']>(`${options?.baseUrl ?? '*'}/api/User/register`, info => {
         if (typeof response === 'function') {
             return response(info);
