@@ -14,10 +14,11 @@
     "lint:fix-d": "oxlint -c configs/.oxlintrc.json --tsconfig=configs/tsconfig.json --fix-dangerously",
     "preview": "vite preview",
     "test": "vitest",
+    "test:unit": "vitest --project unit",
     "openapi": "openapi-ts -f configs/openapi-ts.config.ts",
     "coverage": "vitest run --coverage",
-    "test:browser": "vitest --config=vitest.browser.config.ts --browser.headless",
-    "test:browser-head": "vitest --config=vitest.browser.config.ts"
+    "test:browser": "vitest --project browser --browser.headless",
+    "test:browser-head": "vitest --project browser"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.36.1",
