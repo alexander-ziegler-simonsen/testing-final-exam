@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace hospitalApi.DTOs.Outputs;
+
+public partial class DepartmentStaffOutputDto
+{
+    public int Id { get; set; }
+
+    public int FkStaffId { get; set; }
+
+    public int FkDepartmentId { get; set; }
+}
