@@ -1,5 +1,5 @@
 import { Box, Button, Drawer, Portal, Text } from "@chakra-ui/react";
-import { LuMenu, LuCircleX, LuPillBottle, LuBuilding2, LuShapes, LuContactRound, LuHeartPulse, LuStethoscope, LuCalendar } from "react-icons/lu"
+import { LuMenu, LuCircleX, LuPillBottle, LuBuilding2, LuShapes, LuContactRound, LuHeartPulse, LuStethoscope, LuCalendar, LuUsersRound } from "react-icons/lu"
 import SidebarElement from "./SidebarElement";
 import { useState } from "react";
 
@@ -22,6 +22,7 @@ export default function MySidebar() {
     const renderNavigationLinks = (testIdPrefix: string) => (
         <>
             <SidebarElement testId={`${testIdPrefix}-departments-link`} path="departments" selected={false} title="departments" icon={<LuShapes size={32}  />} />
+            <SidebarElement testId={`${testIdPrefix}-department-staff-link`} path="department_staff" selected={false} title="department staff" icon={<LuUsersRound size={32}  />} />
             <SidebarElement testId={`${testIdPrefix}-facilities-link`} path="facilities" selected={false} title="facilities" icon={<LuBuilding2 size={32}  />} />
             <SidebarElement testId={`${testIdPrefix}-missing-medicin-link`} path="missing_medicin" selected={false} title="missing meds" icon={<LuPillBottle size={32}  />} />
             <SidebarElement testId={`${testIdPrefix}-patients-link`} path="patients" selected={false} title="patients" icon={<LuContactRound size={32}  />} />

@@ -9,6 +9,7 @@ import Appointment from './pages/public/Appointment'
 import DashboardLayout from './pages/DashboardLayout'
 import Overview from './pages/dashboards/Overview'
 import Departments from './pages/dashboards/Departments'
+import DepartmentStaff from './pages/dashboards/DepartmentStaff'
 import Facilities from './pages/dashboards/Facilities'
 import MissingMedicin from './pages/dashboards/MissingMedicin'
 import Patients from './pages/dashboards/Patients'
@@ -46,6 +47,7 @@ function App() {
               <Route index element={<Navigate to="overview" replace />} />
               <Route path="overview" element={<Overview />} />
               <Route path="departments" element={<Departments />} />
+              <Route path="department_staff" element={<DepartmentStaff />} />
               <Route path="facilities" element={<Facilities />} />
               <Route path="patients" element={<Patients />} />
               <Route path="patients/:id" element={<OnePatient />} />
