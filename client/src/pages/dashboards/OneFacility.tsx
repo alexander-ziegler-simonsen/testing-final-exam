@@ -1,22 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { Button, Heading, HStack, Stack, Text } from "@chakra-ui/react";
-import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
-import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
+import { Box, Button, Heading, HStack, Stack, Tag, Text, Wrap } from "@chakra-ui/react";
+import { LuDoorOpen, LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { CommandFormPopup, type CommandFormMode, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import type {
     HospitalApiDtosInputsFloorInputDto,
     HospitalApiDtosOutputsFloorOutputDto,
     HospitalApiDtosOutputsLocationOutputDto,
-    HospitalApiDtosOutputsRoomOutputDto,
 } from "../../api";
 import { LocationService } from "../../services/Location";
 import { useAuthStore } from "../../stores/AuthStore";
-
-const roomColumns: ColumnConfig<HospitalApiDtosOutputsRoomOutputDto>[] = [
-    { key: "id", header: "Id" },
-    { key: "name", header: "Name", enableSearch: true },
-];
 
 const floorFields: FieldConfig<HospitalApiDtosInputsFloorInputDto>[] = [
     { key: "name", label: "Name", type: "text", required: true },
@@ -99,8 +92,15 @@ export default function OneFacility() {
             )}
 
             {location.floorsWithRooms.map(({ floor, rooms }) => (
-                <Stack key={floor.id} gap="2" mt="2" data-testid={`one-facility-floor-${floor.id}`}>
-                    <HStack justify="space-between">
+                <Box
+                    key={floor.id}
+                    borderWidth="1px"
+                    borderColor="border"
+                    borderRadius="lg"
+                    p="4"
+                    data-testid={`one-facility-floor-${floor.id}`}
+                >
+                    <HStack justify="space-between" mb="3">
                         <Heading size="md">{floor.name}</Heading>
                         {isAdmin && (
                             <HStack gap="2">
@@ -113,8 +113,23 @@ export default function OneFacility() {
                             </HStack>
                         )}
                     </HStack>
-                    <DataTable testId={`one-facility-rooms-${floor.id}`} data={rooms} columns={roomColumns} pageSize={5} />
-                </Stack>
+                    {rooms.length === 0 ? (
+                        <Text data-testid={`one-facility-no-rooms-${floor.id}`} color="fg.muted" fontSize="sm">
+                            No rooms on this floor.
+                        </Text>
+                    ) : (
+                        <Wrap gap="2" data-testid={`one-facility-rooms-${floor.id}`}>
+                            {rooms.map((room) => (
+                                <Tag.Root key={room.id} size="lg" variant="subtle" colorPalette="teal" data-testid={`one-facility-room-${room.id}`}>
+                                    <Tag.StartElement>
+                                        <LuDoorOpen />
+                                    </Tag.StartElement>
+                                    <Tag.Label>{room.name}</Tag.Label>
+                                </Tag.Root>
+                            ))}
+                        </Wrap>
+                    )}
+                </Box>
             ))}
 
             <CommandFormPopup<HospitalApiDtosInputsFloorInputDto>
