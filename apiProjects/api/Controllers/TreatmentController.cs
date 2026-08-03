@@ -46,9 +46,9 @@ namespace hospitalApi.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Post([FromBody] TreatmentInputDto newTreatment)
+        public async Task<ActionResult> Post([FromBody] TreatmentInputDto newTreatment, [FromQuery] int? staffId = null)
         {
-            int newId = await _TreatmentService.CreateTreatment(newTreatment);
+            int newId = await _TreatmentService.CreateTreatment(newTreatment, staffId);
             return Ok(newId);
         }
 

@@ -78,11 +78,32 @@ namespace hospitalApi.Services
             return true;
         }
 
-        public async Task<int> CreateTreatment(TreatmentInputDto newTreatment)
+        public async Task<int> CreateTreatment(TreatmentInputDto newTreatment, int? staffId = null)
         {
             var entity = _mapper.Map<Treatment>(newTreatment);
+
+            if (staffId is null)
+            {
+                await treatments.AddAsync(entity);
+                await _hospitalContext.SaveChangesAsync();
+                return entity.Id;
+            }
+
+            // Attributing the treatment to the creating staff member is part of
+            // creating it - both rows must persist together or not at all.
+            await using var transaction = await _hospitalContext.Database.BeginTransactionAsync();
+
             await treatments.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();
+
+            await _hospitalContext.TreatmentStaffs.AddAsync(new TreatmentStaff
+            {
+                FkTreatmentId = entity.Id,
+                FkStaffId = staffId.Value,
+            });
+            await _hospitalContext.SaveChangesAsync();
+
+            await transaction.CommitAsync();
             return entity.Id;
         }
     }
