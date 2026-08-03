@@ -6,7 +6,7 @@ export default function Contact() {
     <>
         <Navbar />
 
-      <Container>
+      <Container data-testid="contact-page">
         <p>this is contact page</p>
       </Container>
     </>

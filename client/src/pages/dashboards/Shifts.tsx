@@ -14,7 +14,7 @@ export default function Shifts() {
 
   return (
     <>
-      <p>this is Shifts page</p>
+      <p data-testid="shifts-page-heading">this is Shifts page</p>
 
       <OverlappingTimeline data={data} />
     </>

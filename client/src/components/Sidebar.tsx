@@ -16,16 +16,18 @@ import { useState } from "react";
 export default function MySidebar() {
     const [isMobileOpen, setIsMobileOpen] = useState(false)
 
-    // Shared navigation list to avoid duplicating code
-    const navigationLinks = (
+    // Shared navigation list to avoid duplicating code. Rendered once for the
+    // desktop panel and once for the mobile drawer, both mounted in the DOM
+    // at the same time, so each rendering needs its own testid prefix.
+    const renderNavigationLinks = (testIdPrefix: string) => (
         <>
-            <SidebarElement path="departments" selected={false} title="departments" icon={<LuShapes size={32}  />} />
-            <SidebarElement path="facilities" selected={false} title="facilities" icon={<LuBuilding2 size={32}  />} />
-            <SidebarElement path="missing_medicin" selected={false} title="missing meds" icon={<LuPillBottle size={32}  />} />
-            <SidebarElement path="patients" selected={false} title="patients" icon={<LuContactRound size={32}  />} />
-            <SidebarElement path="staff" selected={false} title="staff" icon={<LuStethoscope size={32}  />} />
-            <SidebarElement path="shifts" selected={false} title="shifts" icon={<LuCalendar size={32}  />} />
-            <SidebarElement path="treatment" selected={false} title="treatment" icon={<LuHeartPulse size={32}  />} />
+            <SidebarElement testId={`${testIdPrefix}-departments-link`} path="departments" selected={false} title="departments" icon={<LuShapes size={32}  />} />
+            <SidebarElement testId={`${testIdPrefix}-facilities-link`} path="facilities" selected={false} title="facilities" icon={<LuBuilding2 size={32}  />} />
+            <SidebarElement testId={`${testIdPrefix}-missing-medicin-link`} path="missing_medicin" selected={false} title="missing meds" icon={<LuPillBottle size={32}  />} />
+            <SidebarElement testId={`${testIdPrefix}-patients-link`} path="patients" selected={false} title="patients" icon={<LuContactRound size={32}  />} />
+            <SidebarElement testId={`${testIdPrefix}-staff-link`} path="staff" selected={false} title="staff" icon={<LuStethoscope size={32}  />} />
+            <SidebarElement testId={`${testIdPrefix}-shifts-link`} path="shifts" selected={false} title="shifts" icon={<LuCalendar size={32}  />} />
+            <SidebarElement testId={`${testIdPrefix}-treatment-link`} path="treatment" selected={false} title="treatment" icon={<LuHeartPulse size={32}  />} />
         </>
     );
 
@@ -33,16 +35,16 @@ export default function MySidebar() {
         <>
             {/* 1. sidebar shown on bigger screens */}
             <Box h="calc(100vh - 64px)" w="300px" minW="300px" bg="bg.panel" borderRight="2px solid"
-                borderColor="border" display={{ base: "none", md: "block" }} p="6">
+                borderColor="border" display={{ base: "none", md: "block" }} p="6" data-testid="sidebar-desktop">
                 <Text fontWeight={"bold"} fontSize={22} textAlign={"center"} >Desktop Sidebar</Text>
                 <hr />
                 <br />
-                {navigationLinks}
+                {renderNavigationLinks("sidebar-desktop")}
             </Box>
 
             {/* sidebar button */}
             {/* Positioned absolutely on mobile viewports so it stays accessible */}
-            <Button display={{ base: "inline-flex", md: "none" }} position="fixed" bottom="4" left="4" zIndex="overlay" variant="solid" size="md" borderRadius="full" onClick={() => setIsMobileOpen(true)}>
+            <Button data-testid="sidebar-mobile-toggle-button" display={{ base: "inline-flex", md: "none" }} position="fixed" bottom="4" left="4" zIndex="overlay" variant="solid" size="md" borderRadius="full" onClick={() => setIsMobileOpen(true)}>
                 <LuMenu />
             </Button>
 
@@ -51,18 +53,18 @@ export default function MySidebar() {
                 <Portal>
                     <Drawer.Backdrop />
                     <Drawer.Positioner>
-                        <Drawer.Content p="6">
+                        <Drawer.Content p="6" data-testid="sidebar-mobile-drawer">
                             <Drawer.Header>
                                 <Drawer.Title>Navigation</Drawer.Title>
                             </Drawer.Header>
 
                             <Drawer.Body>
-                                {navigationLinks}
+                                {renderNavigationLinks("sidebar-mobile")}
                             </Drawer.Body>
 
                             {/* Chakra UI v3 close configuration */}
                             <Drawer.CloseTrigger asChild>
-                                <Button variant="ghost" size="2xl" position="absolute" top="4" right="4">
+                                <Button data-testid="sidebar-mobile-drawer-close-button" variant="ghost" size="2xl" position="absolute" top="4" right="4">
                                     <LuCircleX />
                                 </Button>
                             </Drawer.CloseTrigger>

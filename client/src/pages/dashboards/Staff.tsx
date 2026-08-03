@@ -2,7 +2,7 @@
 export default function Staff() {
   return (
     <>
-      <p>this is Staff page</p>
+      <p data-testid="staff-page-heading">this is Staff page</p>
     </>
   );
 }

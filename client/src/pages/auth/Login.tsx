@@ -6,7 +6,7 @@ export default function Login() {
   return (
     <>
       <Navbar />
-      <div>
+      <div data-testid="login-page">
         <p>this is login page</p>
         <p>this is the login component, right under here</p>
 
@@ -14,8 +14,8 @@ export default function Login() {
 
         <br/>
         <hr/>
-        
-        <Link id="nav-doctors-link" to="/app">
+
+        <Link data-testid="login-dashboard-link" to="/app">
           dashboard
         </Link>
 

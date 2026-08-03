@@ -2,7 +2,7 @@
 export default function Rooms() {
   return (
     <>
-      <p>this is Rooms page</p>
+      <p data-testid="rooms-page-heading">this is Rooms page</p>
     </>
   );
 }

@@ -14,7 +14,7 @@ export default function DashboardLayout() {
                     <MySidebar />
 
                     {/* Main page content area */}
-                    <Container flex="1" p="6" maxW="full">
+                    <Container flex="1" p="6" maxW="full" data-testid="dashboard-main-content">
                         <Outlet />
                     </Container>
                 </Flex>

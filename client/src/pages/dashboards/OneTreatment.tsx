@@ -93,20 +93,20 @@ export default function OneTreatment() {
         { key: "lastname", header: "Last name", enableSearch: true },
     ];
 
-    if (error) return <Text color="red.500">{error}</Text>;
-    if (!treatment || !patient) return <Text>Loading treatment...</Text>;
+    if (error) return <Text data-testid="one-treatment-error" color="red.500">{error}</Text>;
+    if (!treatment || !patient) return <Text data-testid="one-treatment-loading">Loading treatment...</Text>;
 
     return (
-        <Stack gap="4">
-            <Button alignSelf="start" variant="outline" onClick={() => navigate("/app/treatment")}>
+        <Stack gap="4" data-testid="one-treatment-page">
+            <Button data-testid="one-treatment-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/treatment")}>
                 Back to treatments
             </Button>
 
-            <Heading size="lg">Treatment #{treatment.id}</Heading>
+            <Heading data-testid="one-treatment-heading" size="lg">Treatment #{treatment.id}</Heading>
 
             <Stack gap="2">
-                <Text><b>Description:</b> {treatment.description}</Text>
-                <Text><b>Time:</b> {treatment.time ? new Date(treatment.time).toLocaleString() : ""}</Text>
+                <Text data-testid="one-treatment-field-description"><b>Description:</b> {treatment.description}</Text>
+                <Text data-testid="one-treatment-field-time"><b>Time:</b> {treatment.time ? new Date(treatment.time).toLocaleString() : ""}</Text>
             </Stack>
 
             <Heading size="md" mt="4">Patient</Heading>
@@ -115,6 +115,7 @@ export default function OneTreatment() {
                     <b>Name:</b>{" "}
                     <Text
                         as="span"
+                        data-testid="one-treatment-patient-link"
                         color="blue.600"
                         cursor="pointer"
                         onClick={() => navigate(`/app/patients/${patient.id}`)}
@@ -122,15 +123,15 @@ export default function OneTreatment() {
                         {patient.firstname} {patient.lastname}
                     </Text>
                 </Text>
-                <Text><b>CPR Number:</b> {patient.cprNumber}</Text>
-                <Text><b>Gender:</b> {patient.gender}</Text>
+                <Text data-testid="one-treatment-patient-cpr"><b>CPR Number:</b> {patient.cprNumber}</Text>
+                <Text data-testid="one-treatment-patient-gender"><b>Gender:</b> {patient.gender}</Text>
             </Stack>
 
             <Heading size="md" mt="4">Assigned Staff</Heading>
-            <DataTable data={assignedStaff} columns={staffColumns} pageSize={5} />
+            <DataTable testId="treatment-staff-table" data={assignedStaff} columns={staffColumns} pageSize={5} />
 
             <Heading size="md" mt="4">Prescriptions &amp; Medication</Heading>
-            <DataTable data={prescriptionRows} columns={prescriptionColumns} pageSize={5} />
+            <DataTable testId="treatment-prescriptions-table" data={prescriptionRows} columns={prescriptionColumns} pageSize={5} />
         </Stack>
     );
 }

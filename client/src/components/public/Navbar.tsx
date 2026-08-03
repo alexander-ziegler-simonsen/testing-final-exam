@@ -7,26 +7,27 @@ export default function Navbar() {
       display={"flex"} h={"auto"} p={2}
       shadow={"xl"}
       borderBottomWidth={1} borderBottomColor={"gray.400"}
-      bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500">
+      bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500"
+      data-testid="public-navbar">
       {/* logo */}
       <Box bg={"gray.100"} padding={2} rounded={18} m={0}>
-        <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"}>
+        <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"} data-testid="public-navbar-logo">
           Logo
         </Text>
       </Box>
 
       {/* links */}
       <Box display={"flex"} gap={6} ml={8}>
-        <Link id="nav-home-link" to="/">
+        <Link data-testid="nav-home-link" to="/">
           Home
         </Link>
-        <Link id="nav-about-link" to="/about">
+        <Link data-testid="nav-about-link" to="/about">
           About
         </Link>
-        <Link id="nav-doctors-link" to="/doctors">
+        <Link data-testid="nav-doctors-link" to="/doctors">
           Doctors
         </Link>
-        <Link id="nav-contact-link" to="/contact">
+        <Link data-testid="nav-contact-link" to="/contact">
           Contact
         </Link>
       </Box>
@@ -34,7 +35,7 @@ export default function Navbar() {
       {/* book btn */}
       <Box display={"flex"}>
         <Button asChild colorScheme="blue">
-          <Link id="nav-book-link" to="/appointment">
+          <Link data-testid="nav-book-link" to="/appointment">
             Book Now
           </Link>
         </Button>

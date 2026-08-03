@@ -45,8 +45,9 @@ export default function Patients() {
 
   return (
     <>
-      <Text fontSize="xl" fontWeight="bold" mb="4">Patients</Text>
+      <Text data-testid="patients-page-heading" fontSize="xl" fontWeight="bold" mb="4">Patients</Text>
       <DataTable
+        testId="patients-table"
         data={data}
         columns={columns}
         pageSize={10}

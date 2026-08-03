@@ -2,7 +2,7 @@
 export default function Facilities() {
   return (
     <>
-      <p>this is Facilities page</p>
+      <p data-testid="facilities-page-heading">this is Facilities page</p>
     </>
   );
 }

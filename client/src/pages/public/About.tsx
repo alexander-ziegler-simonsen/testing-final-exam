@@ -6,7 +6,7 @@ export default function About() {
     <>
       <Navbar />
 
-      <Container bg={"red.300"} marginLeft={"auto"} marginRight={"auto"} width={"auto"}>
+      <Container bg={"red.300"} marginLeft={"auto"} marginRight={"auto"} width={"auto"} data-testid="about-page">
         <Center>
           <Box marginBottom={6}>
             <h3>about us</h3>

@@ -6,7 +6,7 @@ const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export const FixedTimelineGrid = () => {
     return (
-        <Box w="full" maxW="60vw" maxH="600px" border="1px solid" borderColor="gray.200" borderRadius="xl" overflow="auto" boxShadow="sm">
+        <Box w="full" maxW="60vw" maxH="600px" border="1px solid" borderColor="gray.200" borderRadius="xl" overflow="auto" boxShadow="sm" data-testid="fixed-timeline-grid">
             <Grid templateColumns="100px repeat(24, 120px)"  position="relative">
 
                 <GridItem position="sticky" top={0} left={0} bg="gray.50" zIndex={4} />

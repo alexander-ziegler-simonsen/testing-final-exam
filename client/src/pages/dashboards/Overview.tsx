@@ -32,9 +32,9 @@ export default function Overview() {
     <>
       <p>this is Overview page</p>
 
-      <Wrap rowGap={8} columnGap={6} p={4}>
+      <Wrap rowGap={8} columnGap={6} p={4} data-testid="overview-cards">
         {data.map((item, index) => (
-          <InfoCard key={index} title={item.title} value={item.value} type={item.type} />
+          <InfoCard key={index} testId={`overview-card-${index}`} title={item.title} value={item.value} type={item.type} />
         ))}
       </Wrap>
 

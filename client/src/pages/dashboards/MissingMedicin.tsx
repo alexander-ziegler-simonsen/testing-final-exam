@@ -53,15 +53,15 @@ export default function MissingMedicin() {
 
   return (
     <>
-      <p>this is Missing Medicin page</p>
+      <p data-testid="missing-medicine-page-heading">this is Missing Medicin page</p>
       <br />
       <hr />
-      <DataTable data={data} columns={columns} pageSize={pageCount} />
+      <DataTable testId="missing-medicine-table" data={data} columns={columns} pageSize={pageCount} />
 
       <br />
 
       <Text>set page count</Text>
-      <Input maxW={"100px"} value={pageCount} onChange={(e) => setPageCount(Number(e.target.value))} />
+      <Input data-testid="missing-medicine-page-size-input" maxW={"100px"} value={pageCount} onChange={(e) => setPageCount(Number(e.target.value))} />
     </>
   );
 }

@@ -2,7 +2,7 @@
 export default function Departments() {
   return (
     <>
-      <p>this is Departments page</p>
+      <p data-testid="departments-page-heading">this is Departments page</p>
     </>
   );
 }

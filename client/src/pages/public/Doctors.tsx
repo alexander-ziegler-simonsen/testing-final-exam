@@ -6,7 +6,7 @@ export default function Doctors() {
     <>
         <Navbar />
 
-      <Container className="bodyWrapper">
+      <Container className="bodyWrapper" data-testid="doctors-page">
         <p>this is doctors page</p>
       </Container>
     </>

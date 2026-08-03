@@ -14,10 +14,11 @@ export default function Navbar() {
             display={"flex"} h={"auto"} p={2}
             shadow={"xl"}
             borderBottomWidth={1} borderBottomColor={"gray.400"}
-            bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500">
+            bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500"
+            data-testid="dashboard-navbar">
             {/* logo */}
             <Box bg={"gray.100"} padding={2} rounded={18} m={0}>
-                <Link to={"/app"}>
+                <Link data-testid="dashboard-navbar-logo-link" to={"/app"}>
                     <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"}>
                         Logo
                     </Text>
@@ -25,13 +26,13 @@ export default function Navbar() {
             </Box>
 
             {/* links */}
-            <Box display={"flex"} gap={6} ml={8} marginEnd={"auto"}>
+            <Box display={"flex"} gap={6} ml={8} marginEnd={"auto"} data-testid="dashboard-navbar-user-greeting">
                 Hello {localStorage.key(0) !== undefined ? localStorage.key(0) : "unkown person"}
             </Box>
 
             {/* book btn */}
             <Box display={"flex"}>
-                <Button onClick={logoutFunction}>logout</Button>
+                <Button data-testid="dashboard-navbar-logout-button" onClick={logoutFunction}>logout</Button>
             </Box>
         </Box>
     );

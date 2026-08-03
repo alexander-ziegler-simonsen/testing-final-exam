@@ -28,8 +28,9 @@ export default function Treatments() {
 
   return (
     <>
-      <Text fontSize="xl" fontWeight="bold" mb="4">Treatments</Text>
+      <Text data-testid="treatments-page-heading" fontSize="xl" fontWeight="bold" mb="4">Treatments</Text>
       <DataTable
+        testId="treatments-table"
         data={data}
         columns={columns}
         pageSize={10}

@@ -123,7 +123,7 @@ export const OverlappingTimeline = ({ data }: OverlappingTimelineProps) => {
     const eventsByDay = useMemo(() => toTimelineEventsByDay(data), [data]);
 
     return (
-        <Box w="full" maxW="60vw" maxH="600px" border="1px solid" borderColor="gray.200" borderRadius="xl" overflow="auto" boxShadow="sm">
+        <Box w="full" maxW="60vw" maxH="600px" border="1px solid" borderColor="gray.200" borderRadius="xl" overflow="auto" boxShadow="sm" data-testid="shifts-timeline">
             <Grid templateColumns={`${SIDEBAR_WIDTH}px repeat(24, ${COLUMN_WIDTH}px)`} position="relative" w="max-content">
                 {/* Sticky Top-Left Corner Block */}
                 <GridItem position="sticky" top={0} left={0} bg="gray.50" zIndex={4} borderRight="2px solid" borderBottom="2px solid" borderColor="gray.200" />
@@ -145,7 +145,7 @@ export const OverlappingTimeline = ({ data }: OverlappingTimelineProps) => {
                     return (
                         <Box key={day} display="contents">
                             {/* Sticky Left Sidebar: Day Labels */}
-                            <GridItem position="sticky" left={0} bg="gray.50" zIndex={3} p={4} h={dayHeight} borderRight="2px solid" borderBottom="1px solid" borderColor="gray.200" display="flex" alignItems="flex-start" fontWeight="semibold" transition="height 0.2s">
+                            <GridItem position="sticky" left={0} bg="gray.50" zIndex={3} p={4} h={dayHeight} borderRight="2px solid" borderBottom="1px solid" borderColor="gray.200" display="flex" alignItems="flex-start" fontWeight="semibold" transition="height 0.2s" data-testid={`shifts-timeline-day-${day}`}>
                                 <Text fontSize="sm" color="gray.700" mt={1}>
                                     {day}
                                 </Text>
@@ -154,7 +154,7 @@ export const OverlappingTimeline = ({ data }: OverlappingTimelineProps) => {
                             {/* Event Track Area (Spans all 24 Hourly Columns) */}
                             <GridItem gridColumn="span 24" h={dayHeight} borderBottom="1px solid" borderColor="gray.200" position="relative" transition="height 0.2s" background={VISUAL_GRID_LINES} >
                                 {dayEvents.map((event) => (
-                                    <Box key={event.id} position="absolute" bg={event.color} color="white" borderRadius="md" px={2} py={1} zIndex={1} boxShadow="sm" {...calculateEventStyles(
+                                    <Box key={event.id} data-testid={`shifts-timeline-event-${event.id}`} position="absolute" bg={event.color} color="white" borderRadius="md" px={2} py={1} zIndex={1} boxShadow="sm" {...calculateEventStyles(
                                         event.start,
                                         event.end,
                                         event.lane,

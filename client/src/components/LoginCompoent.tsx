@@ -36,12 +36,12 @@ export default function LoginCompoent() {
 
     return (
         <>
-            <Input m={4} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="write username here" maxW={"300px"} /> <br />
-            <Input m={4} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="write password here" maxW={"300px"} /> <br />
-            <Button m={2} onClick={loginFunc}>login</Button>
-            <Text m={2}>username: {username}</Text>
-            <Text m={2}>password: {password}</Text>
-            <Text m={2}>feedback: {feedback}</Text>
+            <Input data-testid="login-username-input" m={4} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="write username here" maxW={"300px"} /> <br />
+            <Input data-testid="login-password-input" m={4} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="write password here" maxW={"300px"} /> <br />
+            <Button data-testid="login-submit-button" m={2} onClick={loginFunc}>login</Button>
+            <Text data-testid="login-username-display" m={2}>username: {username}</Text>
+            <Text data-testid="login-password-display" m={2}>password: {password}</Text>
+            <Text data-testid="login-feedback-text" m={2}>feedback: {feedback}</Text>
         </>
     );
 }

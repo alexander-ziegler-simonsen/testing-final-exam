@@ -6,7 +6,7 @@ export default function Appointment() {
     <>
         <Navbar />
 
-      <Container>
+      <Container data-testid="appointment-page">
         <p>this is appointment page</p>
       </Container>
     </>
