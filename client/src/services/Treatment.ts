@@ -38,9 +38,9 @@ export const TreatmentService = {
         return data;
     },
 
-    create: async (newTreatment: HospitalApiDtosInputsTreatmentInputDto): Promise<number> => {
+    create: async (newTreatment: HospitalApiDtosInputsTreatmentInputDto, staffId?: number | null): Promise<number> => {
         const body = zHospitalApiDtosInputsTreatmentInputDto.parse(newTreatment);
-        const { data, error } = await treatmentPost({ body });
+        const { data, error } = await treatmentPost({ body, query: staffId ? { staffId } : undefined });
         if (error) throw new Error('Failed to create treatment');
         if (typeof data !== 'number') throw new Error('Failed to create treatment');
         return data;
