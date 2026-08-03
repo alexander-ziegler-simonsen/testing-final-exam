@@ -3313,6 +3313,16 @@
           "Treatment"
         ],
         "operationId": "Treatment_Post",
+        "parameters": [
+          {
+            "name": "staffId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {

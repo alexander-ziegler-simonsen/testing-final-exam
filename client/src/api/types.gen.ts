@@ -1656,7 +1656,9 @@ export type TreatmentGetAllTreatmentsResponse = TreatmentGetAllTreatmentsRespons
 export type TreatmentPostData = {
     body: HospitalApiDtosInputsTreatmentInputDto;
     path?: never;
-    query?: never;
+    query?: {
+        staffId?: number;
+    };
     url: '/api/Treatment';
 };
 

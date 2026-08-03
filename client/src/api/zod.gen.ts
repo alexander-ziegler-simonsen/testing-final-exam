@@ -694,6 +694,10 @@ export const zTreatmentGetAllTreatmentsResponse = z.array(zHospitalApiDtosOutput
 
 export const zTreatmentPostBody = zHospitalApiDtosInputsTreatmentInputDto;
 
+export const zTreatmentPostQuery = z.object({
+    staffId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
+});
+
 export const zTreatmentPostResponse = z.union([
     z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
