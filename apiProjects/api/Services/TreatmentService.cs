@@ -73,8 +73,19 @@ namespace hospitalApi.Services
             if (entity == null)
                 return false;
 
+            // fk_treatment_id is NOT NULL with no ON DELETE CASCADE, so the
+            // linked staff attributions must be removed before the treatment
+            // itself or Postgres rejects the delete with a FK violation.
+            await using var transaction = await _hospitalContext.Database.BeginTransactionAsync();
+
+            var linkedStaff = _hospitalContext.TreatmentStaffs.Where(ts => ts.FkTreatmentId == id);
+            _hospitalContext.TreatmentStaffs.RemoveRange(linkedStaff);
+            await _hospitalContext.SaveChangesAsync();
+
             treatments.Remove(entity);
             await _hospitalContext.SaveChangesAsync();
+
+            await transaction.CommitAsync();
             return true;
         }
 
