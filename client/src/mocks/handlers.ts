@@ -17,6 +17,12 @@ export const handlers = all({
         departmentPut: { body: null },
         departmentDelete: { body: null },
 
+        departmentStaffGetAll: { body: fx.mockDepartmentStaffs },
+        departmentStaffGet: { body: fx.mockDepartmentStaff },
+        departmentStaffPost: { body: 100 },
+        departmentStaffPut: { body: null },
+        departmentStaffDelete: () => new HttpResponse(null, { status: 204 }),
+
         externalMedicinePricesGetMedicineProductsByName: { body: fx.mockMedicineProducts },
         externalMedicinePricesGetMedicineProductsByIngredients: { body: fx.mockMedicineProducts },
         externalMedicinePricesGetMedicineProductDetails: { body: fx.mockMedicineDetail },

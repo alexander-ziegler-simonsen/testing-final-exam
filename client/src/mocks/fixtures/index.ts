@@ -1,5 +1,6 @@
 export * from "./auth";
 export * from "./department";
+export * from "./departmentStaff";
 export * from "./externalMedicinePrices";
 export * from "./location";
 export * from "./medication";
