@@ -115,15 +115,25 @@ export function CommandFormPopup<TInput extends Record<string, any>, TId = numbe
     const handleSubmit = async () => {
         if (mode !== "delete" && !validate()) return;
 
+        // Optional fields left blank submit "" from the inputs above, but the
+        // API's DTOs treat unset optional strings as null/undefined, not "" -
+        // an empty string trips their min-length validation.
+        const payload: Record<string, FieldValue | undefined> = { ...values };
+        for (const field of fields) {
+            if (!field.required && payload[field.key] === "") {
+                payload[field.key] = undefined;
+            }
+        }
+
         setIsSubmitting(true);
         try {
             if (mode === "create") {
                 if (!service.create) throw new Error("Create is not supported for this form");
-                await service.create(values as unknown as TInput);
+                await service.create(payload as unknown as TInput);
             } else if (mode === "edit") {
                 if (!service.update) throw new Error("Edit is not supported for this form");
                 if (itemId === undefined) throw new Error("Missing id for edit");
-                await service.update(itemId, values as unknown as TInput);
+                await service.update(itemId, payload as unknown as TInput);
             } else {
                 if (!service.delete) throw new Error("Delete is not supported for this form");
                 if (itemId === undefined) throw new Error("Missing id for delete");
