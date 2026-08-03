@@ -120,7 +120,16 @@ export default function OneFacility() {
                     ) : (
                         <Wrap gap="2" data-testid={`one-facility-rooms-${floor.id}`}>
                             {rooms.map((room) => (
-                                <Tag.Root key={room.id} size="lg" variant="subtle" colorPalette="teal" data-testid={`one-facility-room-${room.id}`}>
+                                <Tag.Root
+                                    key={room.id}
+                                    size="lg"
+                                    variant="subtle"
+                                    colorPalette="teal"
+                                    cursor="pointer"
+                                    _hover={{ opacity: 0.8 }}
+                                    onClick={() => navigate(`/app/room_booking/room/${room.id}`)}
+                                    data-testid={`one-facility-room-${room.id}`}
+                                >
                                     <Tag.StartElement>
                                         <LuDoorOpen />
                                     </Tag.StartElement>

@@ -19,6 +19,9 @@ import Patients from './pages/dashboards/Patients'
 import OnePatient from './pages/dashboards/OnePatient'
 import Staff from './pages/dashboards/Staff'
 import Shifts from './pages/dashboards/Shifts'
+import RoomBooking from './pages/dashboards/RoomBooking'
+import OneRoomBooking from './pages/dashboards/OneRoomBooking'
+import OneRoom from './pages/dashboards/OneRoom'
 import Treatments from './pages/dashboards/Treatments'
 import OneTreatment from './pages/dashboards/OneTreatment'
 import { RoleProtectedRoute } from './components/auth/RoleProtectedRoute'
@@ -61,6 +64,9 @@ function App() {
               <Route path="medicin_storage" element={<MedicinStorage />} />
               <Route path="medicin_storage/:id" element={<OneMedicin />} />
               <Route path="shifts" element={<Shifts />} />
+              <Route path="room_booking" element={<RoomBooking />} />
+              <Route path="room_booking/room/:id" element={<OneRoom />} />
+              <Route path="room_booking/:id" element={<OneRoomBooking />} />
 
               {/* 🛠️ ULTRA-RESTRICTED: Only admin accounts can clear staff settings */}
               <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
