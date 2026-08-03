@@ -21,6 +21,7 @@ export default function LoginCompoent() {
 
                 // set the store here
                 useAuthStore.getState().setSession(response.token, {
+                    staffId: response.staffId ?? null,
                     firstName: response.firstname!,
                     lastName: response.lastname!,
                     role: response.role as any // TODO - fix this later
