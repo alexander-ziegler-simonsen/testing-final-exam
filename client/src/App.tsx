@@ -11,6 +11,7 @@ import Overview from './pages/dashboards/Overview'
 import Departments from './pages/dashboards/Departments'
 import DepartmentStaff from './pages/dashboards/DepartmentStaff'
 import Facilities from './pages/dashboards/Facilities'
+import OneFacility from './pages/dashboards/OneFacility'
 import MissingMedicin from './pages/dashboards/MissingMedicin'
 import MedicinStorage from './pages/dashboards/MedicinStorage'
 import OneMedicin from './pages/dashboards/OneMedicin'
@@ -53,6 +54,7 @@ function App() {
               <Route path="departments" element={<Departments />} />
               <Route path="department_staff" element={<DepartmentStaff />} />
               <Route path="facilities" element={<Facilities />} />
+              <Route path="facilities/:id" element={<OneFacility />} />
               <Route path="patients" element={<Patients />} />
               <Route path="patients/:id" element={<OnePatient />} />
               <Route path="missing_medicin" element={<MissingMedicin />} />
