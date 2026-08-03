@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import type { HospitalApiDtosOutputsShiftOutputDto } from "../../api";
 
 // --- TYPES ---
 interface EventStyles {
@@ -16,6 +18,10 @@ interface TimelineEvent {
     end: number;
     lane: number; // Stacking tier layer index (0, 1, 2, ...)
     color: string;
+}
+
+interface OverlappingTimelineProps {
+    data: HospitalApiDtosOutputsShiftOutputDto[];
 }
 
 // --- CONFIGURATION CONSTANTS ---
@@ -64,56 +70,57 @@ const calculateEventStyles = (
     };
 };
 
-// --- MOCK DATA ---
-const MOCK_EVENTS: TimelineEvent[] = [
-    {
-        id: "1",
-        day: "Mon",
-        title: "All-Day Project Scope",
-        start: 2,
-        end: 22,
-        lane: 0,
-        color: "blue.500",
-    },
-    {
-        id: "2",
-        day: "Mon",
-        title: "Midday Catchup",
-        start: 13.5,
-        end: 15,
-        lane: 1,
-        color: "purple.500",
-    },
-    {
-        id: "3",
-        day: "Mon",
-        title: "Sync A",
-        start: 14,
-        end: 16,
-        lane: 2,
-        color: "teal.500",
-    },
-    {
-        id: "4",
-        day: "Mon",
-        title: "Sync B",
-        start: 14,
-        end: 16,
-        lane: 3,
-        color: "orange.500",
-    },
-];
+const EVENT_COLORS = ["blue.500", "purple.500", "teal.500", "orange.500", "pink.500", "cyan.500"];
+
+// Converts raw shifts into renderable timeline events grouped by day: derives
+// day/hour-of-day from the timestamps, and greedily assigns non-overlapping
+// stacking lanes within each day's group.
+const toTimelineEventsByDay = (shifts: HospitalApiDtosOutputsShiftOutputDto[]): Map<string, TimelineEvent[]> => {
+    const toHour = (date: Date) => date.getHours() + date.getMinutes() / 60;
+
+    const byDay = new Map<string, Omit<TimelineEvent, "lane">[]>(DAYS.map((day) => [day, []]));
+    shifts.forEach((shift, index) => {
+        if (!shift.startTime || !shift.endTime) return;
+
+        const startDate = new Date(shift.startTime);
+        const endDate = new Date(shift.endTime);
+        const sameDay = startDate.toDateString() === endDate.toDateString();
+        const day = DAYS[(startDate.getDay() + 6) % 7]; // getDay(): Sun=0 -> align to Mon-first DAYS
+
+        byDay.get(day)!.push({
+            id: String(shift.id ?? index),
+            day,
+            title: `Shift #${shift.id ?? index + 1}`,
+            start: toHour(startDate),
+            end: sameDay ? toHour(endDate) : 24,
+            color: EVENT_COLORS[index % EVENT_COLORS.length],
+        });
+    });
+
+    // Greedy first-fit lane packing: sort by start time, then reuse the first
+    // lane whose previous event has already ended, else open a new lane.
+    for (const [day, dayEvents] of byDay) {
+        const laneEndTimes: number[] = [];
+        byDay.set(day, dayEvents.sort((a, b) => a.start - b.start).map((event) => {
+            let lane = laneEndTimes.findIndex((endTime) => endTime <= event.start);
+            if (lane === -1) lane = laneEndTimes.push(event.end) - 1;
+            else laneEndTimes[lane] = event.end;
+            return { ...event, lane };
+        }));
+    }
+
+    return byDay as Map<string, TimelineEvent[]>;
+};
+
+const getRowHeight = (dayEvents: TimelineEvent[]): string => {
+    if (dayEvents.length === 0) return `${LANE_HEIGHT + ROW_PADDING}px`;
+    const maxLane = Math.max(...dayEvents.map((e) => e.lane));
+    return `${(maxLane + 1) * LANE_HEIGHT + ROW_PADDING}px`;
+};
 
 // --- MAIN COMPONENT ---
-export const OverlappingTimeline = () => {
-    // Scans lane properties to adjust vertical row expansion requirements dynamically
-    const getRowHeight = (dayName: string): string => {
-        const dayEvents = MOCK_EVENTS.filter((e) => e.day === dayName);
-        if (dayEvents.length === 0) return `${LANE_HEIGHT + ROW_PADDING}px`;
-
-        const maxLane = Math.max(...dayEvents.map((e) => e.lane));
-        return `${(maxLane + 1) * LANE_HEIGHT + ROW_PADDING}px`;
-    };
+export const OverlappingTimeline = ({ data }: OverlappingTimelineProps) => {
+    const eventsByDay = useMemo(() => toTimelineEventsByDay(data), [data]);
 
     return (
         <Box w="full" maxW="60vw" maxH="600px" border="1px solid" borderColor="gray.200" borderRadius="xl" overflow="auto" boxShadow="sm">
@@ -132,8 +139,8 @@ export const OverlappingTimeline = () => {
 
                 {/* Timeline Body Rows */}
                 {DAYS.map((day) => {
-                    const dayHeight = getRowHeight(day);
-                    const dayEvents = MOCK_EVENTS.filter((e) => e.day === day);
+                    const dayEvents = eventsByDay.get(day)!;
+                    const dayHeight = getRowHeight(dayEvents);
 
                     return (
                         <Box key={day} display="contents">
