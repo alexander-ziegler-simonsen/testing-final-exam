@@ -1,6 +1,7 @@
 import { Button, Input, Text } from "@chakra-ui/react";
 import { AuthService } from "../services/Auth";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import type { HospitalApiDtosOutputsLoginOutputDto } from "../api";
 import { useAuthStore } from "../stores/AuthStore";
 
@@ -8,6 +9,7 @@ export default function LoginCompoent() {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [feedback, setFeedback] = useState<string>("");
+    const navigate = useNavigate();
 
 
     async function loginFunc() {
@@ -23,6 +25,8 @@ export default function LoginCompoent() {
                     lastName: response.lastname!,
                     role: response.role as any // TODO - fix this later
                 })
+
+                navigate("/app", { replace: true });
 
             } catch (error: any) {
                 console.error("login failed:", error);
