@@ -3,10 +3,11 @@ import { Link } from "react-router";
 import { useAuthStore } from "../../stores/AuthStore";
 
 export default function Navbar() {
-    const authStore = useAuthStore.getState();
+    const user = useAuthStore((state) => state.user);
+    const clearSession = useAuthStore((state) => state.clearSession);
 
     function logoutFunction() {
-        authStore.clearSession();
+        clearSession();
     }
 
     return (
@@ -27,7 +28,7 @@ export default function Navbar() {
 
             {/* links */}
             <Box display={"flex"} gap={6} ml={8} marginEnd={"auto"} data-testid="dashboard-navbar-user-greeting">
-                Hello {localStorage.key(0) !== undefined ? localStorage.key(0) : "unkown person"}
+                Hello {user ? `${user.firstName} ${user.lastName}` : "unknown person"}
             </Box>
 
             {/* book btn */}
