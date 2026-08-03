@@ -34,7 +34,7 @@ services:
   # client:
   #   build:
   #     context: ./client
-  #     dockerfile: Dockerfile
+  #     dockerfile: Dockerfile.pipeline
   #   ports:
   #     - "5173:80"
   #   depends_on:

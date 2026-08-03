@@ -1,7 +1,9 @@
 
 services:
   vitest-browser:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.performance
     volumes:
       - .:/app
       - /app/node_modules
