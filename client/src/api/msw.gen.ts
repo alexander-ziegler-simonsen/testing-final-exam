@@ -2,7 +2,7 @@
 
 import { type DefaultBodyType, http, type HttpHandler, HttpResponse, type HttpResponseResolver, type RequestHandlerOptions as RequestHandlerOptions2 } from 'msw';
 
-import type { AuthLoginData, AuthLoginResponses, ClientOptions, DepartmentDeleteResponses, DepartmentGetAllDepartmentsResponses, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorResponses, LocationGetAllFloorsResponses, LocationGetAllLocationsResponses, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteResponses, MedicinGetAllMedicinsResponses, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteResponses, PatientGetAllPatientsResponses, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteResponses, RoomBookingGetAllResponses, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, ShiftDeleteResponses, ShiftGetAllShiftsResponses, ShiftGetResponses, ShiftPostData, ShiftPostResponses, ShiftPutData, ShiftPutResponses, StaffDeleteResponses, StaffGetAllStaffsResponses, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteResponses, StorageGetAllMedicationStoragesResponses, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteResponses, TreatmentGetAllTreatmentsResponses, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteResponses, TreatmentStaffGetAllResponses, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteResponses, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
+import type { AuthLoginData, AuthLoginResponses, ClientOptions, DepartmentDeleteResponses, DepartmentGetAllDepartmentsResponses, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, DepartmentStaffDeleteResponses, DepartmentStaffGetAllResponses, DepartmentStaffGetResponses, DepartmentStaffPostData, DepartmentStaffPostResponses, DepartmentStaffPutData, DepartmentStaffPutResponses, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorResponses, LocationGetAllFloorsResponses, LocationGetAllLocationsResponses, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteResponses, MedicinGetAllMedicinsResponses, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteResponses, PatientGetAllPatientsResponses, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteResponses, RoomBookingGetAllResponses, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, ShiftDeleteResponses, ShiftGetAllShiftsResponses, ShiftGetResponses, ShiftPostData, ShiftPostResponses, ShiftPutData, ShiftPutResponses, StaffDeleteResponses, StaffGetAllStaffsResponses, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteResponses, StorageGetAllMedicationStoragesResponses, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteResponses, TreatmentGetAllTreatmentsResponses, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteResponses, TreatmentStaffGetAllResponses, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteResponses, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
 
 export type RequestHandlerOptions = RequestHandlerOptions2 & {
     baseUrl?: ClientOptions['baseURL'];
@@ -173,6 +173,153 @@ export function handleDepartmentPut(response?: HandleDepartmentPutResponse | Htt
     return http.put<{
         id: string;
     }, DepartmentPutData['body']>(`${options?.baseUrl ?? '*'}/api/Department/:id`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return new HttpResponse(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandleDepartmentStaffGetAllResponse = {
+    body: DepartmentStaffGetAllResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `GET /api/DepartmentStaff` operation.
+ */
+export function handleDepartmentStaffGetAll(response?: HandleDepartmentStaffGetAllResponse | HttpResponseResolver<never, never>, options?: RequestHandlerOptions): HttpHandler {
+    return http.get<never, never>(`${options?.baseUrl ?? '*'}/api/DepartmentStaff`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandleDepartmentStaffPostResponse = {
+    body: DepartmentStaffPostResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `POST /api/DepartmentStaff` operation.
+ */
+export function handleDepartmentStaffPost(response?: HandleDepartmentStaffPostResponse | ToResponseUnion<DepartmentStaffPostResponses> | HttpResponseResolver<never, DepartmentStaffPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
+    return http.post<never, DepartmentStaffPostData['body']>(`${options?.baseUrl ?? '*'}/api/DepartmentStaff`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandleDepartmentStaffDeleteResponse = {
+    body: DepartmentStaffDeleteResponses[204];
+    status?: 204;
+};
+
+/**
+ * Handler for the `DELETE /api/DepartmentStaff/{id}` operation.
+ */
+export function handleDepartmentStaffDelete(response?: HandleDepartmentStaffDeleteResponse | HttpResponseResolver<{
+    id: string;
+}, never>, options?: RequestHandlerOptions): HttpHandler {
+    return http.delete<{
+        id: string;
+    }, never>(`${options?.baseUrl ?? '*'}/api/DepartmentStaff/:id`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return new HttpResponse(body, { status: response?.status ?? 204 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandleDepartmentStaffGetResponse = {
+    body: DepartmentStaffGetResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `GET /api/DepartmentStaff/{id}` operation.
+ */
+export function handleDepartmentStaffGet(response?: HandleDepartmentStaffGetResponse | HttpResponseResolver<{
+    id: string;
+}, never>, options?: RequestHandlerOptions): HttpHandler {
+    return http.get<{
+        id: string;
+    }, never>(`${options?.baseUrl ?? '*'}/api/DepartmentStaff/:id`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandleDepartmentStaffPutResponse = {
+    body: DepartmentStaffPutResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `PUT /api/DepartmentStaff/{id}` operation.
+ */
+export function handleDepartmentStaffPut(response?: HandleDepartmentStaffPutResponse | HttpResponseResolver<{
+    id: string;
+}, DepartmentStaffPutData['body']>, options?: RequestHandlerOptions): HttpHandler {
+    return http.put<{
+        id: string;
+    }, DepartmentStaffPutData['body']>(`${options?.baseUrl ?? '*'}/api/DepartmentStaff/:id`, info => {
         if (typeof response === 'function') {
             return response(info);
         }
@@ -2088,6 +2235,26 @@ export type MswHandlerFactories = {
      */
     departmentPut: typeof handleDepartmentPut;
     /**
+     * Handler for the `GET /api/DepartmentStaff` operation.
+     */
+    departmentStaffGetAll: typeof handleDepartmentStaffGetAll;
+    /**
+     * Handler for the `POST /api/DepartmentStaff` operation.
+     */
+    departmentStaffPost: typeof handleDepartmentStaffPost;
+    /**
+     * Handler for the `DELETE /api/DepartmentStaff/{id}` operation.
+     */
+    departmentStaffDelete: typeof handleDepartmentStaffDelete;
+    /**
+     * Handler for the `GET /api/DepartmentStaff/{id}` operation.
+     */
+    departmentStaffGet: typeof handleDepartmentStaffGet;
+    /**
+     * Handler for the `PUT /api/DepartmentStaff/{id}` operation.
+     */
+    departmentStaffPut: typeof handleDepartmentStaffPut;
+    /**
      * Handler for the `GET /api/ExternalMedicinePrices/productsByName` operation.
      */
     externalMedicinePricesGetMedicineProductsByName: typeof handleExternalMedicinePricesGetMedicineProductsByName;
@@ -2366,6 +2533,11 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
         departmentDelete: wrap(handleDepartmentDelete),
         departmentGet: wrap(handleDepartmentGet),
         departmentPut: wrap(handleDepartmentPut),
+        departmentStaffGetAll: wrap(handleDepartmentStaffGetAll),
+        departmentStaffPost: wrap(handleDepartmentStaffPost),
+        departmentStaffDelete: wrap(handleDepartmentStaffDelete),
+        departmentStaffGet: wrap(handleDepartmentStaffGet),
+        departmentStaffPut: wrap(handleDepartmentStaffPut),
         externalMedicinePricesGetMedicineProductsByName: wrap(handleExternalMedicinePricesGetMedicineProductsByName),
         externalMedicinePricesGetMedicineProductsByIngredients: wrap(handleExternalMedicinePricesGetMedicineProductsByIngredients),
         externalMedicinePricesGetMedicineProductDetails: wrap(handleExternalMedicinePricesGetMedicineProductDetails),
@@ -2455,6 +2627,9 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
             invoke(pick.departmentDelete, overrides.departmentDelete),
             invoke(pick.departmentGet, overrides.departmentGet),
             invoke(pick.departmentPut, overrides.departmentPut),
+            invoke(pick.departmentStaffDelete, overrides.departmentStaffDelete),
+            invoke(pick.departmentStaffGet, overrides.departmentStaffGet),
+            invoke(pick.departmentStaffPut, overrides.departmentStaffPut),
             invoke(pick.locationGet, overrides.locationGet),
             invoke(pick.medicinDelete, overrides.medicinDelete),
             invoke(pick.medicinGet, overrides.medicinGet),
@@ -2489,6 +2664,8 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
             invoke(pick.userDelete, overrides.userDelete),
             invoke(pick.departmentGetAllDepartments, overrides.departmentGetAllDepartments),
             invoke(pick.departmentPost, overrides.departmentPost),
+            invoke(pick.departmentStaffGetAll, overrides.departmentStaffGetAll),
+            invoke(pick.departmentStaffPost, overrides.departmentStaffPost),
             invoke(pick.locationGetAllLocations, overrides.locationGetAllLocations),
             invoke(pick.medicinGetAllMedicins, overrides.medicinGetAllMedicins),
             invoke(pick.medicinPost, overrides.medicinPost),

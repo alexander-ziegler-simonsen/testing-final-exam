@@ -45,6 +45,11 @@ export type HospitalApiDtosInputsDepartmentInputDto = {
     type?: null | string;
 };
 
+export type HospitalApiDtosInputsDepartmentStaffInputDto = {
+    fkStaffId?: number;
+    fkDepartmentId?: number;
+};
+
 export type HospitalApiDtosInputsFloorInputDto = {
     name?: string;
     fkBuildingId?: number;
@@ -135,6 +140,12 @@ export type HospitalApiDtosOutputsDepartmentOutputDto = {
     id?: number;
     name?: null | string;
     type?: null | string;
+};
+
+export type HospitalApiDtosOutputsDepartmentStaffOutputDto = {
+    id?: number;
+    department: HospitalApiDtosOutputsDepartmentOutputDto;
+    staff: HospitalApiDtosOutputsStaffOutputDto;
 };
 
 export type HospitalApiDtosOutputsFloorOutputDto = {
@@ -378,6 +389,130 @@ export type DepartmentPutData = {
 };
 
 export type DepartmentPutResponses = {
+    /**
+     * OK
+     */
+    200: unknown;
+};
+
+export type DepartmentStaffGetAllData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/DepartmentStaff';
+};
+
+export type DepartmentStaffGetAllErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type DepartmentStaffGetAllError = DepartmentStaffGetAllErrors[keyof DepartmentStaffGetAllErrors];
+
+export type DepartmentStaffGetAllResponses = {
+    /**
+     * OK
+     */
+    200: Array<HospitalApiDtosOutputsDepartmentStaffOutputDto>;
+};
+
+export type DepartmentStaffGetAllResponse = DepartmentStaffGetAllResponses[keyof DepartmentStaffGetAllResponses];
+
+export type DepartmentStaffPostData = {
+    body: HospitalApiDtosInputsDepartmentStaffInputDto;
+    path?: never;
+    query?: never;
+    url: '/api/DepartmentStaff';
+};
+
+export type DepartmentStaffPostResponses = {
+    /**
+     * OK
+     */
+    200: number;
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type DepartmentStaffPostResponse = DepartmentStaffPostResponses[keyof DepartmentStaffPostResponses];
+
+export type DepartmentStaffDeleteData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/api/DepartmentStaff/{id}';
+};
+
+export type DepartmentStaffDeleteErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type DepartmentStaffDeleteError = DepartmentStaffDeleteErrors[keyof DepartmentStaffDeleteErrors];
+
+export type DepartmentStaffDeleteResponses = {
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type DepartmentStaffDeleteResponse = DepartmentStaffDeleteResponses[keyof DepartmentStaffDeleteResponses];
+
+export type DepartmentStaffGetData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/api/DepartmentStaff/{id}';
+};
+
+export type DepartmentStaffGetErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type DepartmentStaffGetError = DepartmentStaffGetErrors[keyof DepartmentStaffGetErrors];
+
+export type DepartmentStaffGetResponses = {
+    /**
+     * OK
+     */
+    200: HospitalApiDtosOutputsDepartmentStaffOutputDto;
+};
+
+export type DepartmentStaffGetResponse = DepartmentStaffGetResponses[keyof DepartmentStaffGetResponses];
+
+export type DepartmentStaffPutData = {
+    body: HospitalApiDtosInputsDepartmentStaffInputDto;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/api/DepartmentStaff/{id}';
+};
+
+export type DepartmentStaffPutErrors = {
+    /**
+     * Not Found
+     */
+    404: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type DepartmentStaffPutError = DepartmentStaffPutErrors[keyof DepartmentStaffPutErrors];
+
+export type DepartmentStaffPutResponses = {
     /**
      * OK
      */
