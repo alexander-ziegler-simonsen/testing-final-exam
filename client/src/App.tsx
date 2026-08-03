@@ -16,6 +16,7 @@ import OnePatient from './pages/dashboards/OnePatient'
 import Staff from './pages/dashboards/Staff'
 import Shifts from './pages/dashboards/Shifts'
 import Treatments from './pages/dashboards/Treatments'
+import OneTreatment from './pages/dashboards/OneTreatment'
 import { RoleProtectedRoute } from './components/auth/RoleProtectedRoute'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 
@@ -37,6 +38,7 @@ function App() {
 
             {/* Accessible by Everyone (Staff AND Patients) */}
             <Route path="treatment" element={<Treatments />} />
+            <Route path="treatment/:id" element={<OneTreatment />} />
 
             {/* 🩺 STAFF ONLY BOUNDARY: Patients are completely blocked from this nested route tree */}
             <Route element={<RoleProtectedRoute allowedRoles={['doctor', 'nurse', 'admin']} />}>
