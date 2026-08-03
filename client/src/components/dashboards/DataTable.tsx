@@ -7,6 +7,9 @@ export interface ColumnConfig<T> {
     key: keyof T & string;
     header: string;
     enableSearch?: boolean;
+    // Set to false to disable sorting for this column (e.g. an actions
+    // column with no comparable value). Defaults to true.
+    enableSort?: boolean;
     // Allows rendering custom components/elements for specific cells
     render?: (value: T[keyof T], item: T) => React.ReactNode;
     // Value to sort/filter by, for columns whose raw value (e.g. a nested
@@ -125,13 +128,22 @@ export function DataTable<T>({ data, columns, pageSize = 5, pageSizeOptions, onR
                             <Table.ColumnHeader key={col.key} paddingY="3" data-testid={`${testId}-header-${col.key}`}>
                                 <Stack gap="2" align="start">
                                     {/* Sort Trigger Header */}
-                                    <HStack cursor="pointer" onClick={() => handleSort(col.key)} userSelect="none" width="full" justify="space-between" data-testid={`${testId}-sort-${col.key}`}>
+                                    <HStack
+                                        cursor={col.enableSort === false ? "default" : "pointer"}
+                                        onClick={col.enableSort === false ? undefined : () => handleSort(col.key)}
+                                        userSelect="none"
+                                        width="full"
+                                        justify="space-between"
+                                        data-testid={`${testId}-sort-${col.key}`}
+                                    >
                                         <Text fontWeight="semibold">{col.header}</Text>
-                                        <IconButton variant="ghost" size="xs" aria-label="Sort">
-                                            {sortKey !== col.key && <LuArrowUpDown />}
-                                            {sortKey === col.key && sortOrder === "asc" && <LuArrowUp />}
-                                            {sortKey === col.key && sortOrder === "desc" && <LuArrowDown />}
-                                        </IconButton>
+                                        {col.enableSort !== false && (
+                                            <IconButton variant="ghost" size="xs" aria-label="Sort">
+                                                {sortKey !== col.key && <LuArrowUpDown />}
+                                                {sortKey === col.key && sortOrder === "asc" && <LuArrowUp />}
+                                                {sortKey === col.key && sortOrder === "desc" && <LuArrowDown />}
+                                            </IconButton>
+                                        )}
                                     </HStack>
 
                                     {/* Header Column Search input */}
