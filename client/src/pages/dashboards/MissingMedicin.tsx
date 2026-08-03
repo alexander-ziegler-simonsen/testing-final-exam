@@ -1,50 +1,20 @@
 import { Badge, Code, Input, Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
-import type { MedicationStorageMissing } from "../../entites/MedicationStorageMissing";
-import { useState } from "react";
+import type { HospitalApiDtosOutputsMedicationStorageMissingOutputDto } from "../../api";
+import { MedicationStorageMissingService } from "../../services/MedicationStorageMissing";
+import { useEffect, useState } from "react";
 
 export default function MissingMedicin() {
 
-  let data : MedicationStorageMissing[] = [
-    {
-      amountMissing: 1,
-      fkMedicationStorageId: 1,
-      id: 1,
-      wentMissingAt: "now"
-    },
-    {
-      amountMissing: 1,
-      fkMedicationStorageId: 2,
-      id: 2,
-      wentMissingAt: "now"
-    },
-    {
-      amountMissing: 1,
-      fkMedicationStorageId: 3,
-      id: 3,
-      wentMissingAt: "that"
-    },
-    {
-      amountMissing: 1,
-      fkMedicationStorageId: 4,
-      id: 4,
-      wentMissingAt: "here"
-    },
-    {
-      amountMissing: 1,
-      fkMedicationStorageId: 5,
-      id: 5,
-      wentMissingAt: "yep"
-    },
-    {
-      amountMissing: 1,
-      fkMedicationStorageId: 6,
-      id: 6,
-      wentMissingAt: "now"
-    }
-  ]
+  const [data, setData] = useState<HospitalApiDtosOutputsMedicationStorageMissingOutputDto[]>([]);
 
-const columns: ColumnConfig<MedicationStorageMissing>[] = [
+  useEffect(() => {
+    MedicationStorageMissingService.getAll()
+      .then(setData)
+      .catch((error) => console.error(error));
+  }, []);
+
+  const columns: ColumnConfig<HospitalApiDtosOutputsMedicationStorageMissingOutputDto>[] = [
     {
       key: "amountMissing",
       header: "amount Missing",
@@ -84,11 +54,11 @@ const columns: ColumnConfig<MedicationStorageMissing>[] = [
   return (
     <>
       <p>this is Missing Medicin page</p>
-      <br/>
-      <hr/>
-      <DataTable data={data} columns={columns} pageSize={pageCount}  />
+      <br />
+      <hr />
+      <DataTable data={data} columns={columns} pageSize={pageCount} />
 
-      <br/>
+      <br />
 
       <Text>set page count</Text>
       <Input maxW={"100px"} value={pageCount} onChange={(e) => setPageCount(Number(e.target.value))} />
