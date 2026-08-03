@@ -12,6 +12,7 @@ import Departments from './pages/dashboards/Departments'
 import Facilities from './pages/dashboards/Facilities'
 import MissingMedicin from './pages/dashboards/MissingMedicin'
 import Patients from './pages/dashboards/Patients'
+import OnePatient from './pages/dashboards/OnePatient'
 import Staff from './pages/dashboards/Staff'
 import Shifts from './pages/dashboards/Shifts'
 import Treatments from './pages/dashboards/Treatments'
@@ -45,6 +46,7 @@ function App() {
               <Route path="departments" element={<Departments />} />
               <Route path="facilities" element={<Facilities />} />
               <Route path="patients" element={<Patients />} />
+              <Route path="patients/:id" element={<OnePatient />} />
               <Route path="missing_medicin" element={<MissingMedicin />} />
               <Route path="shifts" element={<Shifts />} />
 
