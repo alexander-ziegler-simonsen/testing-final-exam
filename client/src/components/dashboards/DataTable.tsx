@@ -15,11 +15,13 @@ interface DataTableProps<T> {
     data: T[];
     columns: ColumnConfig<T>[];
     pageSize?: number;
+    // Called when a row is clicked. When provided, rows show a pointer cursor.
+    onRowClick?: (item: T) => void;
 }
 
 type SortOrder = "asc" | "desc" | null;
 
-export function DataTable<T>({ data, columns, pageSize = 5 }: DataTableProps<T>) {
+export function DataTable<T>({ data, columns, pageSize = 5, onRowClick }: DataTableProps<T>) {
     // States for Filter, Sort, Pagination
     const [filters, setFilters] = useState<Record<string, string>>({});
     const [sortKey, setSortKey] = useState<keyof T | null>(null);
@@ -108,7 +110,12 @@ export function DataTable<T>({ data, columns, pageSize = 5 }: DataTableProps<T>)
                 <Table.Body>
                     {paginatedData.length > 0 ? (
                         paginatedData.map((item, rowIndex) => (
-                            <Table.Row key={rowIndex}>
+                            <Table.Row
+                                key={rowIndex}
+                                onClick={() => onRowClick?.(item)}
+                                cursor={onRowClick ? "pointer" : undefined}
+                                _hover={onRowClick ? { bg: "gray.50" } : undefined}
+                            >
                                 {columns.map((col) => (
                                     <Table.Cell key={col.key}>
                                         {col.render ? col.render(item[col.key], item) : String(item[col.key])
