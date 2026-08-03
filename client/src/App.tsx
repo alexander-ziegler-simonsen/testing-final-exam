@@ -20,10 +20,12 @@ import Treatments from './pages/dashboards/Treatments'
 import OneTreatment from './pages/dashboards/OneTreatment'
 import { RoleProtectedRoute } from './components/auth/RoleProtectedRoute'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
+import { Toaster } from './components/ui/toaster'
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <Routes>
         {/* Public Landing Pages */}
         <Route index element={<Home />} />
