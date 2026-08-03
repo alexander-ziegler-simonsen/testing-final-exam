@@ -12,6 +12,8 @@ import Departments from './pages/dashboards/Departments'
 import DepartmentStaff from './pages/dashboards/DepartmentStaff'
 import Facilities from './pages/dashboards/Facilities'
 import MissingMedicin from './pages/dashboards/MissingMedicin'
+import MedicinStorage from './pages/dashboards/MedicinStorage'
+import OneMedicin from './pages/dashboards/OneMedicin'
 import Patients from './pages/dashboards/Patients'
 import OnePatient from './pages/dashboards/OnePatient'
 import Staff from './pages/dashboards/Staff'
@@ -54,6 +56,8 @@ function App() {
               <Route path="patients" element={<Patients />} />
               <Route path="patients/:id" element={<OnePatient />} />
               <Route path="missing_medicin" element={<MissingMedicin />} />
+              <Route path="medicin_storage" element={<MedicinStorage />} />
+              <Route path="medicin_storage/:id" element={<OneMedicin />} />
               <Route path="shifts" element={<Shifts />} />
 
               {/* 🛠️ ULTRA-RESTRICTED: Only admin accounts can clear staff settings */}

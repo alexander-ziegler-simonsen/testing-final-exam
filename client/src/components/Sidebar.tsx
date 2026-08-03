@@ -1,5 +1,5 @@
 import { Box, Button, Drawer, Portal, Text } from "@chakra-ui/react";
-import { LuMenu, LuCircleX, LuPillBottle, LuBuilding2, LuShapes, LuContactRound, LuHeartPulse, LuStethoscope, LuCalendar, LuUsersRound } from "react-icons/lu"
+import { LuMenu, LuCircleX, LuPillBottle, LuBuilding2, LuShapes, LuContactRound, LuHeartPulse, LuStethoscope, LuCalendar, LuUsersRound, LuWarehouse } from "react-icons/lu"
 import SidebarElement from "./SidebarElement";
 import { useState } from "react";
 import { useAuthStore } from "../stores/AuthStore";
@@ -32,6 +32,7 @@ const navigationLinks: NavigationLink[] = [
     { path: "department_staff", title: "department staff", icon: <LuUsersRound size={32} />, testIdSuffix: "department-staff-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
     { path: "facilities", title: "facilities", icon: <LuBuilding2 size={32} />, testIdSuffix: "facilities-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
     { path: "missing_medicin", title: "missing meds", icon: <LuPillBottle size={32} />, testIdSuffix: "missing-medicin-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
+    { path: "medicin_storage", title: "medicin storage", icon: <LuWarehouse size={32} />, testIdSuffix: "medicin-storage-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
     { path: "patients", title: "patients", icon: <LuContactRound size={32} />, testIdSuffix: "patients-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
     { path: "staff", title: "staff", icon: <LuStethoscope size={32} />, testIdSuffix: "staff-link", allowedRoles: ['admin'] },
     { path: "shifts", title: "shifts", icon: <LuCalendar size={32} />, testIdSuffix: "shifts-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
