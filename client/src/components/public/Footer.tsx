@@ -1,34 +1,81 @@
-import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, HStack, Icon, Separator, Stack, Text } from "@chakra-ui/react";
+import { Link } from "react-router";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function Footer() {
     return (
-        <Box w={"full"}
-            display={"flex"} p={2} alignItems={"center"} justifyContent={"center"}
-            // shadow={"xl"}
-            // borderBottomWidth={1} borderBottomColor={"gray.400"}
-            // marginBottom={1}
-            // bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500"
-            bg={"gray.100"}
+        <Box
+            w={"full"}
+            bg={"gray.800"}
+            color={"gray.300"}
+            mt={"auto"}
             data-testid="public-footer"
         >
-            <Grid templateColumns={{
-                sm: "repeat(1, 1fr)",
-                md: "repeat(4, 1fr)"
-            }}
-                gap={{ sm: 0, md: "28" }} alignItems={"center"} justifyContent={"center"}>
-                <GridItem>
-                    <Text data-testid="public-footer-part-1">footer part 1</Text>
-                </GridItem>
-                <GridItem>
-                    <Text data-testid="public-footer-part-2">footer part 2</Text>
-                </GridItem>
-                <GridItem>
-                    <Text data-testid="public-footer-part-3">footer part 3</Text>
-                </GridItem>
-                <GridItem>
-                    <Text data-testid="public-footer-part-4">footer part 4</Text>
-                </GridItem>
-            </Grid>
+            <Container maxW={"7xl"} py={{ base: 10, md: 14 }}>
+                <Grid
+                    templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+                    gap={{ base: 8, md: 10 }}
+                >
+                    <GridItem data-testid="public-footer-part-1">
+                        <Text color={"white"} fontSize={"xl"} fontWeight={"bold"} mb={3}>
+                            Danish Hospital
+                        </Text>
+                        <Text fontSize={"sm"} color={"gray.400"}>
+                            Compassionate care and modern medicine, bringing together world-class specialists under one roof since 1978.
+                        </Text>
+                    </GridItem>
+
+                    <GridItem data-testid="public-footer-part-2">
+                        <Text color={"white"} fontWeight={"semibold"} mb={3}>
+                            Quick links
+                        </Text>
+                        <Stack gap={2} fontSize={"sm"}>
+                            <Link to="/">Home</Link>
+                            <Link to="/about">About</Link>
+                            <Link to="/doctors">Doctors</Link>
+                            <Link to="/Contact">Contact</Link>
+                        </Stack>
+                    </GridItem>
+
+                    <GridItem data-testid="public-footer-part-3">
+                        <Text color={"white"} fontWeight={"semibold"} mb={3}>
+                            Departments
+                        </Text>
+                        <Stack gap={2} fontSize={"sm"} color={"gray.400"}>
+                            <Text>Cardiology</Text>
+                            <Text>Pediatrics</Text>
+                            <Text>Emergency care</Text>
+                            <Text>Oncology</Text>
+                        </Stack>
+                    </GridItem>
+
+                    <GridItem data-testid="public-footer-part-4">
+                        <Text color={"white"} fontWeight={"semibold"} mb={3}>
+                            Contact
+                        </Text>
+                        <Stack gap={2} fontSize={"sm"} color={"gray.400"}>
+                            <HStack align={"flex-start"} gap={2}>
+                                <Icon color={"#26ab57"} mt={"2px"}><MapPin size={16} /></Icon>
+                                <Text>Hospitalsvej 12, 2100 København Ø, Denmark</Text>
+                            </HStack>
+                            <HStack gap={2}>
+                                <Icon color={"#26ab57"}><Phone size={16} /></Icon>
+                                <Text>+45 33 12 45 67</Text>
+                            </HStack>
+                            <HStack gap={2}>
+                                <Icon color={"#26ab57"}><Mail size={16} /></Icon>
+                                <Text>contact@fakemeridianhealth.dk</Text>
+                            </HStack>
+                        </Stack>
+                    </GridItem>
+                </Grid>
+
+                <Separator my={8} borderColor={"gray.700"} />
+
+                <Text fontSize={"xs"} color={"gray.500"} textAlign={"center"}>
+                    © {new Date().getFullYear()} Danish Hospital. All rights reserved.
+                </Text>
+            </Container>
         </Box>
     );
 }
