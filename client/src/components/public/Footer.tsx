@@ -30,10 +30,10 @@ export default function Footer() {
                             Quick links
                         </Text>
                         <Stack gap={2} fontSize={"sm"}>
-                            <Link to="/">Home</Link>
-                            <Link to="/about">About</Link>
-                            <Link to="/doctors">Doctors</Link>
-                            <Link to="/Contact">Contact</Link>
+                            <Link data-testid="public-footer-home-link" to="/">Home</Link>
+                            <Link data-testid="public-footer-about-link" to="/about">About</Link>
+                            <Link data-testid="public-footer-doctors-link" to="/doctors">Doctors</Link>
+                            <Link data-testid="public-footer-contact-link" to="/Contact">Contact</Link>
                         </Stack>
                     </GridItem>
 

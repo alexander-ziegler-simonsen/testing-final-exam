@@ -30,7 +30,7 @@ export default function Overview() {
 
   return (
     <>
-      <p>this is Overview page</p>
+      <p data-testid="overview-page-heading">this is Overview page</p>
 
       <Wrap rowGap={8} columnGap={6} p={4} data-testid="overview-cards">
         {data.map((item, index) => (
