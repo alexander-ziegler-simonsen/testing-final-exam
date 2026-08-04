@@ -3926,79 +3926,93 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "Panodil 500 mg tabletter"
           },
           "varenummer": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "058626"
           },
           "styrke": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "500 mg"
           },
           "pakning": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "20 stk."
           },
           "virksomtStof": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "Paracetamol"
           },
           "firma": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "GSK"
           },
           "atcKode": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "N02BE01"
           },
           "dosisdispensering": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
           },
           "udleveringsgruppe": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "HF"
           },
           "prisPrPakning": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "29,95"
           },
           "prisPrEnhed": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "1,50"
           },
           "aip": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "18,50"
           },
           "tilskudBeregnesAf": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "Pakning"
           },
           "udgaaet": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
           },
           "udgaaetDato": {
             "type": [
@@ -4010,28 +4024,33 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "1-2 tabletter ved behov, maks 6 i døgnet"
           },
           "indikation": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "Lette til moderate smerter og feber"
           },
           "trafikAdvarsel": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
           },
           "ddd": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "3 g"
           },
           "opbevaringsbetingelser": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "Opbevares ved stuetemperatur"
           },
           "nbsSpeciale": {
             "type": [
@@ -4040,7 +4059,8 @@
             ]
           },
           "haandkoeb": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
           },
           "tilskudKode": {
             "type": [
@@ -4054,6 +4074,28 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "navn": "Panodil 500 mg tabletter",
+          "varenummer": "058626",
+          "styrke": "500 mg",
+          "pakning": "20 stk.",
+          "virksomtStof": "Paracetamol",
+          "firma": "GSK",
+          "atcKode": "N02BE01",
+          "dosisdispensering": false,
+          "udleveringsgruppe": "HF",
+          "prisPrPakning": "29,95",
+          "prisPrEnhed": "1,50",
+          "aip": "18,50",
+          "tilskudBeregnesAf": "Pakning",
+          "udgaaet": false,
+          "dosering": "1-2 tabletter ved behov, maks 6 i døgnet",
+          "indikation": "Lette til moderate smerter og feber",
+          "trafikAdvarsel": false,
+          "ddd": "3 g",
+          "opbevaringsbetingelser": "Opbevares ved stuetemperatur",
+          "haandkoeb": true
         }
       },
       "hospitalApi.DTOs.External.MedicineProductOutputDto": {
@@ -4068,23 +4110,37 @@
         "type": "object",
         "properties": {
           "navn": {
-            "type": "string"
+            "type": "string",
+            "default": "Panodil"
           },
           "varenummer": {
-            "type": "string"
+            "type": "string",
+            "default": "058626"
           },
           "firma": {
-            "type": "string"
+            "type": "string",
+            "default": "GSK"
           },
           "styrke": {
-            "type": "string"
+            "type": "string",
+            "default": "500 mg"
           },
           "detaljer": {
-            "type": "string"
+            "type": "string",
+            "default": "Håndkøbsmedicin mod smerter og feber"
           },
           "pakning": {
-            "type": "string"
+            "type": "string",
+            "default": "20 stk."
           }
+        },
+        "example": {
+          "navn": "Panodil",
+          "varenummer": "058626",
+          "firma": "GSK",
+          "styrke": "500 mg",
+          "detaljer": "Håndkøbsmedicin mod smerter og feber",
+          "pakning": "20 stk."
         }
       },
       "hospitalApi.DTOs.Inputs.DepartmentInputDto": {
@@ -4096,7 +4152,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "emergency"
           },
           "type": {
             "maxLength": 100,
@@ -4104,8 +4161,13 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "critical care"
           }
+        },
+        "example": {
+          "name": "emergency",
+          "type": "critical care"
         }
       },
       "hospitalApi.DTOs.Inputs.DepartmentStaffInputDto": {
@@ -4113,12 +4175,18 @@
         "properties": {
           "fkStaffId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkDepartmentId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "fkStaffId": 1,
+          "fkDepartmentId": 1
         }
       },
       "hospitalApi.DTOs.Inputs.FloorInputDto": {
@@ -4127,12 +4195,18 @@
           "name": {
             "maxLength": 100,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "default": "ground floor"
           },
           "fkBuildingId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "name": "ground floor",
+          "fkBuildingId": 1
         }
       },
       "hospitalApi.DTOs.Inputs.LoginInputDto": {
@@ -4141,13 +4215,19 @@
           "username": {
             "maxLength": 100,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "default": "doctor"
           },
           "password": {
             "maxLength": 40,
             "minLength": 8,
-            "type": "string"
+            "type": "string",
+            "default": "Doctor1234!"
           }
+        },
+        "example": {
+          "username": "doctor",
+          "password": "Doctor1234!"
         }
       },
       "hospitalApi.DTOs.Inputs.MedicationInputDto": {
@@ -4159,7 +4239,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "paracetamol"
           },
           "genericName": {
             "maxLength": 100,
@@ -4167,7 +4248,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "acetaminophen"
           },
           "brand": {
             "maxLength": 100,
@@ -4175,7 +4257,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "panodil"
           },
           "form": {
             "maxLength": 100,
@@ -4183,7 +4266,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "tablet"
           },
           "strength": {
             "maxLength": 100,
@@ -4191,7 +4275,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "500mg"
           },
           "category": {
             "maxLength": 100,
@@ -4199,14 +4284,25 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "pain relief"
           },
           "description": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "used to treat mild to moderate pain and fever."
           }
+        },
+        "example": {
+          "name": "paracetamol",
+          "genericName": "acetaminophen",
+          "brand": "panodil",
+          "form": "tablet",
+          "strength": "500mg",
+          "category": "pain relief",
+          "description": "used to treat mild to moderate pain and fever."
         }
       },
       "hospitalApi.DTOs.Inputs.MedicationStorageInputDto": {
@@ -4214,12 +4310,18 @@
         "properties": {
           "fkMedicationId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "default": 500
           }
+        },
+        "example": {
+          "fkMedicationId": 1,
+          "amount": 500
         }
       },
       "hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto": {
@@ -4227,16 +4329,24 @@
         "properties": {
           "fkMedicationStorageId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "amountMissing": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "default": 10
           },
           "wentMissingAt": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T12:00:00"
           }
+        },
+        "example": {
+          "fkMedicationStorageId": 1,
+          "amountMissing": 10,
+          "wentMissingAt": "2025-10-07T12:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Inputs.PatientInputDto": {
@@ -4248,7 +4358,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "michael"
           },
           "lastname": {
             "maxLength": 100,
@@ -4256,7 +4367,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "conklin"
           },
           "gender": {
             "maxLength": 50,
@@ -4264,7 +4376,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "male"
           },
           "cprNumber": {
             "maxLength": 10,
@@ -4272,8 +4385,15 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "1505534561"
           }
+        },
+        "example": {
+          "firstname": "michael",
+          "lastname": "conklin",
+          "gender": "male",
+          "cprNumber": "1505534561"
         }
       },
       "hospitalApi.DTOs.Inputs.PrescriptionInputDto": {
@@ -4281,20 +4401,30 @@
         "properties": {
           "fkMedicationId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkTreatmentId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkPrescribedByStaffId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "doses": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "default": 2
           }
+        },
+        "example": {
+          "fkMedicationId": 1,
+          "fkTreatmentId": 1,
+          "fkPrescribedByStaffId": 1,
+          "doses": 2
         }
       },
       "hospitalApi.DTOs.Inputs.RegisterInputDto": {
@@ -4303,17 +4433,36 @@
           "username": {
             "maxLength": 100,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "default": "doctor"
           },
           "password": {
             "maxLength": 40,
             "minLength": 8,
-            "type": "string"
+            "type": "string",
+            "default": "Doctor1234!"
           },
           "fkStaffId": {
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32",
+            "default": 3
+          },
+          "fkPatientId": {
+            "type": [
+              "null",
+              "integer"
+            ],
             "format": "int32"
           }
+        },
+        "example": {
+          "username": "doctor",
+          "password": "Doctor1234!",
+          "fkStaffId": 3,
+          "fkPatientId": null
         }
       },
       "hospitalApi.DTOs.Inputs.RoomBookingInputDto": {
@@ -4321,20 +4470,30 @@
         "properties": {
           "fkRoomId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "startTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T08:00:00"
           },
           "endTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T12:00:00"
           },
           "fkPatientId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "fkRoomId": 1,
+          "startTime": "2025-10-07T08:00:00.0000000",
+          "endTime": "2025-10-07T12:00:00.0000000",
+          "fkPatientId": 1
         }
       },
       "hospitalApi.DTOs.Inputs.ShiftInputDto": {
@@ -4342,12 +4501,18 @@
         "properties": {
           "startTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T08:00:00"
           },
           "endTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T16:00:00"
           }
+        },
+        "example": {
+          "startTime": "2025-10-07T08:00:00.0000000",
+          "endTime": "2025-10-07T16:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Inputs.StaffInputDto": {
@@ -4359,7 +4524,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "lars"
           },
           "lastname": {
             "maxLength": 100,
@@ -4367,12 +4533,19 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "christensen"
           },
           "fkRoleId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "firstname": "lars",
+          "lastname": "christensen",
+          "fkRoleId": 1
         }
       },
       "hospitalApi.DTOs.Inputs.TreatmentInputDto": {
@@ -4380,7 +4553,8 @@
         "properties": {
           "fkPatientId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "description": {
             "maxLength": 500,
@@ -4388,12 +4562,19 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "fever and headache"
           },
           "time": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T09:00:00"
           }
+        },
+        "example": {
+          "fkPatientId": 1,
+          "description": "fever and headache",
+          "time": "2025-10-07T09:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Inputs.TreatmentStaffInputDto": {
@@ -4401,12 +4582,18 @@
         "properties": {
           "fkTreatmentId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkStaffId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "fkTreatmentId": 1,
+          "fkStaffId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.BuildingOutputDto": {
@@ -4414,12 +4601,14 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "name": {
             "maxLength": 100,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "default": "main hospital"
           },
           "address": {
             "maxLength": 255,
@@ -4427,8 +4616,14 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "123 health st"
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "main hospital",
+          "address": "123 health st"
         }
       },
       "hospitalApi.DTOs.Outputs.DepartmentOutputDto": {
@@ -4436,7 +4631,8 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "name": {
             "maxLength": 100,
@@ -4444,7 +4640,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "emergency"
           },
           "type": {
             "maxLength": 100,
@@ -4452,8 +4649,14 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "critical care"
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "emergency",
+          "type": "critical care"
         }
       },
       "hospitalApi.DTOs.Outputs.DepartmentStaffOutputDto": {
@@ -4465,7 +4668,8 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "department": {
             "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.DepartmentOutputDto"
@@ -4473,6 +4677,9 @@
           "staff": {
             "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
           }
+        },
+        "example": {
+          "id": 1
         }
       },
       "hospitalApi.DTOs.Outputs.FloorOutputDto": {
@@ -4480,17 +4687,25 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "name": {
             "maxLength": 100,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "default": "ground floor"
           },
           "fkBuildingId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "ground floor",
+          "fkBuildingId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.FloorRoomsOutputDto": {
@@ -4538,10 +4753,22 @@
           "token": {
             "maxLength": 255,
             "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwidW5pcXVlX25hbWUiOiJkb2N0b3IifQ.4f2c8b1e7a9d6f3c0b5e8a1d4f7c2b9e6a3d0f5c8b1e4a7d2f9c6b3e0a5d8f1c"
           },
           "staffId": {
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32",
+            "default": 2
+          },
+          "patientId": {
+            "type": [
+              "null",
+              "integer"
+            ],
             "format": "int32"
           },
           "firstname": {
@@ -4550,7 +4777,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "eva"
           },
           "lastname": {
             "maxLength": 100,
@@ -4558,11 +4786,21 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "møller"
           },
           "role": {
-            "type": "string"
+            "type": "string",
+            "default": "doctor"
           }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwidW5pcXVlX25hbWUiOiJkb2N0b3IifQ.4f2c8b1e7a9d6f3c0b5e8a1d4f7c2b9e6a3d0f5c8b1e4a7d2f9c6b3e0a5d8f1c",
+          "staffId": 2,
+          "patientId": null,
+          "firstname": "eva",
+          "lastname": "møller",
+          "role": "doctor"
         }
       },
       "hospitalApi.DTOs.Outputs.MedicationOutputDto": {
@@ -4570,7 +4808,8 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "name": {
             "maxLength": 100,
@@ -4578,7 +4817,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "paracetamol"
           },
           "genericName": {
             "maxLength": 100,
@@ -4586,7 +4826,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "acetaminophen"
           },
           "brand": {
             "maxLength": 100,
@@ -4594,7 +4835,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "panodil"
           },
           "form": {
             "maxLength": 100,
@@ -4602,7 +4844,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "tablet"
           },
           "strength": {
             "maxLength": 100,
@@ -4610,7 +4853,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "500mg"
           },
           "category": {
             "maxLength": 100,
@@ -4618,14 +4862,26 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "pain relief"
           },
           "description": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "used to treat mild to moderate pain and fever."
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "paracetamol",
+          "genericName": "acetaminophen",
+          "brand": "panodil",
+          "form": "tablet",
+          "strength": "500mg",
+          "category": "pain relief",
+          "description": "used to treat mild to moderate pain and fever."
         }
       },
       "hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto": {
@@ -4633,20 +4889,30 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkMedicationStorageId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "amountMissing": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "default": 10
           },
           "wentMissingAt": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T12:00:00"
           }
+        },
+        "example": {
+          "id": 1,
+          "fkMedicationStorageId": 1,
+          "amountMissing": 10,
+          "wentMissingAt": "2025-10-07T12:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Outputs.MedicationStorageOutputDto": {
@@ -4654,16 +4920,24 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkMedicationId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "default": 500
           }
+        },
+        "example": {
+          "id": 1,
+          "fkMedicationId": 1,
+          "amount": 500
         }
       },
       "hospitalApi.DTOs.Outputs.PatientOutputDto": {
@@ -4671,7 +4945,8 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "firstname": {
             "maxLength": 100,
@@ -4679,7 +4954,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "michael"
           },
           "lastname": {
             "maxLength": 100,
@@ -4687,7 +4963,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "conklin"
           },
           "gender": {
             "maxLength": 50,
@@ -4695,7 +4972,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "male"
           },
           "cprNumber": {
             "maxLength": 10,
@@ -4703,8 +4981,16 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "1505534561"
           }
+        },
+        "example": {
+          "id": 1,
+          "firstname": "michael",
+          "lastname": "conklin",
+          "gender": "male",
+          "cprNumber": "1505534561"
         }
       },
       "hospitalApi.DTOs.Outputs.PrescriptionOutputDto": {
@@ -4712,24 +4998,36 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkMedicationId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkTreatmentId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkPrescribedByStaffId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "doses": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "default": 2
           }
+        },
+        "example": {
+          "id": 1,
+          "fkMedicationId": 1,
+          "fkTreatmentId": 1,
+          "fkPrescribedByStaffId": 1,
+          "doses": 2
         }
       },
       "hospitalApi.DTOs.Outputs.RoomBookingOutputDto": {
@@ -4737,24 +5035,36 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkRoomId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "startTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T08:00:00"
           },
           "endTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T12:00:00"
           },
           "fkPatientId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "id": 1,
+          "fkRoomId": 1,
+          "startTime": "2025-10-07T08:00:00.0000000",
+          "endTime": "2025-10-07T12:00:00.0000000",
+          "fkPatientId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.RoomOutputDto": {
@@ -4762,15 +5072,23 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "default": "room a101"
           },
           "fkFloorId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "room a101",
+          "fkFloorId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.ShiftOutputDto": {
@@ -4778,16 +5096,24 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "startTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T08:00:00"
           },
           "endTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T16:00:00"
           }
+        },
+        "example": {
+          "id": 1,
+          "startTime": "2025-10-07T08:00:00.0000000",
+          "endTime": "2025-10-07T16:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Outputs.StaffOutputDto": {
@@ -4795,7 +5121,8 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "firstname": {
             "maxLength": 100,
@@ -4803,7 +5130,8 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "lars"
           },
           "lastname": {
             "maxLength": 100,
@@ -4811,12 +5139,20 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "christensen"
           },
           "fkRoleId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "id": 1,
+          "firstname": "lars",
+          "lastname": "christensen",
+          "fkRoleId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.TreatmentOutputDto": {
@@ -4824,11 +5160,13 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkPatientId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "description": {
             "maxLength": 500,
@@ -4836,12 +5174,20 @@
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "default": "fever and headache"
           },
           "time": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "2025-10-07T09:00:00"
           }
+        },
+        "example": {
+          "id": 1,
+          "fkPatientId": 1,
+          "description": "fever and headache",
+          "time": "2025-10-07T09:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto": {
@@ -4849,16 +5195,24 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkTreatmentId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           },
           "fkStaffId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 1
           }
+        },
+        "example": {
+          "id": 1,
+          "fkTreatmentId": 1,
+          "fkStaffId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.UserOutputDto": {
@@ -4866,17 +5220,28 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "default": 2
           },
           "username": {
             "maxLength": 100,
             "minLength": 2,
-            "type": "string"
+            "type": "string",
+            "default": "doctor"
           },
           "fkStaffId": {
-            "type": "integer",
-            "format": "int32"
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32",
+            "default": 2
           }
+        },
+        "example": {
+          "id": 2,
+          "username": "doctor",
+          "fkStaffId": 2
         }
       },
       "Microsoft.AspNetCore.Mvc.ProblemDetails": {

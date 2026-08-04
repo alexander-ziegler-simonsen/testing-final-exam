@@ -18,4 +18,6 @@ public partial class Patient
     public virtual ICollection<RoomBooking> RoomBookings { get; set; } = new List<RoomBooking>();
 
     public virtual ICollection<Treatment> Treatments { get; set; } = new List<Treatment>();
+
+    public virtual UserPatient? UserPatient { get; set; }
 }

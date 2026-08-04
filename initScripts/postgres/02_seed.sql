@@ -7,7 +7,8 @@
 
 insert into staff_role (name) values
 ('doctor'),
-('nurse');
+('nurse'),
+('admin');
 
 
 -- buildings
@@ -105,7 +106,7 @@ insert into patient (firstname, lastname, gender, cpr_number) values
 ('bobby','selzer','male','060302-6535');
 
 
--- staff (doctors first, then nurses) - role_id: 1 = doctor, 2 = nurse
+-- staff (doctors first, then nurses, then admin) - role_id: 1 = doctor, 2 = nurse, 3 = admin
 
 insert into staff (firstname, lastname, fk_role_id) values
 ('lars','christensen',1),('eva','møller',1),('thomas','pedersen',1),
@@ -125,17 +126,29 @@ insert into staff (firstname, lastname, fk_role_id) values
 ('julie','larsen',2),('martin','olsen',2),('lise','andersen',2),
 ('peter','christensen',2),('nikolaj','møller',2),('thomas','pedersen',2),
 ('maria','jensen',2),('john','poulsen',2),('sara','nielsen',2),
-('henrik','hansen',2);
+('henrik','hansen',2),
+('kirsten','holm',3);
 
 
 -- users (linked to staff, for login)
--- passwords: doctors use 'Doctor1234!', nurses use 'Nurse1234!'
+-- passwords: doctors use 'Doctor1234!', nurses use 'Nurse1234!', admin uses 'Admin1234!'
 
 insert into "user" (username, password_hash, salt, fk_staff_id) values
 ('larsc',  '$2b$11$nlclhzrwTwvhpiFLLyB32./O5E.NSqH9Z6YyHVHLInzuvic3W0daK', '$2b$11$nlclhzrwTwvhpiFLLyB32.', 1),
 ('doctor',   '$2b$11$v49fsgGrRe4izN65HiA.X.R9nnF7pfoOLf/s7QRiDsLFaTE4MNtLe', '$2b$11$v49fsgGrRe4izN65HiA.X.', 2),
 ('annaj',  '$2b$11$F/xqtdVrZjJUb6hfXptkAuse9F7s3DbH33SigLynX9D0YxMMqZI0O', '$2b$11$F/xqtdVrZjJUb6hfXptkAu', 26),
-('nurse', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRuGeMLXwumuCHWBCr7by6mccjlzMnT65m', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRu', 27);
+('nurse', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRuGeMLXwumuCHWBCr7by6mccjlzMnT65m', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRu', 27),
+('admin', '$2b$11$AO5m33t61b01mMygc4uxqelHjDV/qAce9gGg8jX8lKGoI6GddnBlK', '$2b$11$AO5m33t61b01mMygc4uxqe', 51);
+
+
+-- patient users (linked to patient via user_patient, for login - not staff)
+-- password: 'Patient1234!'
+
+insert into "user" (username, password_hash, salt, fk_staff_id) values
+('patient', '$2b$11$ksR/CXHW8KK5iufZueYHiO1sHNYatmwbDKhvfkhXM0I/FpF554ADS', '$2b$11$ksR/CXHW8KK5iufZueYHiO', null);
+
+insert into user_patient (fk_user_id, fk_patient_id) values
+((select id from "user" where username = 'patient'), 1);
 
 
 -- departments

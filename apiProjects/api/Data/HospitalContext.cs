@@ -52,6 +52,8 @@ public partial class HospitalContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<UserPatient> UserPatients { get; set; }
+
     public virtual DbSet<VwWeekShift> VwWeekShifts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -411,6 +413,33 @@ public partial class HospitalContext : DbContext
                 .HasForeignKey(d => d.FkStaffId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("user_fk_staff_id_fkey");
+        });
+
+        modelBuilder.Entity<UserPatient>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("user_patient_pkey");
+
+            entity.ToTable("user_patient");
+
+            entity.HasIndex(e => e.FkUserId, "user_patient_fk_user_id_key").IsUnique();
+
+            entity.HasIndex(e => e.FkPatientId, "user_patient_fk_patient_id_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("id");
+            entity.Property(e => e.FkUserId).HasColumnName("fk_user_id");
+            entity.Property(e => e.FkPatientId).HasColumnName("fk_patient_id");
+
+            entity.HasOne(d => d.FkUser).WithOne(p => p.UserPatient)
+                .HasForeignKey<UserPatient>(d => d.FkUserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_patient_fk_user_id_fkey");
+
+            entity.HasOne(d => d.FkPatient).WithOne(p => p.UserPatient)
+                .HasForeignKey<UserPatient>(d => d.FkPatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_patient_fk_patient_id_fkey");
         });
 
         modelBuilder.Entity<Treatment>(entity =>
