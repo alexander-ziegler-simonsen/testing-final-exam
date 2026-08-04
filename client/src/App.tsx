@@ -1,5 +1,6 @@
+import { useEffect } from 'react'
 import './App.css'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router'
 import Home from './pages/public/Home'
 import About from './pages/public/About'
 import Login from './pages/auth/Login'
@@ -30,9 +31,23 @@ import { RoleProtectedRoute } from './components/auth/RoleProtectedRoute'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import { Toaster } from './components/ui/toaster'
 
+// https://mswjs.io/docs/integrations/browser/#conditionally-enable-mocking
+function MockingNotice() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (import.meta.env.VITE_API_MOCKING === 'enabled') {
+      console.log(`[msw] mocking is enabled — page: ${location.pathname}`)
+    }
+  }, [location.pathname])
+
+  return null
+}
+
 function App() {
   return (
     <BrowserRouter>
+      <MockingNotice />
       <Toaster />
       <Routes>
         {/* Public Landing Pages */}
