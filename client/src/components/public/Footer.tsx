@@ -34,6 +34,7 @@ export default function Footer() {
                             <Link data-testid="public-footer-about-link" to="/about">About</Link>
                             <Link data-testid="public-footer-doctors-link" to="/doctors">Doctors</Link>
                             <Link data-testid="public-footer-contact-link" to="/Contact">Contact</Link>
+                            <Link data-testid="public-footer-login-link" to="/login">Login</Link>
                         </Stack>
                     </GridItem>
 
