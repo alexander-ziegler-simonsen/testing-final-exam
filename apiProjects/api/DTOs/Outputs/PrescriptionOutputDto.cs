@@ -19,6 +19,6 @@ public partial class PrescriptionOutputDto
     [DefaultValue(1)]
     public int FkPrescribedByStaffId { get; set; }
 
-    [DefaultValue(2)]
+    [DefaultValue(2.0)]
     public double Doses { get; set; }
 }

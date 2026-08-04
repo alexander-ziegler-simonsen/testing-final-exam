@@ -11,5 +11,5 @@ public class UserOutputDto
     [DefaultValue("doctor")]
     public string Username { get; set; } = null!;
     [DefaultValue(2)]
-    public int FkStaffId { get; set; }
+    public int? FkStaffId { get; set; }
 }

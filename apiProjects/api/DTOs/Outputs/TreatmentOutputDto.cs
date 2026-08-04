@@ -16,6 +16,6 @@ public partial class TreatmentOutputDto
     [DefaultValue("fever and headache")]
     public string? Description { get; set; }
 
-    [DefaultValue("2025-10-07T09:00:00")]
+    [DefaultValue(typeof(DateTime), "2025-10-07T09:00:00")]
     public DateTime Time { get; set; }
 }

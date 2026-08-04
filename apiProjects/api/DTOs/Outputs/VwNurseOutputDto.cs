@@ -25,9 +25,9 @@ public partial class VwNurseOutputDto
     [DefaultValue(1)]
     public int? ShiftId { get; set; }
 
-    [DefaultValue("2025-10-07T08:00:00")]
+    [DefaultValue(typeof(DateTime), "2025-10-07T08:00:00")]
     public DateTime? ShiftStart { get; set; }
 
-    [DefaultValue("2025-10-07T16:00:00")]
+    [DefaultValue(typeof(DateTime), "2025-10-07T16:00:00")]
     public DateTime? ShiftEnd { get; set; }
 }
