@@ -1,5 +1,5 @@
 import { Box, Button, Drawer, Portal, Text } from "@chakra-ui/react";
-import { LuMenu, LuCircleX, LuPillBottle, LuBuilding2, LuShapes, LuContactRound, LuHeartPulse, LuStethoscope, LuCalendar, LuUsersRound, LuWarehouse, LuCalendarClock, LuSearch } from "react-icons/lu"
+import { LuMenu, LuCircleX, LuPillBottle, LuBuilding2, LuShapes, LuContactRound, LuHeartPulse, LuStethoscope, LuCalendar, LuUsersRound, LuWarehouse, LuCalendarClock, LuSearch, LuSyringe } from "react-icons/lu"
 import SidebarElement from "./SidebarElement";
 import { useState } from "react";
 import { useAuthStore } from "../stores/AuthStore";
@@ -39,6 +39,7 @@ const navigationLinks: NavigationLink[] = [
     { path: "shifts", title: "shifts", icon: <LuCalendar size={32} />, testIdSuffix: "shifts-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
     { path: "room_booking", title: "room booking", icon: <LuCalendarClock size={32} />, testIdSuffix: "room-booking-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
     { path: "treatment", title: "treatment", icon: <LuHeartPulse size={32} />, testIdSuffix: "treatment-link" },
+    { path: "give_treatment", title: "give treatment", icon: <LuSyringe size={32} />, testIdSuffix: "give-treatment-link", allowedRoles: ['nurse', 'admin'] },
 ];
 
 export default function MySidebar() {

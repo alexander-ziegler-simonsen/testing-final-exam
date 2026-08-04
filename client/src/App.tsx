@@ -27,6 +27,7 @@ import OneRoomBooking from './pages/dashboards/OneRoomBooking'
 import OneRoom from './pages/dashboards/OneRoom'
 import Treatments from './pages/dashboards/Treatments'
 import OneTreatment from './pages/dashboards/OneTreatment'
+import GiveTreatment from './pages/dashboards/GiveTreatment'
 import { RoleProtectedRoute } from './components/auth/RoleProtectedRoute'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import { Toaster } from './components/ui/toaster'
@@ -90,6 +91,11 @@ function App() {
               {/* 🛠️ ULTRA-RESTRICTED: Only admin accounts can clear staff settings */}
               <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
                 <Route path="staff" element={<Staff />} />
+              </Route>
+
+              {/* Give Treatment (with optional prescription + doctor sign-off) is a nurse workflow */}
+              <Route element={<RoleProtectedRoute allowedRoles={['nurse', 'admin']} />}>
+                <Route path="give_treatment" element={<GiveTreatment />} />
               </Route>
             </Route>
 
