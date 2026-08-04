@@ -43,7 +43,8 @@ jobs:
       - name: Initialize Postgres Database
         run: |
           apt-get update && apt-get install -y postgresql-client
-          PGPASSWORD=postgres psql -h postgres -U postgres -d hospital -f ./initScripts/postgres/init.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d hospital -f ./initScripts/postgres/01_schema.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d hospital -f ./initScripts/postgres/02_seed.sql
 
       # 4. Setup .NET SDK to compile and run your API locally
       - name: Setup .NET SDK

@@ -26,11 +26,14 @@ public class DatabaseIntegrationTests
 
         await _postgres.StartAsync();
 
-        var initSql = await File.ReadAllTextAsync(
-            Path.Combine(TestContext.CurrentContext.TestDirectory,
-                "..", "..", "..", "..", "..", "initScripts", "postgres", "init.sql"));
+        var initScriptsDir = Path.Combine(TestContext.CurrentContext.TestDirectory,
+            "..", "..", "..", "..", "..", "initScripts", "postgres");
 
-        await _postgres.ExecScriptAsync(initSql);
+        var schemaSql = await File.ReadAllTextAsync(Path.Combine(initScriptsDir, "01_schema.sql"));
+        await _postgres.ExecScriptAsync(schemaSql);
+
+        var seedSql = await File.ReadAllTextAsync(Path.Combine(initScriptsDir, "02_seed.sql"));
+        await _postgres.ExecScriptAsync(seedSql);
     }
 
     [OneTimeTearDown]

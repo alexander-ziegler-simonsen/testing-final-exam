@@ -70,7 +70,12 @@ jobs:
                     -h localhost \
                     -U ${{ secrets.POSTGRES_USER }} \
                     -d ${{ secrets.POSTGRES_DB }} \
-                    -f initScripts/postgres/init.sql
+                    -f initScripts/postgres/01_schema.sql
+                  PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql \
+                    -h localhost \
+                    -U ${{ secrets.POSTGRES_USER }} \
+                    -d ${{ secrets.POSTGRES_DB }} \
+                    -f initScripts/postgres/02_seed.sql
 
             # 6 Setup Node for Newman
             - name: Setup Node
