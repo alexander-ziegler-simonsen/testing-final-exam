@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware"
 
 interface UserProfile {
     staffId: number | null
+    patientId: number | null
     firstName: string
     lastName: string
     role: 'doctor' | 'nurse' | 'admin' | 'patient'

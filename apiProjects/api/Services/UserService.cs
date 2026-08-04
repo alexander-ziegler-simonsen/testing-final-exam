@@ -24,6 +24,7 @@ namespace hospitalApi.Services
                     Id = u.Id,
                     Username = u.Username,
                     FkStaffId = u.FkStaffId,
+                    FkPatientId = u.UserPatient != null ? u.UserPatient.FkPatientId : (int?)null,
                 })
                 .ToListAsync();
         }
