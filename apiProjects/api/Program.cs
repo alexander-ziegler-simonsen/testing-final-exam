@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.Text;
+using System.Text.Json.Nodes;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using hospitalApi.Data;
@@ -131,6 +133,33 @@ builder.Services.AddOpenApi(options =>
             schema.Type = type & ~Microsoft.OpenApi.JsonSchemaType.String;
             schema.Pattern = null;
         }
+        return Task.CompletedTask;
+    });
+
+    // Builds a realistic example object for each schema from any [DefaultValue] attributes
+    // found on its properties, so Postman/Swagger UI show real-looking data instead of
+    // auto-faked placeholder values. Add [DefaultValue(...)] to a DTO property to opt it in -
+    // no changes needed here when new DTOs/tables are added.
+    options.AddSchemaTransformer((schema, context, cancellationToken) =>
+    {
+        var example = new JsonObject();
+
+        foreach (var property in context.JsonTypeInfo.Properties)
+        {
+            if (property.AttributeProvider?.GetCustomAttributes(typeof(DefaultValueAttribute), false)
+                    .FirstOrDefault() is not DefaultValueAttribute defaultValue)
+            {
+                continue;
+            }
+
+            example[property.Name] = JsonValue.Create(defaultValue.Value);
+        }
+
+        if (example.Count > 0)
+        {
+            schema.Example = example;
+        }
+
         return Task.CompletedTask;
     });
 });
