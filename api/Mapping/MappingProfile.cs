@@ -33,6 +33,7 @@ namespace hospitalApi.Mapping
             CreateMap<DepartmentStaff, DepartmentStaffOutputDto>()
                 .ForMember(dest => dest.Department, opt => opt.MapFrom(src => src.FkDepartment))
                 .ForMember(dest => dest.Staff, opt => opt.MapFrom(src => src.FkStaff));
+            CreateMap<DepartmentStaffInputDto, DepartmentStaff>();
             CreateMap<Building, BuildingOutputDto>();
             CreateMap<Prescription, PrescriptionOutputDto>();
             CreateMap<PrescriptionInputDto, Prescription>();
