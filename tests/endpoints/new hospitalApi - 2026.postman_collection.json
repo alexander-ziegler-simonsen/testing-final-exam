@@ -634,7 +634,7 @@
           "name": "Department",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -872,7 +872,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Department",
@@ -1205,7 +1205,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/Department - bad body",
@@ -1687,7 +1687,7 @@
           "name": "Location",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -2081,7 +2081,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Location/floor",
@@ -2435,7 +2435,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/Location/floor - bad body",
@@ -2940,7 +2940,7 @@
           "name": "Medicin",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -3190,7 +3190,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Medicin",
@@ -3523,7 +3523,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/Medicin - bad body",
@@ -4005,7 +4005,7 @@
           "name": "MissingStorage",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -4255,7 +4255,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/MissingStorage",
@@ -4588,7 +4588,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/MissingStorage - bad body",
@@ -5070,7 +5070,7 @@
           "name": "Patient",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -5380,7 +5380,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Patient",
@@ -5732,7 +5732,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/Patient - bad body",
@@ -6339,7 +6339,7 @@
           "name": "Prescription",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -6589,7 +6589,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Prescription",
@@ -6922,7 +6922,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/Prescription - bad body",
@@ -7405,7 +7405,7 @@
           "name": "RoomBooking",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -7675,7 +7675,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/RoomBooking",
@@ -8046,7 +8046,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/RoomBooking - bad body",
@@ -8582,7 +8582,7 @@
           "name": "Shift",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -8868,7 +8868,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Shift",
@@ -9201,7 +9201,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": []
             }
           ]
@@ -9210,7 +9210,7 @@
           "name": "Staff",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -9460,7 +9460,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Staff",
@@ -9793,7 +9793,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/Staff - bad body",
@@ -10275,7 +10275,7 @@
           "name": "Storage",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -10525,7 +10525,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Storage",
@@ -10858,7 +10858,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/Storage - bad body",
@@ -11340,7 +11340,7 @@
           "name": "Treatment",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -11642,7 +11642,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/Treatment",
@@ -11975,7 +11975,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/Treatment - bad body",
@@ -12457,7 +12457,7 @@
           "name": "TreatmentStaff",
           "item": [
             {
-              "name": "set 1",
+              "name": "Positive Tests (CRU)",
               "item": [
                 {
                   "name": "{id}",
@@ -12707,7 +12707,7 @@
               ]
             },
             {
-              "name": "set 2",
+              "name": "Flow Tests",
               "item": [
                 {
                   "name": "set 2 - 001 - /api/TreatmentStaff",
@@ -13040,7 +13040,7 @@
               ]
             },
             {
-              "name": "set 3",
+              "name": "Negative Tests & Validation",
               "item": [
                 {
                   "name": "set 3 - /api/TreatmentStaff - bad body",
