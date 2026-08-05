@@ -18,7 +18,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Check API formatting
-        run: dotnet format apiProjects/api/hospitalApi.csproj --verify-no-changes
+        run: dotnet format api/hospitalApi.csproj --verify-no-changes
 
       - name: Check test project formatting
-        run: dotnet format apiProjects/apiTesting/hospitalApiTesting.csproj --verify-no-changes
+        run: dotnet format api/apiTesting/hospitalApiTesting.csproj --verify-no-changes

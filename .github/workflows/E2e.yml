@@ -54,7 +54,7 @@ jobs:
 
       # 5. Start the .NET API in the background
       - name: Start API Service
-        run: dotnet run --project ./apiProjects/api &
+        run: dotnet run --project ./api &
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ASPNETCORE_URLS: http://+:5028

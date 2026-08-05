@@ -20,7 +20,7 @@ services:
 
   # api:
   #   build:
-  #     context: ./apiProjects/api
+  #     context: ./api
   #     dockerfile: Dockerfile
   #   ports:
   #     - "5028:5028"

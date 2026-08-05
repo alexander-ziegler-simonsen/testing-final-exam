@@ -17,10 +17,10 @@ jobs:
                   dotnet-version: '10.0.x'
 
             - name: Restore
-              run: dotnet restore apiProjects/apiTesting/hospitalApiTesting.csproj
+              run: dotnet restore api/apiTesting/hospitalApiTesting.csproj
 
             - name: Build
-              run: dotnet build apiProjects/apiTesting/hospitalApiTesting.csproj --no-restore --configuration Release
+              run: dotnet build api/apiTesting/hospitalApiTesting.csproj --no-restore --configuration Release
 
             - name: Test
-              run: dotnet test apiProjects/apiTesting/hospitalApiTesting.csproj --no-build --configuration Release
+              run: dotnet test api/apiTesting/hospitalApiTesting.csproj --no-build --configuration Release
