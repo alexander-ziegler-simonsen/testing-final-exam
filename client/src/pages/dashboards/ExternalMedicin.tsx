@@ -2,22 +2,24 @@ import { useState, type SubmitEvent } from "react";
 import { useNavigate } from "react-router";
 import { Badge, Button, HStack, Input, Table, Text } from "@chakra-ui/react";
 import { LuSearch } from "react-icons/lu";
-import type { HospitalApiDtosExternalMedicineProductOutputDto } from "../../api";
 import { ExternalMedicinePricesService } from "../../services/ExternalMedicinePrices";
 import { useExternalMedicinStore } from "../../stores/ExternalMedicinStore";
-
-type SearchMode = "name" | "ingredient";
 
 export default function ExternalMedicin() {
     const navigate = useNavigate();
 
-    const [searchMode, setSearchMode] = useState<SearchMode>("name");
-    const [query, setQuery] = useState("");
-    const [results, setResults] = useState<HospitalApiDtosExternalMedicineProductOutputDto[]>([]);
+    const searchMode = useExternalMedicinStore((state) => state.searchMode);
+    const query = useExternalMedicinStore((state) => state.query);
+    const results = useExternalMedicinStore((state) => state.results);
+    const searched = useExternalMedicinStore((state) => state.searched);
+    const setSearch = useExternalMedicinStore((state) => state.setSearch);
+    const missingDetailIds = useExternalMedicinStore((state) => state.missingDetailIds);
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [searched, setSearched] = useState(false);
-    const missingDetailIds = useExternalMedicinStore((state) => state.missingDetailIds);
+
+    const setSearchMode = (mode: typeof searchMode) => setSearch({ searchMode: mode, query, results, searched });
+    const setQuery = (value: string) => setSearch({ searchMode, query: value, results, searched });
 
     const handleSearch = (e: SubmitEvent) => {
         e.preventDefault();
@@ -32,14 +34,13 @@ export default function ExternalMedicin() {
                 : ExternalMedicinePricesService.getAllByIngredient(query.trim());
 
         request
-            .then(setResults)
+            .then((data) => setSearch({ searchMode, query, results: data, searched: true }))
             .catch((err) => {
-                setResults([]);
+                setSearch({ searchMode, query, results: [], searched: true });
                 setError(err.message);
             })
             .finally(() => {
                 setLoading(false);
-                setSearched(true);
             });
     };
 
@@ -129,7 +130,10 @@ export default function ExternalMedicin() {
                                     <Table.Cell>{product.firma}</Table.Cell>
                                     <Table.Cell>{product.styrke}</Table.Cell>
                                     <Table.Cell>{product.pakning}</Table.Cell>
-                                    <Table.Cell>
+                                    <Table.Cell
+                                        data-testid={`external-medicin-details-${index}`}
+                                        data-state={knownMissing ? "missing" : "available"}
+                                    >
                                         {knownMissing ? (
                                             <Badge colorPalette="gray">No details</Badge>
                                         ) : (
