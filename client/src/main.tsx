@@ -12,13 +12,22 @@ client.setConfig({
 
 // https://mswjs.io/docs/integrations/browser/#conditionally-enable-mocking
 async function enableMocking() {
-  if (import.meta.env.VITE_API_MOCKING !== 'enabled')
-    return
+  const mocking = import.meta.env.VITE_API_MOCKING
 
-  const { worker } = await import('./mocks/Browser');
-  console.log("yep, the MSW worker should be running");
+  if (mocking === 'enabled') {
+    const { worker } = await import('./mocks/Browser');
+    console.log("yep, the MSW worker should be running");
+    return worker.start()
+  }
 
-  return worker.start()
+  // e2e mode: only the 3 external-medicine-price endpoints are mocked, so
+  // e2e runs never call the real api.medicinpriser.dk. Everything else is
+  // unhandled by MSW and bypassed straight through to the real local API.
+  if (mocking === 'external-only') {
+    const { worker } = await import('./mocks/BrowserExternalOnly');
+    console.log("[msw] external-only mocking is running — only ExternalMedicinePrices endpoints are mocked");
+    return worker.start({ onUnhandledRequest: 'bypass' })
+  }
 }
 
 // start msw mocking, if we are in "dev" mode, start msw, if not dev, do nothing.

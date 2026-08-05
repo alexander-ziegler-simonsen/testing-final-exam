@@ -37,8 +37,8 @@ function MockingNotice() {
   const location = useLocation()
 
   useEffect(() => {
-    if (import.meta.env.VITE_API_MOCKING === 'enabled') {
-      console.log(`[msw] mocking is enabled — page: ${location.pathname}`)
+    if (import.meta.env.VITE_API_MOCKING !== 'disabled') {
+      console.log(`[msw] mocking (${import.meta.env.VITE_API_MOCKING}) — page: ${location.pathname}`)
     }
   }, [location.pathname])
 
