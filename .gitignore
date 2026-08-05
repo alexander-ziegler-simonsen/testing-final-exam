@@ -590,3 +590,7 @@ dist
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Allure (raw results/history are generated per test run, not committed)
+allure-results/
+allure-history/

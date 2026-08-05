@@ -1,0 +1,13 @@
+{
+    "name": "api-postman-tests",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "bash run-postman.sh"
+    },
+    "devDependencies": {
+        "newman": "^6.2.2",
+        "newman-reporter-allure": "^3.10.2"
+    }
+}

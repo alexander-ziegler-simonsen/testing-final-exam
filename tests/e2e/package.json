@@ -16,6 +16,7 @@
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1",
     "@types/pg": "^8.20.3",
+    "allure-playwright": "^3.10.2",
     "dotenv": "^17.4.2",
     "pg": "^8.22.0"
   }

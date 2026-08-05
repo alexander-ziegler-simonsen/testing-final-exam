@@ -1,0 +1,82 @@
+name: Allure Report
+
+# Fires after any of the three test workflows finish, and pulls the
+# latest results artifact from all three (not just the one that
+# triggered this run) so the merged report always reflects the
+# newest data from each suite.
+on:
+    workflow_run:
+        workflows:
+            - "Client Tests"
+            - "Playwright Tests (Docker)"
+            - "API with DB tests"
+        types: [completed]
+        branches: [main, master]
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+jobs:
+    publish-report:
+        if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            # actions/download-artifact only reaches artifacts from the *current*
+            # run. Pulling artifacts produced by three separate workflows needs
+            # this community action instead: https://github.com/dawidd6/action-download-artifact
+            - name: Download client Allure results
+              uses: dawidd6/action-download-artifact@v6
+              with:
+                  workflow: clientUnitTests.yml
+                  branch: main
+                  workflow_conclusion: completed
+                  name: allure-results-client
+                  path: allure-results
+                  if_no_artifact_found: warn
+
+            - name: Download e2e Allure results
+              uses: dawidd6/action-download-artifact@v6
+              with:
+                  workflow: E2e.yml
+                  branch: main
+                  workflow_conclusion: completed
+                  name: allure-results-e2e
+                  path: allure-results
+                  if_no_artifact_found: warn
+
+            - name: Download newman Allure results
+              uses: dawidd6/action-download-artifact@v6
+              with:
+                  workflow: ApiEndpointAndDb.yml
+                  branch: main
+                  workflow_conclusion: completed
+                  name: allure-results-newman
+                  path: allure-results
+                  if_no_artifact_found: warn
+
+            # Pull the previously published report's history/ folder so trend
+            # graphs (pass rate, duration over time) carry forward across runs.
+            - name: Get previous Allure history
+              uses: actions/checkout@v4
+              continue-on-error: true
+              with:
+                  ref: gh-pages
+                  path: gh-pages
+
+            - name: Build Allure report
+              uses: simple-elf/allure-report-action@v1.9
+              with:
+                  allure_results: allure-results
+                  allure_history: allure-history
+                  keep_reports: 20
+
+            - name: Publish report to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v4
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_branch: gh-pages
+                  publish_dir: allure-history
