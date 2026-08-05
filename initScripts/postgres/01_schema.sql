@@ -60,7 +60,13 @@ create table "user" (
     username varchar(100) not null unique,
     password_hash varchar(255) not null,
     salt varchar(255) not null,
-    fk_staff_id int not null references staff(id)
+    fk_staff_id int references staff(id)
+);
+
+create table user_patient (
+    id int generated always as identity primary key,
+    fk_user_id int not null unique references "user"(id),
+    fk_patient_id int not null unique references patient(id)
 );
 
 create table department (

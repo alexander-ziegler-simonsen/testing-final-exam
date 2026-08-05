@@ -13,9 +13,9 @@ public partial class MedicationStorageMissingOutputDto
     [DefaultValue(1)]
     public int FkMedicationStorageId { get; set; }
 
-    [DefaultValue(10)]
+    [DefaultValue(10.0)]
     public double AmountMissing { get; set; }
 
-    [DefaultValue("2025-10-07T12:00:00")]
+    [DefaultValue(typeof(DateTime), "2025-10-07T12:00:00")]
     public DateTime WentMissingAt { get; set; }
 }

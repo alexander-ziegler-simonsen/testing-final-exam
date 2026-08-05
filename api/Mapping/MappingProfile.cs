@@ -38,13 +38,6 @@ namespace hospitalApi.Mapping
             CreateMap<PrescriptionInputDto, Prescription>();
             CreateMap<Staff, StaffOutputDto>();
 
-            CreateMap<User, LoginOutputDto>()
-                .ForMember(dest => dest.StaffId, opt => opt.MapFrom(src => src.FkStaff.Id))
-                .ForMember(dest => dest.Firstname, opt => opt.MapFrom(src => src.FkStaff.Firstname))
-                .ForMember(dest => dest.Lastname, opt => opt.MapFrom(src => src.FkStaff.Lastname))
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.FkStaff.FkRole.Name))
-                .ForMember(dest => dest.Token, opt => opt.Ignore());
-
             // custom mappings
             CreateMap<Building, LocationOutputDto>()
                 .ForMember(dest => dest.Building, opt => opt.MapFrom(src => src))

@@ -22,9 +22,10 @@ export default function LoginCompoent() {
                 // set the store here
                 useAuthStore.getState().setSession(response.token, {
                     staffId: response.staffId ?? null,
+                    patientId: response.patientId ?? null,
                     firstName: response.firstname!,
                     lastName: response.lastname!,
-                    role: response.role as any // TODO - fix this later
+                    role: response.role as 'doctor' | 'nurse' | 'admin' | 'patient'
                 })
 
                 navigate("/app", { replace: true });

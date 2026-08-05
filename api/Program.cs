@@ -140,12 +140,26 @@ builder.Services.AddOpenApi(options =>
     // found on its properties, so Postman/Swagger UI show real-looking data instead of
     // auto-faked placeholder values. Add [DefaultValue(...)] to a DTO property to opt it in -
     // no changes needed here when new DTOs/tables are added.
+    //
+    // ASP.NET Core's own schema generation *also* reads [DefaultValue] and writes it into
+    // each property's "default" keyword - which is a real OpenAPI/JSON-Schema semantic
+    // ("if this field is omitted, treat it as this value"), not just an example. Client
+    // codegen (the zod plugin) takes that literally: an optional field left out of a
+    // request gets silently replaced with the "example" value at runtime. So after
+    // building our example, strip the per-property "default" back out - [DefaultValue]
+    // here is meant to be display-only.
     options.AddSchemaTransformer((schema, context, cancellationToken) =>
     {
         var example = new JsonObject();
 
         foreach (var property in context.JsonTypeInfo.Properties)
         {
+            if (schema.Properties?.TryGetValue(property.Name, out var propertySchema) == true &&
+                propertySchema is Microsoft.OpenApi.OpenApiSchema mutablePropertySchema)
+            {
+                mutablePropertySchema.Default = null;
+            }
+
             if (property.AttributeProvider?.GetCustomAttributes(typeof(DefaultValueAttribute), false)
                     .FirstOrDefault() is not DefaultValueAttribute defaultValue)
             {

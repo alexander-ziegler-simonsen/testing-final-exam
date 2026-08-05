@@ -4054,6 +4054,28 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "navn": "Panodil 500 mg tabletter",
+          "varenummer": "058626",
+          "styrke": "500 mg",
+          "pakning": "20 stk.",
+          "virksomtStof": "Paracetamol",
+          "firma": "GSK",
+          "atcKode": "N02BE01",
+          "dosisdispensering": false,
+          "udleveringsgruppe": "HF",
+          "prisPrPakning": "29,95",
+          "prisPrEnhed": "1,50",
+          "aip": "18,50",
+          "tilskudBeregnesAf": "Pakning",
+          "udgaaet": false,
+          "dosering": "1-2 tabletter ved behov, maks 6 i døgnet",
+          "indikation": "Lette til moderate smerter og feber",
+          "trafikAdvarsel": false,
+          "ddd": "3 g",
+          "opbevaringsbetingelser": "Opbevares ved stuetemperatur",
+          "haandkoeb": true
         }
       },
       "hospitalApi.DTOs.External.MedicineProductOutputDto": {
@@ -4085,6 +4107,14 @@
           "pakning": {
             "type": "string"
           }
+        },
+        "example": {
+          "navn": "Panodil",
+          "varenummer": "058626",
+          "firma": "GSK",
+          "styrke": "500 mg",
+          "detaljer": "Håndkøbsmedicin mod smerter og feber",
+          "pakning": "20 stk."
         }
       },
       "hospitalApi.DTOs.Inputs.DepartmentInputDto": {
@@ -4106,6 +4136,10 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "name": "emergency",
+          "type": "critical care"
         }
       },
       "hospitalApi.DTOs.Inputs.DepartmentStaffInputDto": {
@@ -4119,6 +4153,10 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "fkStaffId": 1,
+          "fkDepartmentId": 1
         }
       },
       "hospitalApi.DTOs.Inputs.FloorInputDto": {
@@ -4133,6 +4171,10 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "name": "ground floor",
+          "fkBuildingId": 1
         }
       },
       "hospitalApi.DTOs.Inputs.LoginInputDto": {
@@ -4148,6 +4190,10 @@
             "minLength": 8,
             "type": "string"
           }
+        },
+        "example": {
+          "username": "doctor",
+          "password": "Doctor1234!"
         }
       },
       "hospitalApi.DTOs.Inputs.MedicationInputDto": {
@@ -4207,6 +4253,15 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "name": "paracetamol",
+          "genericName": "acetaminophen",
+          "brand": "panodil",
+          "form": "tablet",
+          "strength": "500mg",
+          "category": "pain relief",
+          "description": "used to treat mild to moderate pain and fever."
         }
       },
       "hospitalApi.DTOs.Inputs.MedicationStorageInputDto": {
@@ -4220,6 +4275,10 @@
             "type": "number",
             "format": "double"
           }
+        },
+        "example": {
+          "fkMedicationId": 1,
+          "amount": 500
         }
       },
       "hospitalApi.DTOs.Inputs.MedicationStorageMissingInputDto": {
@@ -4237,6 +4296,11 @@
             "type": "string",
             "format": "date-time"
           }
+        },
+        "example": {
+          "fkMedicationStorageId": 1,
+          "amountMissing": 10,
+          "wentMissingAt": "2025-10-07T12:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Inputs.PatientInputDto": {
@@ -4274,6 +4338,12 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "firstname": "michael",
+          "lastname": "conklin",
+          "gender": "male",
+          "cprNumber": "1505534561"
         }
       },
       "hospitalApi.DTOs.Inputs.PrescriptionInputDto": {
@@ -4295,6 +4365,12 @@
             "type": "number",
             "format": "double"
           }
+        },
+        "example": {
+          "fkMedicationId": 1,
+          "fkTreatmentId": 1,
+          "fkPrescribedByStaffId": 1,
+          "doses": 2
         }
       },
       "hospitalApi.DTOs.Inputs.RegisterInputDto": {
@@ -4311,9 +4387,25 @@
             "type": "string"
           },
           "fkStaffId": {
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "fkPatientId": {
+            "type": [
+              "null",
+              "integer"
+            ],
             "format": "int32"
           }
+        },
+        "example": {
+          "username": "doctor",
+          "password": "Doctor1234!",
+          "fkStaffId": 3,
+          "fkPatientId": null
         }
       },
       "hospitalApi.DTOs.Inputs.RoomBookingInputDto": {
@@ -4335,6 +4427,12 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "fkRoomId": 1,
+          "startTime": "2025-10-07T08:00:00.0000000",
+          "endTime": "2025-10-07T12:00:00.0000000",
+          "fkPatientId": 1
         }
       },
       "hospitalApi.DTOs.Inputs.ShiftInputDto": {
@@ -4348,6 +4446,10 @@
             "type": "string",
             "format": "date-time"
           }
+        },
+        "example": {
+          "startTime": "2025-10-07T08:00:00.0000000",
+          "endTime": "2025-10-07T16:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Inputs.StaffInputDto": {
@@ -4373,6 +4475,11 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "firstname": "lars",
+          "lastname": "christensen",
+          "fkRoleId": 1
         }
       },
       "hospitalApi.DTOs.Inputs.TreatmentInputDto": {
@@ -4394,6 +4501,11 @@
             "type": "string",
             "format": "date-time"
           }
+        },
+        "example": {
+          "fkPatientId": 1,
+          "description": "fever and headache",
+          "time": "2025-10-07T09:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Inputs.TreatmentStaffInputDto": {
@@ -4407,6 +4519,10 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "fkTreatmentId": 1,
+          "fkStaffId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.BuildingOutputDto": {
@@ -4429,6 +4545,11 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "main hospital",
+          "address": "123 health st"
         }
       },
       "hospitalApi.DTOs.Outputs.DepartmentOutputDto": {
@@ -4454,6 +4575,11 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "emergency",
+          "type": "critical care"
         }
       },
       "hospitalApi.DTOs.Outputs.DepartmentStaffOutputDto": {
@@ -4473,6 +4599,9 @@
           "staff": {
             "$ref": "#/components/schemas/hospitalApi.DTOs.Outputs.StaffOutputDto"
           }
+        },
+        "example": {
+          "id": 1
         }
       },
       "hospitalApi.DTOs.Outputs.FloorOutputDto": {
@@ -4491,6 +4620,11 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "ground floor",
+          "fkBuildingId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.FloorRoomsOutputDto": {
@@ -4541,7 +4675,17 @@
             "type": "string"
           },
           "staffId": {
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "patientId": {
+            "type": [
+              "null",
+              "integer"
+            ],
             "format": "int32"
           },
           "firstname": {
@@ -4563,6 +4707,14 @@
           "role": {
             "type": "string"
           }
+        },
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwidW5pcXVlX25hbWUiOiJkb2N0b3IifQ.4f2c8b1e7a9d6f3c0b5e8a1d4f7c2b9e6a3d0f5c8b1e4a7d2f9c6b3e0a5d8f1c",
+          "staffId": 2,
+          "patientId": null,
+          "firstname": "eva",
+          "lastname": "møller",
+          "role": "doctor"
         }
       },
       "hospitalApi.DTOs.Outputs.MedicationOutputDto": {
@@ -4626,6 +4778,16 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "paracetamol",
+          "genericName": "acetaminophen",
+          "brand": "panodil",
+          "form": "tablet",
+          "strength": "500mg",
+          "category": "pain relief",
+          "description": "used to treat mild to moderate pain and fever."
         }
       },
       "hospitalApi.DTOs.Outputs.MedicationStorageMissingOutputDto": {
@@ -4647,6 +4809,12 @@
             "type": "string",
             "format": "date-time"
           }
+        },
+        "example": {
+          "id": 1,
+          "fkMedicationStorageId": 1,
+          "amountMissing": 10,
+          "wentMissingAt": "2025-10-07T12:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Outputs.MedicationStorageOutputDto": {
@@ -4664,6 +4832,11 @@
             "type": "number",
             "format": "double"
           }
+        },
+        "example": {
+          "id": 1,
+          "fkMedicationId": 1,
+          "amount": 500
         }
       },
       "hospitalApi.DTOs.Outputs.PatientOutputDto": {
@@ -4705,6 +4878,13 @@
               "string"
             ]
           }
+        },
+        "example": {
+          "id": 1,
+          "firstname": "michael",
+          "lastname": "conklin",
+          "gender": "male",
+          "cprNumber": "1505534561"
         }
       },
       "hospitalApi.DTOs.Outputs.PrescriptionOutputDto": {
@@ -4730,6 +4910,13 @@
             "type": "number",
             "format": "double"
           }
+        },
+        "example": {
+          "id": 1,
+          "fkMedicationId": 1,
+          "fkTreatmentId": 1,
+          "fkPrescribedByStaffId": 1,
+          "doses": 2
         }
       },
       "hospitalApi.DTOs.Outputs.RoomBookingOutputDto": {
@@ -4755,6 +4942,13 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "id": 1,
+          "fkRoomId": 1,
+          "startTime": "2025-10-07T08:00:00.0000000",
+          "endTime": "2025-10-07T12:00:00.0000000",
+          "fkPatientId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.RoomOutputDto": {
@@ -4771,6 +4965,11 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "id": 1,
+          "name": "room a101",
+          "fkFloorId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.ShiftOutputDto": {
@@ -4788,6 +4987,11 @@
             "type": "string",
             "format": "date-time"
           }
+        },
+        "example": {
+          "id": 1,
+          "startTime": "2025-10-07T08:00:00.0000000",
+          "endTime": "2025-10-07T16:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Outputs.StaffOutputDto": {
@@ -4817,6 +5021,12 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "id": 1,
+          "firstname": "lars",
+          "lastname": "christensen",
+          "fkRoleId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.TreatmentOutputDto": {
@@ -4842,6 +5052,12 @@
             "type": "string",
             "format": "date-time"
           }
+        },
+        "example": {
+          "id": 1,
+          "fkPatientId": 1,
+          "description": "fever and headache",
+          "time": "2025-10-07T09:00:00.0000000"
         }
       },
       "hospitalApi.DTOs.Outputs.TreatmentStaffOutputDto": {
@@ -4859,6 +5075,11 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "example": {
+          "id": 1,
+          "fkTreatmentId": 1,
+          "fkStaffId": 1
         }
       },
       "hospitalApi.DTOs.Outputs.UserOutputDto": {
@@ -4874,9 +5095,25 @@
             "type": "string"
           },
           "fkStaffId": {
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "fkPatientId": {
+            "type": [
+              "null",
+              "integer"
+            ],
             "format": "int32"
           }
+        },
+        "example": {
+          "id": 2,
+          "username": "doctor",
+          "fkStaffId": 2,
+          "fkPatientId": null
         }
       },
       "Microsoft.AspNetCore.Mvc.ProblemDetails": {

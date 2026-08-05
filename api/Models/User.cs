@@ -13,7 +13,9 @@ public partial class User
 
     public string Salt { get; set; } = null!;
 
-    public int FkStaffId { get; set; }
+    public int? FkStaffId { get; set; }
 
-    public virtual Staff FkStaff { get; set; } = null!;
+    public virtual Staff? FkStaff { get; set; }
+
+    public virtual UserPatient? UserPatient { get; set; }
 }

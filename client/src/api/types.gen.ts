@@ -98,7 +98,8 @@ export type HospitalApiDtosInputsPrescriptionInputDto = {
 export type HospitalApiDtosInputsRegisterInputDto = {
     username?: string;
     password?: string;
-    fkStaffId?: number;
+    fkStaffId?: null | number;
+    fkPatientId?: null | number;
 };
 
 export type HospitalApiDtosInputsRoomBookingInputDto = {
@@ -166,7 +167,8 @@ export type HospitalApiDtosOutputsLocationOutputDto = {
 
 export type HospitalApiDtosOutputsLoginOutputDto = {
     token: string;
-    staffId?: number;
+    staffId?: null | number;
+    patientId?: null | number;
     firstname?: null | string;
     lastname?: null | string;
     role?: string;
@@ -255,7 +257,8 @@ export type HospitalApiDtosOutputsTreatmentStaffOutputDto = {
 export type HospitalApiDtosOutputsUserOutputDto = {
     id?: number;
     username?: string;
-    fkStaffId?: number;
+    fkStaffId?: null | number;
+    fkPatientId?: null | number;
 };
 
 export type MicrosoftAspNetCoreMvcProblemDetails = {

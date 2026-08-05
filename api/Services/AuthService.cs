@@ -1,7 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AutoMapper;
 using hospitalApi.Data;
 using hospitalApi.DTOs.Inputs;
 using hospitalApi.DTOs.Outputs;
@@ -15,20 +14,20 @@ namespace hospitalApi.Services
     {
         private readonly HospitalContext _context;
         private readonly IConfiguration _configuration;
-        private readonly IMapper _mapper;
 
-        public AuthService(HospitalContext context, IConfiguration configuration, IMapper mapper)
+        public AuthService(HospitalContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
-            _mapper = mapper;
         }
 
         public async Task<LoginOutputDto?> Login(LoginInputDto credentials)
         {
             var user = await _context.Users
                 .Include(u => u.FkStaff)
-                .ThenInclude(s => s.FkRole)
+                .ThenInclude(s => s!.FkRole)
+                .Include(u => u.UserPatient)
+                .ThenInclude(up => up!.FkPatient)
                 .FirstOrDefaultAsync(u => u.Username == credentials.Username);
 
             if (user == null)
@@ -40,7 +39,16 @@ namespace hospitalApi.Services
             if (hashedInput != user.PasswordHash)
                 return null;
 
-            var output = _mapper.Map<LoginOutputDto>(user);
+            // A user is either linked to a staff record (role comes from staff_role)
+            // or linked to a patient record via user_patient (role is always "patient")
+            var output = new LoginOutputDto
+            {
+                StaffId = user.FkStaff?.Id,
+                Firstname = user.FkStaff?.Firstname ?? user.UserPatient?.FkPatient.Firstname,
+                Lastname = user.FkStaff?.Lastname ?? user.UserPatient?.FkPatient.Lastname,
+                Role = user.FkStaff?.FkRole.Name ?? "patient",
+                PatientId = user.UserPatient?.FkPatientId,
+            };
             output.Token = GenerateToken(user);
 
             return output;
@@ -51,11 +59,14 @@ namespace hospitalApi.Services
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+            var role = user.FkStaff?.FkRole.Name ?? "patient";
+            var identityId = user.FkStaff?.Id ?? user.UserPatient?.FkPatientId;
+
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.FkStaff.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, identityId.ToString() ?? ""),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.FkStaff.FkRole.Name)
+                new Claim(ClaimTypes.Role, role)
             };
 
             var token = new JwtSecurityToken(

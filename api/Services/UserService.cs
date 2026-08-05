@@ -24,12 +24,17 @@ namespace hospitalApi.Services
                     Id = u.Id,
                     Username = u.Username,
                     FkStaffId = u.FkStaffId,
+                    FkPatientId = u.UserPatient != null ? u.UserPatient.FkPatientId : (int?)null,
                 })
                 .ToListAsync();
         }
 
         public async Task<bool> Register(RegisterInputDto input)
         {
+            // A user is either a staff login or a patient login, never both/neither
+            if ((input.FkStaffId == null) == (input.FkPatientId == null))
+                return false;
+
             // Reject duplicate usernames
             bool exists = await _context.Users.AnyAsync(u => u.Username == input.Username);
             if (exists)
@@ -48,6 +53,17 @@ namespace hospitalApi.Services
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+
+            if (input.FkPatientId.HasValue)
+            {
+                await _context.UserPatients.AddAsync(new UserPatient
+                {
+                    FkUserId = user.Id,
+                    FkPatientId = input.FkPatientId.Value,
+                });
+                await _context.SaveChangesAsync();
+            }
+
             return true;
         }
 

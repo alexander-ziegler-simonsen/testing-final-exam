@@ -10,6 +10,6 @@ public partial class MedicationStorageInputDto
     [DefaultValue(1)]
     public int FkMedicationId { get; set; }
 
-    [DefaultValue(500)]
+    [DefaultValue(500.0)]
     public double Amount { get; set; }
 }
