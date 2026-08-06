@@ -34,7 +34,7 @@ jobs:
                   --results-directory ./TestResults
 
             - name: Publish test summary
-              uses: dorny/test-reporter@v1
+              uses: dorny/test-reporter@v3
               if: always()
               with:
                   name: API unit test results

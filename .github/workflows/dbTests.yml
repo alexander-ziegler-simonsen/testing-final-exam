@@ -4,6 +4,11 @@ on:
     push:
     pull_request:
 
+permissions:
+    contents: read
+    checks: write
+    pull-requests: write
+
 jobs:
     db-tests:
         runs-on: ubuntu-latest
@@ -26,7 +31,16 @@ jobs:
               working-directory: ./tests/dbTests
               run: pnpm install
 
-            # 👉 Run tests
+            # 👉 Run tests, also writing a JUnit XML report so it can be
+            # turned into a job summary (same idea as apiUnitTests.yml's trx file)
             - name: Run DB tests
               working-directory: ./tests/dbTests
-              run: pnpm test
+              run: pnpm exec vitest run --reporter=junit --outputFile=./test-results/junit.xml
+
+            - name: Publish test summary
+              uses: dorny/test-reporter@v3
+              if: always()
+              with:
+                  name: DB test results
+                  path: tests/dbTests/test-results/junit.xml
+                  reporter: java-junit

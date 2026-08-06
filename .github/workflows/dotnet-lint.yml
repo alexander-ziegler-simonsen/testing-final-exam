@@ -17,6 +17,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      # Turns dotnet format's plain console warnings into inline PR annotations
+      # (file + line), instead of a wall of text you have to scroll the log for.
+      - name: Enable dotnet format annotations
+        uses: xt0rted/dotnet-format-problem-matcher@v1
+
       - name: Check API formatting
         run: dotnet format api/hospitalApi.csproj --verify-no-changes
 

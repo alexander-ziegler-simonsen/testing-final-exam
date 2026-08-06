@@ -30,6 +30,8 @@ jobs:
         working-directory: ./client
         run: pnpm install --frozen-lockfile
 
+      # --format=github makes oxlint print GitHub workflow commands, so
+      # findings show up as inline PR annotations instead of only in the log.
       - name: Run oxlint
         working-directory: ./client
-        run: pnpm run lint
+        run: pnpm exec oxlint -c configs/.oxlintrc.json --tsconfig=configs/tsconfig.json --format=github
