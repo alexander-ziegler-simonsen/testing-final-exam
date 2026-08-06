@@ -24,8 +24,10 @@ jobs:
           restore-keys: |
             nuget-${{ runner.os }}-
 
-      - name: Publish API
-        run: dotnet publish ./api/hospitalApi.csproj -c Release -o ./publish
+      - name: Publish API (self-contained, so the matrix legs need no .NET runtime)
+        run: >
+          dotnet publish ./api/hospitalApi.csproj -c Release -o ./publish
+          -r linux-x64 --self-contained true -p:PublishSingleFile=true
 
       - uses: actions/upload-artifact@v4
         with:
@@ -91,7 +93,9 @@ jobs:
           path: ./publish
 
       - name: Start API service
-        run: dotnet ./publish/hospitalApi.dll &
+        run: |
+          chmod +x ./publish/hospitalApi
+          ./publish/hospitalApi &
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ASPNETCORE_URLS: http://+:5028
