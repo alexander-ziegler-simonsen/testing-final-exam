@@ -105,7 +105,7 @@ jobs:
         run: |
           for i in $(seq 1 60); do
             code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5028/api/patient || true)
-            if [[ "$code" == "200" || "$code" == "401" ]]; then
+            if [ "$code" = "200" ] || [ "$code" = "401" ]; then
               echo "API responded with HTTP $code after ${i}s"
               exit 0
             fi
