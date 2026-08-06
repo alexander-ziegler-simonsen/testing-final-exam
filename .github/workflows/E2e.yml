@@ -7,6 +7,10 @@ jobs:
   full-e2e-testing:
     timeout-minutes: 20
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
 
     # 1. Run the test steps directly inside the Playwright image
     container:
@@ -86,13 +90,13 @@ jobs:
         working-directory: ./tests/e2e
 
       - name: Run Playwright tests
-        run: pnpm exec playwright test --reporter=list
+        run: pnpm exec playwright test --project=${{ matrix.browser }} --reporter=list
         working-directory: ./tests/e2e
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.browser }}
           path: tests/e2e/playwright-report/
           retention-days: 30
 
@@ -100,6 +104,6 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-e2e
+          name: allure-results-e2e-${{ matrix.browser }}
           path: tests/e2e/allure-results/
           retention-days: 30
