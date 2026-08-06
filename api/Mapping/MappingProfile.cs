@@ -11,32 +11,32 @@ namespace hospitalApi.Mapping
         {
             CreateMap<Room, RoomOutputDto>();
             CreateMap<Floor, FloorOutputDto>();
-            CreateMap<FloorInputDto, Floor>();
+            CreateMap<FloorInputDto, Floor>().ValidateMemberList(MemberList.Source);
             CreateMap<Medication, MedicationOutputDto>();
-            CreateMap<MedicationInputDto, Medication>();
+            CreateMap<MedicationInputDto, Medication>().ValidateMemberList(MemberList.Source);
             CreateMap<MedicationStorage, MedicationStorageOutputDto>();
-            CreateMap<MedicationStorageInputDto, MedicationStorage>();
+            CreateMap<MedicationStorageInputDto, MedicationStorage>().ValidateMemberList(MemberList.Source);
             CreateMap<MedicationStorageMissing, MedicationStorageMissingOutputDto>();
-            CreateMap<MedicationStorageMissingInputDto, MedicationStorageMissing>();
+            CreateMap<MedicationStorageMissingInputDto, MedicationStorageMissing>().ValidateMemberList(MemberList.Source);
             CreateMap<RoomBooking, RoomBookingOutputDto>();
-            CreateMap<RoomBookingInputDto, RoomBooking>();
+            CreateMap<RoomBookingInputDto, RoomBooking>().ValidateMemberList(MemberList.Source);
             CreateMap<Shift, ShiftOutputDto>();
-            CreateMap<ShiftInputDto, Shift>();
+            CreateMap<ShiftInputDto, Shift>().ValidateMemberList(MemberList.Source);
             CreateMap<ShiftStaff, ShiftStaffOutputDto>();
             CreateMap<Treatment, TreatmentOutputDto>();
-            CreateMap<TreatmentInputDto, Treatment>();
+            CreateMap<TreatmentInputDto, Treatment>().ValidateMemberList(MemberList.Source);
             CreateMap<TreatmentStaff, TreatmentStaffOutputDto>();
-            CreateMap<TreatmentStaffInputDto, TreatmentStaff>();
+            CreateMap<TreatmentStaffInputDto, TreatmentStaff>().ValidateMemberList(MemberList.Source);
             CreateMap<Patient, PatientOutputDto>();
             CreateMap<Department, DepartmentOutputDto>();
-            CreateMap<DepartmentInputDto, Department>();
+            CreateMap<DepartmentInputDto, Department>().ValidateMemberList(MemberList.Source);
             CreateMap<DepartmentStaff, DepartmentStaffOutputDto>()
                 .ForMember(dest => dest.Department, opt => opt.MapFrom(src => src.FkDepartment))
                 .ForMember(dest => dest.Staff, opt => opt.MapFrom(src => src.FkStaff));
-            CreateMap<DepartmentStaffInputDto, DepartmentStaff>();
+            CreateMap<DepartmentStaffInputDto, DepartmentStaff>().ValidateMemberList(MemberList.Source);
             CreateMap<Building, BuildingOutputDto>();
             CreateMap<Prescription, PrescriptionOutputDto>();
-            CreateMap<PrescriptionInputDto, Prescription>();
+            CreateMap<PrescriptionInputDto, Prescription>().ValidateMemberList(MemberList.Source);
             CreateMap<Staff, StaffOutputDto>();
 
             // custom mappings
