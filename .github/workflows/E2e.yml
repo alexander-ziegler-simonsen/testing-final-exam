@@ -95,14 +95,25 @@ jobs:
       - name: Start API service
         run: |
           chmod +x ./publish/hospitalApi
-          ./publish/hospitalApi &
+          ./publish/hospitalApi > api.log 2>&1 &
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ASPNETCORE_URLS: http://+:5028
           ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=HospitalDB;Username=postgres;Password=postgres;
 
       - name: Wait for API to be ready
-        run: until curl -s -o /dev/null -w "%{http_code}" http://localhost:5028/api/patient | grep -qE "^(200|401)$"; do sleep 1; done
+        run: |
+          for i in $(seq 1 60); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5028/api/patient || true)
+            if [[ "$code" == "200" || "$code" == "401" ]]; then
+              echo "API responded with HTTP $code after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "API did not become ready in time. --- api.log ---"
+          cat api.log || echo "(no log file found — process may not have started at all)"
+          exit 1
         timeout-minutes: 2
 
       - name: Setup pnpm
