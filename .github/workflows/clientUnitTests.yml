@@ -32,8 +32,8 @@ jobs:
               run: pnpm install --frozen-lockfile
               working-directory: ./client
 
-            - name: Run tests
-              run: pnpm run test
+            - name: Run unit tests
+              run: pnpm run test:unit
               working-directory: ./client
 
             - name: Upload Allure results
