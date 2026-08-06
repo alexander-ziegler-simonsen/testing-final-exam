@@ -69,7 +69,7 @@ jobs:
             nuget-${{ runner.os }}-
 
       - name: Build API
-        run: dotnet build ./api --configuration Debug
+        run: dotnet build ./api/hospitalApi.csproj --configuration Debug
 
       # 5. Start the .NET API in the background (already built above, so this just launches Kestrel)
       - name: Start API Service
