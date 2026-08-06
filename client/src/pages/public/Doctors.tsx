@@ -1,7 +1,7 @@
-import { Avatar, Badge, Box, Button, Container, Grid, Heading, HStack, Icon, Input, InputGroup, Text } from "@chakra-ui/react";
+import { Avatar, Badge, Box, Button, Container, Grid, Heading, HStack, Icon, Text } from "@chakra-ui/react";
 import Navbar from "../../components/public/Navbar";
 import Footer from "../../components/public/Footer";
-import { Search, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 type Doctor = {
   name: string;
