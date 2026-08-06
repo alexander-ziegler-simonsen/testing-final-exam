@@ -74,6 +74,11 @@ jobs:
       POSTGRES_DB: HospitalDB
       POSTGRES_PORT: 5432
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      # client/.env is gitignored (developer-local); Playwright's webServer runs
+      # `pnpm run dev` (see playwright.config.ts) which reads VITE_API_BASE_URL
+      # from import.meta.env — without this the client falls back to the page's
+      # own origin (:5173) instead of the API (:5028) and login silently fails.
+      VITE_API_BASE_URL: http://localhost:5028
 
     steps:
       - uses: actions/checkout@v4
