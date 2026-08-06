@@ -95,7 +95,7 @@ jobs:
       - name: Start API service
         run: |
           chmod +x ./publish/hospitalApi
-          ./publish/hospitalApi > api.log 2>&1 &
+          ./publish/hospitalApi --contentRoot ./publish > api.log 2>&1 &
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ASPNETCORE_URLS: http://+:5028
