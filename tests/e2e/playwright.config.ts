@@ -41,16 +41,30 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: /lighthouse\.spec\.ts/,
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      testIgnore: /lighthouse\.spec\.ts/,
     },
 
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      testIgnore: /lighthouse\.spec\.ts/,
+    },
+
+    /* Lighthouse audits only work against Chromium (CDP connection) and manage
+     * their own browser context (see tests/lighthouse.spec.ts), so this project
+     * intentionally does not use devices['Desktop Chrome'] / launchOptions. */
+    {
+      name: 'lighthouse',
+      testMatch: /lighthouse\.spec\.ts/,
+      // One test runs a full Lighthouse audit (~10s each) against every
+      // dashboard page in sequence - well past the default 30s test timeout.
+      timeout: 5 * 60 * 1000,
     },
 
     /* Test against mobile viewports. */
