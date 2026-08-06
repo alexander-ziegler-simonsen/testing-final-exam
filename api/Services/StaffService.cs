@@ -21,7 +21,7 @@ namespace hospitalApi.Services
         }
         public async Task<IEnumerable<StaffOutputDto>> GetAll()
         {
-            var entities = await staffs.ToListAsync();
+            var entities = await staffs.OrderBy(s => s.Id).ToListAsync();
             return _mapper.Map<List<StaffOutputDto>>(entities);
         }
 

@@ -3,17 +3,16 @@ import { test, expect } from "@playwright/test";
 test("test", async ({ page }) => {
   await page.goto("http://localhost:5173/");
   await page.getByTestId("public-footer-login-link").click();
-  await page.getByTestId("login-username-input").click();
-  await page.goto("http://localhost:5173/login");
+  await expect(page).toHaveURL("http://localhost:5173/login");
 
   await page.getByTestId("login-username-input").fill("doctor");
   await page.getByTestId("login-password-input").fill("Doctor1234!");
   await page.getByTestId("login-submit-button").click();
 
-  await page.goto("http://localhost:5173/app/overview");
+  await expect(page).toHaveURL("http://localhost:5173/app/overview");
   await page.getByTestId("sidebar-desktop-departments-link-open-button").click();
 
-  await page.goto("http://localhost:5173/app/departments");
+  await expect(page).toHaveURL("http://localhost:5173/app/departments");
 
   // read all data
   await expect(page.getByTestId("departments-table-row-0-cell-id")).toContainText("1");
@@ -64,5 +63,5 @@ test("test", async ({ page }) => {
 
   // logout
   await page.getByTestId('dashboard-navbar-logout-button').click();
-  await page.goto("http://localhost:5173/login");
+  await expect(page).toHaveURL("http://localhost:5173/login");
 });

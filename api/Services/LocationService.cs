@@ -31,8 +31,9 @@ namespace hospitalApi.Services
         public async Task<List<LocationOutputDto>> getAllLocations()
         {
             var entities = await _buildings
-                .Include(b => b.Floors)
-                    .ThenInclude(f => f.Rooms)
+                .Include(b => b.Floors.OrderBy(f => f.Id))
+                    .ThenInclude(f => f.Rooms.OrderBy(r => r.Id))
+                .OrderBy(b => b.Id)
                 .ToListAsync();
 
             return _mapper.Map<List<LocationOutputDto>>(entities);
@@ -40,8 +41,8 @@ namespace hospitalApi.Services
         public async Task<LocationOutputDto> getOneLocations(int buildingId)
         {
             var entity = await _buildings
-                .Include(b => b.Floors)
-                    .ThenInclude(f => f.Rooms)
+                .Include(b => b.Floors.OrderBy(f => f.Id))
+                    .ThenInclude(f => f.Rooms.OrderBy(r => r.Id))
                 .FirstOrDefaultAsync(b => b.Id == buildingId);
 
             if (entity == null)
@@ -53,7 +54,8 @@ namespace hospitalApi.Services
         public async Task<List<FloorRoomsOutputDto>> getOneAllFloors()
         {
             var entities = await _floors
-                .Include(f => f.Rooms)
+                .Include(f => f.Rooms.OrderBy(r => r.Id))
+                .OrderBy(f => f.Id)
                 .ToListAsync();
 
             return _mapper.Map<List<FloorRoomsOutputDto>>(entities);
@@ -62,7 +64,7 @@ namespace hospitalApi.Services
         public async Task<FloorRoomsOutputDto> getOneFloorWithRooms(int floorId)
         {
             var entity = await _floors
-                .Include(f => f.Rooms)
+                .Include(f => f.Rooms.OrderBy(r => r.Id))
                 .FirstOrDefaultAsync(f => f.Id == floorId);
 
             if (entity == null)

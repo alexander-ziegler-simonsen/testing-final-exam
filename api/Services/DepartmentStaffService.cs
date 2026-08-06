@@ -26,6 +26,7 @@ namespace hospitalApi.Services
             var entities = await departmentStaffs
                 .Include(ds => ds.FkDepartment)
                 .Include(ds => ds.FkStaff)
+                .OrderBy(ds => ds.Id)
                 .ToListAsync();
 
             return _mapper.Map<IEnumerable<DepartmentStaffOutputDto>>(entities);

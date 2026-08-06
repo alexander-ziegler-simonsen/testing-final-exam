@@ -23,7 +23,7 @@ namespace hospitalApi.Services
 
         public async Task<IEnumerable<RoomBookingOutputDto>> GetAll()
         {
-            var entities = await _bookings.ToListAsync();
+            var entities = await _bookings.OrderBy(b => b.Id).ToListAsync();
             return _mapper.Map<IEnumerable<RoomBookingOutputDto>>(entities);
         }
 

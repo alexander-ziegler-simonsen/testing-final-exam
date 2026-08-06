@@ -19,6 +19,7 @@ namespace hospitalApi.Services
         public async Task<IEnumerable<UserOutputDto>> GetAll()
         {
             return await _context.Users
+                .OrderBy(u => u.Id)
                 .Select(u => new UserOutputDto
                 {
                     Id = u.Id,

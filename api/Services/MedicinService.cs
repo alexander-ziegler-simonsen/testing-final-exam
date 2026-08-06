@@ -21,7 +21,7 @@ namespace hospitalApi.Services
         }
         public async Task<IEnumerable<MedicationOutputDto>> GetAll()
         {
-            var entities = await _medication.ToListAsync();
+            var entities = await _medication.OrderBy(m => m.Id).ToListAsync();
             return _mapper.Map<IEnumerable<MedicationOutputDto>>(entities);
         }
 
