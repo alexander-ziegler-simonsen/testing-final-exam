@@ -1,4 +1,4 @@
 <Solution>
-    <Project Path="./apiProjects/api/hospitalApi.csproj" />
-    <Project Path="./apiProjects/apiTesting/hospitalApiTesting.csproj" />
+    <Project Path="./api/hospitalApi.csproj" />
+    <Project Path="./api/apiTesting/hospitalApiTesting.csproj" />
 </Solution>

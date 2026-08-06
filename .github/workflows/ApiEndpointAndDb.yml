@@ -58,10 +58,10 @@ jobs:
                   dotnet-version: "10.0.x"
 
             - name: Restore
-              run: dotnet restore apiProjects/api/hospitalApi.csproj
+              run: dotnet restore api/hospitalApi.csproj
 
             - name: Build
-              run: dotnet build apiProjects/api/hospitalApi.csproj --no-restore --configuration Release
+              run: dotnet build api/hospitalApi.csproj --no-restore --configuration Release
 
             # 5 Initialize schema + seed
             - name: Initialize database
@@ -70,30 +70,50 @@ jobs:
                     -h localhost \
                     -U ${{ secrets.POSTGRES_USER }} \
                     -d ${{ secrets.POSTGRES_DB }} \
-                    -f initScripts/postgres/init.sql
+                    -f initScripts/postgres/01_schema.sql
+                  PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql \
+                    -h localhost \
+                    -U ${{ secrets.POSTGRES_USER }} \
+                    -d ${{ secrets.POSTGRES_DB }} \
+                    -f initScripts/postgres/02_seed.sql
 
-            # 6 Setup Node for Newman
+            # 6 Setup Node + pnpm for Newman
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10
+
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
                   node-version: 20
+                  cache: "pnpm"
+                  cache-dependency-path: ./tests/endpoints/pnpm-lock.yaml
 
-            - name: Install Newman
-              run: npm install -g newman
+            - name: Install Newman dependencies
+              run: pnpm install --frozen-lockfile
+              working-directory: ./tests/endpoints
 
             - name: Start API
               run: |
-                  dotnet run --project apiProjects/api/hospitalApi.csproj --configuration Release --no-build &
+                  dotnet run --project api/hospitalApi.csproj --configuration Release --no-build &
 
             - name: Wait for API
               run: |
                   timeout 90 bash -c 'until nc -z localhost 5028; do sleep 2; done'
 
             - name: Run Postman Collection
-              run: |
-                  newman run \
-                    "https://api.getpostman.com/collections/12590735-d2637d88-8db0-440f-8fc4-311fb39720d5" \
-                    --folder "api" \
-                    --environment "https://api.getpostman.com/environments/12590735-36583cbb-fb85-4c40-93e4-2f58748a3d6d" \
-                    --postman-api-key "${{ secrets.POSTMAN_API_KEY }}" \
-                    --env-var "baseUrl=http://localhost:5028"
+              run: pnpm test
+              working-directory: ./tests/endpoints
+              env:
+                  POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+                  BASE_URL: http://localhost:5028
+                  ALLURE_RESULTS_DIR: ${{ github.workspace }}/tests/endpoints/allure-results
+
+            - name: Upload Allure results
+              if: ${{ !cancelled() }}
+              uses: actions/upload-artifact@v4
+              with:
+                  name: allure-results-newman
+                  path: tests/endpoints/allure-results/
+                  retention-days: 30

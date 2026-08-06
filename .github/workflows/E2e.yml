@@ -43,7 +43,8 @@ jobs:
       - name: Initialize Postgres Database
         run: |
           apt-get update && apt-get install -y postgresql-client
-          PGPASSWORD=postgres psql -h postgres -U postgres -d hospital -f ./initScripts/postgres/init.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d hospital -f ./initScripts/postgres/01_schema.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d hospital -f ./initScripts/postgres/02_seed.sql
 
       # 4. Setup .NET SDK to compile and run your API locally
       - name: Setup .NET SDK
@@ -53,7 +54,7 @@ jobs:
 
       # 5. Start the .NET API in the background
       - name: Start API Service
-        run: dotnet run --project ./apiProjects/api &
+        run: dotnet run --project ./api &
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ASPNETCORE_URLS: http://+:5028
@@ -93,4 +94,12 @@ jobs:
         with:
           name: playwright-report
           path: tests/e2e/playwright-report/
+          retention-days: 30
+
+      - name: Upload Allure results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-e2e
+          path: tests/e2e/allure-results/
           retention-days: 30

@@ -11,7 +11,7 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
-      - ./initScripts/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./initScripts/postgres:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
@@ -20,7 +20,7 @@ services:
 
   # api:
   #   build:
-  #     context: ./apiProjects/api
+  #     context: ./api
   #     dockerfile: Dockerfile
   #   ports:
   #     - "5028:5028"
@@ -34,7 +34,7 @@ services:
   # client:
   #   build:
   #     context: ./client
-  #     dockerfile: Dockerfile
+  #     dockerfile: Dockerfile.pipeline
   #   ports:
   #     - "5173:80"
   #   depends_on:
