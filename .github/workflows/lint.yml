@@ -32,6 +32,20 @@ jobs:
 
       # --format=github makes oxlint print GitHub workflow commands, so
       # findings show up as inline PR annotations instead of only in the log.
+      # The output is also captured so a summary box shows up on the run
+      # page every time, not only when oxlint finds something to annotate.
       - name: Run oxlint
         working-directory: ./client
-        run: pnpm exec oxlint -c configs/.oxlintrc.json --tsconfig=configs/tsconfig.json --format=github
+        run: |
+          set +e
+          output=$(pnpm exec oxlint -c configs/.oxlintrc.json --tsconfig=configs/tsconfig.json --format=github)
+          exit_code=$?
+          echo "$output"
+
+          {
+            echo "## Oxlint results"
+            echo ""
+            echo "$output" | grep -E "^Found [0-9]+ warnings? and [0-9]+ errors?\."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          exit $exit_code

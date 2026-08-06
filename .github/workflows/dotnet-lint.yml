@@ -22,8 +22,37 @@ jobs:
       - name: Enable dotnet format annotations
         uses: xt0rted/dotnet-format-problem-matcher@v1
 
+      # --report writes a JSON file listing every file that needs formatting,
+      # even when there are none (empty array) - that's what lets the summary
+      # step below always show a result, not just when something's wrong.
       - name: Check API formatting
-        run: dotnet format api/hospitalApi.csproj --verify-no-changes
+        id: format-api
+        continue-on-error: true
+        run: dotnet format api/hospitalApi.csproj --verify-no-changes --report ./format-reports/api
 
       - name: Check test project formatting
-        run: dotnet format api/apiTesting/hospitalApiTesting.csproj --verify-no-changes
+        id: format-tests
+        continue-on-error: true
+        run: dotnet format api/apiTesting/hospitalApiTesting.csproj --verify-no-changes --report ./format-reports/tests
+
+      # Runs whether the checks above passed or failed, so there's always a
+      # summary box on the run page instead of nothing to look at.
+      - name: Publish formatting summary
+        if: always()
+        run: |
+          api_issues=$(jq 'length' ./format-reports/api/format-report.json)
+          tests_issues=$(jq 'length' ./format-reports/tests/format-report.json)
+          {
+            echo "## dotnet format results"
+            echo ""
+            echo "| Project | Files needing formatting |"
+            echo "|---|---|"
+            echo "| api/hospitalApi.csproj | $api_issues |"
+            echo "| api/apiTesting/hospitalApiTesting.csproj | $tests_issues |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # continue-on-error above means a failed format check wouldn't fail the
+      # job on its own - this makes the job red again if either one failed.
+      - name: Fail if formatting issues were found
+        if: steps.format-api.outcome == 'failure' || steps.format-tests.outcome == 'failure'
+        run: exit 1
