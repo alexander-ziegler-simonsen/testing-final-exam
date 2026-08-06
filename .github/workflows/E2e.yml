@@ -4,57 +4,13 @@ on:
   pull_request:
 
 jobs:
-  full-e2e-testing:
-    timeout-minutes: 20
+  # Build the API ONCE so all 3 browsers test the exact same binary,
+  # instead of paying (and risking drift from) 3 separate compiles.
+  build-api:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chromium, firefox, webkit]
-
-    # 1. Run the test steps directly inside the Playwright image
-    container:
-      image: mcr.microsoft.com/playwright:v1.60.0-noble # Keep in sync with @playwright/test in tests/e2e/package.json
-
-    # 2. Spin up your backend services in the background instantly
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: HospitalDB
-        ports:
-          - 5432:5432
-        # Ensure database is fully online before starting steps
-        options: >-
-          --health-cmd "pg_isready -U postgres -d HospitalDB"
-          --health-interval 5s
-          --health-timeout 5s
-          --health-retries 10
-
-    env:
-      HOME: /root
-      POSTGRES_HOST: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: HospitalDB
-      POSTGRES_PORT: 5432
-      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-
     steps:
       - uses: actions/checkout@v4
 
-      # 3. Initialize your database using your schema file, same as local dev
-      - name: Initialize Postgres Database
-        run: |
-          apt-get update && apt-get install -y postgresql-client
-          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/01_schema.sql
-          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/02_seed.sql
-          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/03_seed_test_fixtures.sql
-          PGPASSWORD=postgres psql -h postgres -U postgres -d postgres -f ./initScripts/postgres/04_create_template.sql
-
-      # 4. Setup .NET SDK to compile and run your API locally
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
@@ -68,12 +24,74 @@ jobs:
           restore-keys: |
             nuget-${{ runner.os }}-
 
-      - name: Build API
-        run: dotnet build ./api/hospitalApi.csproj --configuration Debug
+      - name: Publish API
+        run: dotnet publish ./api/hospitalApi.csproj -c Release -o ./publish
 
-      # 5. Start the .NET API in the background (already built above, so this just launches Kestrel)
-      - name: Start API Service
-        run: dotnet run --project ./api --no-build --no-restore &
+      - uses: actions/upload-artifact@v4
+        with:
+          name: api-build
+          path: ./publish
+          retention-days: 1
+
+  full-e2e-testing:
+    needs: build-api
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    # Each matrix leg = its own runner VM = its own container instance.
+    container:
+      image: mcr.microsoft.com/playwright:v1.60.0-noble # Keep in sync with @playwright/test in tests/e2e/package.json
+
+    # Instantiated fresh PER matrix leg because this block lives inside
+    # the matrixed job — this is what gives each browser its own DB.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: HospitalDB
+        options: >-
+          --health-cmd "pg_isready -U postgres -d HospitalDB"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        # (no `ports:` mapping needed — job steps run inside `container:`,
+        # so they reach postgres over the internal docker network by
+        # service name, not via a host port.)
+
+    env:
+      HOME: /root
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: HospitalDB
+      POSTGRES_PORT: 5432
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize Postgres Database
+        run: |
+          apt-get update && apt-get install -y postgresql-client
+          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/01_schema.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/02_seed.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/03_seed_test_fixtures.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d postgres -f ./initScripts/postgres/04_create_template.sql
+
+      - name: Download built API
+        uses: actions/download-artifact@v4
+        with:
+          name: api-build
+          path: ./publish
+
+      - name: Start API service
+        run: dotnet ./publish/hospitalApi.dll &
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ASPNETCORE_URLS: http://+:5028
@@ -83,7 +101,6 @@ jobs:
         run: until curl -s -o /dev/null -w "%{http_code}" http://localhost:5028/api/patient | grep -qE "^(200|401)$"; do sleep 1; done
         timeout-minutes: 2
 
-      # 6. Build the client and run tests
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
