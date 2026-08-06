@@ -189,7 +189,7 @@ if (app.Environment.IsDevelopment())
     // app.MapScalarApiReference(); // UI page
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/openapi/v1.json", "v1"); 
+        options.SwaggerEndpoint("/openapi/v1.json", "v1");
     });
 }
 
