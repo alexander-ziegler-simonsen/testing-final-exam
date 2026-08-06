@@ -30,22 +30,37 @@ jobs:
         working-directory: ./client
         run: pnpm install --frozen-lockfile
 
-      # --format=github makes oxlint print GitHub workflow commands, so
-      # findings show up as inline PR annotations instead of only in the log.
-      # The output is also captured so a summary box shows up on the run
-      # page every time, not only when oxlint finds something to annotate.
+      # --format=json gives one record per finding (file, line, rule, message,
+      # severity) which is used below to build both the inline PR annotations
+      # and the warnings/errors tables in the job summary - a single run
+      # instead of linting twice with two different formatters.
       - name: Run oxlint
         working-directory: ./client
         run: |
           set +e
-          output=$(pnpm exec oxlint -c configs/.oxlintrc.json --tsconfig=configs/tsconfig.json --format=github)
+          pnpm exec oxlint -c configs/.oxlintrc.json --tsconfig=configs/tsconfig.json --format=json > oxlint-report.json
           exit_code=$?
-          echo "$output"
+          set -e
 
-          {
-            echo "## Oxlint results"
-            echo ""
-            echo "$output" | grep -E "^Found [0-9]+ warnings? and [0-9]+ errors?\."
-          } >> "$GITHUB_STEP_SUMMARY"
+          # Inline PR annotations, one workflow command per finding.
+          jq -r '
+            .diagnostics[]
+            | "::\(.severity) file=\(.filename),line=\(.labels[0].span.line // 1),col=\(.labels[0].span.column // 1),title=\(.code)::\(.message)"
+          ' oxlint-report.json
+
+          # Errors table, then warnings table, appended to the job summary.
+          jq -r '
+            def esc: gsub("\\|"; "\\|") | gsub("\n"; " ");
+            def table(sev):
+              [.diagnostics[] | select(.severity == sev)] as $items
+              | if ($items | length) == 0 then
+                  "_None._"
+                else
+                  ["| File | Line | Rule | Message |", "|---|---|---|---|"]
+                  + [$items[] | "| \(.filename) | \(.labels[0].span.line // "-") | \(.code) | \(.message | esc) |"]
+                  | join("\n")
+                end;
+            "## Oxlint results\n\n### Errors\n\n\(table("error"))\n\n### Warnings\n\n\(table("warning"))"
+          ' oxlint-report.json >> "$GITHUB_STEP_SUMMARY"
 
           exit $exit_code
