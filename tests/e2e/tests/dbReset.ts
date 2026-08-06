@@ -4,11 +4,11 @@ import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process.env;
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } = process.env;
 
 export async function resetDb() {
   const client = new Client({
-    host: 'localhost',
+    host: POSTGRES_HOST || 'localhost',
     port: Number(POSTGRES_PORT),
     user: POSTGRES_USER,
     password: POSTGRES_PASSWORD,
