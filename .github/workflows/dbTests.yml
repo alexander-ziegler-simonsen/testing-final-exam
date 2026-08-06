@@ -12,24 +12,30 @@ permissions:
 jobs:
     db-tests:
         runs-on: ubuntu-latest
+        timeout-minutes: 15
 
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
 
+            # 👉 Install pnpm (pinned version - an unpinned `npm install -g pnpm`
+            # is what broke the client unit pipeline previously)
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10
+
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
                   node-version: 20
-
-            # 👉 Install pnpm
-            - name: Install pnpm
-              run: npm install -g pnpm
+                  cache: "pnpm"
+                  cache-dependency-path: ./tests/dbTests/pnpm-lock.yaml
 
             # 👉 Install deps inside dbTests
             - name: Install dependencies
               working-directory: ./tests/dbTests
-              run: pnpm install
+              run: pnpm install --frozen-lockfile
 
             # 👉 Run tests, also writing a JUnit XML report so it can be
             # turned into a job summary (same idea as apiUnitTests.yml's trx file)
