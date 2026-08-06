@@ -2,6 +2,11 @@ name: API unit tests
 on:
     push:
     pull_request:
+permissions:
+    contents: read
+    checks: write
+    pull-requests: write
+
 jobs:
     apiLocalTests:
         environment: monoEnv
@@ -23,4 +28,15 @@ jobs:
               run: dotnet build api/apiTesting/hospitalApiTesting.csproj --no-restore --configuration Release
 
             - name: Test
-              run: dotnet test api/apiTesting/hospitalApiTesting.csproj --no-build --configuration Release
+              run: >
+                  dotnet test api/apiTesting/hospitalApiTesting.csproj --no-build --configuration Release
+                  --logger "trx;LogFileName=test-results.trx"
+                  --results-directory ./TestResults
+
+            - name: Publish test summary
+              uses: dorny/test-reporter@v1
+              if: always()
+              with:
+                  name: API unit test results
+                  path: TestResults/test-results.trx
+                  reporter: dotnet-trx
