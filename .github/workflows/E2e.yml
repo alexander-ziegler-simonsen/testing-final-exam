@@ -19,7 +19,7 @@ jobs:
     # 2. Spin up your backend services in the background instantly
     services:
       postgres:
-        image: postgres:16
+        image: postgres:16-alpine
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -60,16 +60,27 @@ jobs:
         with:
           dotnet-version: "10.0"
 
-      # 5. Start the .NET API in the background
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('api/**/*.csproj') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      - name: Build API
+        run: dotnet build ./api --configuration Debug
+
+      # 5. Start the .NET API in the background (already built above, so this just launches Kestrel)
       - name: Start API Service
-        run: dotnet run --project ./api &
+        run: dotnet run --project ./api --no-build --no-restore &
         env:
           ASPNETCORE_ENVIRONMENT: Development
           ASPNETCORE_URLS: http://+:5028
           ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=HospitalDB;Username=postgres;Password=postgres;
 
       - name: Wait for API to be ready
-        run: until curl -s -o /dev/null -w "%{http_code}" http://localhost:5028/api/patient | grep -qE "^(200|401)$"; do sleep 2; done
+        run: until curl -s -o /dev/null -w "%{http_code}" http://localhost:5028/api/patient | grep -qE "^(200|401)$"; do sleep 1; done
         timeout-minutes: 2
 
       # 6. Build the client and run tests

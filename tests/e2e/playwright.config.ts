@@ -19,8 +19,12 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   retries: 0,
-  /* Each CI job now runs a single browser project (see matrix in E2e.yml), so a couple of workers can safely run in parallel. */
-  workers: process.env.CI ? 2 : undefined,
+  /* Every spec resets the DB per-test (see tests/*.spec.ts beforeEach + dbReset.ts),
+   * against one shared Postgres instance and one shared API process - concurrent
+   * workers would race each other's DROP/CREATE DATABASE and corrupt in-flight
+   * tests. Each CI job (see matrix in E2e.yml) already only runs one browser's
+   * tests, so this keeps them serialized within that job. */
+  workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html'],
