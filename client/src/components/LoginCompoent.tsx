@@ -49,30 +49,9 @@ export default function LoginCompoent() {
                     Login
                 </Heading>
                 <Stack gap={3}>
-                    <Input
-                        data-testid="login-username-input"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Username"
-                        size={"lg"}
-                    />
-                    <Input
-                        data-testid="login-password-input"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Password"
-                        size={"lg"}
-                    />
-                    <Button
-                        data-testid="login-submit-button"
-                        onClick={loginFunc}
-                        colorPalette={"green"}
-                        bg={"green.600"}
-                        _hover={{ bg: "green.700" }}
-                        color={"white"}
-                        size={"lg"}
-                    >
+                    <Input data-testid="login-username-input" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" size={"lg"} />
+                    <Input data-testid="login-password-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" size={"lg"} />
+                    <Button data-testid="login-submit-button" onClick={loginFunc} colorPalette={"green"} bg={"green.600"} _hover={{ bg: "green.700" }} color={"white"} size={"lg"}>
                         Login
                     </Button>
                     {loginFailed && (
