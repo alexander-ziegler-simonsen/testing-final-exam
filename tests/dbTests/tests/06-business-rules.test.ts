@@ -1,7 +1,11 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { openTestPool } from "./helpers/testDb.js";
+import type { Pool } from "pg";
+import { openTestPool } from "../helpers/testDb.js";
 
-let pool;
+// Runs last: end-to-end business-rule checks that combine several tables
+// (medication_storage + medication_storage_missing) in a single workflow,
+// building on everything the earlier suites already confirmed works.
+let pool: Pool;
 
 beforeAll(() => {
     pool = openTestPool();
@@ -13,6 +17,10 @@ afterAll(async () => {
 
 describe("R-10: stock deduction via missing report", () => {
     test("updating medication_storage.amount reduces stock by exactly the reported figure", async () => {
+        // BEGIN/ROLLBACK here so the mutation below never actually persists.
+        // Caveat: pool.query() may hand each call a different connection
+        // from the pool, so this only reliably stays in one transaction
+        // because nothing else runs concurrently against this pool.
         await pool.query("BEGIN");
         try {
             const beforeRes = await pool.query(

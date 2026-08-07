@@ -1,7 +1,11 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { openTestPool } from "./helpers/testDb.js";
+import type { Pool } from "pg";
+import { openTestPool } from "../helpers/testDb.js";
 
-let pool;
+// Runs fifth: checks the sp_get_* stored procedures, which are the
+// heaviest read queries (joining rooms/floors/buildings, shifts + staff,
+// etc.) and are the layer the application backend actually calls.
+let pool: Pool;
 
 beforeAll(() => {
     pool = openTestPool();

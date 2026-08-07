@@ -1,7 +1,10 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { openTestPool } from "./helpers/testDb.js";
+import type { Pool } from "pg";
+import { openTestPool } from "../helpers/testDb.js";
 
-let pool;
+// Runs first: sanity-checks that globalSetup.ts loaded the schema and seed
+// SQL correctly, before any other suite starts relying on that data.
+let pool: Pool;
 
 beforeAll(() => {
     pool = openTestPool();
@@ -41,6 +44,8 @@ describe("Seed data", () => {
     });
 
     test("every medication has a corresponding storage entry", async () => {
+        // LEFT JOIN + IS NULL finds medications that have no matching
+        // medication_storage row at all, i.e. any orphans left seeding.
         const res = await pool.query(`
             SELECT m.id
             FROM medication m

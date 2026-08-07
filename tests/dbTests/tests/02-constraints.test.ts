@@ -1,7 +1,11 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { openTestPool } from "./helpers/testDb.js";
+import type { Pool } from "pg";
+import { openTestPool } from "../helpers/testDb.js";
 
-let pool;
+// Runs second, right after the seed-data sanity checks: verifies the raw
+// schema-level guarantees (unique/foreign key constraints) that everything
+// after this suite implicitly relies on.
+let pool: Pool;
 
 beforeAll(() => {
     pool = openTestPool();

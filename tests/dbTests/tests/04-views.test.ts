@@ -1,7 +1,11 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { openTestPool } from "./helpers/testDb.js";
+import type { Pool } from "pg";
+import { openTestPool } from "../helpers/testDb.js";
 
-let pool;
+// Runs fourth: checks the read-only views (vw_nurses, vw_doctors,
+// vw_week_shifts), which join across staff/staff_role/shift and depend on
+// the seed data and functions already verified by the earlier suites.
+let pool: Pool;
 
 beforeAll(() => {
     pool = openTestPool();

@@ -1,7 +1,12 @@
 import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { openTestPool } from "./helpers/testDb.js";
+import type { Pool } from "pg";
+import { openTestPool } from "../helpers/testDb.js";
 
-let pool;
+// Runs third: exercises the plain SQL functions (calculate_patient_age,
+// is_patient_minor, patient_bmi_value, patient_bmi_category) in isolation,
+// via SELECT <function>(...) calls, before views/procedures that build on
+// top of them are tested.
+let pool: Pool;
 
 beforeAll(() => {
     pool = openTestPool();
