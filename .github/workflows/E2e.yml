@@ -145,11 +145,6 @@ jobs:
         run: pnpm exec playwright test --project=${{ matrix.browser }} --reporter=list,html,allure-playwright
         working-directory: ./tests/e2e
 
-      - name: Run Lighthouse audit
-        if: matrix.browser == 'chromium'
-        run: pnpm exec playwright test --project=lighthouse --reporter=list,html,allure-playwright
-        working-directory: ./tests/e2e
-
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
@@ -162,5 +157,121 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-results-e2e-${{ matrix.browser }}
+          path: tests/e2e/allure-results/
+          retention-days: 30
+
+  # Split out from full-e2e-testing: the lighthouse audit (~11 pages x ~10s+
+  # each) runs several minutes longer than the functional e2e specs (~2-3
+  # min), so bolting it onto the chromium leg made that leg the critical
+  # path for the whole matrix. Running it as its own parallel job keeps the
+  # browser matrix fast and gives the audit the room it needs.
+  lighthouse-audit:
+    needs: build-api
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+
+    container:
+      image: mcr.microsoft.com/playwright:v1.60.0-noble # Keep in sync with @playwright/test in tests/e2e/package.json
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: HospitalDB
+        options: >-
+          --health-cmd "pg_isready -U postgres -d HospitalDB"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      HOME: /root
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: HospitalDB
+      POSTGRES_PORT: 5432
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      VITE_API_BASE_URL: http://localhost:5028
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize Postgres Database
+        run: |
+          apt-get update && apt-get install -y postgresql-client
+          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/01_schema.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/02_seed.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d HospitalDB -f ./initScripts/postgres/03_seed_test_fixtures.sql
+          PGPASSWORD=postgres psql -h postgres -U postgres -d postgres -f ./initScripts/postgres/04_create_template.sql
+
+      - name: Download built API
+        uses: actions/download-artifact@v4
+        with:
+          name: api-build
+          path: ./publish
+
+      - name: Start API service
+        run: |
+          chmod +x ./publish/hospitalApi
+          ./publish/hospitalApi --contentRoot "$(pwd)/publish" > api.log 2>&1 &
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+          ASPNETCORE_URLS: http://+:5028
+          ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=HospitalDB;Username=postgres;Password=postgres;
+
+      - name: Wait for API to be ready
+        run: |
+          for i in $(seq 1 60); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5028/api/patient || true)
+            if [ "$code" = "200" ] || [ "$code" = "401" ]; then
+              echo "API responded with HTTP $code after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "API did not become ready in time. --- api.log ---"
+          cat api.log || echo "(no log file found — process may not have started at all)"
+          exit 1
+        timeout-minutes: 2
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "pnpm"
+          cache-dependency-path: ./tests/e2e/pnpm-lock.yaml
+
+      - name: Install Client Dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: ./client
+
+      - name: Install Project Dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: ./tests/e2e
+
+      - name: Run Lighthouse audit
+        run: pnpm exec playwright test --project=lighthouse --reporter=list,html,allure-playwright
+        working-directory: ./tests/e2e
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-lighthouse
+          path: tests/e2e/playwright-report/
+          retention-days: 30
+
+      - name: Upload Allure results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-lighthouse
           path: tests/e2e/allure-results/
           retention-days: 30

@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
+    "test": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:ui": "playwright test --ui --project=chromium --project=firefox --project=webkit",
+    "test:lighthouse": "playwright test --project=lighthouse",
+    "test:all": "playwright test",
     "test:new": "playwright codegen"
   },
   "keywords": [],
