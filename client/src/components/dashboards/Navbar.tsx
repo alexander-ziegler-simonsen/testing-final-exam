@@ -20,9 +20,7 @@ export default function Navbar() {
             {/* logo */}
             <Box bg={"gray.100"} padding={2} rounded={18} m={0}>
                 <Link data-testid="dashboard-navbar-logo-link" to={"/app"}>
-                    <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"}>
-                        Logo
-                    </Text>
+                    <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"}>Logo</Text>
                 </Link>
             </Box>
 
