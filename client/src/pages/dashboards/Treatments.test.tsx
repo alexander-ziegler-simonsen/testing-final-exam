@@ -17,7 +17,7 @@ function renderTreatments() {
 }
 
 test("loads treatments from the API and renders them in the table", async () => {
-    const { getByTestId } = await renderTreatments();
+    const { getByTestId, container } = await renderTreatments();
 
     await expect.element(getByTestId("treatments-page-heading")).toBeInTheDocument();
 
@@ -27,4 +27,6 @@ test("loads treatments from the API and renders them in the table", async () => 
     await expect
         .element(getByTestId("treatments-table-row-0-cell-fkPatientId"))
         .toHaveTextContent("42");
+
+    await expect(container).toMatchScreenshot("treatments");
 });

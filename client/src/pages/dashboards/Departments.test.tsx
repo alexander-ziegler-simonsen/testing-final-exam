@@ -18,7 +18,7 @@ function renderDepartments() {
 }
 
 test("loads departments from the API and renders them in the table", async () => {
-    const { getByTestId } = await renderDepartments();
+    const { getByTestId, container } = await renderDepartments();
 
     await expect.element(getByTestId("departments-page-heading")).toBeInTheDocument();
 
@@ -28,4 +28,6 @@ test("loads departments from the API and renders them in the table", async () =>
     await expect
         .element(getByTestId("departments-table-row-0-cell-type"))
         .toHaveTextContent("Medical");
+
+    await expect(container).toMatchScreenshot("departments");
 });

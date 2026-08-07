@@ -18,7 +18,7 @@ function renderMedicinStorage() {
 }
 
 test("resolves each storage row's medication name and amount", async () => {
-    const { getByTestId } = await renderMedicinStorage();
+    const { getByTestId, container } = await renderMedicinStorage();
 
     await expect.element(getByTestId("medicin-storage-page-heading")).toBeInTheDocument();
 
@@ -29,4 +29,6 @@ test("resolves each storage row's medication name and amount", async () => {
     await expect
         .element(getByTestId("medicin-storage-table-row-0-cell-amount"))
         .toHaveTextContent("142");
+
+    await expect(container).toMatchScreenshot("medicin-storage");
 });

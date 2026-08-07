@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Vitest browser-mode report attachments (content-hashed, regenerated per run).
+.vitest-attachments/
+
+# Vitest browser-mode screenshot baselines (toMatchScreenshot). Machine/
+# browser-specific and can be flaky between runs on the same machine
+# (animations, focus rings, etc.), so they're regenerated locally rather
+# than committed.
+# __screenshots__/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

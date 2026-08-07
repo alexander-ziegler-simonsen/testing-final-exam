@@ -13,7 +13,7 @@ function renderShifts() {
 }
 
 test("loads shifts and renders them on the timeline", async () => {
-    const { getByTestId } = await renderShifts();
+    const { getByTestId, container } = await renderShifts();
 
     await expect.element(getByTestId("shifts-page-heading")).toBeInTheDocument();
     await expect.element(getByTestId("shifts-timeline")).toBeInTheDocument();
@@ -23,4 +23,6 @@ test("loads shifts and renders them on the timeline", async () => {
     await expect
         .element(getByTestId("shifts-timeline-event-1"))
         .toHaveTextContent("Shift #1");
+
+    await expect(container).toMatchScreenshot("shifts");
 });

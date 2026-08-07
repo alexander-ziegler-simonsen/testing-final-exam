@@ -24,7 +24,7 @@ function renderOneExternalMedicin() {
 }
 
 test("loads and renders the product's details", async () => {
-    const { getByTestId } = await renderOneExternalMedicin();
+    const { getByTestId, container } = await renderOneExternalMedicin();
 
     await expect.element(getByTestId("one-external-medicin-heading")).toHaveTextContent("Panodil");
     await expect
@@ -33,4 +33,6 @@ test("loads and renders the product's details", async () => {
     await expect
         .element(getByTestId("one-external-medicin-field-firma"))
         .toHaveTextContent("GlaxoSmithKline Consumer Healthcare");
+
+    await expect(container).toMatchScreenshot("one-external-medicin");
 });

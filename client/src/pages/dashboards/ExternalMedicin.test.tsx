@@ -23,7 +23,7 @@ function renderExternalMedicin() {
 }
 
 test("searches by name and renders the matching products", async () => {
-    const { getByTestId } = await renderExternalMedicin();
+    const { getByTestId, container } = await renderExternalMedicin();
 
     await getByTestId("external-medicin-search-input").fill("Panodil");
     await getByTestId("external-medicin-search-button").click();
@@ -34,4 +34,6 @@ test("searches by name and renders the matching products", async () => {
     await expect
         .element(getByTestId("external-medicin-row-0"))
         .toHaveTextContent("GlaxoSmithKline Consumer Healthcare");
+
+    await expect(container).toMatchScreenshot("external-medicin");
 });

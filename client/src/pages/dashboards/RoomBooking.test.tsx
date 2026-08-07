@@ -18,7 +18,7 @@ function renderRoomBooking() {
 }
 
 test("resolves each booking's room and patient names", async () => {
-    const { getByTestId } = await renderRoomBooking();
+    const { getByTestId, container } = await renderRoomBooking();
 
     await expect.element(getByTestId("room-booking-page-heading")).toBeInTheDocument();
 
@@ -29,4 +29,6 @@ test("resolves each booking's room and patient names", async () => {
     await expect
         .element(getByTestId("room-booking-table-row-0-cell-patientName"))
         .toHaveTextContent("Mette Sørensen");
+
+    await expect(container).toMatchScreenshot("room-booking");
 });

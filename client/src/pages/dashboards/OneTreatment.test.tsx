@@ -26,7 +26,7 @@ function renderOneTreatment() {
 }
 
 test("loads the treatment with its patient, staff, and prescriptions", async () => {
-    const { getByTestId } = await renderOneTreatment();
+    const { getByTestId, container } = await renderOneTreatment();
 
     await expect.element(getByTestId("one-treatment-heading")).toHaveTextContent("Treatment #6");
     await expect
@@ -39,4 +39,6 @@ test("loads the treatment with its patient, staff, and prescriptions", async () 
     await expect
         .element(getByTestId("treatment-prescriptions-table-row-0-cell-medicationName"))
         .toHaveTextContent("Panodil");
+
+    await expect(container).toMatchScreenshot("one-treatment");
 });

@@ -24,11 +24,13 @@ function renderOneMedicin() {
 }
 
 test("loads the storage row and its medication details", async () => {
-    const { getByTestId } = await renderOneMedicin();
+    const { getByTestId, container } = await renderOneMedicin();
 
     await expect.element(getByTestId("one-medicin-heading")).toHaveTextContent("Panodil");
     await expect.element(getByTestId("one-medicin-field-amount")).toHaveTextContent("142");
     await expect
         .element(getByTestId("one-medicin-field-generic-name"))
         .toHaveTextContent("Paracetamol");
+
+    await expect(container).toMatchScreenshot("one-medicin");
 });

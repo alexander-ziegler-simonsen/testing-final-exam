@@ -13,7 +13,7 @@ function renderMissingMedicin() {
 }
 
 test("loads missing-storage reports and renders them in the table", async () => {
-    const { getByTestId } = await renderMissingMedicin();
+    const { getByTestId, container } = await renderMissingMedicin();
 
     await expect.element(getByTestId("missing-medicine-page-heading")).toBeInTheDocument();
 
@@ -23,4 +23,6 @@ test("loads missing-storage reports and renders them in the table", async () => 
     await expect
         .element(getByTestId("missing-medicine-table-row-0-cell-fkMedicationStorageId"))
         .toHaveTextContent("5");
+
+    await expect(container).toMatchScreenshot("missing-medicin");
 });

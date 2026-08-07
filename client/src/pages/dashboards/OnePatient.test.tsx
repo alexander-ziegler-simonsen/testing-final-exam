@@ -24,7 +24,7 @@ function renderOnePatient() {
 }
 
 test("loads the patient and their treatment history", async () => {
-    const { getByTestId } = await renderOnePatient();
+    const { getByTestId, container } = await renderOnePatient();
 
     await expect.element(getByTestId("one-patient-heading")).toHaveTextContent("Mette Sørensen");
     await expect.element(getByTestId("one-patient-field-cpr")).toHaveTextContent("1503851234");
@@ -32,4 +32,6 @@ test("loads the patient and their treatment history", async () => {
     await expect
         .element(getByTestId("patient-treatments-table-row-0-cell-description"))
         .toHaveTextContent("Rutinetjek og blodprøve");
+
+    await expect(container).toMatchScreenshot("one-patient");
 });

@@ -25,11 +25,13 @@ function renderOneRoomBooking() {
 }
 
 test("loads the booking with its room and patient details", async () => {
-    const { getByTestId } = await renderOneRoomBooking();
+    const { getByTestId, container } = await renderOneRoomBooking();
 
     await expect.element(getByTestId("one-room-booking-heading")).toHaveTextContent("Booking #4");
     await expect.element(getByTestId("one-room-booking-field-room")).toHaveTextContent("Room 201");
     await expect
         .element(getByTestId("one-room-booking-patient-link"))
         .toHaveTextContent("Mette Sørensen");
+
+    await expect(container).toMatchScreenshot("one-room-booking");
 });

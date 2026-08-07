@@ -17,7 +17,7 @@ function renderFacilities() {
 }
 
 test("loads locations from the API and renders them in the table", async () => {
-    const { getByTestId } = await renderFacilities();
+    const { getByTestId, container } = await renderFacilities();
 
     await expect.element(getByTestId("facilities-page-heading")).toBeInTheDocument();
 
@@ -27,4 +27,6 @@ test("loads locations from the API and renders them in the table", async () => {
     await expect
         .element(getByTestId("facilities-table-row-0-cell-address"))
         .toHaveTextContent("Nørrebrogade 44, 8000 Aarhus C");
+
+    await expect(container).toMatchScreenshot("facilities");
 });

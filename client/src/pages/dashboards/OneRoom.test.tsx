@@ -26,7 +26,7 @@ function renderOneRoom() {
 }
 
 test("loads the room and its booking history", async () => {
-    const { getByTestId } = await renderOneRoom();
+    const { getByTestId, container } = await renderOneRoom();
 
     await expect.element(getByTestId("one-room-heading")).toHaveTextContent("Room 201");
     await expect.element(getByTestId("one-room-floor")).toHaveTextContent("2nd floor");
@@ -34,4 +34,6 @@ test("loads the room and its booking history", async () => {
     await expect
         .element(getByTestId("one-room-booking-row-4"))
         .toHaveTextContent("Mette Sørensen");
+
+    await expect(container).toMatchScreenshot("one-room");
 });

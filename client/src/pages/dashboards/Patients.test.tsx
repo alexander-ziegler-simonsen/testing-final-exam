@@ -17,7 +17,7 @@ function renderPatients() {
 }
 
 test("loads patients from the API and renders them in the table", async () => {
-    const { getByTestId } = await renderPatients();
+    const { getByTestId, container } = await renderPatients();
 
     await expect.element(getByTestId("patients-page-heading")).toBeInTheDocument();
 
@@ -30,4 +30,6 @@ test("loads patients from the API and renders them in the table", async () => {
     await expect
         .element(getByTestId("patients-table-row-0-cell-cprNumber"))
         .toHaveTextContent("1503851234");
+
+    await expect(container).toMatchScreenshot("patients");
 });

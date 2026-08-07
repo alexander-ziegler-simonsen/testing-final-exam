@@ -12,7 +12,7 @@ function renderOverview() {
 }
 
 test("renders the overview page with its stat cards", async () => {
-    const { getByTestId } = await renderOverview();
+    const { getByTestId, container } = await renderOverview();
 
     await expect.element(getByTestId("overview-page-heading")).toBeInTheDocument();
 
@@ -28,4 +28,6 @@ test("renders the overview page with its stat cards", async () => {
     await expect
         .element(getByTestId("overview-card-2-type"))
         .toHaveTextContent("B1");
+
+    await expect(container).toMatchScreenshot("overview");
 });

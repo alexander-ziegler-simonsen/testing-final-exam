@@ -18,11 +18,13 @@ function renderGiveTreatment() {
 }
 
 test("renders the form once patient/medication data has loaded", async () => {
-    const { getByTestId } = await renderGiveTreatment();
+    const { getByTestId, container } = await renderGiveTreatment();
 
     await expect.element(getByTestId("give-treatment-page")).toBeInTheDocument();
     await expect.element(getByTestId("give-treatment-field-patient")).toBeInTheDocument();
 
     // No patient selected yet, so submit is disabled.
     await expect.element(getByTestId("give-treatment-submit-button")).toBeDisabled();
+
+    await expect(container).toMatchScreenshot("give-treatment");
 });

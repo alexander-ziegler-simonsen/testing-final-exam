@@ -25,7 +25,7 @@ function renderOneFacility() {
 }
 
 test("loads the building and lists its floors and rooms", async () => {
-    const { getByTestId } = await renderOneFacility();
+    const { getByTestId, container } = await renderOneFacility();
 
     await expect
         .element(getByTestId("one-facility-heading"))
@@ -40,4 +40,6 @@ test("loads the building and lists its floors and rooms", async () => {
     await expect
         .element(getByTestId("one-facility-room-14"))
         .toHaveTextContent("Room 201");
+
+    await expect(container).toMatchScreenshot("one-facility");
 });

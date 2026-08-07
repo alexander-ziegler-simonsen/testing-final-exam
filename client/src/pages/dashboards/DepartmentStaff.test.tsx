@@ -13,7 +13,7 @@ function renderDepartmentStaff() {
 }
 
 test("loads department-staff links and renders the joined names", async () => {
-    const { getByTestId } = await renderDepartmentStaff();
+    const { getByTestId, container } = await renderDepartmentStaff();
 
     await expect.element(getByTestId("department-staff-page-heading")).toBeInTheDocument();
 
@@ -23,4 +23,6 @@ test("loads department-staff links and renders the joined names", async () => {
     await expect
         .element(getByTestId("department-staff-table-row-0-cell-staff"))
         .toHaveTextContent("Karen Holm");
+
+    await expect(container).toMatchScreenshot("department-staff");
 });

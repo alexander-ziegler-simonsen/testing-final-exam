@@ -17,7 +17,7 @@ function renderStaff() {
 }
 
 test("loads user accounts and resolves the linked staff member's name", async () => {
-    const { getByTestId } = await renderStaff();
+    const { getByTestId, container } = await renderStaff();
 
     await expect.element(getByTestId("staff-page-heading")).toBeInTheDocument();
 
@@ -28,4 +28,6 @@ test("loads user accounts and resolves the linked staff member's name", async ()
     await expect
         .element(getByTestId("staff-table-row-0-cell-fkStaffId"))
         .toHaveTextContent("Karen Holm");
+
+    await expect(container).toMatchScreenshot("staff");
 });
