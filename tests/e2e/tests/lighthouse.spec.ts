@@ -46,20 +46,14 @@ const test = base.extend<{ port: number; context: BrowserContext; page: Page }>(
   },
 });
 
-// Every route reachable from the doctor sidebar (see App.tsx / DoctorSidebarCheck.spec.ts) -
-// this doctor account is blocked from /app/staff (admin only) and /app/give_treatment
-// (nurse/admin only), so those two are excluded.
+// A representative sample of the routes reachable from the doctor sidebar (see
+// App.tsx / DoctorSidebarCheck.spec.ts), not the full set - each audit takes
+// ~20s+, and running all of them pushed this spec's runtime past 4 minutes.
+// overview = landing page, patients = data-heavy list view, treatment = the
+// most interactive/form-heavy page.
 const DASHBOARD_PAGES = [
   { name: 'overview', path: '/app/overview' },
-  { name: 'departments', path: '/app/departments' },
-  { name: 'department-staff', path: '/app/department_staff' },
-  { name: 'facilities', path: '/app/facilities' },
   { name: 'patients', path: '/app/patients' },
-  { name: 'missing-medicin', path: '/app/missing_medicin' },
-  { name: 'medicin-storage', path: '/app/medicin_storage' },
-  { name: 'external-medicin', path: '/app/external_medicin' },
-  { name: 'shifts', path: '/app/shifts' },
-  { name: 'room-booking', path: '/app/room_booking' },
   { name: 'treatment', path: '/app/treatment' },
 ];
 

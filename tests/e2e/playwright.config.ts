@@ -62,9 +62,9 @@ export default defineConfig({
     {
       name: 'lighthouse',
       testMatch: /lighthouse\.spec\.ts/,
-      // One test runs a full Lighthouse audit (~10s each) against every
-      // dashboard page in sequence - well past the default 30s test timeout.
-      timeout: 5 * 60 * 1000,
+      // One test runs a full Lighthouse audit (~20-30s each) against 3
+      // dashboard pages in sequence - past the default 30s test timeout.
+      timeout: 2 * 60 * 1000,
     },
 
     /* Test against mobile viewports. */
