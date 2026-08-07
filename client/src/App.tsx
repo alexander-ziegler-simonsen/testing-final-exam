@@ -6,7 +6,6 @@ import About from './pages/public/About'
 import Login from './pages/auth/Login'
 import Doctors from './pages/public/Doctors'
 import Contact from './pages/public/Contact'
-import Appointment from './pages/public/Appointment'
 import DashboardLayout from './pages/DashboardLayout'
 import Overview from './pages/dashboards/Overview'
 import Departments from './pages/dashboards/Departments'
@@ -57,7 +56,6 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="doctors" element={<Doctors />} />
         <Route path="Contact" element={<Contact />} />
-        <Route path="appointment" element={<Appointment />} />
 
         {/* 🔒 BASE PROTECTION: Enforces that a user is actively authenticated */}
         <Route element={<ProtectedRoute />}>

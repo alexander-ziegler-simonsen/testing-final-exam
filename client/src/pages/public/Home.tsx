@@ -20,9 +20,6 @@ export default function Home() {
               </Text>
 
               <HStack gap={4} mb={10} flexWrap={"wrap"}>
-                <Button data-testid="home-book-appointment-button" size={"lg"} colorPalette={"green"} bg={"green.600"} _hover={{ bg: "green.700" }} color={"white"}>
-                  Book an appointment
-                </Button>
                 <Button data-testid="home-explore-services-button" size={"lg"} variant={"outline"}>
                   Explore services
                 </Button>

@@ -49,21 +49,6 @@ export default function Navbar() {
 
           <HStack gap={3}>
             <Button
-              asChild
-              display={{ base: "none", md: "inline-flex" }}
-              colorPalette={"green"}
-              bg={"green.600"}
-              color={"white"}
-              _hover={{ bg: "green.700" }}
-              borderRadius={"full"}
-              px={6}
-            >
-              <Link data-testid="nav-book-link" to="/appointment">
-                Book now
-              </Link>
-            </Button>
-
-            <Button
               data-testid="nav-mobile-menu-toggle"
               display={{ base: "inline-flex", md: "none" }}
               variant={"ghost"}
@@ -99,20 +84,6 @@ export default function Navbar() {
                       {link.label}
                     </Link>
                   ))}
-
-                  <Button
-                    asChild
-                    colorPalette={"green"}
-                    bg={"green.600"}
-                    color={"white"}
-                    _hover={{ bg: "green.700" }}
-                    borderRadius={"full"}
-                    mt={2}
-                  >
-                    <Link data-testid="nav-mobile-book-link" to="/appointment" onClick={() => setIsMobileOpen(false)}>
-                      Book now
-                    </Link>
-                  </Button>
                 </Stack>
               </Drawer.Body>
 

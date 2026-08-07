@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Button, Container, Grid, Heading, HStack, Icon, Text } from "@chakra-ui/react";
+import { Avatar, Badge, Box, Container, Grid, Heading, HStack, Icon, Text } from "@chakra-ui/react";
 import Navbar from "../../components/public/Navbar";
 import Footer from "../../components/public/Footer";
 import { Star } from "lucide-react";
@@ -83,10 +83,6 @@ export default function Doctors() {
                       {doctor.years} yrs experience
                     </Badge>
                   </HStack>
-
-                  <Button size={"sm"} width={"full"} colorPalette={"green"} bg={"green.600"} color={"white"} _hover={{ bg: "green.700" }} data-testid={`doctors-card-${testIdSlug}-book-button`}>
-                    Book appointment
-                  </Button>
                 </Box>
               );
             })}
