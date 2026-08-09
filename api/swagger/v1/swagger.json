@@ -135,7 +135,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Department": {
@@ -194,7 +199,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -248,7 +258,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Department/{id}": {
@@ -309,7 +324,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -351,7 +371,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -373,7 +398,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/DepartmentStaff": {
@@ -432,7 +462,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -486,7 +521,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/DepartmentStaff/{id}": {
@@ -547,7 +587,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -609,7 +654,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -651,7 +701,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/ExternalMedicinePrices/productsByName": {
@@ -719,7 +774,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/ExternalMedicinePrices/productsByIngredient": {
@@ -787,7 +847,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/ExternalMedicinePrices/productDetails": {
@@ -846,7 +911,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Location": {
@@ -905,7 +975,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Location/{id}": {
@@ -966,7 +1041,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Location/floor": {
@@ -1025,7 +1105,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1076,7 +1161,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Location/floor/{id}": {
@@ -1137,7 +1227,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -1199,7 +1294,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -1221,7 +1321,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Medicin": {
@@ -1280,7 +1385,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1334,7 +1444,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Medicin/{id}": {
@@ -1395,7 +1510,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -1437,7 +1557,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -1459,7 +1584,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/MissingStorage": {
@@ -1518,7 +1648,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1572,7 +1707,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/MissingStorage/{id}": {
@@ -1633,7 +1773,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -1675,7 +1820,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -1697,7 +1847,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Patient": {
@@ -1833,7 +1988,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1887,7 +2047,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Patient/{id}": {
@@ -1948,7 +2113,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -1990,7 +2160,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -2012,7 +2187,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Patient/register-baby": {
@@ -2088,7 +2268,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Prescription": {
@@ -2147,7 +2332,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -2201,7 +2391,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Prescription/{id}": {
@@ -2262,7 +2457,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -2304,7 +2504,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -2326,7 +2531,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/RoomBooking": {
@@ -2385,7 +2595,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -2459,7 +2674,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/RoomBooking/{id}": {
@@ -2520,7 +2740,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -2599,7 +2824,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -2621,7 +2851,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Shift": {
@@ -2713,7 +2948,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -2767,7 +3007,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Shift/{id}": {
@@ -2828,7 +3073,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -2870,7 +3120,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -2892,7 +3147,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Staff": {
@@ -2951,7 +3211,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -3005,7 +3270,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Staff/{id}": {
@@ -3066,7 +3336,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -3108,7 +3383,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -3130,7 +3410,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Storage": {
@@ -3189,7 +3474,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -3243,7 +3533,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Storage/{id}": {
@@ -3304,7 +3599,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -3346,7 +3646,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -3368,7 +3673,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Treatment": {
@@ -3469,7 +3779,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -3533,7 +3848,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/Treatment/{id}": {
@@ -3594,7 +3914,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -3636,7 +3961,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -3658,7 +3988,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/TreatmentStaff": {
@@ -3717,7 +4052,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -3771,7 +4111,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/TreatmentStaff/{id}": {
@@ -3832,7 +4177,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -3874,7 +4224,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -3896,7 +4251,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/User": {
@@ -3955,7 +4315,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/User/register": {
@@ -4008,7 +4373,12 @@
           "204": {
             "description": "No Content"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/User/{id}/password": {
@@ -4052,7 +4422,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/api/User/{id}": {
@@ -4076,7 +4451,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     }
   },
@@ -5182,6 +5562,13 @@
             ]
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   },

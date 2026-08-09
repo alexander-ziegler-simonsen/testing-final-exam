@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.OpenApi;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.OpenApi;
 // using Scalar.AspNetCore;
 
 // fix added to prevent problems with DateTime values
@@ -123,6 +125,38 @@ builder.Services.AddOpenApi(options =>
         if (context.Description.ActionDescriptor is ControllerActionDescriptor action)
         {
             operation.OperationId = $"{action.ControllerName}_{action.ActionName}";
+        }
+        return Task.CompletedTask;
+    });
+    // Registers the JWT bearer scheme so protected endpoints get a `security` requirement
+    // in the generated OpenAPI document. Without this, hey-api has no security metadata to
+    // generate per-request auth from, so the frontend's Authorization header only ever gets
+    // attached by the 401-retry path instead of on the first attempt of every request.
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Components ??= new OpenApiComponents();
+        document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+        document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+        };
+        return Task.CompletedTask;
+    });
+    options.AddOperationTransformer((operation, context, cancellationToken) =>
+    {
+        var metadata = context.Description.ActionDescriptor.EndpointMetadata;
+        var requiresAuth = metadata.OfType<IAuthorizeData>().Any() && !metadata.OfType<IAllowAnonymous>().Any();
+
+        if (requiresAuth)
+        {
+            operation.Security ??= new List<OpenApiSecurityRequirement>();
+            operation.Security.Add(new OpenApiSecurityRequirement
+            {
+                [new OpenApiSecuritySchemeReference("Bearer", context.Document)] = new List<string>()
+            });
         }
         return Task.CompletedTask;
     });

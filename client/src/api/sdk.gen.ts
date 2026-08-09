@@ -34,16 +34,22 @@ export const authRefresh = <ThrowOnError extends boolean = false>(options?: Opti
     ...options
 });
 
-export const authLogout = <ThrowOnError extends boolean = false>(options?: Options<AuthLogoutData, ThrowOnError>): RequestResult<AuthLogoutResponses, unknown, ThrowOnError> => (options?.client ?? client).post<AuthLogoutResponses, unknown, ThrowOnError>({ url: '/api/Auth/logout', ...options });
+export const authLogout = <ThrowOnError extends boolean = false>(options?: Options<AuthLogoutData, ThrowOnError>): RequestResult<AuthLogoutResponses, unknown, ThrowOnError> => (options?.client ?? client).post<AuthLogoutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Auth/logout',
+    ...options
+});
 
 export const departmentGetAllDepartments = <ThrowOnError extends boolean = false>(options?: Options<DepartmentGetAllDepartmentsData, ThrowOnError>): RequestResult<DepartmentGetAllDepartmentsResponses, DepartmentGetAllDepartmentsErrors, ThrowOnError> => (options?.client ?? client).get<DepartmentGetAllDepartmentsResponses, DepartmentGetAllDepartmentsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Department',
     ...options
 });
 
 export const departmentPost = <ThrowOnError extends boolean = false>(options: Options<DepartmentPostData, ThrowOnError>): RequestResult<DepartmentPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<DepartmentPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Department',
     ...options,
     headers: {
@@ -52,15 +58,21 @@ export const departmentPost = <ThrowOnError extends boolean = false>(options: Op
     }
 });
 
-export const departmentDelete = <ThrowOnError extends boolean = false>(options: Options<DepartmentDeleteData, ThrowOnError>): RequestResult<DepartmentDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<DepartmentDeleteResponses, unknown, ThrowOnError>({ url: '/api/Department/{id}', ...options });
+export const departmentDelete = <ThrowOnError extends boolean = false>(options: Options<DepartmentDeleteData, ThrowOnError>): RequestResult<DepartmentDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<DepartmentDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Department/{id}',
+    ...options
+});
 
 export const departmentGet = <ThrowOnError extends boolean = false>(options: Options<DepartmentGetData, ThrowOnError>): RequestResult<DepartmentGetResponses, DepartmentGetErrors, ThrowOnError> => (options.client ?? client).get<DepartmentGetResponses, DepartmentGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Department/{id}',
     ...options
 });
 
 export const departmentPut = <ThrowOnError extends boolean = false>(options: Options<DepartmentPutData, ThrowOnError>): RequestResult<DepartmentPutResponses, unknown, ThrowOnError> => (options.client ?? client).put<DepartmentPutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Department/{id}',
     ...options,
     headers: {
@@ -71,12 +83,14 @@ export const departmentPut = <ThrowOnError extends boolean = false>(options: Opt
 
 export const departmentStaffGetAll = <ThrowOnError extends boolean = false>(options?: Options<DepartmentStaffGetAllData, ThrowOnError>): RequestResult<DepartmentStaffGetAllResponses, DepartmentStaffGetAllErrors, ThrowOnError> => (options?.client ?? client).get<DepartmentStaffGetAllResponses, DepartmentStaffGetAllErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/DepartmentStaff',
     ...options
 });
 
 export const departmentStaffPost = <ThrowOnError extends boolean = false>(options: Options<DepartmentStaffPostData, ThrowOnError>): RequestResult<DepartmentStaffPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<DepartmentStaffPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/DepartmentStaff',
     ...options,
     headers: {
@@ -85,15 +99,21 @@ export const departmentStaffPost = <ThrowOnError extends boolean = false>(option
     }
 });
 
-export const departmentStaffDelete = <ThrowOnError extends boolean = false>(options: Options<DepartmentStaffDeleteData, ThrowOnError>): RequestResult<DepartmentStaffDeleteResponses, DepartmentStaffDeleteErrors, ThrowOnError> => (options.client ?? client).delete<DepartmentStaffDeleteResponses, DepartmentStaffDeleteErrors, ThrowOnError>({ url: '/api/DepartmentStaff/{id}', ...options });
+export const departmentStaffDelete = <ThrowOnError extends boolean = false>(options: Options<DepartmentStaffDeleteData, ThrowOnError>): RequestResult<DepartmentStaffDeleteResponses, DepartmentStaffDeleteErrors, ThrowOnError> => (options.client ?? client).delete<DepartmentStaffDeleteResponses, DepartmentStaffDeleteErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/DepartmentStaff/{id}',
+    ...options
+});
 
 export const departmentStaffGet = <ThrowOnError extends boolean = false>(options: Options<DepartmentStaffGetData, ThrowOnError>): RequestResult<DepartmentStaffGetResponses, DepartmentStaffGetErrors, ThrowOnError> => (options.client ?? client).get<DepartmentStaffGetResponses, DepartmentStaffGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/DepartmentStaff/{id}',
     ...options
 });
 
 export const departmentStaffPut = <ThrowOnError extends boolean = false>(options: Options<DepartmentStaffPutData, ThrowOnError>): RequestResult<DepartmentStaffPutResponses, DepartmentStaffPutErrors, ThrowOnError> => (options.client ?? client).put<DepartmentStaffPutResponses, DepartmentStaffPutErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/DepartmentStaff/{id}',
     ...options,
     headers: {
@@ -104,42 +124,49 @@ export const departmentStaffPut = <ThrowOnError extends boolean = false>(options
 
 export const externalMedicinePricesGetMedicineProductsByName = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductsByNameData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductsByNameResponses, ExternalMedicinePricesGetMedicineProductsByNameErrors, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductsByNameResponses, ExternalMedicinePricesGetMedicineProductsByNameErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/ExternalMedicinePrices/productsByName',
     ...options
 });
 
 export const externalMedicinePricesGetMedicineProductsByIngredients = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductsByIngredientsData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsErrors, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/ExternalMedicinePrices/productsByIngredient',
     ...options
 });
 
 export const externalMedicinePricesGetMedicineProductDetails = <ThrowOnError extends boolean = false>(options?: Options<ExternalMedicinePricesGetMedicineProductDetailsData, ThrowOnError>): RequestResult<ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductDetailsErrors, ThrowOnError> => (options?.client ?? client).get<ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductDetailsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/ExternalMedicinePrices/productDetails',
     ...options
 });
 
 export const locationGetAllLocations = <ThrowOnError extends boolean = false>(options?: Options<LocationGetAllLocationsData, ThrowOnError>): RequestResult<LocationGetAllLocationsResponses, LocationGetAllLocationsErrors, ThrowOnError> => (options?.client ?? client).get<LocationGetAllLocationsResponses, LocationGetAllLocationsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Location',
     ...options
 });
 
 export const locationGet = <ThrowOnError extends boolean = false>(options: Options<LocationGetData, ThrowOnError>): RequestResult<LocationGetResponses, LocationGetErrors, ThrowOnError> => (options.client ?? client).get<LocationGetResponses, LocationGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Location/{id}',
     ...options
 });
 
 export const locationGetAllFloors = <ThrowOnError extends boolean = false>(options?: Options<LocationGetAllFloorsData, ThrowOnError>): RequestResult<LocationGetAllFloorsResponses, LocationGetAllFloorsErrors, ThrowOnError> => (options?.client ?? client).get<LocationGetAllFloorsResponses, LocationGetAllFloorsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Location/floor',
     ...options
 });
 
 export const locationPostFloor = <ThrowOnError extends boolean = false>(options: Options<LocationPostFloorData, ThrowOnError>): RequestResult<LocationPostFloorResponses, unknown, ThrowOnError> => (options.client ?? client).post<LocationPostFloorResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Location/floor',
     ...options,
     headers: {
@@ -148,15 +175,21 @@ export const locationPostFloor = <ThrowOnError extends boolean = false>(options:
     }
 });
 
-export const locationDeleteFloor = <ThrowOnError extends boolean = false>(options: Options<LocationDeleteFloorData, ThrowOnError>): RequestResult<LocationDeleteFloorResponses, unknown, ThrowOnError> => (options.client ?? client).delete<LocationDeleteFloorResponses, unknown, ThrowOnError>({ url: '/api/Location/floor/{id}', ...options });
+export const locationDeleteFloor = <ThrowOnError extends boolean = false>(options: Options<LocationDeleteFloorData, ThrowOnError>): RequestResult<LocationDeleteFloorResponses, unknown, ThrowOnError> => (options.client ?? client).delete<LocationDeleteFloorResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Location/floor/{id}',
+    ...options
+});
 
 export const locationGetFloor = <ThrowOnError extends boolean = false>(options: Options<LocationGetFloorData, ThrowOnError>): RequestResult<LocationGetFloorResponses, LocationGetFloorErrors, ThrowOnError> => (options.client ?? client).get<LocationGetFloorResponses, LocationGetFloorErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Location/floor/{id}',
     ...options
 });
 
 export const locationPutFloor = <ThrowOnError extends boolean = false>(options: Options<LocationPutFloorData, ThrowOnError>): RequestResult<LocationPutFloorResponses, LocationPutFloorErrors, ThrowOnError> => (options.client ?? client).put<LocationPutFloorResponses, LocationPutFloorErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Location/floor/{id}',
     ...options,
     headers: {
@@ -167,12 +200,14 @@ export const locationPutFloor = <ThrowOnError extends boolean = false>(options: 
 
 export const medicinGetAllMedicins = <ThrowOnError extends boolean = false>(options?: Options<MedicinGetAllMedicinsData, ThrowOnError>): RequestResult<MedicinGetAllMedicinsResponses, MedicinGetAllMedicinsErrors, ThrowOnError> => (options?.client ?? client).get<MedicinGetAllMedicinsResponses, MedicinGetAllMedicinsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Medicin',
     ...options
 });
 
 export const medicinPost = <ThrowOnError extends boolean = false>(options: Options<MedicinPostData, ThrowOnError>): RequestResult<MedicinPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<MedicinPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Medicin',
     ...options,
     headers: {
@@ -181,15 +216,21 @@ export const medicinPost = <ThrowOnError extends boolean = false>(options: Optio
     }
 });
 
-export const medicinDelete = <ThrowOnError extends boolean = false>(options: Options<MedicinDeleteData, ThrowOnError>): RequestResult<MedicinDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<MedicinDeleteResponses, unknown, ThrowOnError>({ url: '/api/Medicin/{id}', ...options });
+export const medicinDelete = <ThrowOnError extends boolean = false>(options: Options<MedicinDeleteData, ThrowOnError>): RequestResult<MedicinDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<MedicinDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Medicin/{id}',
+    ...options
+});
 
 export const medicinGet = <ThrowOnError extends boolean = false>(options: Options<MedicinGetData, ThrowOnError>): RequestResult<MedicinGetResponses, MedicinGetErrors, ThrowOnError> => (options.client ?? client).get<MedicinGetResponses, MedicinGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Medicin/{id}',
     ...options
 });
 
 export const medicinPut = <ThrowOnError extends boolean = false>(options: Options<MedicinPutData, ThrowOnError>): RequestResult<MedicinPutResponses, unknown, ThrowOnError> => (options.client ?? client).put<MedicinPutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Medicin/{id}',
     ...options,
     headers: {
@@ -200,12 +241,14 @@ export const medicinPut = <ThrowOnError extends boolean = false>(options: Option
 
 export const missingStorageGetAllMedicationStorageMissings = <ThrowOnError extends boolean = false>(options?: Options<MissingStorageGetAllMedicationStorageMissingsData, ThrowOnError>): RequestResult<MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetAllMedicationStorageMissingsErrors, ThrowOnError> => (options?.client ?? client).get<MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetAllMedicationStorageMissingsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/MissingStorage',
     ...options
 });
 
 export const missingStoragePost = <ThrowOnError extends boolean = false>(options: Options<MissingStoragePostData, ThrowOnError>): RequestResult<MissingStoragePostResponses, unknown, ThrowOnError> => (options.client ?? client).post<MissingStoragePostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/MissingStorage',
     ...options,
     headers: {
@@ -214,15 +257,21 @@ export const missingStoragePost = <ThrowOnError extends boolean = false>(options
     }
 });
 
-export const missingStorageDelete = <ThrowOnError extends boolean = false>(options: Options<MissingStorageDeleteData, ThrowOnError>): RequestResult<MissingStorageDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<MissingStorageDeleteResponses, unknown, ThrowOnError>({ url: '/api/MissingStorage/{id}', ...options });
+export const missingStorageDelete = <ThrowOnError extends boolean = false>(options: Options<MissingStorageDeleteData, ThrowOnError>): RequestResult<MissingStorageDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<MissingStorageDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/MissingStorage/{id}',
+    ...options
+});
 
 export const missingStorageGet = <ThrowOnError extends boolean = false>(options: Options<MissingStorageGetData, ThrowOnError>): RequestResult<MissingStorageGetResponses, MissingStorageGetErrors, ThrowOnError> => (options.client ?? client).get<MissingStorageGetResponses, MissingStorageGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/MissingStorage/{id}',
     ...options
 });
 
 export const missingStoragePut = <ThrowOnError extends boolean = false>(options: Options<MissingStoragePutData, ThrowOnError>): RequestResult<MissingStoragePutResponses, unknown, ThrowOnError> => (options.client ?? client).put<MissingStoragePutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/MissingStorage/{id}',
     ...options,
     headers: {
@@ -233,12 +282,14 @@ export const missingStoragePut = <ThrowOnError extends boolean = false>(options:
 
 export const patientGetAllPatients = <ThrowOnError extends boolean = false>(options?: Options<PatientGetAllPatientsData, ThrowOnError>): RequestResult<PatientGetAllPatientsResponses, PatientGetAllPatientsErrors, ThrowOnError> => (options?.client ?? client).get<PatientGetAllPatientsResponses, PatientGetAllPatientsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Patient',
     ...options
 });
 
 export const patientPost = <ThrowOnError extends boolean = false>(options: Options<PatientPostData, ThrowOnError>): RequestResult<PatientPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<PatientPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Patient',
     ...options,
     headers: {
@@ -247,15 +298,21 @@ export const patientPost = <ThrowOnError extends boolean = false>(options: Optio
     }
 });
 
-export const patientDelete = <ThrowOnError extends boolean = false>(options: Options<PatientDeleteData, ThrowOnError>): RequestResult<PatientDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<PatientDeleteResponses, unknown, ThrowOnError>({ url: '/api/Patient/{id}', ...options });
+export const patientDelete = <ThrowOnError extends boolean = false>(options: Options<PatientDeleteData, ThrowOnError>): RequestResult<PatientDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<PatientDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Patient/{id}',
+    ...options
+});
 
 export const patientGet = <ThrowOnError extends boolean = false>(options: Options<PatientGetData, ThrowOnError>): RequestResult<PatientGetResponses, PatientGetErrors, ThrowOnError> => (options.client ?? client).get<PatientGetResponses, PatientGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Patient/{id}',
     ...options
 });
 
 export const patientPut = <ThrowOnError extends boolean = false>(options: Options<PatientPutData, ThrowOnError>): RequestResult<PatientPutResponses, unknown, ThrowOnError> => (options.client ?? client).put<PatientPutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Patient/{id}',
     ...options,
     headers: {
@@ -266,6 +323,7 @@ export const patientPut = <ThrowOnError extends boolean = false>(options: Option
 
 export const patientRegisterBaby = <ThrowOnError extends boolean = false>(options: Options<PatientRegisterBabyData, ThrowOnError>): RequestResult<PatientRegisterBabyResponses, PatientRegisterBabyErrors, ThrowOnError> => (options.client ?? client).post<PatientRegisterBabyResponses, PatientRegisterBabyErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Patient/register-baby',
     ...options,
     headers: {
@@ -276,12 +334,14 @@ export const patientRegisterBaby = <ThrowOnError extends boolean = false>(option
 
 export const prescriptionGetAllPrescriptions = <ThrowOnError extends boolean = false>(options?: Options<PrescriptionGetAllPrescriptionsData, ThrowOnError>): RequestResult<PrescriptionGetAllPrescriptionsResponses, PrescriptionGetAllPrescriptionsErrors, ThrowOnError> => (options?.client ?? client).get<PrescriptionGetAllPrescriptionsResponses, PrescriptionGetAllPrescriptionsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Prescription',
     ...options
 });
 
 export const prescriptionPost = <ThrowOnError extends boolean = false>(options: Options<PrescriptionPostData, ThrowOnError>): RequestResult<PrescriptionPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<PrescriptionPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Prescription',
     ...options,
     headers: {
@@ -290,15 +350,21 @@ export const prescriptionPost = <ThrowOnError extends boolean = false>(options: 
     }
 });
 
-export const prescriptionDelete = <ThrowOnError extends boolean = false>(options: Options<PrescriptionDeleteData, ThrowOnError>): RequestResult<PrescriptionDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<PrescriptionDeleteResponses, unknown, ThrowOnError>({ url: '/api/Prescription/{id}', ...options });
+export const prescriptionDelete = <ThrowOnError extends boolean = false>(options: Options<PrescriptionDeleteData, ThrowOnError>): RequestResult<PrescriptionDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<PrescriptionDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Prescription/{id}',
+    ...options
+});
 
 export const prescriptionGet = <ThrowOnError extends boolean = false>(options: Options<PrescriptionGetData, ThrowOnError>): RequestResult<PrescriptionGetResponses, PrescriptionGetErrors, ThrowOnError> => (options.client ?? client).get<PrescriptionGetResponses, PrescriptionGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Prescription/{id}',
     ...options
 });
 
 export const prescriptionPut = <ThrowOnError extends boolean = false>(options: Options<PrescriptionPutData, ThrowOnError>): RequestResult<PrescriptionPutResponses, unknown, ThrowOnError> => (options.client ?? client).put<PrescriptionPutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Prescription/{id}',
     ...options,
     headers: {
@@ -309,12 +375,14 @@ export const prescriptionPut = <ThrowOnError extends boolean = false>(options: O
 
 export const roomBookingGetAll = <ThrowOnError extends boolean = false>(options?: Options<RoomBookingGetAllData, ThrowOnError>): RequestResult<RoomBookingGetAllResponses, RoomBookingGetAllErrors, ThrowOnError> => (options?.client ?? client).get<RoomBookingGetAllResponses, RoomBookingGetAllErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/RoomBooking',
     ...options
 });
 
 export const roomBookingPost = <ThrowOnError extends boolean = false>(options: Options<RoomBookingPostData, ThrowOnError>): RequestResult<RoomBookingPostResponses, RoomBookingPostErrors, ThrowOnError> => (options.client ?? client).post<RoomBookingPostResponses, RoomBookingPostErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/RoomBooking',
     ...options,
     headers: {
@@ -323,15 +391,21 @@ export const roomBookingPost = <ThrowOnError extends boolean = false>(options: O
     }
 });
 
-export const roomBookingDelete = <ThrowOnError extends boolean = false>(options: Options<RoomBookingDeleteData, ThrowOnError>): RequestResult<RoomBookingDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<RoomBookingDeleteResponses, unknown, ThrowOnError>({ url: '/api/RoomBooking/{id}', ...options });
+export const roomBookingDelete = <ThrowOnError extends boolean = false>(options: Options<RoomBookingDeleteData, ThrowOnError>): RequestResult<RoomBookingDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<RoomBookingDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/RoomBooking/{id}',
+    ...options
+});
 
 export const roomBookingGet = <ThrowOnError extends boolean = false>(options: Options<RoomBookingGetData, ThrowOnError>): RequestResult<RoomBookingGetResponses, RoomBookingGetErrors, ThrowOnError> => (options.client ?? client).get<RoomBookingGetResponses, RoomBookingGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/RoomBooking/{id}',
     ...options
 });
 
 export const roomBookingPut = <ThrowOnError extends boolean = false>(options: Options<RoomBookingPutData, ThrowOnError>): RequestResult<unknown, RoomBookingPutErrors, ThrowOnError> => (options.client ?? client).put<unknown, RoomBookingPutErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/RoomBooking/{id}',
     ...options,
     headers: {
@@ -342,12 +416,14 @@ export const roomBookingPut = <ThrowOnError extends boolean = false>(options: Op
 
 export const shiftGetAllShifts = <ThrowOnError extends boolean = false>(options?: Options<ShiftGetAllShiftsData, ThrowOnError>): RequestResult<ShiftGetAllShiftsResponses, ShiftGetAllShiftsErrors, ThrowOnError> => (options?.client ?? client).get<ShiftGetAllShiftsResponses, ShiftGetAllShiftsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Shift',
     ...options
 });
 
 export const shiftPost = <ThrowOnError extends boolean = false>(options: Options<ShiftPostData, ThrowOnError>): RequestResult<ShiftPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<ShiftPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Shift',
     ...options,
     headers: {
@@ -356,15 +432,21 @@ export const shiftPost = <ThrowOnError extends boolean = false>(options: Options
     }
 });
 
-export const shiftDelete = <ThrowOnError extends boolean = false>(options: Options<ShiftDeleteData, ThrowOnError>): RequestResult<ShiftDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<ShiftDeleteResponses, unknown, ThrowOnError>({ url: '/api/Shift/{id}', ...options });
+export const shiftDelete = <ThrowOnError extends boolean = false>(options: Options<ShiftDeleteData, ThrowOnError>): RequestResult<ShiftDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<ShiftDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Shift/{id}',
+    ...options
+});
 
 export const shiftGet = <ThrowOnError extends boolean = false>(options: Options<ShiftGetData, ThrowOnError>): RequestResult<ShiftGetResponses, ShiftGetErrors, ThrowOnError> => (options.client ?? client).get<ShiftGetResponses, ShiftGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Shift/{id}',
     ...options
 });
 
 export const shiftPut = <ThrowOnError extends boolean = false>(options: Options<ShiftPutData, ThrowOnError>): RequestResult<ShiftPutResponses, unknown, ThrowOnError> => (options.client ?? client).put<ShiftPutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Shift/{id}',
     ...options,
     headers: {
@@ -375,12 +457,14 @@ export const shiftPut = <ThrowOnError extends boolean = false>(options: Options<
 
 export const staffGetAllStaffs = <ThrowOnError extends boolean = false>(options?: Options<StaffGetAllStaffsData, ThrowOnError>): RequestResult<StaffGetAllStaffsResponses, StaffGetAllStaffsErrors, ThrowOnError> => (options?.client ?? client).get<StaffGetAllStaffsResponses, StaffGetAllStaffsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Staff',
     ...options
 });
 
 export const staffPost = <ThrowOnError extends boolean = false>(options: Options<StaffPostData, ThrowOnError>): RequestResult<StaffPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<StaffPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Staff',
     ...options,
     headers: {
@@ -389,15 +473,21 @@ export const staffPost = <ThrowOnError extends boolean = false>(options: Options
     }
 });
 
-export const staffDelete = <ThrowOnError extends boolean = false>(options: Options<StaffDeleteData, ThrowOnError>): RequestResult<StaffDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<StaffDeleteResponses, unknown, ThrowOnError>({ url: '/api/Staff/{id}', ...options });
+export const staffDelete = <ThrowOnError extends boolean = false>(options: Options<StaffDeleteData, ThrowOnError>): RequestResult<StaffDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<StaffDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Staff/{id}',
+    ...options
+});
 
 export const staffGet = <ThrowOnError extends boolean = false>(options: Options<StaffGetData, ThrowOnError>): RequestResult<StaffGetResponses, StaffGetErrors, ThrowOnError> => (options.client ?? client).get<StaffGetResponses, StaffGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Staff/{id}',
     ...options
 });
 
 export const staffPut = <ThrowOnError extends boolean = false>(options: Options<StaffPutData, ThrowOnError>): RequestResult<StaffPutResponses, unknown, ThrowOnError> => (options.client ?? client).put<StaffPutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Staff/{id}',
     ...options,
     headers: {
@@ -408,12 +498,14 @@ export const staffPut = <ThrowOnError extends boolean = false>(options: Options<
 
 export const storageGetAllMedicationStorages = <ThrowOnError extends boolean = false>(options?: Options<StorageGetAllMedicationStoragesData, ThrowOnError>): RequestResult<StorageGetAllMedicationStoragesResponses, StorageGetAllMedicationStoragesErrors, ThrowOnError> => (options?.client ?? client).get<StorageGetAllMedicationStoragesResponses, StorageGetAllMedicationStoragesErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Storage',
     ...options
 });
 
 export const storagePost = <ThrowOnError extends boolean = false>(options: Options<StoragePostData, ThrowOnError>): RequestResult<StoragePostResponses, unknown, ThrowOnError> => (options.client ?? client).post<StoragePostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Storage',
     ...options,
     headers: {
@@ -422,15 +514,21 @@ export const storagePost = <ThrowOnError extends boolean = false>(options: Optio
     }
 });
 
-export const storageDelete = <ThrowOnError extends boolean = false>(options: Options<StorageDeleteData, ThrowOnError>): RequestResult<StorageDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<StorageDeleteResponses, unknown, ThrowOnError>({ url: '/api/Storage/{id}', ...options });
+export const storageDelete = <ThrowOnError extends boolean = false>(options: Options<StorageDeleteData, ThrowOnError>): RequestResult<StorageDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<StorageDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Storage/{id}',
+    ...options
+});
 
 export const storageGet = <ThrowOnError extends boolean = false>(options: Options<StorageGetData, ThrowOnError>): RequestResult<StorageGetResponses, StorageGetErrors, ThrowOnError> => (options.client ?? client).get<StorageGetResponses, StorageGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Storage/{id}',
     ...options
 });
 
 export const storagePut = <ThrowOnError extends boolean = false>(options: Options<StoragePutData, ThrowOnError>): RequestResult<StoragePutResponses, unknown, ThrowOnError> => (options.client ?? client).put<StoragePutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Storage/{id}',
     ...options,
     headers: {
@@ -441,12 +539,14 @@ export const storagePut = <ThrowOnError extends boolean = false>(options: Option
 
 export const treatmentGetAllTreatments = <ThrowOnError extends boolean = false>(options?: Options<TreatmentGetAllTreatmentsData, ThrowOnError>): RequestResult<TreatmentGetAllTreatmentsResponses, TreatmentGetAllTreatmentsErrors, ThrowOnError> => (options?.client ?? client).get<TreatmentGetAllTreatmentsResponses, TreatmentGetAllTreatmentsErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Treatment',
     ...options
 });
 
 export const treatmentPost = <ThrowOnError extends boolean = false>(options: Options<TreatmentPostData, ThrowOnError>): RequestResult<TreatmentPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<TreatmentPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Treatment',
     ...options,
     headers: {
@@ -455,15 +555,21 @@ export const treatmentPost = <ThrowOnError extends boolean = false>(options: Opt
     }
 });
 
-export const treatmentDelete = <ThrowOnError extends boolean = false>(options: Options<TreatmentDeleteData, ThrowOnError>): RequestResult<TreatmentDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<TreatmentDeleteResponses, unknown, ThrowOnError>({ url: '/api/Treatment/{id}', ...options });
+export const treatmentDelete = <ThrowOnError extends boolean = false>(options: Options<TreatmentDeleteData, ThrowOnError>): RequestResult<TreatmentDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<TreatmentDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/Treatment/{id}',
+    ...options
+});
 
 export const treatmentGet = <ThrowOnError extends boolean = false>(options: Options<TreatmentGetData, ThrowOnError>): RequestResult<TreatmentGetResponses, TreatmentGetErrors, ThrowOnError> => (options.client ?? client).get<TreatmentGetResponses, TreatmentGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Treatment/{id}',
     ...options
 });
 
 export const treatmentPut = <ThrowOnError extends boolean = false>(options: Options<TreatmentPutData, ThrowOnError>): RequestResult<TreatmentPutResponses, unknown, ThrowOnError> => (options.client ?? client).put<TreatmentPutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/Treatment/{id}',
     ...options,
     headers: {
@@ -474,12 +580,14 @@ export const treatmentPut = <ThrowOnError extends boolean = false>(options: Opti
 
 export const treatmentStaffGetAll = <ThrowOnError extends boolean = false>(options?: Options<TreatmentStaffGetAllData, ThrowOnError>): RequestResult<TreatmentStaffGetAllResponses, TreatmentStaffGetAllErrors, ThrowOnError> => (options?.client ?? client).get<TreatmentStaffGetAllResponses, TreatmentStaffGetAllErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/TreatmentStaff',
     ...options
 });
 
 export const treatmentStaffPost = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffPostData, ThrowOnError>): RequestResult<TreatmentStaffPostResponses, unknown, ThrowOnError> => (options.client ?? client).post<TreatmentStaffPostResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/TreatmentStaff',
     ...options,
     headers: {
@@ -488,15 +596,21 @@ export const treatmentStaffPost = <ThrowOnError extends boolean = false>(options
     }
 });
 
-export const treatmentStaffDelete = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffDeleteData, ThrowOnError>): RequestResult<TreatmentStaffDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<TreatmentStaffDeleteResponses, unknown, ThrowOnError>({ url: '/api/TreatmentStaff/{id}', ...options });
+export const treatmentStaffDelete = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffDeleteData, ThrowOnError>): RequestResult<TreatmentStaffDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<TreatmentStaffDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/TreatmentStaff/{id}',
+    ...options
+});
 
 export const treatmentStaffGet = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffGetData, ThrowOnError>): RequestResult<TreatmentStaffGetResponses, TreatmentStaffGetErrors, ThrowOnError> => (options.client ?? client).get<TreatmentStaffGetResponses, TreatmentStaffGetErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/TreatmentStaff/{id}',
     ...options
 });
 
 export const treatmentStaffPut = <ThrowOnError extends boolean = false>(options: Options<TreatmentStaffPutData, ThrowOnError>): RequestResult<TreatmentStaffPutResponses, unknown, ThrowOnError> => (options.client ?? client).put<TreatmentStaffPutResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/TreatmentStaff/{id}',
     ...options,
     headers: {
@@ -507,12 +621,14 @@ export const treatmentStaffPut = <ThrowOnError extends boolean = false>(options:
 
 export const userGetAll = <ThrowOnError extends boolean = false>(options?: Options<UserGetAllData, ThrowOnError>): RequestResult<UserGetAllResponses, UserGetAllErrors, ThrowOnError> => (options?.client ?? client).get<UserGetAllResponses, UserGetAllErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/User',
     ...options
 });
 
 export const userRegister = <ThrowOnError extends boolean = false>(options: Options<UserRegisterData, ThrowOnError>): RequestResult<UserRegisterResponses, unknown, ThrowOnError> => (options.client ?? client).post<UserRegisterResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/User/register',
     ...options,
     headers: {
@@ -522,6 +638,7 @@ export const userRegister = <ThrowOnError extends boolean = false>(options: Opti
 });
 
 export const userChangePassword = <ThrowOnError extends boolean = false>(options: Options<UserChangePasswordData, ThrowOnError>): RequestResult<UserChangePasswordResponses, unknown, ThrowOnError> => (options.client ?? client).put<UserChangePasswordResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/User/{id}/password',
     ...options,
     headers: {
@@ -530,4 +647,8 @@ export const userChangePassword = <ThrowOnError extends boolean = false>(options
     }
 });
 
-export const userDelete = <ThrowOnError extends boolean = false>(options: Options<UserDeleteData, ThrowOnError>): RequestResult<UserDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<UserDeleteResponses, unknown, ThrowOnError>({ url: '/api/User/{id}', ...options });
+export const userDelete = <ThrowOnError extends boolean = false>(options: Options<UserDeleteData, ThrowOnError>): RequestResult<UserDeleteResponses, unknown, ThrowOnError> => (options.client ?? client).delete<UserDeleteResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/User/{id}',
+    ...options
+});
