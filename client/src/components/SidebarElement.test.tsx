@@ -1,29 +1,62 @@
-import { Box, Button, HStack, Text } from "@chakra-ui/react";
-import { Link } from "react-router";
+import { expect, test } from "vitest";
+import { render } from "vitest-browser-react";
+import { MemoryRouter } from "react-router";
+import SidebarElement from "./SidebarElement";
+import { Provider } from "./ui/provider";
 
-interface SidebarElementProps {
-    selected: boolean,
-    title: string,
-    icon: React.ReactNode; // Type for JSX elements like <LuCircleX />
-    path: string
-    // data-testid for this entry, supplied by the caller. Sidebar renders
-    // this same list twice (desktop panel + mobile drawer), so the caller
-    // must pass a distinct prefix per rendering to keep testids unique.
-    testId: string
+// SidebarElement renders a react-router <Link> (needs a Router) and Chakra
+// components (needs ChakraProvider), same wrapper pattern as Sidebar.test.tsx,
+// which is the component that actually mounts SidebarElement in the app.
+function renderSidebarElement(props: React.ComponentProps<typeof SidebarElement>) {
+  return render(<SidebarElement {...props} />, {
+    wrapper: ({ children }) => (
+      <Provider>
+        <MemoryRouter>{children}</MemoryRouter>
+      </Provider>
+    ),
+  });
 }
 
-export default function SidebarElement({ selected, title, icon, path, testId }: SidebarElementProps) {
-    return (
-        <>
-            <Box bg={selected ? "red.100" : "transparent"} data-testid={testId}>
-                <HStack gap={2}>
-                    <Box marginRight={4}>{icon}</Box>
-                    <Box marginEnd={"auto"}><Text fontWeight={"bold"} >{title}</Text></Box>
-                    <Box><Link to={path}><Button data-testid={`${testId}-open-button`} variant={"outline"} p={3} fontWeight={"bold"} fontSize={18} rounded={48}>open</Button></Link></Box>
-                </HStack>
-            </Box>
-            <br />
-        </>
+test("renders the title and icon under the given testId", async () => {
+  const { getByTestId } = await renderSidebarElement({
+    selected: false,
+    title: "shifts",
+    icon: <span data-testid="shifts-icon">icon</span>,
+    path: "shifts",
+    testId: "sidebar-desktop-shifts-link",
+  });
 
-    );
-}
+  await expect.element(getByTestId("sidebar-desktop-shifts-link")).toHaveTextContent("shifts");
+  await expect.element(getByTestId("shifts-icon")).toBeInTheDocument();
+});
+
+test("renders the open button as a link to the given path", async () => {
+  const { getByRole } = await renderSidebarElement({
+    selected: false,
+    title: "shifts",
+    icon: <span>icon</span>,
+    path: "shifts",
+    testId: "sidebar-desktop-shifts-link",
+  });
+
+  // The data-testid sits on the <Button> nested inside the react-router
+  // <Link>, so the href actually lives on the surrounding <a> - querying by
+  // its "link" role reaches that anchor directly.
+  await expect.element(getByRole("link", { name: "open" })).toHaveAttribute("href", "/shifts");
+});
+
+test("keeps testIds distinct per caller so the same element can render twice", async () => {
+  // Sidebar.tsx renders this same list once for the desktop panel and once for
+  // the mobile drawer, both mounted at once - this is why the caller supplies
+  // a distinct testId prefix instead of the component deriving one from title/path.
+  const { getByTestId } = await renderSidebarElement({
+    selected: false,
+    title: "shifts",
+    icon: <span>icon</span>,
+    path: "shifts",
+    testId: "sidebar-mobile-shifts-link",
+  });
+
+  await expect.element(getByTestId("sidebar-mobile-shifts-link")).toBeInTheDocument();
+  await expect.element(getByTestId("sidebar-desktop-shifts-link")).not.toBeInTheDocument();
+});
