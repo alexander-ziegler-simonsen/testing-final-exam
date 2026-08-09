@@ -11,7 +11,7 @@ interface InfoCardProps {
     testId: string;
 }
 
-export default function InfoCard({ title, value, type, testId }: InfoCardProps) {
+export default function InfoCard({ title, value, type, testId }: Readonly<InfoCardProps>) {
 
     return (
         <Box bg={"whiteAlpha.100"}

@@ -12,7 +12,7 @@ interface SidebarElementProps {
     testId: string
 }
 
-export default function SidebarElement({ selected, title, icon, path, testId }: SidebarElementProps) {
+export default function SidebarElement({ selected, title, icon, path, testId }: Readonly<SidebarElementProps>) {
     return (
         <>
             <Box bg={selected ? "red.100" : "transparent"} data-testid={testId}>
