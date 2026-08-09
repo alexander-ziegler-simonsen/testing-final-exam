@@ -46,6 +46,7 @@ builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICprService, CprService>();
+builder.Services.AddSingleton<IRevokedTokenStore, RevokedTokenStore>();
 
 // add automapper
 builder.Services.AddSingleton<IMapper>(sp =>
@@ -94,7 +95,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:5173") // TODO - this needs to be a appsettings value, since it can/will be running in a VM
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // required so the httpOnly refresh-token cookie round-trips
         });
 });
 
