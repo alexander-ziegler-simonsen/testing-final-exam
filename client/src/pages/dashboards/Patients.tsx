@@ -26,6 +26,9 @@ const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
     ],
   },
   { key: "cprNumber", label: "CPR Number", type: "text", required: true },
+  { key: "dateOfBirth", label: "Date of birth", type: "date" },
+  { key: "weightKg", label: "Weight (kg)", type: "number" },
+  { key: "heightCm", label: "Height (cm)", type: "number" },
 ];
 
 export default function Patients() {
@@ -88,6 +91,19 @@ export default function Patients() {
       key: "cprNumber",
       header: "CPR Number",
       enableSearch: true,
+    },
+    {
+      key: "dateOfBirth",
+      header: "Date of Birth",
+      enableSearch: true,
+    },
+    {
+      key: "weightKg",
+      header: "Weight (kg)",
+    },
+    {
+      key: "heightCm",
+      header: "Height (cm)",
     },
     {
       key: "actions",

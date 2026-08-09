@@ -53,6 +53,9 @@ export default function OnePatient() {
                 <Text data-testid="one-patient-field-lastname"><b>Last name:</b> {patient.lastname}</Text>
                 <Text data-testid="one-patient-field-gender"><b>Gender:</b> {patient.gender}</Text>
                 <Text data-testid="one-patient-field-cpr"><b>CPR Number:</b> {patient.cprNumber}</Text>
+                <Text data-testid="one-patient-field-date-of-birth"><b>Date of birth:</b> {patient.dateOfBirth}</Text>
+                <Text data-testid="one-patient-field-weight"><b>Weight:</b> {patient.weightKg != null ? `${patient.weightKg} kg` : ""}</Text>
+                <Text data-testid="one-patient-field-height"><b>Height:</b> {patient.heightCm != null ? `${patient.heightCm} cm` : ""}</Text>
             </Stack>
 
             <Heading size="md" mt="4">Treatments</Heading>

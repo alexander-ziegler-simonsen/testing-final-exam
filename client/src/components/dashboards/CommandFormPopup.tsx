@@ -14,7 +14,7 @@ export interface SelectOption {
 export interface FieldConfig<T> {
     key: keyof T & string;
     label: string;
-    type: "text" | "number" | "select" | "datetime";
+    type: "text" | "number" | "select" | "datetime" | "date";
     // Options for "select" type fields.
     options?: SelectOption[];
     required?: boolean;
@@ -209,7 +209,7 @@ export function CommandFormPopup<TInput extends Record<string, any>, TId = numbe
                                         ) : (
                                             <Input
                                                 data-testid={`${testId}-field-${field.key}`}
-                                                type={field.type === "number" ? "number" : field.type === "datetime" ? "datetime-local" : "text"}
+                                                type={field.type === "number" ? "number" : field.type === "datetime" ? "datetime-local" : field.type === "date" ? "date" : "text"}
                                                 placeholder={field.placeholder}
                                                 value={values[field.key] ?? ""}
                                                 readOnly={isLocked}

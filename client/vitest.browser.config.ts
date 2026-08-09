@@ -15,6 +15,8 @@ export default defineProject({
             provider: playwright(),
             instances: [
                 { browser: 'chromium' },
+                // { browser: 'firefox' },
+                // { browser: 'webkit' },
             ],
         },
     },
