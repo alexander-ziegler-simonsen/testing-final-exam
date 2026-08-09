@@ -290,6 +290,16 @@ export const zAuthLoginResponse = zHospitalApiDtosOutputsLoginOutputDto;
 /**
  * OK
  */
+export const zAuthRefreshResponse = zHospitalApiDtosOutputsLoginOutputDto;
+
+/**
+ * No Content
+ */
+export const zAuthLogoutResponse = z.void();
+
+/**
+ * OK
+ */
 export const zDepartmentGetAllDepartmentsResponse = z.array(zHospitalApiDtosOutputsDepartmentOutputDto);
 
 export const zDepartmentPostBody = zHospitalApiDtosInputsDepartmentInputDto;

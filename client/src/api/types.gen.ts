@@ -307,6 +307,47 @@ export type AuthLoginResponses = {
 
 export type AuthLoginResponse = AuthLoginResponses[keyof AuthLoginResponses];
 
+export type AuthRefreshData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/Auth/refresh';
+};
+
+export type AuthRefreshErrors = {
+    /**
+     * Unauthorized
+     */
+    401: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type AuthRefreshError = AuthRefreshErrors[keyof AuthRefreshErrors];
+
+export type AuthRefreshResponses = {
+    /**
+     * OK
+     */
+    200: HospitalApiDtosOutputsLoginOutputDto;
+};
+
+export type AuthRefreshResponse = AuthRefreshResponses[keyof AuthRefreshResponses];
+
+export type AuthLogoutData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/Auth/logout';
+};
+
+export type AuthLogoutResponses = {
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type AuthLogoutResponse = AuthLogoutResponses[keyof AuthLogoutResponses];
+
 export type DepartmentGetAllDepartmentsData = {
     body?: never;
     path?: never;
