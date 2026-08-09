@@ -1,13 +1,19 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 import { useAuthStore } from "../../stores/AuthStore";
+import { AuthService } from "../../services/Auth";
 
 export default function Navbar() {
     const user = useAuthStore((state) => state.user);
     const clearSession = useAuthStore((state) => state.clearSession);
 
     function logoutFunction() {
+        // Clear local session immediately so the UI reacts right away; revoke the
+        // refresh token server-side in the background (best-effort, non-blocking).
         clearSession();
+        AuthService.logout().catch(() => {
+            // local session is already cleared either way
+        });
     }
 
     return (
