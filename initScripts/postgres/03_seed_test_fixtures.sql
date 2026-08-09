@@ -59,8 +59,8 @@ insert into medication_storage_missing (fk_medication_storage_id, amount_missing
 
 
 -- orphan: Patient delete fixture (nothing references this id, safe standalone)
-insert into patient (firstname, lastname, gender, cpr_number) values
-('zztest', 'deletetarget', 'other', 'ZZTEST-PATIENT-0001');
+insert into patient (firstname, lastname, gender, cpr_number, date_of_birth, weight_kg, height_cm) values
+('zztest', 'deletetarget', 'other', 'ZZTEST-PATIENT-0001', '1990-01-01', 70, 170);
 -- -> id 26
 
 

@@ -10,10 +10,12 @@ namespace hospitalApi.Controllers
     public class PatientController : ControllerBase
     {
         private IPatientService _PatientService;
+        private ICprService _CprService;
 
-        public PatientController(IPatientService PatientService)
+        public PatientController(IPatientService PatientService, ICprService CprService)
         {
             _PatientService = PatientService;
+            _CprService = CprService;
         }
 
 
@@ -49,6 +51,40 @@ namespace hospitalApi.Controllers
         public async Task<ActionResult<int>> Post([FromBody] PatientInputDto newPatient)
         {
             int newId = await _PatientService.CreatePatient(newPatient);
+
+            if (newId > 0)
+                return Ok(newId);
+            else
+                return NoContent();
+        }
+
+        // POST api/<PatientController>/register-baby
+        [HttpPost("register-baby")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> RegisterBaby([FromBody] RegisterBabyDto newBaby)
+        {
+            string cprNumber;
+            try
+            {
+                cprNumber = _CprService.GenerateCprNumber(newBaby.DateOfBirth, newBaby.Gender ?? string.Empty);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            var patientInput = new PatientInputDto
+            {
+                Firstname = newBaby.Firstname,
+                Lastname = newBaby.Lastname,
+                Gender = newBaby.Gender,
+                CprNumber = cprNumber,
+                DateOfBirth = newBaby.DateOfBirth
+            };
+
+            int newId = await _PatientService.CreatePatient(patientInput);
 
             if (newId > 0)
                 return Ok(newId);
