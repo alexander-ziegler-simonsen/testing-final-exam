@@ -4,13 +4,16 @@ import {
     patientPost,
     patientPut,
     patientDelete,
+    patientRegisterBaby,
 } from '../api';
 import {
     zHospitalApiDtosInputsPatientInputDto,
+    zHospitalApiDtosInputsRegisterBabyDto,
 } from '../api/zod.gen';
 import type {
     HospitalApiDtosOutputsPatientOutputDto,
     HospitalApiDtosInputsPatientInputDto,
+    HospitalApiDtosInputsRegisterBabyDto,
 } from '../api';
 
 export const PatientService = {
@@ -56,5 +59,13 @@ export const PatientService = {
     delete: async (id: number): Promise<void> => {
         const { error } = await patientDelete({ path: { id } });
         if (error) throw new Error(`Failed to delete patient ${id}`);
+    },
+
+    registerBaby: async (newBaby: HospitalApiDtosInputsRegisterBabyDto): Promise<number> => {
+        const body = zHospitalApiDtosInputsRegisterBabyDto.parse(newBaby);
+        const { data, error } = await patientRegisterBaby({ body });
+        if (error) throw new Error('Failed to register baby');
+        if (typeof data !== 'number') throw new Error('Failed to register baby');
+        return data;
     },
 };
