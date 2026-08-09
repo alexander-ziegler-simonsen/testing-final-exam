@@ -1,62 +1,112 @@
 name: Allure Report
 
-# Fires after any of the three test workflows finish, and pulls the
-# latest results artifact from all three (not just the one that
-# triggered this run) so the merged report always reflects the
-# newest data from each suite.
+# Fires on push and waits out a fixed window for the 4 source test workflows
+# (which fire on the same push) to finish, then pulls each of their Allure
+# results artifacts for THIS EXACT COMMIT and merges them into one report.
+#
+# Why a fixed sleep instead of workflow_run: the 4 source pipelines combined
+# take ~3 minutes, so a 5 minute wait comfortably covers them without the
+# added complexity of coordinating 4 separate workflow_run triggers.
+#
+# Why `commit: ${{ github.sha }}` on every download below: without it, a
+# source workflow that's still running (or slower than expected) would
+# silently return an OLDER artifact from a previous run instead of failing,
+# producing a combined report that quietly mixes in stale results. Filtering
+# by commit means a not-yet-finished pipeline makes that step fail loudly
+# instead, which is the safer failure mode.
 on:
-    workflow_run:
-        workflows:
-            - "Client Tests"
-            - "Playwright Tests (Docker)"
-            - "API with DB tests"
-        types: [completed]
+    push:
         branches: [main, master]
     workflow_dispatch:
 
 permissions:
     contents: write
+    actions: read
 
 jobs:
     publish-report:
-        if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v4
 
+            - name: Wait for source pipelines to finish
+              run: sleep 300
+
             # actions/download-artifact only reaches artifacts from the *current*
-            # run. Pulling artifacts produced by three separate workflows needs
-            # this community action instead: https://github.com/dawidd6/action-download-artifact
-            - name: Download client Allure results
+            # run. Pulling artifacts produced by other workflows needs this
+            # community action instead: https://github.com/dawidd6/action-download-artifact
+            - name: Download client unit test Allure results
               uses: dawidd6/action-download-artifact@v6
               with:
                   workflow: clientUnitTests.yml
-                  branch: main
+                  commit: ${{ github.sha }}
                   workflow_conclusion: completed
                   name: allure-results-client
                   path: allure-results
-                  if_no_artifact_found: warn
+                  if_no_artifact_found: fail
 
-            - name: Download e2e Allure results
+            - name: Download client component test Allure results
+              uses: dawidd6/action-download-artifact@v6
+              with:
+                  workflow: clientComponentTest.yml
+                  commit: ${{ github.sha }}
+                  workflow_conclusion: completed
+                  name: allure-results-client-component
+                  path: allure-results
+                  if_no_artifact_found: fail
+
+            # E2e.yml's browser matrix and lighthouse audit each upload their
+            # own artifact rather than one shared "allure-results-e2e" name.
+            - name: Download e2e Allure results (chromium)
               uses: dawidd6/action-download-artifact@v6
               with:
                   workflow: E2e.yml
-                  branch: main
+                  commit: ${{ github.sha }}
                   workflow_conclusion: completed
-                  name: allure-results-e2e
+                  name: allure-results-e2e-chromium
                   path: allure-results
-                  if_no_artifact_found: warn
+                  if_no_artifact_found: fail
+
+            - name: Download e2e Allure results (firefox)
+              uses: dawidd6/action-download-artifact@v6
+              with:
+                  workflow: E2e.yml
+                  commit: ${{ github.sha }}
+                  workflow_conclusion: completed
+                  name: allure-results-e2e-firefox
+                  path: allure-results
+                  if_no_artifact_found: fail
+
+            - name: Download e2e Allure results (webkit)
+              uses: dawidd6/action-download-artifact@v6
+              with:
+                  workflow: E2e.yml
+                  commit: ${{ github.sha }}
+                  workflow_conclusion: completed
+                  name: allure-results-e2e-webkit
+                  path: allure-results
+                  if_no_artifact_found: fail
+
+            - name: Download lighthouse Allure results
+              uses: dawidd6/action-download-artifact@v6
+              with:
+                  workflow: E2e.yml
+                  commit: ${{ github.sha }}
+                  workflow_conclusion: completed
+                  name: allure-results-lighthouse
+                  path: allure-results
+                  if_no_artifact_found: fail
 
             - name: Download newman Allure results
               uses: dawidd6/action-download-artifact@v6
               with:
                   workflow: ApiEndpointAndDb.yml
-                  branch: main
+                  commit: ${{ github.sha }}
                   workflow_conclusion: completed
                   name: allure-results-newman
                   path: allure-results
-                  if_no_artifact_found: warn
+                  if_no_artifact_found: fail
 
             # Pull the previously published report's history/ folder so trend
             # graphs (pass rate, duration over time) carry forward across runs.
@@ -71,6 +121,7 @@ jobs:
               uses: simple-elf/allure-report-action@v1.15
               with:
                   allure_results: allure-results
+                  gh_pages: gh-pages
                   allure_history: allure-history
                   keep_reports: 20
 
