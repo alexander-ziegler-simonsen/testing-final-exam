@@ -86,6 +86,9 @@ export type HospitalApiDtosInputsPatientInputDto = {
     lastname?: null | string;
     gender?: null | string;
     cprNumber?: null | string;
+    dateOfBirth?: null | string;
+    weightKg?: null | number;
+    heightCm?: null | number;
 };
 
 export type HospitalApiDtosInputsPrescriptionInputDto = {
@@ -93,6 +96,13 @@ export type HospitalApiDtosInputsPrescriptionInputDto = {
     fkTreatmentId?: number;
     fkPrescribedByStaffId?: number;
     doses?: number;
+};
+
+export type HospitalApiDtosInputsRegisterBabyDto = {
+    firstname?: null | string;
+    lastname?: null | string;
+    gender?: null | string;
+    dateOfBirth?: string;
 };
 
 export type HospitalApiDtosInputsRegisterInputDto = {
@@ -204,6 +214,9 @@ export type HospitalApiDtosOutputsPatientOutputDto = {
     lastname?: null | string;
     gender?: null | string;
     cprNumber?: null | string;
+    dateOfBirth?: null | string;
+    weightKg?: null | number;
+    heightCm?: null | number;
 };
 
 export type HospitalApiDtosOutputsPrescriptionOutputDto = {
@@ -982,6 +995,9 @@ export type PatientGetAllPatientsData = {
         Lastname?: string;
         Gender?: string;
         CprNumber?: string;
+        DateOfBirth?: string;
+        WeightKg?: number;
+        HeightCm?: number;
         sortBy?: string;
         sortDir?: string;
     };
@@ -1084,6 +1100,35 @@ export type PatientPutResponses = {
      */
     200: unknown;
 };
+
+export type PatientRegisterBabyData = {
+    body: HospitalApiDtosInputsRegisterBabyDto;
+    path?: never;
+    query?: never;
+    url: '/api/Patient/register-baby';
+};
+
+export type PatientRegisterBabyErrors = {
+    /**
+     * Bad Request
+     */
+    400: MicrosoftAspNetCoreMvcProblemDetails;
+};
+
+export type PatientRegisterBabyError = PatientRegisterBabyErrors[keyof PatientRegisterBabyErrors];
+
+export type PatientRegisterBabyResponses = {
+    /**
+     * OK
+     */
+    200: number;
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type PatientRegisterBabyResponse = PatientRegisterBabyResponses[keyof PatientRegisterBabyResponses];
 
 export type PrescriptionGetAllPrescriptionsData = {
     body?: never;

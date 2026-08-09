@@ -78,32 +78,35 @@ insert into room (name, fk_floor_id) values
 -- patients (25)
 -- from https://www.fakenamegenerator.com/advanced.php?t=country&n%5b%5d=us&c%5b%5d=dk&gen=50&age-min=19&age-max=85
 
-insert into patient (firstname, lastname, gender, cpr_number) values
-('michael','conklin','male','150553-4561'),
-('darlene','kelly','female','120254-3800'),
-('edward','reep','male','210696-1193'),
-('jennifer','love','female','110751-2280'),
-('eloise','lininger','female','070271-2408'),
-('sharon','miller','female','130874-1016'),
-('phillip','rape','male','041245-3581'),
-('frances','johnson','female','011254-3430'),
-('rickey','martin','male','300481-3285'),
-('mayra','james','female','200105-6762'),
-('kathleen','russell','female','081002-9986'),
-('william','andrews','female','111158-4571'),
-('fernando','acosta','male','290890-4365'),
-('oliva','rogers','female','201195-1166'),
-('joselyn','hudnall','female','121081-0974'),
-('shirley','walker','female','100159-3664'),
-('garrett','taylor','male','150301-9147'),
-('carl','ellis','male','111062-4731'),
-('patti','jones','female','091175-1364'),
-('derrick','williams','male','100691-2679'),
-('joyce','toles','female','060884-2934'),
-('stephanie','knox','female','221160-0554'),
-('michael','gonzalez','male','141197-3723'),
-('charles','eusebio','male','111156-3477'),
-('bobby','selzer','male','060302-6535');
+-- date_of_birth is decoded from each cpr_number (ddmmyy + century digit), so it stays
+-- consistent with what CprService would derive from the same cpr; weight_kg/height_cm
+-- are made-up but plausible values spread across the bmi categories for test coverage.
+insert into patient (firstname, lastname, gender, cpr_number, date_of_birth, weight_kg, height_cm) values
+('michael','conklin','male','150553-4561','1953-05-15',82,178),
+('darlene','kelly','female','120254-3800','1954-02-12',65,162),
+('edward','reep','male','210696-1193','1996-06-21',90,180),
+('jennifer','love','female','110751-2280','1951-07-11',58,160),
+('eloise','lininger','female','070271-2408','1971-02-07',70,168),
+('sharon','miller','female','130874-1016','1974-08-13',95,165),
+('phillip','rape','male','041245-3581','1945-12-04',75,175),
+('frances','johnson','female','011254-3430','1954-12-01',50,158),
+('rickey','martin','male','300481-3285','1981-04-30',100,182),
+('mayra','james','female','200105-6762','2005-01-20',55,165),
+('kathleen','russell','female','081002-9986','2002-10-08',48,170),
+('william','andrews','female','111158-4571','1958-11-11',68,160),
+('fernando','acosta','male','290890-4365','1990-08-29',85,176),
+('oliva','rogers','female','201195-1166','1995-11-20',60,167),
+('joselyn','hudnall','female','121081-0974','1981-10-12',72,163),
+('shirley','walker','female','100159-3664','1959-01-10',78,155),
+('garrett','taylor','male','150301-9147','2001-03-15',68,179),
+('carl','ellis','male','111062-4731','1962-10-11',95,174),
+('patti','jones','female','091175-1364','1975-11-09',62,164),
+('derrick','williams','male','100691-2679','1991-06-10',79,183),
+('joyce','toles','female','060884-2934','1984-08-06',54,172),
+('stephanie','knox','female','221160-0554','1960-11-22',88,160),
+('michael','gonzalez','male','141197-3723','1997-11-14',72,177),
+('charles','eusebio','male','111156-3477','1956-11-11',80,170),
+('bobby','selzer','male','060302-6535','2002-03-06',66,175);
 
 
 -- staff (doctors first, then nurses, then admin) - role_id: 1 = doctor, 2 = nurse, 3 = admin

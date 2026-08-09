@@ -72,6 +72,9 @@ namespace hospitalApi.Services
             entity.Lastname = editedPatientData.Lastname;
             entity.Gender = editedPatientData.Gender;
             entity.CprNumber = editedPatientData.CprNumber;
+            entity.DateOfBirth = editedPatientData.DateOfBirth;
+            entity.WeightKg = editedPatientData.WeightKg;
+            entity.HeightCm = editedPatientData.HeightCm;
 
             await _hospitalContext.SaveChangesAsync();
             return true;
@@ -96,7 +99,10 @@ namespace hospitalApi.Services
                 Firstname = newPatient.Firstname,
                 Lastname = newPatient.Lastname,
                 Gender = newPatient.Gender,
-                CprNumber = newPatient.CprNumber
+                CprNumber = newPatient.CprNumber,
+                DateOfBirth = newPatient.DateOfBirth,
+                WeightKg = newPatient.WeightKg,
+                HeightCm = newPatient.HeightCm
             };
             await _patients.AddAsync(entity);
             await _hospitalContext.SaveChangesAsync();

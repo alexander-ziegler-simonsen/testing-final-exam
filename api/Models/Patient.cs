@@ -15,6 +15,12 @@ public partial class Patient
 
     public string? CprNumber { get; set; }
 
+    public DateOnly? DateOfBirth { get; set; }
+
+    public double? WeightKg { get; set; }
+
+    public double? HeightCm { get; set; }
+
     public virtual ICollection<RoomBooking> RoomBookings { get; set; } = new List<RoomBooking>();
 
     public virtual ICollection<Treatment> Treatments { get; set; } = new List<Treatment>();

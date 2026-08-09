@@ -14,4 +14,7 @@ public partial class PatientInputDto
     public string? Gender { get; set; }
     [StringLength(10)]
     public string? CprNumber { get; set; }
+    public DateOnly? DateOfBirth { get; set; }
+    public double? WeightKg { get; set; }
+    public double? HeightCm { get; set; }
 }

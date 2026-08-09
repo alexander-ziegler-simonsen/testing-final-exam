@@ -2,7 +2,7 @@
 
 import { type DefaultBodyType, http, type HttpHandler, HttpResponse, type HttpResponseResolver, type RequestHandlerOptions as RequestHandlerOptions2 } from 'msw';
 
-import type { AuthLoginData, AuthLoginResponses, ClientOptions, DepartmentDeleteResponses, DepartmentGetAllDepartmentsResponses, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, DepartmentStaffDeleteResponses, DepartmentStaffGetAllResponses, DepartmentStaffGetResponses, DepartmentStaffPostData, DepartmentStaffPostResponses, DepartmentStaffPutData, DepartmentStaffPutResponses, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorResponses, LocationGetAllFloorsResponses, LocationGetAllLocationsResponses, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteResponses, MedicinGetAllMedicinsResponses, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteResponses, PatientGetAllPatientsResponses, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteResponses, RoomBookingGetAllResponses, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, ShiftDeleteResponses, ShiftGetAllShiftsResponses, ShiftGetResponses, ShiftPostData, ShiftPostResponses, ShiftPutData, ShiftPutResponses, StaffDeleteResponses, StaffGetAllStaffsResponses, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteResponses, StorageGetAllMedicationStoragesResponses, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteResponses, TreatmentGetAllTreatmentsResponses, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteResponses, TreatmentStaffGetAllResponses, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteResponses, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
+import type { AuthLoginData, AuthLoginResponses, ClientOptions, DepartmentDeleteResponses, DepartmentGetAllDepartmentsResponses, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, DepartmentStaffDeleteResponses, DepartmentStaffGetAllResponses, DepartmentStaffGetResponses, DepartmentStaffPostData, DepartmentStaffPostResponses, DepartmentStaffPutData, DepartmentStaffPutResponses, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorResponses, LocationGetAllFloorsResponses, LocationGetAllLocationsResponses, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteResponses, MedicinGetAllMedicinsResponses, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteResponses, PatientGetAllPatientsResponses, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PatientRegisterBabyData, PatientRegisterBabyResponses, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteResponses, RoomBookingGetAllResponses, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, ShiftDeleteResponses, ShiftGetAllShiftsResponses, ShiftGetResponses, ShiftPostData, ShiftPostResponses, ShiftPutData, ShiftPutResponses, StaffDeleteResponses, StaffGetAllStaffsResponses, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteResponses, StorageGetAllMedicationStoragesResponses, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteResponses, TreatmentGetAllTreatmentsResponses, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteResponses, TreatmentStaffGetAllResponses, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteResponses, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
 
 export type RequestHandlerOptions = RequestHandlerOptions2 & {
     baseUrl?: ClientOptions['baseURL'];
@@ -1053,6 +1053,33 @@ export function handlePatientPut(response?: HandlePatientPutResponse | HttpRespo
         const body = response?.body;
         if (body !== undefined) {
             return new HttpResponse(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandlePatientRegisterBabyResponse = {
+    body: PatientRegisterBabyResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `POST /api/Patient/register-baby` operation.
+ */
+export function handlePatientRegisterBaby(response?: HandlePatientRegisterBabyResponse | ToResponseUnion<PatientRegisterBabyResponses> | HttpResponseResolver<never, PatientRegisterBabyData['body']>, options?: RequestHandlerOptions): HttpHandler {
+    return http.post<never, PatientRegisterBabyData['body']>(`${options?.baseUrl ?? '*'}/api/Patient/register-baby`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -2355,6 +2382,10 @@ export type MswHandlerFactories = {
      */
     patientPut: typeof handlePatientPut;
     /**
+     * Handler for the `POST /api/Patient/register-baby` operation.
+     */
+    patientRegisterBaby: typeof handlePatientRegisterBaby;
+    /**
      * Handler for the `GET /api/Prescription` operation.
      */
     prescriptionGetAllPrescriptions: typeof handlePrescriptionGetAllPrescriptions;
@@ -2563,6 +2594,7 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
         patientDelete: wrap(handlePatientDelete),
         patientGet: wrap(handlePatientGet),
         patientPut: wrap(handlePatientPut),
+        patientRegisterBaby: wrap(handlePatientRegisterBaby),
         prescriptionGetAllPrescriptions: wrap(handlePrescriptionGetAllPrescriptions),
         prescriptionPost: wrap(handlePrescriptionPost),
         prescriptionDelete: wrap(handlePrescriptionDelete),
@@ -2623,6 +2655,7 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
             invoke(pick.externalMedicinePricesGetMedicineProductDetails, overrides.externalMedicinePricesGetMedicineProductDetails),
             invoke(pick.locationGetAllFloors, overrides.locationGetAllFloors),
             invoke(pick.locationPostFloor, overrides.locationPostFloor),
+            invoke(pick.patientRegisterBaby, overrides.patientRegisterBaby),
             invoke(pick.userRegister, overrides.userRegister),
             invoke(pick.departmentDelete, overrides.departmentDelete),
             invoke(pick.departmentGet, overrides.departmentGet),

@@ -218,15 +218,18 @@ public partial class HospitalContext : DbContext
             entity.Property(e => e.CprNumber)
                 .HasMaxLength(50)
                 .HasColumnName("cpr_number");
+            entity.Property(e => e.DateOfBirth).HasColumnName("date_of_birth");
             entity.Property(e => e.Firstname)
                 .HasMaxLength(100)
                 .HasColumnName("firstname");
             entity.Property(e => e.Gender)
                 .HasMaxLength(50)
                 .HasColumnName("gender");
+            entity.Property(e => e.HeightCm).HasColumnName("height_cm");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(100)
                 .HasColumnName("lastname");
+            entity.Property(e => e.WeightKg).HasColumnName("weight_kg");
         });
 
         modelBuilder.Entity<Prescription>(entity =>

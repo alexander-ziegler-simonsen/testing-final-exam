@@ -37,7 +37,10 @@ create table patient (
     firstname varchar(100),
     lastname varchar(100),
     gender varchar(50),
-    cpr_number varchar(50) unique
+    cpr_number varchar(50) unique,
+    date_of_birth date,
+    weight_kg double precision,
+    height_cm double precision
 );
 
 create table room_booking (
