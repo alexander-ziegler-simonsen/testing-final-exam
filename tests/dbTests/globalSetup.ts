@@ -1,6 +1,6 @@
 import { PostgreSqlContainer } from "@testcontainers/postgresql";
 import pkg from "pg";
-import fs from "fs";
+import fs from "node:fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
