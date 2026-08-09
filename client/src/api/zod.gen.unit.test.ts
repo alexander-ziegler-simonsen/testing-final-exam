@@ -12,7 +12,6 @@ import {
     zHospitalApiDtosInputsRegisterBabyDto,
     zHospitalApiDtosInputsRegisterInputDto,
     zHospitalApiDtosInputsRoomBookingInputDto,
-    zHospitalApiDtosInputsShiftInputDto,
     zHospitalApiDtosInputsStaffInputDto,
     zHospitalApiDtosInputsTreatmentInputDto,
     zHospitalApiDtosInputsTreatmentStaffInputDto,
@@ -280,26 +279,6 @@ describe("zHospitalApiDtosInputsRoomBookingInputDto", () => {
 
     it("rejects a non-ISO startTime", () => {
         const result = zHospitalApiDtosInputsRoomBookingInputDto.safeParse({ startTime: "not-a-date" });
-        expect(result.success).toBe(false);
-    });
-});
-
-describe("zHospitalApiDtosInputsShiftInputDto", () => {
-    it("accepts valid ISO start/end times", () => {
-        const result = zHospitalApiDtosInputsShiftInputDto.safeParse({
-            startTime: "2026-08-01T07:00:00Z",
-            endTime: "2026-08-01T15:00:00Z",
-        });
-        expect(result.success).toBe(true);
-    });
-
-    it("rejects a non-ISO startTime", () => {
-        const result = zHospitalApiDtosInputsShiftInputDto.safeParse({ startTime: "not-a-date" });
-        expect(result.success).toBe(false);
-    });
-
-    it("rejects a plain date without a time component", () => {
-        const result = zHospitalApiDtosInputsShiftInputDto.safeParse({ startTime: "2026-08-01" });
         expect(result.success).toBe(false);
     });
 });

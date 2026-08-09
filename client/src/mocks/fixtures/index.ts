@@ -9,7 +9,6 @@ export * from "./medicationStorageMissing";
 export * from "./patient";
 export * from "./prescription";
 export * from "./roomBooking";
-export * from "./shift";
 export * from "./staff";
 export * from "./treatment";
 export * from "./user";

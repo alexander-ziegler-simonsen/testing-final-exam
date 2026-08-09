@@ -65,12 +65,6 @@ export const handlers = all({
         roomBookingPut: { body: null, status: 200 },
         roomBookingDelete: { body: null },
 
-        shiftGetAllShifts: { body: fx.mockShifts },
-        shiftGet: { body: fx.mockShift },
-        shiftPost: { body: 100 },
-        shiftPut: { body: null },
-        shiftDelete: { body: null },
-
         staffGetAllStaffs: { body: fx.mockStaffs },
         staffGet: { body: fx.mockStaff },
         staffPost: { body: 100 },

@@ -19,7 +19,5 @@ public partial class Staff
 
     public virtual ICollection<Prescription> Prescriptions { get; set; } = new List<Prescription>();
 
-    public virtual ICollection<ShiftStaff> ShiftStaffs { get; set; } = new List<ShiftStaff>();
-
     public virtual ICollection<TreatmentStaff> TreatmentStaffs { get; set; } = new List<TreatmentStaff>();
 }

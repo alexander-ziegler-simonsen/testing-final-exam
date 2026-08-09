@@ -108,18 +108,6 @@ create table medication_storage_missing (
     went_missing_at timestamp not null
 );
 
-create table shift (
-    id int generated always as identity primary key,
-    start_time timestamp not null,
-    end_time timestamp not null
-);
-
-create table shift_staff (
-    id int generated always as identity primary key,
-    fk_shift_id int not null references shift(id),
-    fk_staff_id int not null references staff(id)
-);
-
 create table treatment (
     id int generated always as identity primary key,
     fk_patient_id int not null references patient(id),
@@ -215,10 +203,7 @@ returns table(
     firstname varchar,
     lastname varchar,
     department_id int,
-    department_name varchar,
-    shift_id int,
-    shift_start timestamp,
-    shift_end timestamp
+    department_name varchar
 )
 language plpgsql
 as $$
@@ -229,16 +214,11 @@ begin
         s.firstname,
         s.lastname,
         d.id,
-        d.name,
-        sh.id,
-        sh.start_time,
-        sh.end_time
+        d.name
     from staff s
     join staff_role sr on sr.id = s.fk_role_id and sr.name = 'nurse'
     left join department_staff ds on ds.fk_staff_id = s.id
     left join department d on d.id = ds.fk_department_id
-    left join shift_staff ss on ss.fk_staff_id = s.id
-    left join shift sh on sh.id = ss.fk_shift_id
     where s.id = p_nurse_id;
 end;
 $$;
@@ -359,36 +339,6 @@ begin
     left join floor f on f.id = r.fk_floor_id
     left join building b on b.id = f.fk_building_id
     where p.id = p_patient_id;
-end;
-$$;
-
-create or replace function sp_get_shift_by_id(p_shift_id int)
-returns table(
-    shift_id int,
-    start_time timestamp,
-    end_time timestamp,
-    staff_id int,
-    firstname varchar,
-    lastname varchar,
-    staff_role varchar
-)
-language plpgsql
-as $$
-begin
-    return query
-    select
-        sh.id,
-        sh.start_time,
-        sh.end_time,
-        s.id,
-        s.firstname,
-        s.lastname,
-        sr.name
-    from shift sh
-    left join shift_staff ss on ss.fk_shift_id = sh.id
-    left join staff s on s.id = ss.fk_staff_id
-    left join staff_role sr on sr.id = s.fk_role_id
-    where sh.id = p_shift_id;
 end;
 $$;
 

@@ -34,10 +34,6 @@ public partial class HospitalContext : DbContext
 
     public virtual DbSet<RoomBooking> RoomBookings { get; set; }
 
-    public virtual DbSet<Shift> Shifts { get; set; }
-
-    public virtual DbSet<ShiftStaff> ShiftStaffs { get; set; }
-
     public virtual DbSet<Staff> Staff { get; set; }
 
     public virtual DbSet<StaffRole> StaffRoles { get; set; }
@@ -303,46 +299,6 @@ public partial class HospitalContext : DbContext
                 .HasForeignKey(d => d.FkRoomId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("room_booking_fk_room_id_fkey");
-        });
-
-        modelBuilder.Entity<Shift>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("shift_pkey");
-
-            entity.ToTable("shift");
-
-            entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-            entity.Property(e => e.EndTime)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("end_time");
-            entity.Property(e => e.StartTime)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("start_time");
-        });
-
-        modelBuilder.Entity<ShiftStaff>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("shift_staff_pkey");
-
-            entity.ToTable("shift_staff");
-
-            entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-            entity.Property(e => e.FkShiftId).HasColumnName("fk_shift_id");
-            entity.Property(e => e.FkStaffId).HasColumnName("fk_staff_id");
-
-            entity.HasOne(d => d.FkShift).WithMany(p => p.ShiftStaffs)
-                .HasForeignKey(d => d.FkShiftId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("shift_staff_fk_shift_id_fkey");
-
-            entity.HasOne(d => d.FkStaff).WithMany(p => p.ShiftStaffs)
-                .HasForeignKey(d => d.FkStaffId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("shift_staff_fk_staff_id_fkey");
         });
 
         modelBuilder.Entity<Staff>(entity =>

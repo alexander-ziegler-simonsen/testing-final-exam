@@ -35,9 +35,9 @@ test("only shows navigation links allowed for the logged-in user's role", async 
 
     const { getByTestId } = await renderSidebar();
 
-    // "shifts" allows nurses.
+    // "room booking" allows nurses.
     await expect
-        .element(getByTestId("sidebar-desktop-shifts-link"))
+        .element(getByTestId("sidebar-desktop-room-booking-link"))
         .toBeInTheDocument();
 
     // "staff" is admin-only, so a nurse should never see it.

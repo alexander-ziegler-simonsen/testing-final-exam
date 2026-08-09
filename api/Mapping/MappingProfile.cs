@@ -20,9 +20,6 @@ namespace hospitalApi.Mapping
             CreateMap<MedicationStorageMissingInputDto, MedicationStorageMissing>().ValidateMemberList(MemberList.Source);
             CreateMap<RoomBooking, RoomBookingOutputDto>();
             CreateMap<RoomBookingInputDto, RoomBooking>().ValidateMemberList(MemberList.Source);
-            CreateMap<Shift, ShiftOutputDto>();
-            CreateMap<ShiftInputDto, Shift>().ValidateMemberList(MemberList.Source);
-            CreateMap<ShiftStaff, ShiftStaffOutputDto>();
             CreateMap<Treatment, TreatmentOutputDto>();
             CreateMap<TreatmentInputDto, Treatment>().ValidateMemberList(MemberList.Source);
             CreateMap<TreatmentStaff, TreatmentStaffOutputDto>();

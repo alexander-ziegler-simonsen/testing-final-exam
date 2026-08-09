@@ -34,7 +34,6 @@ builder.Services.AddDbContext<HospitalContext>(options => options.UseNpgsql(conn
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IMedicinService, MedicinService>();
-builder.Services.AddScoped<IShiftService, ShiftService>();
 builder.Services.AddScoped<IStaffService, StaffService>();
 builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IMissingStorageService, MissingStorageService>();

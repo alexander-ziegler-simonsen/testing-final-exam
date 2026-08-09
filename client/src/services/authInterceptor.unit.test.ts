@@ -1,13 +1,13 @@
 import { HttpResponse } from "msw";
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { authRefresh } from "../api";
-import { handleAuthRefresh, handlePatientGetAllPatients, handleShiftGetAllShifts } from "../api/msw.gen";
+import { handleAuthRefresh, handleDepartmentGetAllDepartments, handlePatientGetAllPatients } from "../api/msw.gen";
 import { mockLogin } from "../mocks/fixtures";
 import { mockPatients } from "../mocks/fixtures";
-import { mockShifts } from "../mocks/fixtures";
+import { mockDepartments } from "../mocks/fixtures";
 import { server } from "../mocks/Server";
 import { PatientService } from "./Patient";
-import { ShiftService } from "./Shift";
+import { DepartmentService } from "./Department";
 import { setupAuthInterceptor } from "./authInterceptor";
 import { useAuthStore } from "../stores/AuthStore";
 
@@ -134,7 +134,7 @@ describe("setupAuthInterceptor", () => {
     it("coalesces concurrent 401s into a single refresh call", async () => {
         let refreshCalls = 0;
         let patientCalls = 0;
-        let shiftCalls = 0;
+        let departmentCalls = 0;
 
         server.use(
             handleAuthRefresh(() => {
@@ -148,19 +148,19 @@ describe("setupAuthInterceptor", () => {
                 }
                 return HttpResponse.json(mockPatients, { status: 200 });
             }),
-            handleShiftGetAllShifts(() => {
-                shiftCalls++;
-                if (shiftCalls === 1) {
+            handleDepartmentGetAllDepartments(() => {
+                departmentCalls++;
+                if (departmentCalls === 1) {
                     return HttpResponse.json({ title: "Unauthorized" }, { status: 401 });
                 }
-                return HttpResponse.json(mockShifts, { status: 200 });
+                return HttpResponse.json(mockDepartments, { status: 200 });
             }),
         );
 
-        const [patients, shifts] = await Promise.all([PatientService.getAll(), ShiftService.getAll()]);
+        const [patients, departments] = await Promise.all([PatientService.getAll(), DepartmentService.getAll()]);
 
         expect(patients).toEqual(mockPatients);
-        expect(shifts).toEqual(mockShifts);
+        expect(departments).toEqual(mockDepartments);
         expect(refreshCalls).toBe(1);
     });
 });

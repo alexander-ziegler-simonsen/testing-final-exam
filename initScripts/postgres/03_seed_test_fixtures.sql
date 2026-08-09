@@ -82,12 +82,6 @@ insert into department (name, type) values
 -- -> id 6
 
 
--- orphan: Shift delete fixture (nothing references this id, safe standalone)
-insert into shift (start_time, end_time) values
-('2099-01-01 08:00:00', '2099-01-01 16:00:00');
--- -> id 4
-
-
 -- orphan: Location (floor) delete fixture (no rooms attached, safe standalone)
 insert into floor (name, fk_building_id) values
 ('zztest-deletetarget', 1);

@@ -20,7 +20,6 @@ import Patients from './pages/dashboards/Patients'
 import OnePatient from './pages/dashboards/OnePatient'
 import RegisterBaby from './pages/dashboards/RegisterBaby'
 import Staff from './pages/dashboards/Staff'
-import Shifts from './pages/dashboards/Shifts'
 import RoomBooking from './pages/dashboards/RoomBooking'
 import OneRoomBooking from './pages/dashboards/OneRoomBooking'
 import OneRoom from './pages/dashboards/OneRoom'
@@ -82,7 +81,6 @@ function App() {
               <Route path="medicin_storage/:id" element={<OneMedicin />} />
               <Route path="external_medicin" element={<ExternalMedicin />} />
               <Route path="external_medicin/:id" element={<OneExternalMedicin />} />
-              <Route path="shifts" element={<Shifts />} />
               <Route path="room_booking" element={<RoomBooking />} />
               <Route path="room_booking/room/:id" element={<OneRoom />} />
               <Route path="room_booking/:id" element={<OneRoomBooking />} />

@@ -3,8 +3,8 @@ import type { Pool } from "pg";
 import { openTestPool } from "../helpers/testDb.js";
 
 // Runs fifth: checks the sp_get_* stored procedures, which are the
-// heaviest read queries (joining rooms/floors/buildings, shifts + staff,
-// etc.) and are the layer the application backend actually calls.
+// heaviest read queries (joining rooms/floors/buildings, staff, etc.)
+// and are the layer the application backend actually calls.
 let pool: Pool;
 
 beforeAll(() => {
@@ -46,13 +46,6 @@ describe("Stored procedures (sp_get_*)", () => {
         const res = await pool.query("SELECT * FROM sp_get_department_by_id($1)", [1]);
         expect(res.rows.length).toBeGreaterThan(0);
         expect(res.rows[0].department_name).toBe("emergency");
-    });
-
-    test("sp_get_shift_by_id returns shift with assigned staff", async () => {
-        const res = await pool.query("SELECT * FROM sp_get_shift_by_id($1)", [1]);
-        expect(res.rows.length).toBeGreaterThan(0);
-        expect(res.rows[0].shift_id).toBe(1);
-        expect(res.rows[0].firstname).not.toBeNull();
     });
 
     test("sp_get_room_by_id returns room with floor and building", async () => {

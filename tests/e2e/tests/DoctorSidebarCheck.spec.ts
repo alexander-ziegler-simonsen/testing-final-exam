@@ -23,7 +23,6 @@ test('test', async ({ page }) => {
   await expect.soft(page.getByTestId('sidebar-desktop-medicin-storage-link-open-button')).toBeVisible();
   await expect.soft(page.getByTestId('sidebar-desktop-external-medicin-link-open-button')).toBeVisible();
   await expect.soft(page.getByTestId('sidebar-desktop-patients-link-open-button')).toBeVisible();
-  await expect.soft(page.getByTestId('sidebar-desktop-shifts-link-open-button')).toBeVisible();
   await expect.soft(page.getByTestId('sidebar-desktop-room-booking-link-open-button')).toBeVisible();
   await expect.soft(page.getByTestId('sidebar-desktop-treatment-link-open-button')).toBeVisible();
 

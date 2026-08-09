@@ -26,7 +26,6 @@ test('test', async ({ page }) => {
   await expect.soft(page.getByText('find medicin priceopen')).not.toBeVisible();
   await expect.soft(page.getByText('patientsopen')).not.toBeVisible();
   await expect.soft(page.getByText('staffopen')).not.toBeVisible();
-  await expect.soft(page.getByText('shiftsopen')).not.toBeVisible();
   await expect.soft(page.getByText('room bookingopen')).not.toBeVisible();
 
 
@@ -51,7 +50,6 @@ test('test', async ({ page }) => {
   await page.getByText('medicin storageopen').click();
   await page.getByText('find medicin priceopen').click();
   await page.getByText('patientsopen').click();
-  await page.getByText('shiftsopen').click();
   await page.getByText('room bookingopen').click();
   await page.getByText('treatmentopen').click();
   await page.getByTestId('dashboard-navbar').click();
@@ -76,7 +74,6 @@ test('test', async ({ page }) => {
   await expect(page.getByText('find medicin priceopen')).toBeVisible();
   await expect(page.getByText('patientsopen')).toBeVisible();
   await expect(page.getByText('patientsopen')).toBeVisible();
-  await expect(page.getByText('shiftsopen')).toBeVisible();
   await expect(page.getByText('room bookingopen')).toBeVisible();
   await expect(page.getByText('treatmentopen')).toBeVisible();
   await page.getByTestId('sidebar-desktop-departments-link-open-button').click();
@@ -1198,49 +1195,6 @@ test('test', async ({ page }) => {
       - button "Page 3"
       - button "Next page":
         - img
-    `);
-  await page.getByTestId('sidebar-desktop-shifts-link-open-button').click();
-  await expect(page.getByTestId('dashboard-main-content')).toMatchAriaSnapshot(`
-    - paragraph: this is Shifts page
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: /\\d+:\\d+/
-    - paragraph: Mon
-    - paragraph: Tue
-    - paragraph: "Shift #1"
-    - paragraph: /\\d+:\\d+ - \\d+:\\d+/
-    - paragraph: "Shift #2"
-    - paragraph: /\\d+:\\d+ - \\d+:\\d+\\.\\d+/
-    - paragraph: Wed
-    - paragraph: "Shift #3"
-    - paragraph: /\\d+:\\d+ - \\d+:\\d+/
-    - paragraph: "/Shift #\\\\d+/"
-    - paragraph: /\\d+:\\d+ - \\d+:\\d+/
-    - paragraph: Thu
-    - paragraph: Fri
-    - paragraph: Sat
-    - paragraph: Sun
     `);
   await page.getByTestId('sidebar-desktop-treatment-link-open-button').click();
   await expect(page.getByTestId('dashboard-main-content')).toMatchAriaSnapshot(`
