@@ -17,7 +17,7 @@ import {
     zHospitalApiDtosInputsTreatmentStaffInputDto,
     zUserChangePasswordBody,
     zUserRegisterBody,
-} from "./zod.gen";
+} from "../zod.gen";
 
 // These schemas are what every service in src/services validates its input
 // against before making a request (see e.g. Patient.ts, RoomBooking.ts). This

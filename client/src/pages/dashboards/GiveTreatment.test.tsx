@@ -26,5 +26,9 @@ test("renders the form once patient/medication data has loaded", async () => {
     // No patient selected yet, so submit is disabled.
     await expect.element(getByTestId("give-treatment-submit-button")).toBeDisabled();
 
+    // The "Time" field defaults to `new Date()`. Pin it to a fixed value so
+    // the screenshot baseline doesn't drift on every run.
+    await getByTestId("give-treatment-field-time").fill("2026-01-15T10:30");
+
     await expect(container).toMatchScreenshot("give-treatment");
 });

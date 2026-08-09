@@ -18,6 +18,17 @@ export default defineProject({
                 // { browser: 'firefox' },
                 // { browser: 'webkit' },
             ],
+            // Baselines are generated on whatever machine happens to run
+            // `img:update` (developer laptops, CI), which don't all render
+            // fonts pixel-identically. Allow a small mismatch so that
+            // doesn't fail the whole suite over rendering noise.
+            expect: {
+                toMatchScreenshot: {
+                    comparatorOptions: {
+                        allowedMismatchedPixelRatio: 0.05,
+                    },
+                },
+            },
         },
     },
 })
