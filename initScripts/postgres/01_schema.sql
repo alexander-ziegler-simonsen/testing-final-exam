@@ -142,56 +142,6 @@ create table treatment_staff (
 );
 
 
--- views _______________________
-
-
-create or replace view vw_nurses as
-select
-    s.id as nurse_id,
-    s.firstname,
-    s.lastname,
-    d.id as department_id,
-    d.name as department_name,
-    sh.id as shift_id,
-    sh.start_time as shift_start,
-    sh.end_time as shift_end
-from staff s
-join staff_role sr on sr.id = s.fk_role_id
-left join department_staff ds on ds.fk_staff_id = s.id
-left join department d on d.id = ds.fk_department_id
-left join shift_staff ss on ss.fk_staff_id = s.id
-left join shift sh on sh.id = ss.fk_shift_id
-where sr.name = 'nurse';
-
-create or replace view vw_doctors as
-select
-    s.id as doctor_id,
-    s.firstname,
-    s.lastname,
-    d.id as department_id,
-    d.name as department_name
-from staff s
-join staff_role sr on sr.id = s.fk_role_id and sr.name = 'doctor'
-left join department_staff ds on ds.fk_staff_id = s.id
-left join department d on d.id = ds.fk_department_id;
-
-create or replace view vw_week_shifts as
-select
-    sh.id as shift_id,
-    sh.start_time,
-    sh.end_time,
-    s.id as staff_id,
-    s.firstname,
-    s.lastname,
-    sr.name as staff_role
-from shift sh
-left join shift_staff ss on ss.fk_shift_id = sh.id
-left join staff s on s.id = ss.fk_staff_id
-left join staff_role sr on sr.id = s.fk_role_id;
-
--- (other views can remain identical — just no backticks)
-
-
 -- functions _______________________
 
 

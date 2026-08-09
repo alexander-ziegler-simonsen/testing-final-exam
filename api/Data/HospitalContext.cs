@@ -46,15 +46,9 @@ public partial class HospitalContext : DbContext
 
     public virtual DbSet<TreatmentStaff> TreatmentStaffs { get; set; }
 
-    public virtual DbSet<VwDoctor> VwDoctors { get; set; }
-
-    public virtual DbSet<VwNurse> VwNurses { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserPatient> UserPatients { get; set; }
-
-    public virtual DbSet<VwWeekShift> VwWeekShifts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -489,76 +483,6 @@ public partial class HospitalContext : DbContext
                 .HasForeignKey(d => d.FkTreatmentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("treatment_staff_fk_treatment_id_fkey");
-        });
-
-        modelBuilder.Entity<VwDoctor>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("vw_doctors");
-
-            entity.Property(e => e.DepartmentId).HasColumnName("department_id");
-            entity.Property(e => e.DepartmentName)
-                .HasMaxLength(100)
-                .HasColumnName("department_name");
-            entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
-            entity.Property(e => e.Firstname)
-                .HasMaxLength(100)
-                .HasColumnName("firstname");
-            entity.Property(e => e.Lastname)
-                .HasMaxLength(100)
-                .HasColumnName("lastname");
-        });
-
-        modelBuilder.Entity<VwNurse>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("vw_nurses");
-
-            entity.Property(e => e.DepartmentId).HasColumnName("department_id");
-            entity.Property(e => e.DepartmentName)
-                .HasMaxLength(100)
-                .HasColumnName("department_name");
-            entity.Property(e => e.Firstname)
-                .HasMaxLength(100)
-                .HasColumnName("firstname");
-            entity.Property(e => e.Lastname)
-                .HasMaxLength(100)
-                .HasColumnName("lastname");
-            entity.Property(e => e.NurseId).HasColumnName("nurse_id");
-            entity.Property(e => e.ShiftEnd)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("shift_end");
-            entity.Property(e => e.ShiftId).HasColumnName("shift_id");
-            entity.Property(e => e.ShiftStart)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("shift_start");
-        });
-
-        modelBuilder.Entity<VwWeekShift>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("vw_week_shifts");
-
-            entity.Property(e => e.EndTime)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("end_time");
-            entity.Property(e => e.Firstname)
-                .HasMaxLength(100)
-                .HasColumnName("firstname");
-            entity.Property(e => e.Lastname)
-                .HasMaxLength(100)
-                .HasColumnName("lastname");
-            entity.Property(e => e.ShiftId).HasColumnName("shift_id");
-            entity.Property(e => e.StaffId).HasColumnName("staff_id");
-            entity.Property(e => e.StaffRole)
-                .HasMaxLength(50)
-                .HasColumnName("staff_role");
-            entity.Property(e => e.StartTime)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("start_time");
         });
 
         OnModelCreatingPartial(modelBuilder);
