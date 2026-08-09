@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "46debb07-8fd4-4c08-ba1b-8cd676f025db",
+    "_postman_id": "6a53b8aa-0b81-4bc1-aaf1-ad62ef0c95ec",
     "name": "hospitalApi - 2026",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "12590735"
@@ -192,7 +192,17 @@
             }
           ]
         }
-      ]
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{doctorToken}}",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "api",
@@ -201,221 +211,7 @@
           "name": "Auth",
           "item": [
             {
-              "name": "set 1",
-              "item": [
-                {
-                  "name": "login",
-                  "item": [
-                    {
-                      "name": "/api/Auth/login - nurse",
-                      "event": [
-                        {
-                          "listen": "test",
-                          "script": {
-                            "exec": [
-                              "pm.test(\"Status code is 200\", function () {",
-                              "    pm.response.to.have.status(200);",
-                              "});"
-                            ],
-                            "type": "text/javascript",
-                            "packages": {},
-                            "requests": {}
-                          }
-                        }
-                      ],
-                      "request": {
-                        "method": "POST",
-                        "header": [
-                          {
-                            "key": "Content-Type",
-                            "value": "application/json"
-                          }
-                        ],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "{\n  \"username\": \"nurse\",\n  \"password\": \"Nurse1234!\"\n}",
-                          "options": {
-                            "raw": {
-                              "headerFamily": "json",
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Auth/login",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Auth",
-                            "login"
-                          ]
-                        }
-                      },
-                      "response": [
-                        {
-                          "name": "OK",
-                          "originalRequest": {
-                            "method": "POST",
-                            "header": [
-                              {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                              }
-                            ],
-                            "body": {
-                              "mode": "raw",
-                              "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
-                              "options": {
-                                "raw": {
-                                  "headerFamily": "json",
-                                  "language": "json"
-                                }
-                              }
-                            },
-                            "url": {
-                              "raw": "{{baseUrl}}/api/Auth/login",
-                              "host": [
-                                "{{baseUrl}}"
-                              ],
-                              "path": [
-                                "api",
-                                "Auth",
-                                "login"
-                              ]
-                            }
-                          },
-                          "status": "OK",
-                          "code": 200,
-                          "_postman_previewlanguage": "text",
-                          "header": [],
-                          "cookie": [],
-                          "body": ""
-                        }
-                      ]
-                    },
-                    {
-                      "name": "/api/Auth/login - doctor",
-                      "event": [
-                        {
-                          "listen": "test",
-                          "script": {
-                            "exec": [
-                              "pm.test(\"Status code is 200\", function () {",
-                              "    pm.response.to.have.status(200);",
-                              "});"
-                            ],
-                            "type": "text/javascript",
-                            "packages": {},
-                            "requests": {}
-                          }
-                        }
-                      ],
-                      "request": {
-                        "method": "POST",
-                        "header": [
-                          {
-                            "key": "Content-Type",
-                            "value": "application/json"
-                          }
-                        ],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "{\n  \"username\": \"doctor\",\n  \"password\": \"Doctor1234!\"\n}",
-                          "options": {
-                            "raw": {
-                              "headerFamily": "json",
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Auth/login",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Auth",
-                            "login"
-                          ]
-                        }
-                      },
-                      "response": [
-                        {
-                          "name": "OK",
-                          "originalRequest": {
-                            "method": "POST",
-                            "header": [
-                              {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                              }
-                            ],
-                            "body": {
-                              "mode": "raw",
-                              "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
-                              "options": {
-                                "raw": {
-                                  "headerFamily": "json",
-                                  "language": "json"
-                                }
-                              }
-                            },
-                            "url": {
-                              "raw": "{{baseUrl}}/api/Auth/login",
-                              "host": [
-                                "{{baseUrl}}"
-                              ],
-                              "path": [
-                                "api",
-                                "Auth",
-                                "login"
-                              ]
-                            }
-                          },
-                          "status": "OK",
-                          "code": 200,
-                          "_postman_previewlanguage": "text",
-                          "header": [],
-                          "cookie": [],
-                          "body": ""
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {},
-                    "exec": [
-                      ""
-                    ]
-                  }
-                },
-                {
-                  "listen": "test",
-                  "script": {
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {},
-                    "exec": [
-                      "pm.test(\"Status code is 2xx\", function () {",
-                      "    pm.expect(pm.response.code).to.be.within(200, 204);",
-                      "});"
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "name": "set 3",
+              "name": "001 - negative",
               "item": [
                 {
                   "name": "login",
@@ -597,6 +393,95 @@
                           "body": ""
                         }
                       ]
+                    },
+                    {
+                      "name": "/api/Auth/login - doctor - wrong json",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "exec": [
+                              "pm.test(\"Status code is 400\", function () {",
+                              "    pm.response.to.have.status(400);",
+                              "});"
+                            ],
+                            "type": "text/javascript",
+                            "packages": {},
+                            "requests": {}
+                          }
+                        }
+                      ],
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"username\": \"doctor\",\n  \"password\": \"Doctor12",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/Auth/login",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "Auth",
+                            "login"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/Auth/login",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "Auth",
+                                "login"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "body": ""
+                        }
+                      ]
                     }
                   ]
                 }
@@ -622,6 +507,226 @@
                     "exec": [
                       "pm.test(\"Status code is 4xx\", function () {",
                       "    pm.expect(pm.response.code).to.be.within(400, 404);",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "002 - positive",
+              "item": [
+                {
+                  "name": "login",
+                  "item": [
+                    {
+                      "name": "/api/Auth/login - nurse",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "exec": [
+                              "pm.test(\"Status code is 200\", function () {",
+                              "    pm.response.to.have.status(200);",
+                              "});",
+                              "",
+                              "let response = pm.response.json();",
+                              "pm.environment.set('nurseToken', response.token);"
+                            ],
+                            "type": "text/javascript",
+                            "packages": {},
+                            "requests": {}
+                          }
+                        }
+                      ],
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"username\": \"nurse\",\n  \"password\": \"Nurse1234!\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/Auth/login",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "Auth",
+                            "login"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/Auth/login",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "Auth",
+                                "login"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "body": ""
+                        }
+                      ]
+                    },
+                    {
+                      "name": "/api/Auth/login - doctor",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "exec": [
+                              "pm.test(\"Status code is 200\", function () {",
+                              "    pm.response.to.have.status(200);",
+                              "});",
+                              "",
+                              "let response = pm.response.json();",
+                              "pm.environment.set('doctorToken', response.token);"
+                            ],
+                            "type": "text/javascript",
+                            "packages": {},
+                            "requests": {}
+                          }
+                        }
+                      ],
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"username\": \"doctor\",\n  \"password\": \"Doctor1234!\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/Auth/login",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "Auth",
+                            "login"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/Auth/login",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "Auth",
+                                "login"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "body": ""
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {},
+                    "exec": [
+                      ""
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {},
+                    "exec": [
+                      "pm.test(\"Status code is 2xx\", function () {",
+                      "    pm.expect(pm.response.code).to.be.within(200, 204);",
                       "});"
                     ]
                   }
@@ -1718,7 +1823,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Prescription",
@@ -2809,7 +2924,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "DepartmentStaff",
@@ -3899,7 +4024,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "RoomBooking",
@@ -5186,7 +5321,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "MissingStorage",
@@ -6276,7 +6421,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Treatment",
@@ -7524,7 +7679,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Storage",
@@ -8614,7 +8779,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Patient",
@@ -9960,7 +10135,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Staff",
@@ -11050,7 +11235,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Medicin",
@@ -12140,7 +12335,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Department",
@@ -13218,7 +13423,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Shift",
@@ -13927,7 +14142,17 @@
               "name": "Negative Tests & Validation",
               "item": []
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "Location",
@@ -15206,7 +15431,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         },
         {
           "name": "User",
@@ -15917,7 +16152,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{doctorToken}}",
+                "type": "string"
+              }
+            ]
+          }
         }
       ],
       "event": [
