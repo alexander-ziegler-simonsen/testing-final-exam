@@ -119,11 +119,6 @@ export type HospitalApiDtosInputsRoomBookingInputDto = {
     fkPatientId?: number;
 };
 
-export type HospitalApiDtosInputsShiftInputDto = {
-    startTime?: string;
-    endTime?: string;
-};
-
 export type HospitalApiDtosInputsStaffInputDto = {
     firstname?: null | string;
     lastname?: null | string;
@@ -239,12 +234,6 @@ export type HospitalApiDtosOutputsRoomOutputDto = {
     id?: number;
     name?: string;
     fkFloorId?: number;
-};
-
-export type HospitalApiDtosOutputsShiftOutputDto = {
-    id?: number;
-    startTime?: string;
-    endTime?: string;
 };
 
 export type HospitalApiDtosOutputsStaffOutputDto = {
@@ -1393,115 +1382,6 @@ export type RoomBookingPutErrors = {
 };
 
 export type RoomBookingPutError = RoomBookingPutErrors[keyof RoomBookingPutErrors];
-
-export type ShiftGetAllShiftsData = {
-    body?: never;
-    path?: never;
-    query?: {
-        from?: string;
-        to?: string;
-        sortBy?: string;
-        sortDir?: string;
-    };
-    url: '/api/Shift';
-};
-
-export type ShiftGetAllShiftsErrors = {
-    /**
-     * Not Found
-     */
-    404: MicrosoftAspNetCoreMvcProblemDetails;
-};
-
-export type ShiftGetAllShiftsError = ShiftGetAllShiftsErrors[keyof ShiftGetAllShiftsErrors];
-
-export type ShiftGetAllShiftsResponses = {
-    /**
-     * OK
-     */
-    200: Array<HospitalApiDtosOutputsShiftOutputDto>;
-};
-
-export type ShiftGetAllShiftsResponse = ShiftGetAllShiftsResponses[keyof ShiftGetAllShiftsResponses];
-
-export type ShiftPostData = {
-    body: HospitalApiDtosInputsShiftInputDto;
-    path?: never;
-    query?: never;
-    url: '/api/Shift';
-};
-
-export type ShiftPostResponses = {
-    /**
-     * OK
-     */
-    200: number;
-    /**
-     * No Content
-     */
-    204: void;
-};
-
-export type ShiftPostResponse = ShiftPostResponses[keyof ShiftPostResponses];
-
-export type ShiftDeleteData = {
-    body?: never;
-    path: {
-        id: number;
-    };
-    query?: never;
-    url: '/api/Shift/{id}';
-};
-
-export type ShiftDeleteResponses = {
-    /**
-     * OK
-     */
-    200: unknown;
-};
-
-export type ShiftGetData = {
-    body?: never;
-    path: {
-        id: number;
-    };
-    query?: never;
-    url: '/api/Shift/{id}';
-};
-
-export type ShiftGetErrors = {
-    /**
-     * Not Found
-     */
-    404: MicrosoftAspNetCoreMvcProblemDetails;
-};
-
-export type ShiftGetError = ShiftGetErrors[keyof ShiftGetErrors];
-
-export type ShiftGetResponses = {
-    /**
-     * OK
-     */
-    200: HospitalApiDtosOutputsShiftOutputDto;
-};
-
-export type ShiftGetResponse = ShiftGetResponses[keyof ShiftGetResponses];
-
-export type ShiftPutData = {
-    body: HospitalApiDtosInputsShiftInputDto;
-    path: {
-        id: number;
-    };
-    query?: never;
-    url: '/api/Shift/{id}';
-};
-
-export type ShiftPutResponses = {
-    /**
-     * OK
-     */
-    200: unknown;
-};
 
 export type StaffGetAllStaffsData = {
     body?: never;

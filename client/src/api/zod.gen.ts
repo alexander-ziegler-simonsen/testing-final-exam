@@ -117,11 +117,6 @@ export const zHospitalApiDtosInputsRoomBookingInputDto = z.object({
     fkPatientId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
 });
 
-export const zHospitalApiDtosInputsShiftInputDto = z.object({
-    startTime: z.iso.datetime().optional(),
-    endTime: z.iso.datetime().optional()
-});
-
 export const zHospitalApiDtosInputsStaffInputDto = z.object({
     firstname: z.string().min(2).max(100).nullish(),
     lastname: z.string().min(2).max(100).nullish(),
@@ -231,12 +226,6 @@ export const zHospitalApiDtosOutputsFloorRoomsOutputDto = z.object({
 export const zHospitalApiDtosOutputsLocationOutputDto = z.object({
     building: zHospitalApiDtosOutputsBuildingOutputDto,
     floorsWithRooms: z.array(zHospitalApiDtosOutputsFloorRoomsOutputDto)
-});
-
-export const zHospitalApiDtosOutputsShiftOutputDto = z.object({
-    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional(),
-    startTime: z.iso.datetime().optional(),
-    endTime: z.iso.datetime().optional()
 });
 
 export const zHospitalApiDtosOutputsStaffOutputDto = z.object({
@@ -612,44 +601,6 @@ export const zRoomBookingGetResponse = zHospitalApiDtosOutputsRoomBookingOutputD
 export const zRoomBookingPutBody = zHospitalApiDtosInputsRoomBookingInputDto;
 
 export const zRoomBookingPutPath = z.object({
-    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
-});
-
-export const zShiftGetAllShiftsQuery = z.object({
-    from: z.iso.datetime().optional(),
-    to: z.iso.datetime().optional(),
-    sortBy: z.string().optional(),
-    sortDir: z.string().optional().default('asc')
-});
-
-/**
- * OK
- */
-export const zShiftGetAllShiftsResponse = z.array(zHospitalApiDtosOutputsShiftOutputDto);
-
-export const zShiftPostBody = zHospitalApiDtosInputsShiftInputDto;
-
-export const zShiftPostResponse = z.union([
-    z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-    z.void()
-]);
-
-export const zShiftDeletePath = z.object({
-    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
-});
-
-export const zShiftGetPath = z.object({
-    id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
-});
-
-/**
- * OK
- */
-export const zShiftGetResponse = zHospitalApiDtosOutputsShiftOutputDto;
-
-export const zShiftPutBody = zHospitalApiDtosInputsShiftInputDto;
-
-export const zShiftPutPath = z.object({
     id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 

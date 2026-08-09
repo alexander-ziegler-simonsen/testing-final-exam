@@ -2,7 +2,7 @@
 
 import { type DefaultBodyType, http, type HttpHandler, HttpResponse, type HttpResponseResolver, type RequestHandlerOptions as RequestHandlerOptions2 } from 'msw';
 
-import type { AuthLoginData, AuthLoginResponses, AuthLogoutResponses, AuthRefreshResponses, ClientOptions, DepartmentDeleteResponses, DepartmentGetAllDepartmentsResponses, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, DepartmentStaffDeleteResponses, DepartmentStaffGetAllResponses, DepartmentStaffGetResponses, DepartmentStaffPostData, DepartmentStaffPostResponses, DepartmentStaffPutData, DepartmentStaffPutResponses, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorResponses, LocationGetAllFloorsResponses, LocationGetAllLocationsResponses, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteResponses, MedicinGetAllMedicinsResponses, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteResponses, PatientGetAllPatientsResponses, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PatientRegisterBabyData, PatientRegisterBabyResponses, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteResponses, RoomBookingGetAllResponses, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, ShiftDeleteResponses, ShiftGetAllShiftsResponses, ShiftGetResponses, ShiftPostData, ShiftPostResponses, ShiftPutData, ShiftPutResponses, StaffDeleteResponses, StaffGetAllStaffsResponses, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteResponses, StorageGetAllMedicationStoragesResponses, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteResponses, TreatmentGetAllTreatmentsResponses, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteResponses, TreatmentStaffGetAllResponses, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteResponses, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
+import type { AuthLoginData, AuthLoginResponses, AuthLogoutResponses, AuthRefreshResponses, ClientOptions, DepartmentDeleteResponses, DepartmentGetAllDepartmentsResponses, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, DepartmentStaffDeleteResponses, DepartmentStaffGetAllResponses, DepartmentStaffGetResponses, DepartmentStaffPostData, DepartmentStaffPostResponses, DepartmentStaffPutData, DepartmentStaffPutResponses, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorResponses, LocationGetAllFloorsResponses, LocationGetAllLocationsResponses, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteResponses, MedicinGetAllMedicinsResponses, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteResponses, PatientGetAllPatientsResponses, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PatientRegisterBabyData, PatientRegisterBabyResponses, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteResponses, RoomBookingGetAllResponses, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, StaffDeleteResponses, StaffGetAllStaffsResponses, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteResponses, StorageGetAllMedicationStoragesResponses, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteResponses, TreatmentGetAllTreatmentsResponses, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteResponses, TreatmentStaffGetAllResponses, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteResponses, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
 
 export type RequestHandlerOptions = RequestHandlerOptions2 & {
     baseUrl?: ClientOptions['baseURL'];
@@ -1439,153 +1439,6 @@ export function handleRoomBookingPut(response?: HandleRoomBookingPutResponse | H
     }, options);
 }
 
-export type HandleShiftGetAllShiftsResponse = {
-    body: ShiftGetAllShiftsResponses[200];
-    status?: 200;
-};
-
-/**
- * Handler for the `GET /api/Shift` operation.
- */
-export function handleShiftGetAllShifts(response?: HandleShiftGetAllShiftsResponse | HttpResponseResolver<never, never>, options?: RequestHandlerOptions): HttpHandler {
-    return http.get<never, never>(`${options?.baseUrl ?? '*'}/api/Shift`, info => {
-        if (typeof response === 'function') {
-            return response(info);
-        }
-        const body = response?.body;
-        if (body !== undefined) {
-            return HttpResponse.json(body, { status: response?.status ?? 200 });
-        }
-        if (options?.responseFallback === 'passthrough') {
-            return;
-        }
-        return new Response('Not Implemented', {
-            status: 501,
-            statusText: 'Not Implemented'
-        });
-    }, options);
-}
-
-export type HandleShiftPostResponse = {
-    body: ShiftPostResponses[200];
-    status?: 200;
-};
-
-/**
- * Handler for the `POST /api/Shift` operation.
- */
-export function handleShiftPost(response?: HandleShiftPostResponse | ToResponseUnion<ShiftPostResponses> | HttpResponseResolver<never, ShiftPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
-    return http.post<never, ShiftPostData['body']>(`${options?.baseUrl ?? '*'}/api/Shift`, info => {
-        if (typeof response === 'function') {
-            return response(info);
-        }
-        const body = response?.body;
-        if (body !== undefined) {
-            return HttpResponse.json(body, { status: response?.status ?? 200 });
-        }
-        if (options?.responseFallback === 'passthrough') {
-            return;
-        }
-        return new Response('Not Implemented', {
-            status: 501,
-            statusText: 'Not Implemented'
-        });
-    }, options);
-}
-
-export type HandleShiftDeleteResponse = {
-    body: ShiftDeleteResponses[200];
-    status?: 200;
-};
-
-/**
- * Handler for the `DELETE /api/Shift/{id}` operation.
- */
-export function handleShiftDelete(response?: HandleShiftDeleteResponse | HttpResponseResolver<{
-    id: string;
-}, never>, options?: RequestHandlerOptions): HttpHandler {
-    return http.delete<{
-        id: string;
-    }, never>(`${options?.baseUrl ?? '*'}/api/Shift/:id`, info => {
-        if (typeof response === 'function') {
-            return response(info);
-        }
-        const body = response?.body;
-        if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
-        }
-        if (options?.responseFallback === 'passthrough') {
-            return;
-        }
-        return new Response('Not Implemented', {
-            status: 501,
-            statusText: 'Not Implemented'
-        });
-    }, options);
-}
-
-export type HandleShiftGetResponse = {
-    body: ShiftGetResponses[200];
-    status?: 200;
-};
-
-/**
- * Handler for the `GET /api/Shift/{id}` operation.
- */
-export function handleShiftGet(response?: HandleShiftGetResponse | HttpResponseResolver<{
-    id: string;
-}, never>, options?: RequestHandlerOptions): HttpHandler {
-    return http.get<{
-        id: string;
-    }, never>(`${options?.baseUrl ?? '*'}/api/Shift/:id`, info => {
-        if (typeof response === 'function') {
-            return response(info);
-        }
-        const body = response?.body;
-        if (body !== undefined) {
-            return HttpResponse.json(body, { status: response?.status ?? 200 });
-        }
-        if (options?.responseFallback === 'passthrough') {
-            return;
-        }
-        return new Response('Not Implemented', {
-            status: 501,
-            statusText: 'Not Implemented'
-        });
-    }, options);
-}
-
-export type HandleShiftPutResponse = {
-    body: ShiftPutResponses[200];
-    status?: 200;
-};
-
-/**
- * Handler for the `PUT /api/Shift/{id}` operation.
- */
-export function handleShiftPut(response?: HandleShiftPutResponse | HttpResponseResolver<{
-    id: string;
-}, ShiftPutData['body']>, options?: RequestHandlerOptions): HttpHandler {
-    return http.put<{
-        id: string;
-    }, ShiftPutData['body']>(`${options?.baseUrl ?? '*'}/api/Shift/:id`, info => {
-        if (typeof response === 'function') {
-            return response(info);
-        }
-        const body = response?.body;
-        if (body !== undefined) {
-            return new HttpResponse(body, { status: response?.status ?? 200 });
-        }
-        if (options?.responseFallback === 'passthrough') {
-            return;
-        }
-        return new Response('Not Implemented', {
-            status: 501,
-            statusText: 'Not Implemented'
-        });
-    }, options);
-}
-
 export type HandleStaffGetAllStaffsResponse = {
     body: StaffGetAllStaffsResponses[200];
     status?: 200;
@@ -2488,26 +2341,6 @@ export type MswHandlerFactories = {
      */
     roomBookingPut: typeof handleRoomBookingPut;
     /**
-     * Handler for the `GET /api/Shift` operation.
-     */
-    shiftGetAllShifts: typeof handleShiftGetAllShifts;
-    /**
-     * Handler for the `POST /api/Shift` operation.
-     */
-    shiftPost: typeof handleShiftPost;
-    /**
-     * Handler for the `DELETE /api/Shift/{id}` operation.
-     */
-    shiftDelete: typeof handleShiftDelete;
-    /**
-     * Handler for the `GET /api/Shift/{id}` operation.
-     */
-    shiftGet: typeof handleShiftGet;
-    /**
-     * Handler for the `PUT /api/Shift/{id}` operation.
-     */
-    shiftPut: typeof handleShiftPut;
-    /**
      * Handler for the `GET /api/Staff` operation.
      */
     staffGetAllStaffs: typeof handleStaffGetAllStaffs;
@@ -2669,11 +2502,6 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
         roomBookingDelete: wrap(handleRoomBookingDelete),
         roomBookingGet: wrap(handleRoomBookingGet),
         roomBookingPut: wrap(handleRoomBookingPut),
-        shiftGetAllShifts: wrap(handleShiftGetAllShifts),
-        shiftPost: wrap(handleShiftPost),
-        shiftDelete: wrap(handleShiftDelete),
-        shiftGet: wrap(handleShiftGet),
-        shiftPut: wrap(handleShiftPut),
         staffGetAllStaffs: wrap(handleStaffGetAllStaffs),
         staffPost: wrap(handleStaffPost),
         staffDelete: wrap(handleStaffDelete),
@@ -2745,9 +2573,6 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
             invoke(pick.roomBookingDelete, overrides.roomBookingDelete),
             invoke(pick.roomBookingGet, overrides.roomBookingGet),
             invoke(pick.roomBookingPut, overrides.roomBookingPut),
-            invoke(pick.shiftDelete, overrides.shiftDelete),
-            invoke(pick.shiftGet, overrides.shiftGet),
-            invoke(pick.shiftPut, overrides.shiftPut),
             invoke(pick.staffDelete, overrides.staffDelete),
             invoke(pick.staffGet, overrides.staffGet),
             invoke(pick.staffPut, overrides.staffPut),
@@ -2776,8 +2601,6 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
             invoke(pick.prescriptionPost, overrides.prescriptionPost),
             invoke(pick.roomBookingGetAll, overrides.roomBookingGetAll),
             invoke(pick.roomBookingPost, overrides.roomBookingPost),
-            invoke(pick.shiftGetAllShifts, overrides.shiftGetAllShifts),
-            invoke(pick.shiftPost, overrides.shiftPost),
             invoke(pick.staffGetAllStaffs, overrides.staffGetAllStaffs),
             invoke(pick.staffPost, overrides.staffPost),
             invoke(pick.storageGetAllMedicationStorages, overrides.storageGetAllMedicationStorages),
