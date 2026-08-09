@@ -1,10 +1,12 @@
 using hospitalApi.DTOs.Inputs;
 using hospitalApi.DTOs.Outputs;
 using hospitalApi.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hospitalApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TreatmentStaffController : ControllerBase
