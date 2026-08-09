@@ -1,0 +1,49 @@
+name: Client Component Tests
+
+on:
+    push:
+        branches: [main, master]
+    pull_request:
+        branches: [main, master]
+
+jobs:
+    client-component-tests:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            # Install pnpm
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10
+
+            # setup Node (with pnpm cache)
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: "pnpm"
+                  cache-dependency-path: ./client/pnpm-lock.yaml
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+              working-directory: ./client
+
+            - name: Install Playwright browser (chromium)
+              run: pnpm exec playwright install --with-deps chromium
+              working-directory: ./client
+
+            - name: Run component tests
+              run: pnpm run test:browser
+              working-directory: ./client
+
+            - name: Upload Allure results
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: allure-results-client-component
+                  path: client/docs/vitest_coverage/run_*/allure-results
+                  retention-days: 30
