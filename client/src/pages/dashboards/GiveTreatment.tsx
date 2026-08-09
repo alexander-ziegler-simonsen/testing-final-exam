@@ -128,7 +128,7 @@ export default function GiveTreatment() {
     }
 
     const hasPrescription = medicationId !== "";
-    const dosesNum = hasPrescription ? parseFloat(doses) : 0;
+    const dosesNum = hasPrescription ? Number.parseFloat(doses) : 0;
     let storage: HospitalApiDtosOutputsMedicationStorageOutputDto | undefined;
 
     if (hasPrescription) {

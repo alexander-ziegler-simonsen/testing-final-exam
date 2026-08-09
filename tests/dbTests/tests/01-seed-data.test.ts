@@ -52,7 +52,7 @@ describe("Seed data", () => {
             LEFT JOIN medication_storage ms ON ms.fk_medication_id = m.id
             WHERE ms.id IS NULL
         `);
-        expect(res.rows.length).toBe(0);
+        expect(res.rows.length).toHaveLength(0);
     });
 
     test("room_booking table has 10 seeded rows", async () => {

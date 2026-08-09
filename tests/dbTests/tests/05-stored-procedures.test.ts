@@ -25,7 +25,7 @@ describe("Stored procedures (sp_get_*)", () => {
 
     test("sp_get_patient_by_id returns empty for non-existent id", async () => {
         const res = await pool.query("SELECT * FROM sp_get_patient_by_id($1)", [99999]);
-        expect(res.rows.length).toBe(0);
+        expect(res.rows.length).toHaveLength(0);
     });
 
     test("sp_get_nurse_by_id returns correct nurse data", async () => {
