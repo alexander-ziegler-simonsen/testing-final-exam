@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import { MemoryRouter, Route, Routes } from "react-router";
 import OnePatient from "./OnePatient";
@@ -33,5 +34,5 @@ test("loads the patient and their treatment history", async () => {
         .element(getByTestId("patient-treatments-table-row-0-cell-description"))
         .toHaveTextContent("Rutinetjek og blodprøve");
 
-    await expect(container).toMatchScreenshot("one-patient");
+    await matchScreenshot(container, "one-patient");
 });

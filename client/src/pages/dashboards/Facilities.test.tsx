@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import { MemoryRouter } from "react-router";
 import Facilities from "./Facilities";
@@ -28,5 +29,5 @@ test("loads locations from the API and renders them in the table", async () => {
         .element(getByTestId("facilities-table-row-0-cell-address"))
         .toHaveTextContent("Nørrebrogade 44, 8000 Aarhus C");
 
-    await expect(container).toMatchScreenshot("facilities");
+    await matchScreenshot(container, "facilities");
 });

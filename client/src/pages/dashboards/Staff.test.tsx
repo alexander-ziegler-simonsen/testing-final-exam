@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import { MemoryRouter } from "react-router";
 import Staff from "./Staff";
@@ -29,5 +30,5 @@ test("loads user accounts and resolves the linked staff member's name", async ()
         .element(getByTestId("staff-table-row-0-cell-fkStaffId"))
         .toHaveTextContent("Karen Holm");
 
-    await expect(container).toMatchScreenshot("staff");
+    await matchScreenshot(container, "staff");
 });

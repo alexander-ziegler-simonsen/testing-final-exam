@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import MissingMedicin from "./MissingMedicin";
 import { Provider } from "../../components/ui/provider";
@@ -24,5 +25,5 @@ test("loads missing-storage reports and renders them in the table", async () => 
         .element(getByTestId("missing-medicine-table-row-0-cell-fkMedicationStorageId"))
         .toHaveTextContent("5");
 
-    await expect(container).toMatchScreenshot("missing-medicin");
+    await matchScreenshot(container, "missing-medicin");
 });

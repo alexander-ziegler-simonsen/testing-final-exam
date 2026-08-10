@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import { MemoryRouter, Route, Routes } from "react-router";
 import OneExternalMedicin from "./OneExternalMedicin";
@@ -34,5 +35,5 @@ test("loads and renders the product's details", async () => {
         .element(getByTestId("one-external-medicin-field-firma"))
         .toHaveTextContent("GlaxoSmithKline Consumer Healthcare");
 
-    await expect(container).toMatchScreenshot("one-external-medicin");
+    await matchScreenshot(container, "one-external-medicin");
 });

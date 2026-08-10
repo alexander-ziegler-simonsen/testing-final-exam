@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import { MemoryRouter } from "react-router";
 import GiveTreatment from "./GiveTreatment";
@@ -30,5 +31,5 @@ test("renders the form once patient/medication data has loaded", async () => {
     // the screenshot baseline doesn't drift on every run.
     await getByTestId("give-treatment-field-time").fill("2026-01-15T10:30");
 
-    await expect(container).toMatchScreenshot("give-treatment");
+    await matchScreenshot(container, "give-treatment");
 });

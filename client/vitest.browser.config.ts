@@ -13,6 +13,12 @@ export default defineProject({
         browser: {
             enabled: true,
             provider: playwright(),
+            // Headless Chromium's default viewport (414x896) is what all
+            // committed baselines were captured at. Pin it explicitly so
+            // headed runs (which don't get this default automatically)
+            // render at the same size instead of falling back to whatever
+            // window size the OS/Playwright happens to open headed.
+            viewport: { width: 414, height: 896 },
             instances: [
                 { browser: 'chromium' },
                 // { browser: 'firefox' },

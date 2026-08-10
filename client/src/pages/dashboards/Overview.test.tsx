@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import Overview from "./Overview";
 import { Provider } from "../../components/ui/provider";
@@ -29,5 +30,5 @@ test("renders the overview page with its stat cards", async () => {
         .element(getByTestId("overview-card-2-type"))
         .toHaveTextContent("B1");
 
-    await expect(container).toMatchScreenshot("overview");
+    await matchScreenshot(container, "overview");
 });

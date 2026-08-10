@@ -1,4 +1,5 @@
 import { afterEach, expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import { MemoryRouter } from "react-router";
 import ExternalMedicin from "./ExternalMedicin";
@@ -35,5 +36,5 @@ test("searches by name and renders the matching products", async () => {
         .element(getByTestId("external-medicin-row-0"))
         .toHaveTextContent("GlaxoSmithKline Consumer Healthcare");
 
-    await expect(container).toMatchScreenshot("external-medicin");
+    await matchScreenshot(container, "external-medicin");
 });

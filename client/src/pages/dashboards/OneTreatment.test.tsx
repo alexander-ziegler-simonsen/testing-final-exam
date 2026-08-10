@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import { MemoryRouter, Route, Routes } from "react-router";
 import OneTreatment from "./OneTreatment";
@@ -40,5 +41,5 @@ test("loads the treatment with its patient, staff, and prescriptions", async () 
         .element(getByTestId("treatment-prescriptions-table-row-0-cell-medicationName"))
         .toHaveTextContent("Panodil");
 
-    await expect(container).toMatchScreenshot("one-treatment");
+    await matchScreenshot(container, "one-treatment");
 });

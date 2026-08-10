@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { matchScreenshot } from "../../test-utils/matchScreenshot";
 import { render } from "vitest-browser-react";
 import { MemoryRouter } from "react-router";
 import Departments from "./Departments";
@@ -29,5 +30,5 @@ test("loads departments from the API and renders them in the table", async () =>
         .element(getByTestId("departments-table-row-0-cell-type"))
         .toHaveTextContent("Medical");
 
-    await expect(container).toMatchScreenshot("departments");
+    await matchScreenshot(container, "departments");
 });
