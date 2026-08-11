@@ -8,11 +8,27 @@ import {
   Toast,
   createToaster,
 } from "@chakra-ui/react"
+import { LuX } from "react-icons/lu"
 
-export const toaster = createToaster({
+const SUCCESS_DURATION_MS = 8000
+
+const baseToaster = createToaster({
   placement: "bottom-end",
   pauseOnPageIdle: true,
 })
+
+export const toaster: typeof baseToaster = {
+  ...baseToaster,
+  // Errors stay open until the user dismisses them via the close button;
+  // success toasts auto-dismiss after 8s. Other types keep their defaults.
+  create: (options) =>
+    baseToaster.create({
+      ...options,
+      duration:
+        options.duration ??
+        (options.type === "error" ? Infinity : options.type === "success" ? SUCCESS_DURATION_MS : undefined),
+    }),
+}
 
 export const Toaster = () => {
   return (
@@ -34,7 +50,11 @@ export const Toaster = () => {
             {toast.action && (
               <Toast.ActionTrigger data-testid="toast-action-button">{toast.action.label}</Toast.ActionTrigger>
             )}
-            {toast.closable && <Toast.CloseTrigger data-testid="toast-close-button" />}
+            {(toast.closable ?? true) && (
+              <Toast.CloseTrigger data-testid="toast-close-button">
+                <LuX />
+              </Toast.CloseTrigger>
+            )}
           </Toast.Root>
         )}
       </ChakraToaster>
