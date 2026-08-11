@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
 //     await resetDb();
 // });
 
-test('test', async ({ page }) => {
+test('Nurse role permission check (smoke)', async ({ page }) => {
 
   await page.goto('http://localhost:5173/');
   await page.getByTestId('public-footer-login-link').click();

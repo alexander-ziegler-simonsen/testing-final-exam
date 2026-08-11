@@ -5,7 +5,7 @@ test.beforeEach(async () => {
   await resetDb();
 });
 
-test('test', async ({ page }) => {
+test('Doctor sidebar role permission check (smoke)', async ({ page }) => {
   await page.goto('http://localhost:5173/');
   await page.getByTestId('public-footer-login-link').click();
   await expect(page).toHaveURL('http://localhost:5173/login');
