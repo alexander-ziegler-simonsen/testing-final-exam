@@ -40,7 +40,8 @@ namespace hospitalApi.Services
             if (entity == null)
                 return false;
 
-            entity.FkMedicationId = editedStorageData.FkMedicationId;
+            if (editedStorageData.FkMedicationId > 0)
+                entity.FkMedicationId = editedStorageData.FkMedicationId;
             entity.Amount = editedStorageData.Amount;
 
             await _hospitalContext.SaveChangesAsync();
