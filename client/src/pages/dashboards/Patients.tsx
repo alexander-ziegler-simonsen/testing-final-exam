@@ -12,21 +12,22 @@ import { PatientService } from "../../services/Patient";
 type PatientRow = HospitalApiDtosOutputsPatientOutputDto & { actions?: undefined };
 
 const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
-  { key: "firstname", label: "First name", type: "text", required: true },
-  { key: "lastname", label: "Last name", type: "text", required: true },
+  { key: "firstname", label: "First name", type: "text", required: true, lockedOnEdit: true },
+  { key: "lastname", label: "Last name", type: "text", required: true, lockedOnEdit: true },
   {
     key: "gender",
     label: "Gender",
     type: "select",
     required: true,
+    lockedOnEdit: true,
     options: [
       { label: "Male", value: "Male" },
       { label: "Female", value: "Female" },
       { label: "Other", value: "Other" },
     ],
   },
-  { key: "cprNumber", label: "CPR Number", type: "text", required: true },
-  { key: "dateOfBirth", label: "Date of birth", type: "date" },
+  { key: "cprNumber", label: "CPR Number", type: "text", required: true, lockedOnEdit: true },
+  { key: "dateOfBirth", label: "Date of birth", type: "date", lockedOnEdit: true },
   { key: "weightKg", label: "Weight (kg)", type: "number" },
   { key: "heightCm", label: "Height (cm)", type: "number" },
 ];

@@ -1,6 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { Button, Dialog, Field, HStack, Input, NativeSelect, Portal, Stack, Text } from "@chakra-ui/react";
+import { LuLock } from "react-icons/lu";
 import { toaster } from "../ui/toaster";
+
+// Shared look for fields the user can't currently edit (delete mode, or a
+// field marked lockedOnEdit) - dashed border + muted bg makes it obviously
+// inert rather than just slightly greyed out.
+const lockedFieldStyle = {
+    bg: "bg.muted",
+    color: "fg.muted",
+    borderStyle: "dashed",
+    cursor: "not-allowed",
+};
 
 export type CommandFormMode = "create" | "edit" | "delete";
 
@@ -19,6 +30,9 @@ export interface FieldConfig<T> {
     options?: SelectOption[];
     required?: boolean;
     placeholder?: string;
+    // When true, this field is locked (read-only) while editing an existing
+    // record, but still editable when creating a new one.
+    lockedOnEdit?: boolean;
 }
 
 // Mirrors the shape of the generated services (e.g. DepartmentService,
@@ -175,15 +189,18 @@ export function CommandFormPopup<TInput extends Record<string, any>, TId = numbe
                                     </Text>
                                 )}
 
-                                {fields.map((field) => (
-                                    <Field.Root key={field.key} invalid={!!errors[field.key]} required={field.required} disabled={isLocked || isSubmitting}>
+                                {fields.map((field) => {
+                                    const fieldLocked = isLocked || (mode === "edit" && field.lockedOnEdit);
+                                    return (
+                                    <Field.Root key={field.key} invalid={!!errors[field.key]} required={field.required} disabled={fieldLocked || isSubmitting}>
                                         <Field.Label>
                                             {field.label}
                                             {field.required && <Field.RequiredIndicator />}
+                                            {fieldLocked && <LuLock data-testid={`${testId}-lock-${field.key}`} />}
                                         </Field.Label>
 
                                         {field.type === "select" ? (
-                                            <NativeSelect.Root size="sm" width="full" disabled={isLocked || isSubmitting}>
+                                            <NativeSelect.Root size="sm" width="full" disabled={fieldLocked || isSubmitting}>
                                                 <NativeSelect.Field
                                                     data-testid={`${testId}-field-${field.key}`}
                                                     value={values[field.key] ?? ""}
@@ -194,6 +211,7 @@ export function CommandFormPopup<TInput extends Record<string, any>, TId = numbe
                                                         const matched = field.options?.find((option) => String(option.value) === raw);
                                                         handleChange(field.key, matched ? matched.value : raw);
                                                     }}
+                                                    _disabled={lockedFieldStyle}
                                                 >
                                                     <option value="" disabled>
                                                         {field.placeholder ?? `Select ${field.label}`}
@@ -212,8 +230,9 @@ export function CommandFormPopup<TInput extends Record<string, any>, TId = numbe
                                                 type={field.type === "number" ? "number" : field.type === "datetime" ? "datetime-local" : field.type === "date" ? "date" : "text"}
                                                 placeholder={field.placeholder}
                                                 value={values[field.key] ?? ""}
-                                                readOnly={isLocked}
+                                                readOnly={fieldLocked}
                                                 disabled={isSubmitting}
+                                                _readOnly={lockedFieldStyle}
                                                 onChange={(e) =>
                                                     handleChange(field.key, field.type === "number" ? e.target.valueAsNumber : e.target.value)
                                                 }
@@ -224,7 +243,8 @@ export function CommandFormPopup<TInput extends Record<string, any>, TId = numbe
                                             <Field.ErrorText data-testid={`${testId}-error-${field.key}`}>{errors[field.key]}</Field.ErrorText>
                                         )}
                                     </Field.Root>
-                                ))}
+                                    );
+                                })}
                             </Stack>
                         </Dialog.Body>
 
