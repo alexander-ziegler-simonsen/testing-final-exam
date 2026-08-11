@@ -1,5 +1,5 @@
 import { expect } from "vitest";
-import { server } from "@vitest/browser/context";
+import { server } from "vitest/browser";
 
 // Vitest's browser UI panel (shown whenever a test is run headed without
 // --browser.ui=false, e.g. the interactive `test:browser-head` script) eats
