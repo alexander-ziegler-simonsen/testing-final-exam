@@ -13,6 +13,7 @@ import { UserService } from "./User";
 describe("UserService", () => {
     it("getAll returns the mocked user list", async () => {
         const users = await UserService.getAll();
+
         expect(users).toEqual(mockUsers);
     });
 
@@ -21,13 +22,15 @@ describe("UserService", () => {
             handleUserGetAll(() => HttpResponse.json({ title: "Internal Server Error" }, { status: 500 })),
         );
 
-        await expect(UserService.getAll()).rejects.toThrow("Failed to load users");
+        const result = UserService.getAll();
+
+        await expect(result).rejects.toThrow("Failed to load users");
     });
 
     it("register resolves without throwing on success", async () => {
-        await expect(
-            UserService.register({ username: "alice", password: "supersecret", fkStaffId: 7, fkPatientId: null }),
-        ).resolves.toBeUndefined();
+        const result = UserService.register({ username: "alice", password: "supersecret", fkStaffId: 7, fkPatientId: null });
+
+        await expect(result).resolves.toBeUndefined();
     });
 
     it("register throws when the API errors", async () => {
@@ -37,13 +40,15 @@ describe("UserService", () => {
             ),
         );
 
-        await expect(
-            UserService.register({ username: "alice", password: "supersecret" }),
-        ).rejects.toThrow("Failed to register user");
+        const result = UserService.register({ username: "alice", password: "supersecret" });
+
+        await expect(result).rejects.toThrow("Failed to register user");
     });
 
     it("changePassword resolves without throwing on success", async () => {
-        await expect(UserService.changePassword(mockUser.id!, "newpassword")).resolves.toBeUndefined();
+        const result = UserService.changePassword(mockUser.id!, "newpassword");
+
+        await expect(result).resolves.toBeUndefined();
     });
 
     it("changePassword throws when the API errors", async () => {
@@ -53,13 +58,15 @@ describe("UserService", () => {
             ),
         );
 
-        await expect(UserService.changePassword(mockUser.id!, "newpassword")).rejects.toThrow(
-            `Failed to change password for user ${mockUser.id}`,
-        );
+        const result = UserService.changePassword(mockUser.id!, "newpassword");
+
+        await expect(result).rejects.toThrow(`Failed to change password for user ${mockUser.id}`);
     });
 
     it("delete resolves without throwing on success", async () => {
-        await expect(UserService.delete(mockUser.id!)).resolves.toBeUndefined();
+        const result = UserService.delete(mockUser.id!);
+
+        await expect(result).resolves.toBeUndefined();
     });
 
     it("delete throws when the API errors", async () => {
@@ -67,6 +74,8 @@ describe("UserService", () => {
             handleUserDelete(() => HttpResponse.json({ title: "Internal Server Error" }, { status: 500 })),
         );
 
-        await expect(UserService.delete(mockUser.id!)).rejects.toThrow(`Failed to delete user ${mockUser.id}`);
+        const result = UserService.delete(mockUser.id!);
+
+        await expect(result).rejects.toThrow(`Failed to delete user ${mockUser.id}`);
     });
 });

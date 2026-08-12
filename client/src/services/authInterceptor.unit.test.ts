@@ -34,7 +34,9 @@ describe("setupAuthInterceptor", () => {
             ),
         );
 
-        await expect(PatientService.getAll()).rejects.toThrow("Failed to load patients");
+        const result = PatientService.getAll();
+
+        await expect(result).rejects.toThrow("Failed to load patients");
         expect(refreshCalls).toBe(0);
     });
 
@@ -90,7 +92,9 @@ describe("setupAuthInterceptor", () => {
             ),
         );
 
-        await expect(PatientService.getAll()).rejects.toThrow("Failed to load patients");
+        const result = PatientService.getAll();
+
+        await expect(result).rejects.toThrow("Failed to load patients");
         expect(useAuthStore.getState().accessToken).toBeNull();
         expect(useAuthStore.getState().user).toBeNull();
     });
@@ -110,7 +114,9 @@ describe("setupAuthInterceptor", () => {
             }),
         );
 
-        await expect(PatientService.getAll()).rejects.toThrow("Failed to load patients");
+        const result = PatientService.getAll();
+
+        await expect(result).rejects.toThrow("Failed to load patients");
         expect(patientCalls).toBe(2);
         expect(refreshCalls).toBe(1);
     });

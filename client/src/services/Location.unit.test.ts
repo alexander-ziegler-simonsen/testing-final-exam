@@ -16,6 +16,7 @@ import { LocationService } from "./Location";
 describe("LocationService", () => {
     it("getAll returns the mocked location list", async () => {
         const locations = await LocationService.getAll();
+
         expect(locations).toEqual(mockLocations);
     });
 
@@ -26,11 +27,14 @@ describe("LocationService", () => {
             ),
         );
 
-        await expect(LocationService.getAll()).rejects.toThrow("Failed to load locations");
+        const result = LocationService.getAll();
+
+        await expect(result).rejects.toThrow("Failed to load locations");
     });
 
     it("getById returns a single mocked location", async () => {
         const location = await LocationService.getById(1);
+
         expect(location).toEqual(mockLocation);
     });
 
@@ -39,11 +43,14 @@ describe("LocationService", () => {
             handleLocationGet(() => HttpResponse.json({ title: "Not Found" }, { status: 404 })),
         );
 
-        await expect(LocationService.getById(999)).rejects.toThrow("Failed to load location 999");
+        const result = LocationService.getById(999);
+
+        await expect(result).rejects.toThrow("Failed to load location 999");
     });
 
     it("getAllFloorRooms returns the mocked floor list", async () => {
         const floors = await LocationService.getAllFloorRooms();
+
         expect(floors).toEqual(mockLocation.floorsWithRooms);
     });
 
@@ -54,11 +61,14 @@ describe("LocationService", () => {
             ),
         );
 
-        await expect(LocationService.getAllFloorRooms()).rejects.toThrow("Failed to load floors");
+        const result = LocationService.getAllFloorRooms();
+
+        await expect(result).rejects.toThrow("Failed to load floors");
     });
 
     it("getOneFloorRooms returns a single mocked floor", async () => {
         const floor = await LocationService.getOneFloorRooms(2);
+
         expect(floor).toEqual(mockFloorRooms);
     });
 
@@ -67,11 +77,14 @@ describe("LocationService", () => {
             handleLocationGetFloor(() => HttpResponse.json({ title: "Not Found" }, { status: 404 })),
         );
 
-        await expect(LocationService.getOneFloorRooms(999)).rejects.toThrow("Failed to load floor 999");
+        const result = LocationService.getOneFloorRooms(999);
+
+        await expect(result).rejects.toThrow("Failed to load floor 999");
     });
 
     it("createFloor posts the input and returns the new id", async () => {
         const newId = await LocationService.createFloor({ name: "4th floor", fkBuildingId: 1 });
+
         expect(newId).toBe(100);
     });
 
@@ -82,23 +95,23 @@ describe("LocationService", () => {
             ),
         );
 
-        await expect(
-            LocationService.createFloor({ name: "4th floor", fkBuildingId: 1 }),
-        ).rejects.toThrow("Failed to create floor");
+        const result = LocationService.createFloor({ name: "4th floor", fkBuildingId: 1 });
+
+        await expect(result).rejects.toThrow("Failed to create floor");
     });
 
     it("createFloor throws when the API returns a non-number id", async () => {
         server.use(handleLocationPostFloor(() => HttpResponse.json(null, { status: 200 })));
 
-        await expect(
-            LocationService.createFloor({ name: "4th floor", fkBuildingId: 1 }),
-        ).rejects.toThrow("Failed to create floor");
+        const result = LocationService.createFloor({ name: "4th floor", fkBuildingId: 1 });
+
+        await expect(result).rejects.toThrow("Failed to create floor");
     });
 
     it("putFloor resolves without throwing on success", async () => {
-        await expect(
-            LocationService.putFloor(2, { name: "2nd floor", fkBuildingId: 1 }),
-        ).resolves.toBeUndefined();
+        const result = LocationService.putFloor(2, { name: "2nd floor", fkBuildingId: 1 });
+
+        await expect(result).resolves.toBeUndefined();
     });
 
     it("putFloor throws when the API errors", async () => {
@@ -108,13 +121,15 @@ describe("LocationService", () => {
             ),
         );
 
-        await expect(
-            LocationService.putFloor(2, { name: "2nd floor", fkBuildingId: 1 }),
-        ).rejects.toThrow("Failed to update floor 2");
+        const result = LocationService.putFloor(2, { name: "2nd floor", fkBuildingId: 1 });
+
+        await expect(result).rejects.toThrow("Failed to update floor 2");
     });
 
     it("deleteFloor resolves without throwing on success", async () => {
-        await expect(LocationService.deleteFloor(2)).resolves.toBeUndefined();
+        const result = LocationService.deleteFloor(2);
+
+        await expect(result).resolves.toBeUndefined();
     });
 
     it("deleteFloor throws when the API errors", async () => {
@@ -124,6 +139,8 @@ describe("LocationService", () => {
             ),
         );
 
-        await expect(LocationService.deleteFloor(2)).rejects.toThrow("Failed to delete floor 2");
+        const result = LocationService.deleteFloor(2);
+
+        await expect(result).rejects.toThrow("Failed to delete floor 2");
     });
 });

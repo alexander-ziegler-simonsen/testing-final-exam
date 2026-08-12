@@ -6,44 +6,44 @@ import { server } from "../mocks/Server";
 import { PatientService } from "./Patient";
 
 describe("PatientService", () => {
-    it("getAll returns the mocked patient list", async () => {
-        const patients = await PatientService.getAll();
-        expect(patients).toEqual(mockPatients);
+  it("getAll returns the mocked patient list", async () => {
+    const patients = await PatientService.getAll();
+
+    expect(patients).toEqual(mockPatients);
+  });
+
+  it("getById returns a single mocked patient", async () => {
+    const patient = await PatientService.getById(mockPatient.id!);
+
+    expect(patient).toEqual(mockPatient);
+  });
+
+  it("create posts the input and returns the new id", async () => {
+    server.use(handlePatientPost({ body: 77 }));
+
+    const newId = await PatientService.create({
+      firstname: "Test",
+      lastname: "Patient",
+      gender: "Female",
+      cprNumber: "0101001234",
     });
 
-    it("getById returns a single mocked patient", async () => {
-        const patient = await PatientService.getById(mockPatient.id!);
-        expect(patient).toEqual(mockPatient);
-    });
+    expect(newId).toBe(77);
+  });
 
-    it("create posts the input and returns the new id", async () => {
-        server.use(handlePatientPost({ body: 77 }));
+  it("getAll throws when the API errors", async () => {
+    server.use(handlePatientGetAllPatients(() => HttpResponse.json({ title: "Internal Server Error" }, { status: 500 })));
 
-        const newId = await PatientService.create({
-            firstname: "Test",
-            lastname: "Patient",
-            gender: "Female",
-            cprNumber: "0101001234",
-        });
+    const result = PatientService.getAll();
 
-        expect(newId).toBe(77);
-    });
+    await expect(result).rejects.toThrow("Failed to load patients");
+  });
 
-    it("getAll throws when the API errors", async () => {
-        server.use(
-            handlePatientGetAllPatients(() =>
-                HttpResponse.json({ title: "Internal Server Error" }, { status: 500 }),
-            ),
-        );
+  it("getById throws when the patient is missing", async () => {
+    server.use(handlePatientGet(() => HttpResponse.json({ title: "Not Found" }, { status: 404 })));
 
-        await expect(PatientService.getAll()).rejects.toThrow("Failed to load patients");
-    });
+    const result = PatientService.getById(999);
 
-    it("getById throws when the patient is missing", async () => {
-        server.use(
-            handlePatientGet(() => HttpResponse.json({ title: "Not Found" }, { status: 404 })),
-        );
-
-        await expect(PatientService.getById(999)).rejects.toThrow("Failed to load patient 999");
-    });
+    await expect(result).rejects.toThrow("Failed to load patient 999");
+  });
 });
