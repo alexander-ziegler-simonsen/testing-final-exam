@@ -50,6 +50,7 @@
     "@vitest/coverage-v8": "^4.1.10",
     "@vitest/runner": "^4.1.10",
     "allure-vitest": "^3.10.2",
+    "jsdom": "^30.0.1",
     "oxlint": "^1.71.0",
     "playwright": "^1.62.0",
     "react-devtools": "^7.0.1",
