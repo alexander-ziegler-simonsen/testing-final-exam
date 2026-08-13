@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace hospitalApiTesting.Services;;
+namespace hospitalApiTesting.Services;
 
 public class MedicinServiceTest
 {
