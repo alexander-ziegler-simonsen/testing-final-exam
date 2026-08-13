@@ -28,7 +28,7 @@ builder.Services.AddDbContext<HospitalContext>(options => options.UseNpgsql(conn
 
 
 // mapping
-// builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());;
+// builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // add services
 builder.Services.AddScoped<ILocationService, LocationService>();
@@ -200,3 +200,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Exposes the top-level-statement entry point to WebApplicationFactory<Program> in the test project.
+public partial class Program { }
