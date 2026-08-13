@@ -12,8 +12,8 @@ import { UserService } from "./User";
 
 describe("UserService", () => {
     it("getAll returns the mocked user list", async () => {
+        server.use(handleUserGetAll({ body: mockUsers }));
         const users = await UserService.getAll();
-
         expect(users).toEqual(mockUsers);
     });
 
@@ -21,15 +21,13 @@ describe("UserService", () => {
         server.use(
             handleUserGetAll(() => HttpResponse.json({ title: "Internal Server Error" }, { status: 500 })),
         );
-
         const result = UserService.getAll();
-
         await expect(result).rejects.toThrow("Failed to load users");
     });
 
     it("register resolves without throwing on success", async () => {
+        server.use(handleUserRegister({ body: true }));
         const result = UserService.register({ username: "alice", password: "supersecret", fkStaffId: 7, fkPatientId: null });
-
         await expect(result).resolves.toBeUndefined();
     });
 
@@ -39,15 +37,13 @@ describe("UserService", () => {
                 HttpResponse.json({ title: "Username already taken" }, { status: 409 }),
             ),
         );
-
         const result = UserService.register({ username: "alice", password: "supersecret" });
-
         await expect(result).rejects.toThrow("Failed to register user");
     });
 
     it("changePassword resolves without throwing on success", async () => {
+        server.use(handleUserChangePassword({ body: null }));
         const result = UserService.changePassword(mockUser.id!, "newpassword");
-
         await expect(result).resolves.toBeUndefined();
     });
 
@@ -64,8 +60,8 @@ describe("UserService", () => {
     });
 
     it("delete resolves without throwing on success", async () => {
+        server.use(handleUserDelete({ body: null }));
         const result = UserService.delete(mockUser.id!);
-
         await expect(result).resolves.toBeUndefined();
     });
 
@@ -73,9 +69,7 @@ describe("UserService", () => {
         server.use(
             handleUserDelete(() => HttpResponse.json({ title: "Internal Server Error" }, { status: 500 })),
         );
-
         const result = UserService.delete(mockUser.id!);
-
         await expect(result).rejects.toThrow(`Failed to delete user ${mockUser.id}`);
     });
 });

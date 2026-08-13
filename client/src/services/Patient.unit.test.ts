@@ -7,12 +7,16 @@ import { PatientService } from "./Patient";
 
 describe("PatientService", () => {
   it("getAll returns the mocked patient list", async () => {
+    server.use(handlePatientGetAllPatients({ body: mockPatients }));
+
     const patients = await PatientService.getAll();
 
     expect(patients).toEqual(mockPatients);
   });
 
   it("getById returns a single mocked patient", async () => {
+    server.use(handlePatientGet({ body: mockPatient }));
+
     const patient = await PatientService.getById(mockPatient.id!);
 
     expect(patient).toEqual(mockPatient);
