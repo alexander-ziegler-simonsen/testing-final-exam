@@ -13,6 +13,15 @@ export default defineProject({
         browser: {
             enabled: true,
             provider: playwright(),
+            // Windows/Hyper-V/WSL2 periodically reserve chunks of the high
+            // ephemeral port range for NAT (see `netsh interface ipv4 show
+            // excludedportrange protocol=tcp`), which shifts around and can
+            // land Vitest's randomly-picked dev-server port inside a
+            // reserved block, causing an EACCES (not EADDRINUSE) bind
+            // error. Pin to a low, stable port well outside those ranges.
+            api: {
+                port: 5175,
+            },
             // Headless Chromium's default viewport (414x896) is what all
             // committed baselines were captured at. Pin it explicitly so
             // headed runs (which don't get this default automatically)
