@@ -15,16 +15,16 @@ test('Nurse role permission check (smoke)', async ({ page }) => {
   await page.getByTestId('login-submit-button').click();
 
   await expect(page).toHaveURL('http://localhost:5173/app/overview');
-  await expect(page.getByTestId('sidebar-desktop-departments-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-department-staff-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-facilities-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-missing-medicin-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-medicin-storage-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-external-medicin-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-patients-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-room-booking-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-treatment-link-open-button')).toBeVisible();
-  await expect(page.getByTestId('sidebar-desktop-give-treatment-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-departments-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-department-staff-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-facilities-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-missing-medicin-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-medicin-storage-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-external-medicin-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-patients-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-room-booking-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-treatment-link-open-button')).toBeVisible();
+  await expect.soft(page.getByTestId('sidebar-desktop-give-treatment-link-open-button')).toBeVisible();
 
   await page.getByTestId('dashboard-navbar-logout-button').click();
   await expect(page).toHaveURL('http://localhost:5173/login');
