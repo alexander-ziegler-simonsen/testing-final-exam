@@ -137,6 +137,34 @@ describe("setupAuthInterceptor", () => {
         expect(refreshCalls).toBe(1);
     });
 
+    it("refreshes again on a second, independent 401 after an earlier refresh already succeeded", async () => {
+        let refreshCalls = 0;
+        let patientCalls = 0;
+
+        server.use(
+            handleAuthRefresh(() => {
+                refreshCalls++;
+                return HttpResponse.json(mockLogin, { status: 200 });
+            }),
+            handlePatientGetAllPatients(() => {
+                patientCalls++;
+                // every odd call simulates the access token being expired again
+                if (patientCalls % 2 === 1) {
+                    return HttpResponse.json({ title: "Unauthorized" }, { status: 401 });
+                }
+                return HttpResponse.json(mockPatients, { status: 200 });
+            }),
+        );
+
+        const first = await PatientService.getAll();
+        expect(first).toEqual(mockPatients);
+        expect(refreshCalls).toBe(1);
+
+        const second = await PatientService.getAll();
+        expect(second).toEqual(mockPatients);
+        expect(refreshCalls).toBe(2);
+    });
+
     it("coalesces concurrent 401s into a single refresh call", async () => {
         let refreshCalls = 0;
         let patientCalls = 0;
