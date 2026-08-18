@@ -14,11 +14,6 @@ using NUnit.Framework;
 
 namespace hospitalApiTesting.Controllers;
 
-// Goes through the real HTTP pipeline (WebApplicationFactory) instead of calling
-// the controller directly, because [Authorize] is enforced by middleware that
-// never runs when a controller is instantiated and invoked in isolation - a plain
-// "new MissingStorageController(mock)" test could never actually observe a 401.
-// IMissingStorageService is swapped for a mock in DI, so no real database is touched.
 public class MissingStorageControllerTest
 {
     private WebApplicationFactory<Program> _factory;
@@ -32,11 +27,7 @@ public class MissingStorageControllerTest
         _factory = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
             {
-                // Tripwire: if a request path ever forgets to hit the mock and falls
-                // through to the real HospitalContext, this fails loud instead of
-                // silently reaching a real database.
-                builder.UseSetting("ConnectionStrings:DefaultConnection",
-                    "Host=unused-in-tests;Database=unused;Username=unused;Password=unused;");
+                builder.UseSetting("ConnectionStrings:DefaultConnection", "Host=unused-in-tests;Database=unused;Username=unused;Password=unused;");
 
                 builder.ConfigureTestServices(services =>
                 {
@@ -81,9 +72,6 @@ public class MissingStorageControllerTest
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
     }
 
-    // Sanity/control case: proves the WebApplicationFactory + forged-JWT + DI-mock
-    // wiring actually works end to end, so a pass on the 401/500 tests above means
-    // something real, not an artifact of a broken harness.
     [Test]
     public async Task GetAllMedicationStorageMissings_WithValidToken_ReturnsOkFromMockedService()
     {
