@@ -14,11 +14,8 @@ interface InfoCardProps {
 export default function InfoCard({ title, value, type, testId }: Readonly<InfoCardProps>) {
 
     return (
-        <Box bg={"whiteAlpha.100"}
-            css={quickShadow}
-            minW={"200px"}
-            p={6} height={"auto"} border={"1px solid"} rounded={18}
-            data-testid={testId}>
+        <Box bg={"whiteAlpha.100"} css={quickShadow} minW={"200px"} 
+            p={6} height={"auto"} border={"1px solid"} rounded={18} data-testid={testId}>
             {
                 type != null
                     ? (<HStack>
