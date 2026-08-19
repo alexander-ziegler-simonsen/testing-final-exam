@@ -2,7 +2,7 @@
 
 import { type DefaultBodyType, http, type HttpHandler, HttpResponse, type HttpResponseResolver, type RequestHandlerOptions as RequestHandlerOptions2 } from 'msw';
 
-import type { AuthLoginData, AuthLoginResponses, AuthLogoutResponses, AuthRefreshResponses, ClientOptions, DepartmentDeleteResponses, DepartmentGetAllDepartmentsResponses, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, DepartmentStaffDeleteResponses, DepartmentStaffGetAllResponses, DepartmentStaffGetResponses, DepartmentStaffPostData, DepartmentStaffPostResponses, DepartmentStaffPutData, DepartmentStaffPutResponses, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorResponses, LocationGetAllFloorsResponses, LocationGetAllLocationsResponses, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteResponses, MedicinGetAllMedicinsResponses, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteResponses, PatientGetAllPatientsResponses, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PatientRegisterBabyData, PatientRegisterBabyResponses, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteResponses, RoomBookingGetAllResponses, RoomBookingGetResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, StaffDeleteResponses, StaffGetAllStaffsResponses, StaffGetResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteResponses, StorageGetAllMedicationStoragesResponses, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteResponses, TreatmentGetAllTreatmentsResponses, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteResponses, TreatmentStaffGetAllResponses, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteResponses, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
+import type { AuthLoginData, AuthLoginResponses, AuthLogoutResponses, AuthRefreshResponses, ClientOptions, DepartmentDeleteResponses, DepartmentGetAllDepartmentsResponses, DepartmentGetResponses, DepartmentPostData, DepartmentPostResponses, DepartmentPutData, DepartmentPutResponses, DepartmentStaffDeleteResponses, DepartmentStaffGetAllResponses, DepartmentStaffGetResponses, DepartmentStaffPostData, DepartmentStaffPostResponses, DepartmentStaffPutData, DepartmentStaffPutResponses, ExternalMedicinePricesGetMedicineProductDetailsResponses, ExternalMedicinePricesGetMedicineProductsByIngredientsResponses, ExternalMedicinePricesGetMedicineProductsByNameResponses, LocationDeleteFloorResponses, LocationGetAllFloorsResponses, LocationGetAllLocationsResponses, LocationGetFloorResponses, LocationGetResponses, LocationPostFloorData, LocationPostFloorResponses, LocationPutFloorData, LocationPutFloorResponses, MedicinDeleteResponses, MedicinGetAllMedicinsResponses, MedicinGetResponses, MedicinPostData, MedicinPostResponses, MedicinPutData, MedicinPutResponses, MissingStorageDeleteResponses, MissingStorageGetAllMedicationStorageMissingsResponses, MissingStorageGetMissingCountResponses, MissingStorageGetResponses, MissingStoragePostData, MissingStoragePostResponses, MissingStoragePutData, MissingStoragePutResponses, PatientDeleteResponses, PatientGetAllPatientsResponses, PatientGetPatientCountResponses, PatientGetResponses, PatientPostData, PatientPostResponses, PatientPutData, PatientPutResponses, PatientRegisterBabyData, PatientRegisterBabyResponses, PrescriptionDeleteResponses, PrescriptionGetAllPrescriptionsResponses, PrescriptionGetResponses, PrescriptionPostData, PrescriptionPostResponses, PrescriptionPutData, PrescriptionPutResponses, RoomBookingDeleteResponses, RoomBookingGetAllResponses, RoomBookingGetEmptyRoomsCountForDayResponses, RoomBookingGetResponses, RoomBookingGetRoomsInUseCountByFloorResponses, RoomBookingPostData, RoomBookingPostResponses, RoomBookingPutData, StaffDeleteResponses, StaffGetAllStaffsResponses, StaffGetResponses, StaffGetStaffCountResponses, StaffPostData, StaffPostResponses, StaffPutData, StaffPutResponses, StorageDeleteResponses, StorageGetAllMedicationStoragesResponses, StorageGetResponses, StoragePostData, StoragePostResponses, StoragePutData, StoragePutResponses, TreatmentDeleteResponses, TreatmentGetAllTreatmentsResponses, TreatmentGetResponses, TreatmentPostData, TreatmentPostResponses, TreatmentPutData, TreatmentPutResponses, TreatmentStaffDeleteResponses, TreatmentStaffGetAllResponses, TreatmentStaffGetResponses, TreatmentStaffPostData, TreatmentStaffPostResponses, TreatmentStaffPutData, TreatmentStaffPutResponses, UserChangePasswordData, UserChangePasswordResponses, UserDeleteResponses, UserGetAllResponses, UserRegisterData, UserRegisterResponses } from './types.gen';
 
 export type RequestHandlerOptions = RequestHandlerOptions2 & {
     baseUrl?: ClientOptions['baseURL'];
@@ -971,6 +971,33 @@ export function handleMissingStoragePut(response?: HandleMissingStoragePutRespon
     }, options);
 }
 
+export type HandleMissingStorageGetMissingCountResponse = {
+    body: MissingStorageGetMissingCountResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `GET /api/MissingStorage/count` operation.
+ */
+export function handleMissingStorageGetMissingCount(response?: HandleMissingStorageGetMissingCountResponse | HttpResponseResolver<never, never>, options?: RequestHandlerOptions): HttpHandler {
+    return http.get<never, never>(`${options?.baseUrl ?? '*'}/api/MissingStorage/count`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
 export type HandlePatientGetAllPatientsResponse = {
     body: PatientGetAllPatientsResponses[200];
     status?: 200;
@@ -1008,6 +1035,33 @@ export type HandlePatientPostResponse = {
  */
 export function handlePatientPost(response?: HandlePatientPostResponse | ToResponseUnion<PatientPostResponses> | HttpResponseResolver<never, PatientPostData['body']>, options?: RequestHandlerOptions): HttpHandler {
     return http.post<never, PatientPostData['body']>(`${options?.baseUrl ?? '*'}/api/Patient`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandlePatientGetPatientCountResponse = {
+    body: PatientGetPatientCountResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `GET /api/Patient/count` operation.
+ */
+export function handlePatientGetPatientCount(response?: HandlePatientGetPatientCountResponse | HttpResponseResolver<never, never>, options?: RequestHandlerOptions): HttpHandler {
+    return http.get<never, never>(`${options?.baseUrl ?? '*'}/api/Patient/count`, info => {
         if (typeof response === 'function') {
             return response(info);
         }
@@ -1439,6 +1493,60 @@ export function handleRoomBookingPut(response?: HandleRoomBookingPutResponse | H
     }, options);
 }
 
+export type HandleRoomBookingGetEmptyRoomsCountForDayResponse = {
+    body: RoomBookingGetEmptyRoomsCountForDayResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `GET /api/RoomBooking/empty-rooms-count` operation.
+ */
+export function handleRoomBookingGetEmptyRoomsCountForDay(response?: HandleRoomBookingGetEmptyRoomsCountForDayResponse | HttpResponseResolver<never, never>, options?: RequestHandlerOptions): HttpHandler {
+    return http.get<never, never>(`${options?.baseUrl ?? '*'}/api/RoomBooking/empty-rooms-count`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandleRoomBookingGetRoomsInUseCountByFloorResponse = {
+    body: RoomBookingGetRoomsInUseCountByFloorResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `GET /api/RoomBooking/rooms-in-use-count` operation.
+ */
+export function handleRoomBookingGetRoomsInUseCountByFloor(response?: HandleRoomBookingGetRoomsInUseCountByFloorResponse | HttpResponseResolver<never, never>, options?: RequestHandlerOptions): HttpHandler {
+    return http.get<never, never>(`${options?.baseUrl ?? '*'}/api/RoomBooking/rooms-in-use-count`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
 export type HandleStaffGetAllStaffsResponse = {
     body: StaffGetAllStaffsResponses[200];
     status?: 200;
@@ -1575,6 +1683,33 @@ export function handleStaffPut(response?: HandleStaffPutResponse | HttpResponseR
         const body = response?.body;
         if (body !== undefined) {
             return new HttpResponse(body, { status: response?.status ?? 200 });
+        }
+        if (options?.responseFallback === 'passthrough') {
+            return;
+        }
+        return new Response('Not Implemented', {
+            status: 501,
+            statusText: 'Not Implemented'
+        });
+    }, options);
+}
+
+export type HandleStaffGetStaffCountResponse = {
+    body: StaffGetStaffCountResponses[200];
+    status?: 200;
+};
+
+/**
+ * Handler for the `GET /api/Staff/count` operation.
+ */
+export function handleStaffGetStaffCount(response?: HandleStaffGetStaffCountResponse | HttpResponseResolver<never, never>, options?: RequestHandlerOptions): HttpHandler {
+    return http.get<never, never>(`${options?.baseUrl ?? '*'}/api/Staff/count`, info => {
+        if (typeof response === 'function') {
+            return response(info);
+        }
+        const body = response?.body;
+        if (body !== undefined) {
+            return HttpResponse.json(body, { status: response?.status ?? 200 });
         }
         if (options?.responseFallback === 'passthrough') {
             return;
@@ -2277,6 +2412,10 @@ export type MswHandlerFactories = {
      */
     missingStoragePut: typeof handleMissingStoragePut;
     /**
+     * Handler for the `GET /api/MissingStorage/count` operation.
+     */
+    missingStorageGetMissingCount: typeof handleMissingStorageGetMissingCount;
+    /**
      * Handler for the `GET /api/Patient` operation.
      */
     patientGetAllPatients: typeof handlePatientGetAllPatients;
@@ -2284,6 +2423,10 @@ export type MswHandlerFactories = {
      * Handler for the `POST /api/Patient` operation.
      */
     patientPost: typeof handlePatientPost;
+    /**
+     * Handler for the `GET /api/Patient/count` operation.
+     */
+    patientGetPatientCount: typeof handlePatientGetPatientCount;
     /**
      * Handler for the `DELETE /api/Patient/{id}` operation.
      */
@@ -2341,6 +2484,14 @@ export type MswHandlerFactories = {
      */
     roomBookingPut: typeof handleRoomBookingPut;
     /**
+     * Handler for the `GET /api/RoomBooking/empty-rooms-count` operation.
+     */
+    roomBookingGetEmptyRoomsCountForDay: typeof handleRoomBookingGetEmptyRoomsCountForDay;
+    /**
+     * Handler for the `GET /api/RoomBooking/rooms-in-use-count` operation.
+     */
+    roomBookingGetRoomsInUseCountByFloor: typeof handleRoomBookingGetRoomsInUseCountByFloor;
+    /**
      * Handler for the `GET /api/Staff` operation.
      */
     staffGetAllStaffs: typeof handleStaffGetAllStaffs;
@@ -2360,6 +2511,10 @@ export type MswHandlerFactories = {
      * Handler for the `PUT /api/Staff/{id}` operation.
      */
     staffPut: typeof handleStaffPut;
+    /**
+     * Handler for the `GET /api/Staff/count` operation.
+     */
+    staffGetStaffCount: typeof handleStaffGetStaffCount;
     /**
      * Handler for the `GET /api/Storage` operation.
      */
@@ -2486,8 +2641,10 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
         missingStorageDelete: wrap(handleMissingStorageDelete),
         missingStorageGet: wrap(handleMissingStorageGet),
         missingStoragePut: wrap(handleMissingStoragePut),
+        missingStorageGetMissingCount: wrap(handleMissingStorageGetMissingCount),
         patientGetAllPatients: wrap(handlePatientGetAllPatients),
         patientPost: wrap(handlePatientPost),
+        patientGetPatientCount: wrap(handlePatientGetPatientCount),
         patientDelete: wrap(handlePatientDelete),
         patientGet: wrap(handlePatientGet),
         patientPut: wrap(handlePatientPut),
@@ -2502,11 +2659,14 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
         roomBookingDelete: wrap(handleRoomBookingDelete),
         roomBookingGet: wrap(handleRoomBookingGet),
         roomBookingPut: wrap(handleRoomBookingPut),
+        roomBookingGetEmptyRoomsCountForDay: wrap(handleRoomBookingGetEmptyRoomsCountForDay),
+        roomBookingGetRoomsInUseCountByFloor: wrap(handleRoomBookingGetRoomsInUseCountByFloor),
         staffGetAllStaffs: wrap(handleStaffGetAllStaffs),
         staffPost: wrap(handleStaffPost),
         staffDelete: wrap(handleStaffDelete),
         staffGet: wrap(handleStaffGet),
         staffPut: wrap(handleStaffPut),
+        staffGetStaffCount: wrap(handleStaffGetStaffCount),
         storageGetAllMedicationStorages: wrap(handleStorageGetAllMedicationStorages),
         storagePost: wrap(handleStoragePost),
         storageDelete: wrap(handleStorageDelete),
@@ -2549,7 +2709,12 @@ export function createMswHandlers(config: RequestHandlerOptions = {}): CreateMsw
             invoke(pick.externalMedicinePricesGetMedicineProductDetails, overrides.externalMedicinePricesGetMedicineProductDetails),
             invoke(pick.locationGetAllFloors, overrides.locationGetAllFloors),
             invoke(pick.locationPostFloor, overrides.locationPostFloor),
+            invoke(pick.missingStorageGetMissingCount, overrides.missingStorageGetMissingCount),
+            invoke(pick.patientGetPatientCount, overrides.patientGetPatientCount),
             invoke(pick.patientRegisterBaby, overrides.patientRegisterBaby),
+            invoke(pick.roomBookingGetEmptyRoomsCountForDay, overrides.roomBookingGetEmptyRoomsCountForDay),
+            invoke(pick.roomBookingGetRoomsInUseCountByFloor, overrides.roomBookingGetRoomsInUseCountByFloor),
+            invoke(pick.staffGetStaffCount, overrides.staffGetStaffCount),
             invoke(pick.userRegister, overrides.userRegister),
             invoke(pick.departmentDelete, overrides.departmentDelete),
             invoke(pick.departmentGet, overrides.departmentGet),
