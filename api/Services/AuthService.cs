@@ -151,7 +151,7 @@ namespace hospitalApi.Services
                 new Claim(TokenUseClaim, RefreshTokenUse)
             };
 
-            var days = _configuration.GetValue<int?>("Jwt:RefreshTokenDays") ?? 7;
+            var days = _configuration.GetValue<int?>("Jwt:RefreshTokenDays") ?? 1;
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],

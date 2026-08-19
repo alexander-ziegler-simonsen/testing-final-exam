@@ -492,6 +492,11 @@ export const zMissingStoragePutPath = z.object({
     id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
+/**
+ * OK
+ */
+export const zMissingStorageGetMissingCountResponse = z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' });
+
 export const zPatientGetAllPatientsQuery = z.object({
     Firstname: z.string().min(2).max(100).optional(),
     Lastname: z.string().min(2).max(100).optional(),
@@ -515,6 +520,11 @@ export const zPatientPostResponse = z.union([
     z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
     z.void()
 ]);
+
+/**
+ * OK
+ */
+export const zPatientGetPatientCountResponse = z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' });
 
 export const zPatientDeletePath = z.object({
     id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
@@ -604,6 +614,24 @@ export const zRoomBookingPutPath = z.object({
     id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
 
+export const zRoomBookingGetEmptyRoomsCountForDayQuery = z.object({
+    date: z.iso.datetime().optional()
+});
+
+/**
+ * OK
+ */
+export const zRoomBookingGetEmptyRoomsCountForDayResponse = z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' });
+
+export const zRoomBookingGetRoomsInUseCountByFloorQuery = z.object({
+    floorFkId: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }).optional()
+});
+
+/**
+ * OK
+ */
+export const zRoomBookingGetRoomsInUseCountByFloorResponse = z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' });
+
 /**
  * OK
  */
@@ -634,6 +662,11 @@ export const zStaffPutBody = zHospitalApiDtosInputsStaffInputDto;
 export const zStaffPutPath = z.object({
     id: z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' })
 });
+
+/**
+ * OK
+ */
+export const zStaffGetStaffCountResponse = z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' });
 
 /**
  * OK

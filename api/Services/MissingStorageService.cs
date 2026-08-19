@@ -34,6 +34,11 @@ namespace hospitalApi.Services
             return _mapper.Map<MedicationStorageMissingOutputDto>(entity);
         }
 
+        public async Task<int> GetMissingCount()
+        {
+            return await _missing.CountAsync();
+        }
+
         public async Task<bool> EditMissingStorage(int MissingStorageId, MedicationStorageMissingInputDto editedMissingStorageData)
         {
             var entity = await _missing.FirstOrDefaultAsync(m => m.Id == MissingStorageId);

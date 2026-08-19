@@ -35,6 +35,11 @@ namespace hospitalApi.Services
             return _mapper.Map<StaffOutputDto>(entity);
         }
 
+        public async Task<int> GetStaffCount()
+        {
+            return await staffs.CountAsync();
+        }
+
         public async Task<bool> EditStaff(int StaffId, StaffInputDto editedStaffData)
         {
             var entity = await staffs.FirstOrDefaultAsync(s => s.Id == StaffId);

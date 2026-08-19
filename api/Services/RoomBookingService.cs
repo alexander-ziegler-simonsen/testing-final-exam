@@ -11,6 +11,7 @@ namespace hospitalApi.Services
     public class RoomBookingService : IRoomBookingService
     {
         private readonly DbSet<RoomBooking> _bookings;
+        private readonly DbSet<Room> _rooms;
         private readonly HospitalContext _hospitalContext;
         private readonly IMapper _mapper;
 
@@ -18,6 +19,7 @@ namespace hospitalApi.Services
         {
             _hospitalContext = dbContext;
             _bookings = dbContext.RoomBookings;
+            _rooms = dbContext.Rooms;
             _mapper = mapper;
         }
 
@@ -73,6 +75,27 @@ namespace hospitalApi.Services
                 (excludeBookingId == null || b.Id != excludeBookingId) &&
                 b.StartTime < end &&
                 b.EndTime > start
+            );
+        }
+
+        public async Task<int> GetEmptyRoomsCountForDay(DateTime date)
+        {
+            var dayStart = date.Date;
+            var dayEnd = dayStart.AddDays(1);
+
+            return await _rooms.CountAsync(r => !r.RoomBookings.Any(b =>
+                b.StartTime < dayEnd &&
+                b.EndTime > dayStart
+            ));
+        }
+
+        public async Task<int> GetRoomsInUseCountByFloor(int floorFkId)
+        {
+            var now = DateTime.Now;
+
+            return await _rooms.CountAsync(r =>
+                r.FkFloorId == floorFkId &&
+                r.RoomBookings.Any(b => b.StartTime <= now && b.EndTime > now)
             );
         }
     }

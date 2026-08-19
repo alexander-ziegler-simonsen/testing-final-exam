@@ -38,6 +38,22 @@ namespace hospitalApi.Controllers
             return Ok(output);
         }
 
+        // GET: api/roombooking/empty-rooms-count?date=2026-08-19
+        [HttpGet("empty-rooms-count")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        public async Task<int> GetEmptyRoomsCountForDay([FromQuery] DateTime date)
+        {
+            return await _roomBookingService.GetEmptyRoomsCountForDay(date);
+        }
+
+        // GET: api/roombooking/rooms-in-use-count?floorFkId=1
+        [HttpGet("rooms-in-use-count")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        public async Task<int> GetRoomsInUseCountByFloor([FromQuery] int floorFkId)
+        {
+            return await _roomBookingService.GetRoomsInUseCountByFloor(floorFkId);
+        }
+
         // POST: api/roombooking
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]

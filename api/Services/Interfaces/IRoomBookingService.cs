@@ -11,5 +11,7 @@ namespace hospitalApi.Services.Interfaces
         Task<bool> DeleteRoomBooking(int id);
         Task<int> CreateRoomBooking(RoomBookingInputDto newRoomBooking);
         Task<bool> IsRoomAvailable(int roomId, DateTime start, DateTime end, int? excludeBookingId = null);
+        Task<int> GetEmptyRoomsCountForDay(DateTime date);
+        Task<int> GetRoomsInUseCountByFloor(int floorFkId);
     }
 }

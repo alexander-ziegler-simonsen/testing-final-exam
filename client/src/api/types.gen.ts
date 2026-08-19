@@ -1017,6 +1017,22 @@ export type MissingStoragePutResponses = {
     200: unknown;
 };
 
+export type MissingStorageGetMissingCountData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/MissingStorage/count';
+};
+
+export type MissingStorageGetMissingCountResponses = {
+    /**
+     * OK
+     */
+    200: number;
+};
+
+export type MissingStorageGetMissingCountResponse = MissingStorageGetMissingCountResponses[keyof MissingStorageGetMissingCountResponses];
+
 export type PatientGetAllPatientsData = {
     body?: never;
     path?: never;
@@ -1071,6 +1087,22 @@ export type PatientPostResponses = {
 };
 
 export type PatientPostResponse = PatientPostResponses[keyof PatientPostResponses];
+
+export type PatientGetPatientCountData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/Patient/count';
+};
+
+export type PatientGetPatientCountResponses = {
+    /**
+     * OK
+     */
+    200: number;
+};
+
+export type PatientGetPatientCountResponse = PatientGetPatientCountResponses[keyof PatientGetPatientCountResponses];
 
 export type PatientDeleteData = {
     body?: never;
@@ -1383,6 +1415,42 @@ export type RoomBookingPutErrors = {
 
 export type RoomBookingPutError = RoomBookingPutErrors[keyof RoomBookingPutErrors];
 
+export type RoomBookingGetEmptyRoomsCountForDayData = {
+    body?: never;
+    path?: never;
+    query?: {
+        date?: string;
+    };
+    url: '/api/RoomBooking/empty-rooms-count';
+};
+
+export type RoomBookingGetEmptyRoomsCountForDayResponses = {
+    /**
+     * OK
+     */
+    200: number;
+};
+
+export type RoomBookingGetEmptyRoomsCountForDayResponse = RoomBookingGetEmptyRoomsCountForDayResponses[keyof RoomBookingGetEmptyRoomsCountForDayResponses];
+
+export type RoomBookingGetRoomsInUseCountByFloorData = {
+    body?: never;
+    path?: never;
+    query?: {
+        floorFkId?: number;
+    };
+    url: '/api/RoomBooking/rooms-in-use-count';
+};
+
+export type RoomBookingGetRoomsInUseCountByFloorResponses = {
+    /**
+     * OK
+     */
+    200: number;
+};
+
+export type RoomBookingGetRoomsInUseCountByFloorResponse = RoomBookingGetRoomsInUseCountByFloorResponses[keyof RoomBookingGetRoomsInUseCountByFloorResponses];
+
 export type StaffGetAllStaffsData = {
     body?: never;
     path?: never;
@@ -1486,6 +1554,22 @@ export type StaffPutResponses = {
      */
     200: unknown;
 };
+
+export type StaffGetStaffCountData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/Staff/count';
+};
+
+export type StaffGetStaffCountResponses = {
+    /**
+     * OK
+     */
+    200: number;
+};
+
+export type StaffGetStaffCountResponse = StaffGetStaffCountResponses[keyof StaffGetStaffCountResponses];
 
 export type StorageGetAllMedicationStoragesData = {
     body?: never;

@@ -1,4 +1,4 @@
-import { missingStorageGetAllMedicationStorageMissings, missingStorageGet, missingStoragePost, missingStoragePut, missingStorageDelete } from "../api";
+import { missingStorageGetAllMedicationStorageMissings, missingStorageGet, missingStoragePost, missingStoragePut, missingStorageDelete, missingStorageGetMissingCount } from "../api";
 import { zHospitalApiDtosInputsMedicationStorageMissingInputDto } from "../api/zod.gen";
 import type { HospitalApiDtosOutputsMedicationStorageMissingOutputDto, HospitalApiDtosInputsMedicationStorageMissingInputDto } from "../api";
 
@@ -32,5 +32,11 @@ export const MedicationStorageMissingService = {
   delete: async (id: number): Promise<void> => {
     const { error } = await missingStorageDelete({ path: { id } });
     if (error) throw new Error(`Failed to delete missing medication storage ${id}`);
+  },
+
+  getCount: async (): Promise<number> => {
+    const { data, error } = await missingStorageGetMissingCount();
+    if (error) throw new Error("Failed to load missing medication storage count");
+    return data;
   },
 };

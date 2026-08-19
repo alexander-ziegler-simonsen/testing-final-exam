@@ -69,7 +69,7 @@ namespace hospitalApi.Controllers
 
         private void SetRefreshCookie(string rawRefreshToken)
         {
-            var days = _configuration.GetValue<int?>("Jwt:RefreshTokenDays") ?? 7;
+            var days = _configuration.GetValue<int?>("Jwt:RefreshTokenDays") ?? 1;
 
             Response.Cookies.Append(RefreshCookieName, rawRefreshToken, new CookieOptions
             {
