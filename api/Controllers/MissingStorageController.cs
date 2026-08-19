@@ -43,6 +43,14 @@ namespace hospitalApi.Controllers
                 return Ok(output);
         }
 
+        // GET api/<MedicationStorageMissingController>/count
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        public async Task<int> GetMissingCount()
+        {
+            return await _MedicationStorageMissingService.GetMissingCount();
+        }
+
         // POST api/<MedicationStorageMissingController>
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]

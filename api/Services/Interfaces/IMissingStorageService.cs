@@ -7,6 +7,7 @@ namespace hospitalApi.Services.Interfaces
     {
         Task<IEnumerable<MedicationStorageMissingOutputDto>> GetAll();
         Task<MedicationStorageMissingOutputDto> GetOne(int id);
+        Task<int> GetMissingCount();
         Task<bool> EditMissingStorage(int MissingStorageId, MedicationStorageMissingInputDto editedMissingStorageData);
         Task<bool> DeleteMissingStorage(int id);
         Task<int> CreateMissingStorage(MedicationStorageMissingInputDto newMissingStorage);
