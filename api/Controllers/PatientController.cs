@@ -33,6 +33,14 @@ namespace hospitalApi.Controllers
             return await _PatientService.GetAll(filter, sortBy, sortDir);
         }
 
+        // GET: api/<PatientController>/count
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        public async Task<int> GetPatientCount()
+        {
+            return await _PatientService.GetPaitentCount();
+        }
+
         // GET api/<PatientController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PatientOutputDto), StatusCodes.Status200OK)]

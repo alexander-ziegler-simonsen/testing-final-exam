@@ -1,4 +1,4 @@
-import { patientGetAllPatients, patientGet, patientPost, patientPut, patientDelete, patientRegisterBaby } from "../api";
+import { patientGetAllPatients, patientGet, patientPost, patientPut, patientDelete, patientRegisterBaby, patientGetPatientCount } from "../api";
 import { zHospitalApiDtosInputsPatientInputDto, zHospitalApiDtosInputsRegisterBabyDto } from "../api/zod.gen";
 import type { HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosInputsPatientInputDto, HospitalApiDtosInputsRegisterBabyDto } from "../api";
 
@@ -48,6 +48,12 @@ export const PatientService = {
     const { data, error } = await patientRegisterBaby({ body });
     if (error) throw new Error("Failed to register baby");
     if (typeof data !== "number") throw new Error("Failed to register baby");
+    return data;
+  },
+
+  getCount: async (): Promise<number> => {
+    const { data, error } = await patientGetPatientCount();
+    if (error) throw new Error("Failed to load patient count");
     return data;
   },
 };

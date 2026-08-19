@@ -7,6 +7,7 @@ namespace hospitalApi.Services.Interfaces
     {
         Task<IEnumerable<PatientOutputDto>> GetAll(PatientInputDto? filter = null, string? sortBy = null, string? sortDir = "asc");
         Task<PatientOutputDto?> GetOne(int id);
+        Task<int> GetPaitentCount();
         Task<bool> EditPatient(int patientId, PatientInputDto editedPatientData);
         Task<bool> DeletePatient(int id);
         Task<int> CreatePatient(PatientInputDto newPatient);
