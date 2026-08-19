@@ -1,21 +1,9 @@
-import React, { useCallback, useState, useMemo } from "react";
 import { Table, Input, Stack, HStack, IconButton, NativeSelect, Text, Pagination } from "@chakra-ui/react";
 // Assumes Lucide icons are bundled with Chakra UI v3, swap with your preferred icons if needed
 import { LuArrowUpDown, LuArrowUp, LuArrowDown, LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { useDataTable, type ColumnConfig } from "../../hooks/useDataTable";
 
-export interface ColumnConfig<T> {
-    key: keyof T & string;
-    header: string;
-    enableSearch?: boolean;
-    // Set to false to disable sorting for this column (e.g. an actions
-    // column with no comparable value). Defaults to true.
-    enableSort?: boolean;
-    // Allows rendering custom components/elements for specific cells
-    render?: (value: T[keyof T], item: T) => React.ReactNode;
-    // Value to sort/filter by, for columns whose raw value (e.g. a nested
-    // object) can't be compared directly. Falls back to the raw field value.
-    sortValue?: (item: T) => string | number | Date | null | undefined;
-}
+export type { ColumnConfig };
 
 interface DataTableProps<T> {
     data: T[];
@@ -32,91 +20,21 @@ interface DataTableProps<T> {
     testId?: string;
 }
 
-type SortOrder = "asc" | "desc" | null;
-
 export function DataTable<T>({ data, columns, pageSize = 5, pageSizeOptions, onRowClick, testId = "data-table" }: DataTableProps<T>) {
-    // States for Filter, Sort, Pagination
-    const [filters, setFilters] = useState<Record<string, string>>({});
-    const [sortKey, setSortKey] = useState<keyof T | null>(null);
-    const [sortOrder, setSortOrder] = useState<SortOrder>(null);
-    const [currentPage, setCurrentPage] = useState(1);
-    // Rows-per-page is user-adjustable at runtime; `pageSize` prop is only
-    // the initial value.
-    const [rowsPerPage, setRowsPerPage] = useState(pageSize);
-
-    const rowsPerPageOptions = useMemo(() => {
-        const options = new Set(pageSizeOptions ?? [5, 10, 25, 50]);
-        options.add(pageSize);
-        return [...options].sort((a, b) => a - b);
-    }, [pageSizeOptions, pageSize]);
-
-    const handleRowsPerPageChange = (value: number) => {
-        setRowsPerPage(value);
-        setCurrentPage(1);
-    };
-
-    // 1. Handle Filtering
-    const handleFilterChange = (key: string, value: string) => {
-        setFilters((prev) => ({ ...prev, [key]: value }));
-        setCurrentPage(1); // Reset to page 1 on search
-    };
-
-    // 2. Handle Sorting Toggle
-    const handleSort = (key: keyof T) => {
-        if (sortKey === key) {
-            if (sortOrder === "asc") setSortOrder("desc");
-            else if (sortOrder === "desc") {
-                setSortOrder(null);
-                setSortKey(null);
-            }
-        } else {
-            setSortKey(key);
-            setSortOrder("asc");
-        }
-    };
-
-    // Columns whose raw field value isn't directly comparable (e.g. a nested
-    // object) can supply `sortValue` to opt into filtering/sorting.
-    const getComparableValue = useCallback(
-        (key: string, item: T) => {
-            const column = columns.find((c) => c.key === key);
-            return column?.sortValue ? column.sortValue(item) : item[key as keyof T];
-        },
-        [columns],
-    );
-
-    // 3. Process Data (Filter -> Sort -> Paginate)
-    const filteredData = useMemo(() => {
-        return data.filter((item) => {
-            return Object.entries(filters).every(([key, filterValue]) => {
-                if (!filterValue) return true;
-                const itemValue = getComparableValue(key, item);
-                return String(itemValue).toLowerCase().includes(filterValue.toLowerCase());
-            });
-        });
-    }, [data, filters, getComparableValue]);
-
-    const sortedData = useMemo(() => {
-        if (!sortKey || !sortOrder) return filteredData;
-
-        return [...filteredData].sort((a, b) => {
-            const aVal = getComparableValue(sortKey as string, a);
-            const bVal = getComparableValue(sortKey as string, b);
-
-            if (aVal == null && bVal == null) return 0;
-            if (aVal == null) return sortOrder === "asc" ? -1 : 1;
-            if (bVal == null) return sortOrder === "asc" ? 1 : -1;
-
-            if (aVal < bVal) return sortOrder === "asc" ? -1 : 1;
-            if (aVal > bVal) return sortOrder === "asc" ? 1 : -1;
-            return 0;
-        });
-    }, [filteredData, sortKey, sortOrder, getComparableValue]);
-
-    const paginatedData = useMemo(() => {
-        const start = (currentPage - 1) * rowsPerPage;
-        return sortedData.slice(start, start + rowsPerPage);
-    }, [sortedData, currentPage, rowsPerPage]);
+    const {
+        filters,
+        setFilter,
+        sortKey,
+        sortOrder,
+        toggleSort,
+        currentPage,
+        setCurrentPage,
+        rowsPerPage,
+        setRowsPerPage,
+        rowsPerPageOptions,
+        filteredData,
+        paginatedData,
+    } = useDataTable({ data, columns, pageSize, pageSizeOptions });
 
     return (
         <Stack width="full" gap="4" data-testid={testId}>
@@ -130,7 +48,7 @@ export function DataTable<T>({ data, columns, pageSize = 5, pageSizeOptions, onR
                                     {/* Sort Trigger Header */}
                                     <HStack
                                         cursor={col.enableSort === false ? "default" : "pointer"}
-                                        onClick={col.enableSort === false ? undefined : () => handleSort(col.key)}
+                                        onClick={col.enableSort === false ? undefined : () => toggleSort(col.key)}
                                         userSelect="none"
                                         width="full"
                                         justify="space-between"
@@ -148,7 +66,7 @@ export function DataTable<T>({ data, columns, pageSize = 5, pageSizeOptions, onR
 
                                     {/* Header Column Search input */}
                                     {col.enableSearch && (
-                                        <Input placeholder={`Search ${col.header}...`} size="xs" value={filters[col.key] || ""} onChange={(e) => handleFilterChange(col.key, e.target.value)} onClick={(e) => e.stopPropagation()} // Stop sorting trigger when clicking input
+                                        <Input placeholder={`Search ${col.header}...`} size="xs" value={filters[col.key] || ""} onChange={(e) => setFilter(col.key, e.target.value)} onClick={(e) => e.stopPropagation()} // Stop sorting trigger when clicking input
                                             data-testid={`${testId}-search-${col.key}`}
                                         />
                                     )}
@@ -194,7 +112,7 @@ export function DataTable<T>({ data, columns, pageSize = 5, pageSizeOptions, onR
                         <NativeSelect.Field
                             data-testid={`${testId}-page-size-select`}
                             value={rowsPerPage}
-                            onChange={(e) => handleRowsPerPageChange(Number(e.target.value))}
+                            onChange={(e) => setRowsPerPage(Number(e.target.value))}
                         >
                             {rowsPerPageOptions.map((size) => (
                                 <option key={size} value={size}>{size}</option>
