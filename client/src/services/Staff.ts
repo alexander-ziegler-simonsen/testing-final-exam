@@ -1,4 +1,4 @@
-import { staffGetAllStaffs, staffGet, staffPost, staffPut, staffDelete } from "../api";
+import { staffGetAllStaffs, staffGet, staffPost, staffPut, staffDelete, staffGetStaffCount } from "../api";
 import { zHospitalApiDtosInputsStaffInputDto } from "../api/zod.gen";
 import type { HospitalApiDtosOutputsStaffOutputDto, HospitalApiDtosInputsStaffInputDto } from "../api";
 
@@ -32,5 +32,11 @@ export const StaffService = {
   delete: async (id: number): Promise<void> => {
     const { error } = await staffDelete({ path: { id } });
     if (error) throw new Error(`Failed to delete staff ${id}`);
+  },
+
+  getCount: async (): Promise<number> => {
+    const { data, error } = await staffGetStaffCount();
+    if (error) throw new Error("Failed to load staff count");
+    return data;
   },
 };

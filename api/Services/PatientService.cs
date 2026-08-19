@@ -51,6 +51,11 @@ namespace hospitalApi.Services
             return _mapper.Map<List<PatientOutputDto>>(entities);
         }
 
+        public async Task<int> GetPaitentCount()
+        {
+            return await _patients.CountAsync();
+        }
+
         public async Task<PatientOutputDto?> GetOne(int id)
         {
             var entity = await _patients.FirstOrDefaultAsync(p => p.Id == id);

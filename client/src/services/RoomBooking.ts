@@ -1,4 +1,4 @@
-import { roomBookingGetAll, roomBookingGet, roomBookingPost, roomBookingPut, roomBookingDelete } from "../api";
+import { roomBookingGetAll, roomBookingGet, roomBookingPost, roomBookingPut, roomBookingDelete, roomBookingGetEmptyRoomsCountForDay, roomBookingGetRoomsInUseCountByFloor } from "../api";
 import { zHospitalApiDtosInputsRoomBookingInputDto } from "../api/zod.gen";
 import type { HospitalApiDtosOutputsRoomBookingOutputDto, HospitalApiDtosInputsRoomBookingInputDto } from "../api";
 
@@ -32,5 +32,17 @@ export const RoomBookingService = {
   delete: async (id: number): Promise<void> => {
     const { error } = await roomBookingDelete({ path: { id } });
     if (error) throw new Error(`Failed to delete room booking ${id}`);
+  },
+
+  getEmptyRoomsCountForDay: async (date: string): Promise<number> => {
+    const { data, error } = await roomBookingGetEmptyRoomsCountForDay({ query: { date } });
+    if (error) throw new Error("Failed to load empty rooms count");
+    return data;
+  },
+
+  getRoomsInUseCountByFloor: async (floorFkId: number): Promise<number> => {
+    const { data, error } = await roomBookingGetRoomsInUseCountByFloor({ query: { floorFkId } });
+    if (error) throw new Error("Failed to load rooms in use count");
+    return data;
   },
 };

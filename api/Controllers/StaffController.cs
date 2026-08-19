@@ -42,7 +42,15 @@ namespace hospitalApi.Controllers
             else
                 return Ok(output);
         }
-
+        
+        // GET api/<StaffController>/count
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        public async Task<int> GetStaffCount()
+        {
+            return await _StaffService.GetStaffCount();
+        }
+        
         // POST api/<StaffController>
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
