@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, Field, HStack, IconButton, Input, Table, Tabs, Text } from "@chakra-ui/react";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
-import { CommandFormPopup, type CommandFormMode, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
+import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import type {
     HospitalApiDtosInputsRoomBookingInputDto,
     HospitalApiDtosOutputsFloorRoomsOutputDto,
@@ -13,6 +13,7 @@ import type {
 import { RoomBookingService } from "../../services/RoomBooking";
 import { LocationService } from "../../services/Location";
 import { PatientService } from "../../services/Patient";
+import { useCommandPopup } from "../../hooks/useCommandPopup";
 
 interface RoomBookingRow {
     id?: number;
@@ -40,9 +41,8 @@ export default function RoomBooking() {
     const [bookings, setBookings] = useState<HospitalApiDtosOutputsRoomBookingOutputDto[]>([]);
     const [floors, setFloors] = useState<HospitalApiDtosOutputsFloorRoomsOutputDto[]>([]);
     const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-    const [popupOpen, setPopupOpen] = useState(false);
-    const [popupMode, setPopupMode] = useState<CommandFormMode>("create");
-    const [selectedBooking, setSelectedBooking] = useState<HospitalApiDtosOutputsRoomBookingOutputDto | null>(null);
+    const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedBooking, openCreate, openEdit, openDelete } =
+        useCommandPopup<HospitalApiDtosOutputsRoomBookingOutputDto>();
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
 
@@ -98,24 +98,6 @@ export default function RoomBooking() {
             }),
         [dateFilteredBookings, roomMap, patientMap],
     );
-
-    const openCreate = () => {
-        setSelectedBooking(null);
-        setPopupMode("create");
-        setPopupOpen(true);
-    };
-
-    const openEdit = (booking: HospitalApiDtosOutputsRoomBookingOutputDto) => {
-        setSelectedBooking(booking);
-        setPopupMode("edit");
-        setPopupOpen(true);
-    };
-
-    const openDelete = (booking: HospitalApiDtosOutputsRoomBookingOutputDto) => {
-        setSelectedBooking(booking);
-        setPopupMode("delete");
-        setPopupOpen(true);
-    };
 
     const roomOptions = useMemo(
         () => rooms.map((r) => ({ label: r.name ?? `Room #${r.id}`, value: r.id ?? 0 })),

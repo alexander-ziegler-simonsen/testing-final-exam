@@ -3,9 +3,10 @@ import { useNavigate } from "react-router";
 import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
-import { CommandFormPopup, type CommandFormMode, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
+import { CommandFormPopup, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import type { HospitalApiDtosInputsPatientInputDto, HospitalApiDtosOutputsPatientOutputDto } from "../../api";
 import { PatientService } from "../../services/Patient";
+import { useCommandPopup } from "../../hooks/useCommandPopup";
 
 // Extends the output DTO with a synthetic column key for the actions cell,
 // since ColumnConfig keys must be keyof T.
@@ -26,9 +27,8 @@ const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
 export default function Patients() {
   const navigate = useNavigate();
   const [data, setData] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-  const [popupOpen, setPopupOpen] = useState(false);
-  const [popupMode, setPopupMode] = useState<CommandFormMode>("create");
-  const [selectedPatient, setSelectedPatient] = useState<HospitalApiDtosOutputsPatientOutputDto | null>(null);
+  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedPatient, openCreate, openEdit, openDelete } =
+    useCommandPopup<HospitalApiDtosOutputsPatientOutputDto>();
 
   const loadPatients = () => {
     PatientService.getAll()
@@ -39,24 +39,6 @@ export default function Patients() {
   useEffect(() => {
     loadPatients();
   }, []);
-
-  const openCreate = () => {
-    setSelectedPatient(null);
-    setPopupMode("create");
-    setPopupOpen(true);
-  };
-
-  const openEdit = (patient: HospitalApiDtosOutputsPatientOutputDto) => {
-    setSelectedPatient(patient);
-    setPopupMode("edit");
-    setPopupOpen(true);
-  };
-
-  const openDelete = (patient: HospitalApiDtosOutputsPatientOutputDto) => {
-    setSelectedPatient(patient);
-    setPopupMode("delete");
-    setPopupOpen(true);
-  };
 
   const columns: ColumnConfig<PatientRow>[] = [
     { key: "id", header: "Id", enableSearch: true, },

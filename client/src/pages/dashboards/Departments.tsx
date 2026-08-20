@@ -2,24 +2,27 @@ import { useEffect, useState } from "react";
 import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
-import { CommandFormPopup, type CommandFormMode, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
+import { CommandFormPopup, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import type { HospitalApiDtosInputsDepartmentInputDto, HospitalApiDtosOutputsDepartmentOutputDto } from "../../api";
 import { DepartmentService } from "../../services/Department";
+import { useCommandPopup } from "../../hooks/useCommandPopup";
 
 // Extends the output DTO with a synthetic column key for the actions cell,
 // since ColumnConfig keys must be keyof T.
+// types for dataTable
 type DepartmentRow = HospitalApiDtosOutputsDepartmentOutputDto & { actions?: undefined };
 
+// popup fieldConfig
 const departmentFields: FieldConfig<HospitalApiDtosInputsDepartmentInputDto>[] = [
     { key: "name", label: "Name", type: "text", required: true },
     { key: "type", label: "Type", type: "text", required: true },
 ];
 
 export default function Departments() {
+    // states
     const [data, setData] = useState<HospitalApiDtosOutputsDepartmentOutputDto[]>([]);
-    const [popupOpen, setPopupOpen] = useState(false);
-    const [popupMode, setPopupMode] = useState<CommandFormMode>("create");
-    const [selectedDepartment, setSelectedDepartment] = useState<HospitalApiDtosOutputsDepartmentOutputDto | null>(null);
+    const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedDepartment, openCreate, openEdit, openDelete } =
+        useCommandPopup<HospitalApiDtosOutputsDepartmentOutputDto>();
 
     const loadDepartments = () => {
         DepartmentService.getAll()
@@ -27,27 +30,7 @@ export default function Departments() {
             .catch((error) => console.error(error));
     };
 
-    useEffect(() => {
-        loadDepartments();
-    }, []);
-
-    const openCreate = () => {
-        setSelectedDepartment(null);
-        setPopupMode("create");
-        setPopupOpen(true);
-    };
-
-    const openEdit = (department: HospitalApiDtosOutputsDepartmentOutputDto) => {
-        setSelectedDepartment(department);
-        setPopupMode("edit");
-        setPopupOpen(true);
-    };
-
-    const openDelete = (department: HospitalApiDtosOutputsDepartmentOutputDto) => {
-        setSelectedDepartment(department);
-        setPopupMode("delete");
-        setPopupOpen(true);
-    };
+    useEffect(() => { loadDepartments(); }, []);
 
     const columns: ColumnConfig<DepartmentRow>[] = [
         { key: "id", header: "Id" },

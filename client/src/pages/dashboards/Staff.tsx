@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuKeyRound, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
-import { CommandFormPopup, type CommandFormMode, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
+import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import type {
   HospitalApiDtosInputsRegisterInputDto,
   HospitalApiDtosOutputsPatientOutputDto,
@@ -12,6 +12,7 @@ import type {
 import { UserService } from "../../services/User";
 import { StaffService } from "../../services/Staff";
 import { PatientService } from "../../services/Patient";
+import { useCommandPopup } from "../../hooks/useCommandPopup";
 
 // Extends the output DTO with a synthetic column key for the actions cell,
 // since ColumnConfig keys must be keyof T.
@@ -21,9 +22,8 @@ export default function Staff() {
   const [users, setUsers] = useState<HospitalApiDtosOutputsUserOutputDto[]>([]);
   const [staff, setStaff] = useState<HospitalApiDtosOutputsStaffOutputDto[]>([]);
   const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-  const [popupOpen, setPopupOpen] = useState(false);
-  const [popupMode, setPopupMode] = useState<CommandFormMode>("create");
-  const [selectedUser, setSelectedUser] = useState<HospitalApiDtosOutputsUserOutputDto | null>(null);
+  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedUser, openCreate, openEdit, openDelete } =
+    useCommandPopup<HospitalApiDtosOutputsUserOutputDto>();
 
   const loadUsers = () => {
     UserService.getAll()
@@ -58,24 +58,6 @@ export default function Staff() {
     if (item.fkStaffId) return staffName(item.fkStaffId);
     if (item.fkPatientId) return `Patient: ${patientName(item.fkPatientId)}`;
     return "—";
-  };
-
-  const openCreate = () => {
-    setSelectedUser(null);
-    setPopupMode("create");
-    setPopupOpen(true);
-  };
-
-  const openEdit = (user: HospitalApiDtosOutputsUserOutputDto) => {
-    setSelectedUser(user);
-    setPopupMode("edit");
-    setPopupOpen(true);
-  };
-
-  const openDelete = (user: HospitalApiDtosOutputsUserOutputDto) => {
-    setSelectedUser(user);
-    setPopupMode("delete");
-    setPopupOpen(true);
   };
 
   const staffOptions = useMemo(

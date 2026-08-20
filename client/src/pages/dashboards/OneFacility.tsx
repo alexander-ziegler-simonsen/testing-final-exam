@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Box, Button, Heading, HStack, Stack, Tag, Text, Wrap } from "@chakra-ui/react";
 import { LuDoorOpen, LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
-import { CommandFormPopup, type CommandFormMode, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
+import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import type {
     HospitalApiDtosInputsFloorInputDto,
     HospitalApiDtosOutputsFloorOutputDto,
@@ -10,6 +10,7 @@ import type {
 } from "../../api";
 import { LocationService } from "../../services/Location";
 import { useAuthStore } from "../../stores/AuthStore";
+import { useCommandPopup } from "../../hooks/useCommandPopup";
 
 const floorFields: FieldConfig<HospitalApiDtosInputsFloorInputDto>[] = [
     { key: "name", label: "Name", type: "text", required: true },
@@ -23,9 +24,8 @@ export default function OneFacility() {
 
     const [location, setLocation] = useState<HospitalApiDtosOutputsLocationOutputDto | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [popupOpen, setPopupOpen] = useState(false);
-    const [popupMode, setPopupMode] = useState<CommandFormMode>("create");
-    const [selectedFloor, setSelectedFloor] = useState<HospitalApiDtosOutputsFloorOutputDto | null>(null);
+    const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedFloor, openCreate, openEdit, openDelete } =
+        useCommandPopup<HospitalApiDtosOutputsFloorOutputDto>();
 
     const loadLocation = () => {
         if (!id) return;
@@ -49,24 +49,6 @@ export default function OneFacility() {
         }),
         [buildingId],
     );
-
-    const openCreate = () => {
-        setSelectedFloor(null);
-        setPopupMode("create");
-        setPopupOpen(true);
-    };
-
-    const openEdit = (floor: HospitalApiDtosOutputsFloorOutputDto) => {
-        setSelectedFloor(floor);
-        setPopupMode("edit");
-        setPopupOpen(true);
-    };
-
-    const openDelete = (floor: HospitalApiDtosOutputsFloorOutputDto) => {
-        setSelectedFloor(floor);
-        setPopupMode("delete");
-        setPopupOpen(true);
-    };
 
     if (error) return <Text data-testid="one-facility-error" color="red.500">{error}</Text>;
     if (!location) return <Text data-testid="one-facility-loading">Loading facility...</Text>;

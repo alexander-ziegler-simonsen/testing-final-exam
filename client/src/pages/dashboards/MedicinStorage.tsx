@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
-import { CommandFormPopup, type CommandFormMode, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
+import { CommandFormPopup, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import type {
     HospitalApiDtosInputsMedicationStorageInputDto,
     HospitalApiDtosOutputsMedicationOutputDto,
@@ -12,6 +12,7 @@ import type {
 import { MedicationStorageService } from "../../services/MedicationStorage";
 import { MedicationService } from "../../services/Medication";
 import { useAuthStore } from "../../stores/AuthStore";
+import { useCommandPopup } from "../../hooks/useCommandPopup";
 
 interface StorageRow {
     id?: number;
@@ -26,9 +27,8 @@ export default function MedicinStorage() {
 
     const [storages, setStorages] = useState<HospitalApiDtosOutputsMedicationStorageOutputDto[]>([]);
     const [medications, setMedications] = useState<HospitalApiDtosOutputsMedicationOutputDto[]>([]);
-    const [popupOpen, setPopupOpen] = useState(false);
-    const [popupMode, setPopupMode] = useState<CommandFormMode>("edit");
-    const [selectedStorage, setSelectedStorage] = useState<HospitalApiDtosOutputsMedicationStorageOutputDto | null>(null);
+    const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedStorage, openCreate, openEdit, openDelete } =
+        useCommandPopup<HospitalApiDtosOutputsMedicationStorageOutputDto>();
 
     const loadStorages = () => {
         MedicationStorageService.getAll()
@@ -53,24 +53,6 @@ export default function MedicinStorage() {
             })),
         [storages, medicationMap],
     );
-
-    const openCreate = () => {
-        setSelectedStorage(null);
-        setPopupMode("create");
-        setPopupOpen(true);
-    };
-
-    const openEdit = (storage: HospitalApiDtosOutputsMedicationStorageOutputDto) => {
-        setSelectedStorage(storage);
-        setPopupMode("edit");
-        setPopupOpen(true);
-    };
-
-    const openDelete = (storage: HospitalApiDtosOutputsMedicationStorageOutputDto) => {
-        setSelectedStorage(storage);
-        setPopupMode("delete");
-        setPopupOpen(true);
-    };
 
     const medicationOptions = useMemo(
         () => medications.map((m) => ({ label: m.name ?? `Medication #${m.id}`, value: m.id ?? 0 })),

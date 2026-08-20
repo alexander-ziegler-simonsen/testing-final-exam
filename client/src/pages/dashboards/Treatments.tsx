@@ -3,11 +3,12 @@ import { useNavigate } from "react-router";
 import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
-import { CommandFormPopup, type CommandFormMode, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
+import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import type { HospitalApiDtosInputsTreatmentInputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsTreatmentOutputDto } from "../../api";
 import { TreatmentService } from "../../services/Treatment";
 import { PatientService } from "../../services/Patient";
 import { useAuthStore } from "../../stores/AuthStore";
+import { useCommandPopup } from "../../hooks/useCommandPopup";
 
 // Extends the output DTO with a synthetic column key for the actions cell,
 // since ColumnConfig keys must be keyof T.
@@ -29,9 +30,8 @@ export default function Treatments() {
   const staffId = useAuthStore((state) => state.user?.staffId);
   const [data, setData] = useState<HospitalApiDtosOutputsTreatmentOutputDto[]>([]);
   const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-  const [popupOpen, setPopupOpen] = useState(false);
-  const [popupMode, setPopupMode] = useState<CommandFormMode>("create");
-  const [selectedTreatment, setSelectedTreatment] = useState<HospitalApiDtosOutputsTreatmentOutputDto | null>(null);
+  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedTreatment, openCreate, openEdit, openDelete } =
+    useCommandPopup<HospitalApiDtosOutputsTreatmentOutputDto>();
 
   const loadTreatments = () => {
     TreatmentService.getAll()
@@ -45,24 +45,6 @@ export default function Treatments() {
       .then(setPatients)
       .catch((error) => console.error(error));
   }, []);
-
-  const openCreate = () => {
-    setSelectedTreatment(null);
-    setPopupMode("create");
-    setPopupOpen(true);
-  };
-
-  const openEdit = (treatment: HospitalApiDtosOutputsTreatmentOutputDto) => {
-    setSelectedTreatment(treatment);
-    setPopupMode("edit");
-    setPopupOpen(true);
-  };
-
-  const openDelete = (treatment: HospitalApiDtosOutputsTreatmentOutputDto) => {
-    setSelectedTreatment(treatment);
-    setPopupMode("delete");
-    setPopupOpen(true);
-  };
 
   const treatmentFields: FieldConfig<HospitalApiDtosInputsTreatmentInputDto>[] = useMemo(
     () => [
