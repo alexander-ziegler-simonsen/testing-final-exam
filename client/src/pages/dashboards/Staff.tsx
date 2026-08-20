@@ -138,44 +138,19 @@ export default function Staff() {
   const columns: ColumnConfig<UserRow>[] = [
     { key: "id", header: "Id" },
     { key: "username", header: "Username", enableSearch: true },
-    {
-      key: "fkStaffId",
-      header: "Linked Account",
-      enableSearch: true,
-      sortValue: (item) => linkedAccountLabel(item),
-      render: (_value, item) => linkedAccountLabel(item),
-    },
-    {
-      key: "actions",
-      header: "Actions",
-      enableSort: false,
-      render: (_value, item) => (
+    { key: "fkStaffId", header: "Linked Account", enableSearch: true, sortValue: (item) => linkedAccountLabel(item), render: (_value, item) => linkedAccountLabel(item), },
+    { key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
         <HStack gap="2">
-          <IconButton
-            aria-label="Change password"
-            size="sm"
-            variant="ghost"
-            onClick={(e) => {
+          <IconButton aria-label="Change password" size="sm" variant="ghost" onClick={(e) => {
               e.stopPropagation();
               openEdit(item);
-            }}
-            data-testid={`staff-edit-${item.id}`}
-          >
-            <LuKeyRound />
-          </IconButton>
-          <IconButton
-            aria-label="Delete user"
-            size="sm"
-            variant="ghost"
-            colorPalette="red"
-            onClick={(e) => {
+            }} data-testid={`staff-edit-${item.id}`}><LuKeyRound /></IconButton>
+
+          <IconButton aria-label="Delete user" size="sm" variant="ghost" colorPalette="red" onClick={(e) => {
               e.stopPropagation();
               openDelete(item);
             }}
-            data-testid={`staff-delete-${item.id}`}
-          >
-            <LuTrash2 />
-          </IconButton>
+            data-testid={`staff-delete-${item.id}`}><LuTrash2 /></IconButton>
         </HStack>
       ),
     },
@@ -184,28 +159,13 @@ export default function Staff() {
   return (
     <>
       <HStack justify="space-between" mb="4">
-        <Text data-testid="staff-page-heading" fontSize="xl" fontWeight="bold">
-          Staff Accounts
-        </Text>
-        <Button data-testid="staff-add-button" onClick={openCreate}>
-          <LuPlus /> Add User
-        </Button>
+        <Text data-testid="staff-page-heading" fontSize="xl" fontWeight="bold">Staff Accounts</Text>
+        <Button data-testid="staff-add-button" onClick={openCreate}><LuPlus /> Add User</Button>
       </HStack>
 
       <DataTable<UserRow> testId="staff-table" data={users} columns={columns} pageSize={10} />
 
-      <CommandFormPopup<HospitalApiDtosInputsRegisterInputDto>
-        open={popupOpen}
-        onOpenChange={setPopupOpen}
-        mode={popupMode}
-        title="User"
-        fields={userFields}
-        itemId={selectedUser?.id}
-        initialValues={selectedUser ?? undefined}
-        service={userFormService}
-        onSuccess={loadUsers}
-        testId="staff-form"
-      />
+      <CommandFormPopup<HospitalApiDtosInputsRegisterInputDto>open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="User" fields={userFields} itemId={selectedUser?.id} initialValues={selectedUser ?? undefined} service={userFormService} onSuccess={loadUsers} testId="staff-form" />
     </>
   );
 }

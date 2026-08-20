@@ -14,17 +14,8 @@ type PatientRow = HospitalApiDtosOutputsPatientOutputDto & { actions?: undefined
 const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
   { key: "firstname", label: "First name", type: "text", required: true, lockedOnEdit: true },
   { key: "lastname", label: "Last name", type: "text", required: true, lockedOnEdit: true },
-  {
-    key: "gender",
-    label: "Gender",
-    type: "select",
-    required: true,
-    lockedOnEdit: true,
-    options: [
-      { label: "Male", value: "Male" },
-      { label: "Female", value: "Female" },
-      { label: "Other", value: "Other" },
-    ],
+  { key: "gender", label: "Gender", type: "select", required: true, lockedOnEdit: true,
+    options: [ { label: "Male", value: "Male" }, { label: "Female", value: "Female" }, { label: "Other", value: "Other" },],
   },
   { key: "cprNumber", label: "CPR Number", type: "text", required: true, lockedOnEdit: true },
   { key: "dateOfBirth", label: "Date of birth", type: "date", lockedOnEdit: true },
@@ -68,75 +59,25 @@ export default function Patients() {
   };
 
   const columns: ColumnConfig<PatientRow>[] = [
-    {
-      key: "id",
-      header: "Id",
-      enableSearch: true,
-    },
-    {
-      key: "firstname",
-      header: "First name",
-      enableSearch: true,
-    },
-    {
-      key: "lastname",
-      header: "Last name",
-      enableSearch: true,
-    },
-    {
-      key: "gender",
-      header: "Gender",
-      enableSearch: true,
-    },
-    {
-      key: "cprNumber",
-      header: "CPR Number",
-      enableSearch: true,
-    },
-    {
-      key: "dateOfBirth",
-      header: "Date of Birth",
-      enableSearch: true,
-    },
-    {
-      key: "weightKg",
-      header: "Weight (kg)",
-    },
-    {
-      key: "heightCm",
-      header: "Height (cm)",
-    },
-    {
-      key: "actions",
-      header: "Actions",
-      enableSort: false,
-      render: (_value, item) => (
+    { key: "id", header: "Id", enableSearch: true, },
+    { key: "firstname", header: "First name", enableSearch: true, },
+    { key: "lastname", header: "Last name", enableSearch: true, },
+    { key: "gender", header: "Gender", enableSearch: true, },
+    { key: "cprNumber", header: "CPR Number", enableSearch: true, },
+    { key: "dateOfBirth", header: "Date of Birth", enableSearch: true, },
+    { key: "weightKg", header: "Weight (kg)", },
+    { key: "heightCm", header: "Height (cm)", },
+    { key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
         <HStack gap="2">
-          <IconButton
-            aria-label="Edit patient"
-            size="sm"
-            variant="ghost"
-            onClick={(e) => {
+          <IconButton aria-label="Edit patient" size="sm"variant="ghost" data-testid={`patients-edit-${item.id}`} onClick={(e) => {
               e.stopPropagation();
               openEdit(item);
-            }}
-            data-testid={`patients-edit-${item.id}`}
-          >
-            <LuPencil />
-          </IconButton>
-          <IconButton
-            aria-label="Delete patient"
-            size="sm"
-            variant="ghost"
-            colorPalette="red"
+            }}><LuPencil /></IconButton>
+          <IconButton data-testid={`patients-delete-${item.id}`} aria-label="Delete patient" size="sm" variant="ghost" colorPalette="red"
             onClick={(e) => {
               e.stopPropagation();
               openDelete(item);
-            }}
-            data-testid={`patients-delete-${item.id}`}
-          >
-            <LuTrash2 />
-          </IconButton>
+            }}><LuTrash2 /></IconButton>
         </HStack>
       ),
     },
@@ -145,34 +86,14 @@ export default function Patients() {
   return (
     <>
       <HStack justify="space-between" mb="4">
-        <Text data-testid="patients-page-heading" fontSize="xl" fontWeight="bold">
-          Patients
-        </Text>
-        <Button data-testid="patients-add-button" onClick={openCreate}>
-          <LuPlus /> Add Patient
-        </Button>
+        <Text data-testid="patients-page-heading" fontSize="xl" fontWeight="bold">Patients</Text>
+        <Button data-testid="patients-add-button" onClick={openCreate}><LuPlus /> Add Patient</Button>
       </HStack>
 
-      <DataTable<PatientRow>
-        testId="patients-table"
-        data={data}
-        columns={columns}
-        pageSize={10}
-        onRowClick={(patient) => navigate(`/app/patients/${patient.id}`)}
-      />
+      <DataTable<PatientRow> testId="patients-table" data={data} columns={columns} pageSize={10} onRowClick={(patient) => navigate(`/app/patients/${patient.id}`)} />
 
-      <CommandFormPopup<HospitalApiDtosInputsPatientInputDto>
-        open={popupOpen}
-        onOpenChange={setPopupOpen}
-        mode={popupMode}
-        title="Patient"
-        fields={patientFields}
-        itemId={selectedPatient?.id}
-        initialValues={selectedPatient ?? undefined}
-        service={PatientService}
-        onSuccess={loadPatients}
-        testId="patients-form"
-      />
+      <CommandFormPopup<HospitalApiDtosInputsPatientInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Patient" fields={patientFields}
+        itemId={selectedPatient?.id} initialValues={selectedPatient ?? undefined} service={PatientService} onSuccess={loadPatients} testId="patients-form" />
     </>
   );
 }

@@ -73,16 +73,12 @@ export default function OneFacility() {
 
     return (
         <Stack gap="4" data-testid="one-facility-page">
-            <Button data-testid="one-facility-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/facilities")}>
-                Back to facilities
-            </Button>
+            <Button data-testid="one-facility-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/facilities")}>Back to facilities</Button>
 
             <HStack justify="space-between">
                 <Heading data-testid="one-facility-heading" size="lg">{location.building.name}</Heading>
                 {isAdmin && (
-                    <Button data-testid="one-facility-add-floor-button" onClick={openCreate}>
-                        <LuPlus /> Add Floor
-                    </Button>
+                    <Button data-testid="one-facility-add-floor-button" onClick={openCreate}><LuPlus /> Add Floor</Button>
                 )}
             </HStack>
             <Text data-testid="one-facility-address"><b>Address:</b> {location.building.address}</Text>
@@ -92,47 +88,25 @@ export default function OneFacility() {
             )}
 
             {location.floorsWithRooms.map(({ floor, rooms }) => (
-                <Box
-                    key={floor.id}
-                    borderWidth="1px"
-                    borderColor="border"
-                    borderRadius="lg"
-                    p="4"
-                    data-testid={`one-facility-floor-${floor.id}`}
-                >
+                <Box key={floor.id} borderWidth="1px" borderColor="border" borderRadius="lg" p="4" data-testid={`one-facility-floor-${floor.id}`}>
                     <HStack justify="space-between" mb="3">
                         <Heading size="md">{floor.name}</Heading>
                         {isAdmin && (
                             <HStack gap="2">
-                                <Button size="sm" variant="ghost" onClick={() => openEdit(floor)} data-testid={`one-facility-edit-floor-${floor.id}`}>
-                                    <LuPencil /> Edit
-                                </Button>
-                                <Button size="sm" variant="ghost" colorPalette="red" onClick={() => openDelete(floor)} data-testid={`one-facility-delete-floor-${floor.id}`}>
-                                    <LuTrash2 /> Delete
-                                </Button>
+                                <Button size="sm" variant="ghost" onClick={() => openEdit(floor)} data-testid={`one-facility-edit-floor-${floor.id}`}><LuPencil /> Edit</Button>
+                                <Button size="sm" variant="ghost" colorPalette="red" onClick={() => openDelete(floor)} data-testid={`one-facility-delete-floor-${floor.id}`}><LuTrash2 /> Delete</Button>
                             </HStack>
                         )}
                     </HStack>
                     {rooms.length === 0 ? (
-                        <Text data-testid={`one-facility-no-rooms-${floor.id}`} color="fg.muted" fontSize="sm">
-                            No rooms on this floor.
-                        </Text>
+                        <Text data-testid={`one-facility-no-rooms-${floor.id}`} color="fg.muted" fontSize="sm">No rooms on this floor.</Text>
                     ) : (
                         <Wrap gap="2" data-testid={`one-facility-rooms-${floor.id}`}>
                             {rooms.map((room) => (
                                 <Tag.Root
-                                    key={room.id}
-                                    size="lg"
-                                    variant="subtle"
-                                    colorPalette="teal"
-                                    cursor="pointer"
-                                    _hover={{ opacity: 0.8 }}
-                                    onClick={() => navigate(`/app/room_booking/room/${room.id}`)}
-                                    data-testid={`one-facility-room-${room.id}`}
-                                >
-                                    <Tag.StartElement>
-                                        <LuDoorOpen />
-                                    </Tag.StartElement>
+                                    key={room.id} size="lg" variant="subtle" colorPalette="teal" cursor="pointer" _hover={{ opacity: 0.8 }} 
+                                    onClick={() => navigate(`/app/room_booking/room/${room.id}`)} data-testid={`one-facility-room-${room.id}`}>
+                                    <Tag.StartElement><LuDoorOpen /></Tag.StartElement>
                                     <Tag.Label>{room.name}</Tag.Label>
                                 </Tag.Root>
                             ))}
@@ -141,18 +115,8 @@ export default function OneFacility() {
                 </Box>
             ))}
 
-            <CommandFormPopup<HospitalApiDtosInputsFloorInputDto>
-                open={popupOpen}
-                onOpenChange={setPopupOpen}
-                mode={popupMode}
-                title="Floor"
-                fields={floorFields}
-                itemId={selectedFloor?.id}
-                initialValues={selectedFloor ?? undefined}
-                service={floorService}
-                onSuccess={loadLocation}
-                testId="one-facility-floor-form"
-            />
+            <CommandFormPopup<HospitalApiDtosInputsFloorInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Floor" fields={floorFields} 
+                itemId={selectedFloor?.id} initialValues={selectedFloor ?? undefined} service={floorService}onSuccess={loadLocation} testId="one-facility-floor-form" />
         </Stack>
     );
 }

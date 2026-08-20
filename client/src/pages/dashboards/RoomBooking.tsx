@@ -166,50 +166,24 @@ export default function RoomBooking() {
         { key: "id", header: "Id" },
         { key: "roomName", header: "Room", enableSearch: true },
         { key: "patientName", header: "Patient", enableSearch: true },
-        {
-            key: "startTime",
-            header: "Start Time",
-            render: (value) => (value ? new Date(String(value)).toLocaleString() : ""),
-        },
-        {
-            key: "endTime",
-            header: "End Time",
-            render: (value) => (value ? new Date(String(value)).toLocaleString() : ""),
-        },
-        {
-            key: "actions",
-            header: "Actions",
-            enableSort: false,
+        { key: "startTime", header: "Start Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
+        { key: "endTime", header: "End Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
+        { key: "actions", header: "Actions", enableSort: false,
             render: (_value, item) => {
                 const booking = bookings.find((b) => b.id === item.id);
                 if (!booking) return null;
                 return (
                     <HStack gap="2">
-                        <IconButton
-                            aria-label="Edit room booking"
-                            size="sm"
-                            variant="ghost"
-                            onClick={(e) => {
+                        <IconButton aria-label="Edit room booking" size="sm" variant="ghost" data-testid={`room-booking-edit-${item.id}`} onClick={(e) => {
                                 e.stopPropagation();
                                 openEdit(booking);
-                            }}
-                            data-testid={`room-booking-edit-${item.id}`}
-                        >
-                            <LuPencil />
-                        </IconButton>
-                        <IconButton
-                            aria-label="Delete room booking"
-                            size="sm"
-                            variant="ghost"
-                            colorPalette="red"
+                            }}><LuPencil /></IconButton>
+                        <IconButton aria-label="Delete room booking" size="sm" variant="ghost" colorPalette="red"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 openDelete(booking);
                             }}
-                            data-testid={`room-booking-delete-${item.id}`}
-                        >
-                            <LuTrash2 />
-                        </IconButton>
+                            data-testid={`room-booking-delete-${item.id}`}><LuTrash2 /></IconButton>
                     </HStack>
                 );
             },
@@ -218,18 +192,12 @@ export default function RoomBooking() {
 
     return (
         <>
-            <Text data-testid="room-booking-page-heading" fontSize="xl" fontWeight="bold" mb="4">
-                Room Bookings
-            </Text>
+            <Text data-testid="room-booking-page-heading" fontSize="xl" fontWeight="bold" mb="4">Room Bookings</Text>
 
             <Tabs.Root defaultValue="bookings" data-testid="room-booking-tabs">
                 <Tabs.List mb="4">
-                    <Tabs.Trigger value="bookings" data-testid="room-booking-tab-bookings">
-                        Bookings
-                    </Tabs.Trigger>
-                    <Tabs.Trigger value="rooms" data-testid="room-booking-tab-rooms">
-                        Rooms
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="bookings" data-testid="room-booking-tab-bookings">Bookings</Tabs.Trigger>
+                    <Tabs.Trigger value="rooms" data-testid="room-booking-tab-rooms">Rooms</Tabs.Trigger>
                 </Tabs.List>
 
                 <Tabs.Content value="bookings">
@@ -237,51 +205,22 @@ export default function RoomBooking() {
                         <HStack gap="3" flexWrap="wrap" data-testid="room-booking-date-filter">
                             <Field.Root maxW="200px">
                                 <Field.Label>From</Field.Label>
-                                <Input
-                                    type="date"
-                                    size="sm"
-                                    value={fromDate}
-                                    onChange={(e) => setFromDate(e.target.value)}
-                                    data-testid="room-booking-date-filter-from"
-                                />
+                                <Input type="date" size="sm" value={fromDate} onChange={(e) => setFromDate(e.target.value)} data-testid="room-booking-date-filter-from" />
                             </Field.Root>
                             <Field.Root maxW="200px">
                                 <Field.Label>To</Field.Label>
-                                <Input
-                                    type="date"
-                                    size="sm"
-                                    value={toDate}
-                                    onChange={(e) => setToDate(e.target.value)}
-                                    data-testid="room-booking-date-filter-to"
-                                />
+                                <Input type="date" size="sm" value={toDate} onChange={(e) => setToDate(e.target.value)} data-testid="room-booking-date-filter-to" />
                             </Field.Root>
                             {(fromDate || toDate) && (
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    alignSelf="end"
-                                    onClick={() => {
+                                <Button data-testid="room-booking-date-filter-clear" variant="ghost" size="sm" alignSelf="end"onClick={() => {
                                         setFromDate("");
                                         setToDate("");
-                                    }}
-                                    data-testid="room-booking-date-filter-clear"
-                                >
-                                    Clear
-                                </Button>
-                            )}
+                                    }}>Clear</Button>)}
                         </HStack>
-                        <Button data-testid="room-booking-add-button" onClick={openCreate}>
-                            <LuPlus /> Add Room Booking
-                        </Button>
+                        <Button data-testid="room-booking-add-button" onClick={openCreate}><LuPlus /> Add Room Booking</Button>
                     </HStack>
 
-                    <DataTable<RoomBookingRow>
-                        testId="room-booking-table"
-                        data={rows}
-                        columns={columns}
-                        pageSize={10}
-                        onRowClick={(item) => navigate(`/app/room_booking/${item.id}`)}
-                    />
+                    <DataTable<RoomBookingRow> testId="room-booking-table" data={rows} columns={columns} pageSize={10} onRowClick={(item) => navigate(`/app/room_booking/${item.id}`)} />
                 </Tabs.Content>
 
                 <Tabs.Content value="rooms">
@@ -296,13 +235,7 @@ export default function RoomBooking() {
                         <Table.Body>
                             {roomsWithFloor.length > 0 ? (
                                 roomsWithFloor.map((room) => (
-                                    <Table.Row
-                                        key={room.id}
-                                        cursor="pointer"
-                                        _hover={{ bg: "gray.50" }}
-                                        onClick={() => navigate(`/app/room_booking/room/${room.id}`)}
-                                        data-testid={`room-booking-rooms-row-${room.id}`}
-                                    >
+                                    <Table.Row key={room.id} data-testid={`room-booking-rooms-row-${room.id}`} cursor="pointer" _hover={{ bg: "gray.50" }} onClick={() => navigate(`/app/room_booking/room/${room.id}`)}>
                                         <Table.Cell>{room.id}</Table.Cell>
                                         <Table.Cell>{room.name}</Table.Cell>
                                         <Table.Cell>{room.floorName}</Table.Cell>
@@ -310,9 +243,7 @@ export default function RoomBooking() {
                                 ))
                             ) : (
                                 <Table.Row>
-                                    <Table.Cell colSpan={3} textAlign="center" paddingY="6">
-                                        No rooms found.
-                                    </Table.Cell>
+                                    <Table.Cell colSpan={3} textAlign="center" paddingY="6">No rooms found.</Table.Cell>
                                 </Table.Row>
                             )}
                         </Table.Body>
@@ -320,26 +251,15 @@ export default function RoomBooking() {
                 </Tabs.Content>
             </Tabs.Root>
 
-            <CommandFormPopup<HospitalApiDtosInputsRoomBookingInputDto>
-                open={popupOpen}
-                onOpenChange={setPopupOpen}
-                mode={popupMode}
-                title="Room Booking"
-                fields={roomBookingFields}
-                itemId={selectedBooking?.id}
-                initialValues={
+            <CommandFormPopup<HospitalApiDtosInputsRoomBookingInputDto>open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Room Booking"
+                fields={roomBookingFields} itemId={selectedBooking?.id} initialValues={
                     selectedBooking
                         ? {
                               ...selectedBooking,
                               startTime: toDatetimeLocal(selectedBooking.startTime),
                               endTime: toDatetimeLocal(selectedBooking.endTime),
-                          }
-                        : undefined
-                }
-                service={roomBookingFormService}
-                onSuccess={loadBookings}
-                testId="room-booking-form"
-            />
+                          } : undefined
+                } service={roomBookingFormService} onSuccess={loadBookings} testId="room-booking-form" />
         </>
     );
 }

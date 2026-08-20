@@ -32,14 +32,7 @@ export default function OneExternalMedicin() {
 
     return (
         <Stack gap="4" data-testid="one-external-medicin-page">
-            <Button
-                data-testid="one-external-medicin-back-button"
-                alignSelf="start"
-                variant="outline"
-                onClick={() => navigate("/app/external_medicin")}
-            >
-                Back to search
-            </Button>
+            <Button data-testid="one-external-medicin-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/external_medicin")}>Back to search</Button>
 
             <Heading data-testid="one-external-medicin-heading" size="lg">{details.navn}</Heading>
 

@@ -203,31 +203,16 @@ export default function GiveTreatment() {
 
   return (
     <Stack gap="4" data-testid="give-treatment-page" maxW="2xl">
-      <Text data-testid="give-treatment-page-heading" fontSize="xl" fontWeight="bold">
-        Give Treatment
-      </Text>
+      <Text data-testid="give-treatment-page-heading" fontSize="xl" fontWeight="bold">Give Treatment</Text>
 
       <form onSubmit={handleSubmit}>
         <Stack gap="4">
           <Field.Root required>
-            <Field.Label>
-              Patient
-              <Field.RequiredIndicator />
-            </Field.Label>
+            <Field.Label>Patient <Field.RequiredIndicator /></Field.Label>
             <NativeSelect.Root size="sm" width="full">
-              <NativeSelect.Field
-                data-testid="give-treatment-field-patient"
-                value={patientId}
-                onChange={(e) => setPatientId(e.target.value === "" ? "" : Number(e.target.value))}
-              >
-                <option value="" disabled>
-                  Select a patient…
-                </option>
-                {patientOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
+              <NativeSelect.Field data-testid="give-treatment-field-patient" value={patientId} onChange={(e) => setPatientId(e.target.value === "" ? "" : Number(e.target.value))}>
+                <option value="" disabled>Select a patient… </option>
+                {patientOptions.map((option) => ( <option key={option.value} value={option.value}>{option.label}</option> ))}
               </NativeSelect.Field>
               <NativeSelect.Indicator />
             </NativeSelect.Root>
@@ -235,41 +220,23 @@ export default function GiveTreatment() {
 
           <Field.Root>
             <Field.Label>Description</Field.Label>
-            <Input
-              data-testid="give-treatment-field-description"
-              placeholder="Describe the treatment…"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
+            <Input data-testid="give-treatment-field-description" placeholder="Describe the treatment…" value={description} onChange={(e) => setDescription(e.target.value)} />
           </Field.Root>
 
           <Field.Root required>
-            <Field.Label>
-              Time
-              <Field.RequiredIndicator />
-            </Field.Label>
-            <Input
-              data-testid="give-treatment-field-time"
-              type="datetime-local"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
+            <Field.Label>Time <Field.RequiredIndicator /></Field.Label>
+            <Input data-testid="give-treatment-field-time" type="datetime-local" value={time} onChange={(e) => setTime(e.target.value)}
             />
           </Field.Root>
 
           <Box borderWidth="1px" borderRadius="md" p="4" borderColor="border">
-            <Text fontWeight="semibold" fontSize="sm" mb="3">
-              Prescription (optional)
-            </Text>
+            <Text fontWeight="semibold" fontSize="sm" mb="3">Prescription (optional)</Text>
 
             <Stack gap="3">
               <Field.Root>
                 <Field.Label>Medication</Field.Label>
                 <NativeSelect.Root size="sm" width="full" disabled={approvalStep === "approved"}>
-                  <NativeSelect.Field
-                    data-testid="give-treatment-field-medication"
-                    value={medicationId}
-                    onChange={(e) => handleMedicationChange(e.target.value === "" ? "" : Number(e.target.value))}
-                  >
+                  <NativeSelect.Field data-testid="give-treatment-field-medication" value={medicationId}onChange={(e) => handleMedicationChange(e.target.value === "" ? "" : Number(e.target.value))}>
                     <option value="">No medication</option>
                     {medications.map((medication) => {
                       const storage = storageFor(medication.id ?? -1);
@@ -289,26 +256,10 @@ export default function GiveTreatment() {
 
               {medicationId !== "" && (
                 <Field.Root required>
-                  <Field.Label>
-                    Doses
-                    {selectedStorage && (
-                      <Text as="span" fontSize="xs" color="fg.muted" ml="1">
-                        (max {selectedStorage.amount})
-                      </Text>
-                    )}
-                    <Field.RequiredIndicator />
+                  <Field.Label>Doses {selectedStorage && (
+                      <Text as="span" fontSize="xs" color="fg.muted" ml="1">(max {selectedStorage.amount})</Text> )} <Field.RequiredIndicator />
                   </Field.Label>
-                  <Input
-                    data-testid="give-treatment-field-doses"
-                    type="number"
-                    min={0.01}
-                    step="any"
-                    max={selectedStorage?.amount}
-                    placeholder="e.g. 2"
-                    value={doses}
-                    onChange={(e) => setDoses(e.target.value)}
-                    disabled={approvalStep === "approved"}
-                  />
+                  <Input data-testid="give-treatment-field-doses" type="number" min={0.01} step="any" max={selectedStorage?.amount} placeholder="e.g. 2" value={doses} onChange={(e) => setDoses(e.target.value)} disabled={approvalStep === "approved"} />
                 </Field.Root>
               )}
             </Stack>
@@ -316,68 +267,35 @@ export default function GiveTreatment() {
 
           {medicationId !== "" && approvalStep === "required" && (
             <Box bg="orange.subtle" borderWidth="1px" borderColor="orange.muted" borderRadius="md" p="4">
-              <Text color="orange.fg" fontWeight="medium" mb="3">
-                This medication requires a doctor to sign off before it can be prescribed.
-              </Text>
+              <Text color="orange.fg" fontWeight="medium" mb="3">This medication requires a doctor to sign off before it can be prescribed.</Text>
               <HStack gap="2">
-                <Button size="sm" variant="outline" data-testid="give-treatment-remove-medication-button" onClick={() => handleMedicationChange("")}>
-                  Remove medication
-                </Button>
-                <Button size="sm" colorPalette="orange" data-testid="give-treatment-sign-off-button" onClick={() => setApprovalStep("signing")}>
-                  Doctor sign-off
-                </Button>
+                <Button size="sm" variant="outline" data-testid="give-treatment-remove-medication-button" onClick={() => handleMedicationChange("")}>Remove medication</Button>
+                <Button size="sm" colorPalette="orange" data-testid="give-treatment-sign-off-button" onClick={() => setApprovalStep("signing")}>Doctor sign-off</Button>
               </HStack>
             </Box>
           )}
 
           {medicationId !== "" && approvalStep === "signing" && (
             <Box borderWidth="1px" borderColor="border" borderRadius="md" p="4">
-              <Text fontWeight="medium" mb="3">
-                Doctor authentication
-              </Text>
+              <Text fontWeight="medium" mb="3">Doctor authentication</Text>
               <Stack gap="3">
-                <Input
-                  data-testid="give-treatment-doctor-username-input"
-                  placeholder="Doctor username"
-                  value={doctorUsername}
-                  onChange={(e) => setDoctorUsername(e.target.value)}
-                  autoComplete="off"
-                />
-                <Input
-                  data-testid="give-treatment-doctor-password-input"
-                  type="password"
-                  placeholder="Password"
-                  value={doctorPassword}
-                  onChange={(e) => setDoctorPassword(e.target.value)}
-                  autoComplete="off"
-                  onKeyDown={(e) => e.key === "Enter" && handleDoctorLogin()}
-                />
+                <Input data-testid="give-treatment-doctor-username-input" placeholder="Doctor username"
+                  value={doctorUsername} onChange={(e) => setDoctorUsername(e.target.value)} autoComplete="off" />
+                <Input data-testid="give-treatment-doctor-password-input" type="password" placeholder="Password" value={doctorPassword}
+                  onChange={(e) => setDoctorPassword(e.target.value)} autoComplete="off" onKeyDown={(e) => e.key === "Enter" && handleDoctorLogin()}/>
                 {approvalError && (
                   <Text data-testid="give-treatment-approval-error" color="red.500" fontSize="sm">
                     {approvalError}
                   </Text>
                 )}
                 <HStack gap="2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
+                  <Button size="sm" variant="outline" onClick={() => {
                       setApprovalStep("required");
                       setApprovalError(null);
                       setDoctorUsername("");
                       setDoctorPassword("");
-                    }}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    size="sm"
-                    colorPalette="blue"
-                    data-testid="give-treatment-authenticate-button"
-                    onClick={handleDoctorLogin}
-                    loading={approvalLoading}
-                    disabled={!doctorUsername || !doctorPassword}
-                  >
+                    }}>Back</Button>
+                  <Button size="sm"colorPalette="blue" data-testid="give-treatment-authenticate-button" onClick={handleDoctorLogin} loading={approvalLoading} disabled={!doctorUsername || !doctorPassword}>
                     Authenticate
                   </Button>
                 </HStack>
@@ -387,15 +305,11 @@ export default function GiveTreatment() {
 
           {medicationId !== "" && approvalStep === "approved" && (
             <Box bg="green.subtle" borderWidth="1px" borderColor="green.muted" borderRadius="md" p="3">
-              <Text color="green.fg" fontSize="sm" data-testid="give-treatment-approved-text">
-                Approved by Dr. {approvedDoctorName}
-              </Text>
+              <Text color="green.fg" fontSize="sm" data-testid="give-treatment-approved-text">Approved by Dr. {approvedDoctorName}</Text>
             </Box>
           )}
 
-          <Button type="submit" colorPalette="blue" alignSelf="start" data-testid="give-treatment-submit-button" loading={submitting} disabled={!canSubmit}>
-            Give Treatment
-          </Button>
+          <Button type="submit" colorPalette="blue" alignSelf="start" data-testid="give-treatment-submit-button" loading={submitting} disabled={!canSubmit}>Give Treatment</Button>
         </Stack>
       </form>
     </Stack>

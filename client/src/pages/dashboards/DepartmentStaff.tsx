@@ -16,9 +16,7 @@ export default function DepartmentStaff() {
   const columns: ColumnConfig<HospitalApiDtosOutputsDepartmentStaffOutputDto>[] = [
     { key: "id", header: "Id" },
     {
-      key: "department",
-      header: "Department",
-      sortValue: (item) => item.department?.name,
+      key: "department", header: "Department", sortValue: (item) => item.department?.name,
       render: (_value, item) => {
         const department = item.department;
         const name = department?.name ?? `Department #${department?.id}`;
@@ -26,18 +24,14 @@ export default function DepartmentStaff() {
       },
     },
     {
-      key: "staff",
-      header: "Staff",
-      sortValue: (item) => `${item.staff?.firstname ?? ""} ${item.staff?.lastname ?? ""}`.trim(),
+      key: "staff", header: "Staff", sortValue: (item) => `${item.staff?.firstname ?? ""} ${item.staff?.lastname ?? ""}`.trim(),
       render: (_value, item) => `${item.staff?.firstname ?? ""} ${item.staff?.lastname ?? ""}`.trim(),
     },
   ];
 
   return (
     <>
-      <Text data-testid="department-staff-page-heading" fontSize="xl" fontWeight="bold" mb="4">
-        Department Staff
-      </Text>
+      <Text data-testid="department-staff-page-heading" fontSize="xl" fontWeight="bold" mb="4">Department Staff</Text>
       <DataTable testId="department-staff-table" data={data} columns={columns} pageSize={10} />
     </>
   );

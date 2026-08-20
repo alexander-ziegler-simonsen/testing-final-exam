@@ -47,43 +47,20 @@ export default function RegisterBaby() {
       <form onSubmit={handleSubmit}>
         <Stack gap="4">
           <Field.Root required>
-            <Field.Label>
-              First name
-              <Field.RequiredIndicator />
-            </Field.Label>
-            <Input
-              data-testid="register-baby-field-firstname"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
-            />
+            <Field.Label>First name<Field.RequiredIndicator /></Field.Label>
+            <Input data-testid="register-baby-field-firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
           </Field.Root>
 
           <Field.Root required>
-            <Field.Label>
-              Last name
-              <Field.RequiredIndicator />
-            </Field.Label>
-            <Input
-              data-testid="register-baby-field-lastname"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
-            />
+            <Field.Label>Last name<Field.RequiredIndicator /></Field.Label>
+            <Input data-testid="register-baby-field-lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} />
           </Field.Root>
 
           <Field.Root required>
-            <Field.Label>
-              Gender
-              <Field.RequiredIndicator />
-            </Field.Label>
+            <Field.Label>Gender<Field.RequiredIndicator /></Field.Label>
             <NativeSelect.Root size="sm" width="full">
-              <NativeSelect.Field
-                data-testid="register-baby-field-gender"
-                value={gender}
-                onChange={(e) => setGender(e.target.value as "male" | "female" | "")}
-              >
-                <option value="" disabled>
-                  Select gender…
-                </option>
+              <NativeSelect.Field data-testid="register-baby-field-gender" value={gender} onChange={(e) => setGender(e.target.value as "male" | "female" | "")}>
+                <option value="" disabled>Select gender…</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </NativeSelect.Field>
@@ -92,28 +69,11 @@ export default function RegisterBaby() {
           </Field.Root>
 
           <Field.Root required>
-            <Field.Label>
-              Date of birth
-              <Field.RequiredIndicator />
-            </Field.Label>
-            <Input
-              data-testid="register-baby-field-date-of-birth"
-              type="date"
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
-            />
+            <Field.Label>Date of birth<Field.RequiredIndicator /></Field.Label>
+            <Input data-testid="register-baby-field-date-of-birth" type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
           </Field.Root>
 
-          <Button
-            type="submit"
-            colorPalette="blue"
-            alignSelf="start"
-            data-testid="register-baby-submit-button"
-            loading={submitting}
-            disabled={!canSubmit}
-          >
-            Register Baby
-          </Button>
+          <Button type="submit" colorPalette="blue" alignSelf="start" data-testid="register-baby-submit-button" loading={submitting} disabled={!canSubmit}>Register Baby</Button>
         </Stack>
       </form>
     </Stack>

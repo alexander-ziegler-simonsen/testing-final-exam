@@ -119,16 +119,10 @@ export default function OneRoomBooking() {
             </Button>
 
             <HStack justify="space-between">
-                <Heading data-testid="one-room-booking-heading" size="lg">
-                    Booking #{booking.id}
-                </Heading>
+                <Heading data-testid="one-room-booking-heading" size="lg">Booking #{booking.id}</Heading>
                 <HStack gap="2">
-                    <Button data-testid="one-room-booking-edit-button" onClick={openEdit}>
-                        <LuPencil /> Edit
-                    </Button>
-                    <Button colorPalette="red" variant="outline" onClick={openDelete} data-testid="one-room-booking-delete-button">
-                        <LuTrash2 /> Delete
-                    </Button>
+                    <Button data-testid="one-room-booking-edit-button" onClick={openEdit}><LuPencil /> Edit</Button>
+                    <Button colorPalette="red" variant="outline" onClick={openDelete} data-testid="one-room-booking-delete-button"><LuTrash2 /> Delete</Button>
                 </HStack>
             </HStack>
 
@@ -142,39 +136,22 @@ export default function OneRoomBooking() {
             <Stack gap="2">
                 <Text>
                     <b>Name:</b>{" "}
-                    <Text
-                        as="span"
-                        data-testid="one-room-booking-patient-link"
-                        color="blue.600"
-                        cursor="pointer"
-                        onClick={() => navigate(`/app/patients/${patient.id}`)}
-                    >
-                        {patient.firstname} {patient.lastname}
-                    </Text>
+                    <Text as="span" data-testid="one-room-booking-patient-link" color="blue.600" cursor="pointer" onClick={() => navigate(`/app/patients/${patient.id}`)}>{patient.firstname} {patient.lastname}</Text>
                 </Text>
                 <Text data-testid="one-room-booking-patient-cpr"><b>CPR Number:</b> {patient.cprNumber}</Text>
                 <Text data-testid="one-room-booking-patient-gender"><b>Gender:</b> {patient.gender}</Text>
             </Stack>
 
-            <CommandFormPopup<HospitalApiDtosInputsRoomBookingInputDto>
-                open={popupOpen}
-                onOpenChange={setPopupOpen}
-                mode={popupMode}
-                title="Room Booking"
-                fields={roomBookingFields}
-                itemId={booking.id}
-                initialValues={{
+            <CommandFormPopup<HospitalApiDtosInputsRoomBookingInputDto> open={popupOpen} onOpenChange={setPopupOpen} service={roomBookingFormService} testId="one-room-booking-form"
+                mode={popupMode} title="Room Booking" fields={roomBookingFields} itemId={booking.id} initialValues={{
                     ...booking,
                     startTime: toDatetimeLocal(booking.startTime),
                     endTime: toDatetimeLocal(booking.endTime),
                 }}
-                service={roomBookingFormService}
                 onSuccess={(mode) => {
                     if (mode === "delete") navigate("/app/room_booking");
                     else loadBooking();
-                }}
-                testId="one-room-booking-form"
-            />
+                }} />
         </Stack>
     );
 }

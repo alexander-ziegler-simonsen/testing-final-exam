@@ -73,18 +73,8 @@ export default function OneMedicin() {
                 <Text data-testid="one-medicin-field-description"><b>Description:</b> {medication.description}</Text>
             </Stack>
 
-            <CommandFormPopup<HospitalApiDtosInputsMedicationStorageInputDto>
-                open={popupOpen}
-                onOpenChange={setPopupOpen}
-                mode="edit"
-                title="Medicin Storage"
-                fields={amountFields}
-                itemId={storage.id}
-                initialValues={storage}
-                service={MedicationStorageService}
-                onSuccess={loadStorage}
-                testId="one-medicin-form"
-            />
+            <CommandFormPopup<HospitalApiDtosInputsMedicationStorageInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode="edit" title="Medicin Storage" 
+            fields={amountFields} itemId={storage.id} initialValues={storage} service={MedicationStorageService} onSuccess={loadStorage} testId="one-medicin-form" />
         </Stack>
     );
 }

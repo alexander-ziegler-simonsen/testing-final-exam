@@ -59,29 +59,18 @@ export default function Departments() {
             enableSort: false,
             render: (_value, item) => (
                 <HStack gap="2">
-                    <IconButton
-                        aria-label="Edit department"
-                        size="sm"
-                        variant="ghost"
+                    <IconButton aria-label="Edit department" size="sm" variant="ghost" data-testid={`departments-edit-${item.id}`}
                         onClick={(e) => {
                             e.stopPropagation();
                             openEdit(item);
-                        }}
-                        data-testid={`departments-edit-${item.id}`}
-                    >
+                        }}>
                         <LuPencil />
                     </IconButton>
-                    <IconButton
-                        aria-label="Delete department"
-                        size="sm"
-                        variant="ghost"
-                        colorPalette="red"
+                    <IconButton aria-label="Delete department" size="sm" variant="ghost" colorPalette="red" data-testid={`departments-delete-${item.id}`}
                         onClick={(e) => {
                             e.stopPropagation();
                             openDelete(item);
-                        }}
-                        data-testid={`departments-delete-${item.id}`}
-                    >
+                        }}>
                         <LuTrash2 />
                     </IconButton>
                 </HStack>
@@ -92,28 +81,15 @@ export default function Departments() {
     return (
         <>
             <HStack justify="space-between" mb="4">
-                <Text data-testid="departments-page-heading" fontSize="xl" fontWeight="bold">
-                    Departments
-                </Text>
-                <Button data-testid="departments-add-button" onClick={openCreate}>
-                    <LuPlus /> Add Department
-                </Button>
+                <Text data-testid="departments-page-heading" fontSize="xl" fontWeight="bold">Departments</Text>
+                <Button data-testid="departments-add-button" onClick={openCreate}><LuPlus /> Add Department</Button>
             </HStack>
 
             <DataTable<DepartmentRow> testId="departments-table" data={data} columns={columns} pageSize={10} />
 
             <CommandFormPopup<HospitalApiDtosInputsDepartmentInputDto>
-                open={popupOpen}
-                onOpenChange={setPopupOpen}
-                mode={popupMode}
-                title="Department"
-                fields={departmentFields}
-                itemId={selectedDepartment?.id}
-                initialValues={selectedDepartment ?? undefined}
-                service={DepartmentService}
-                onSuccess={loadDepartments}
-                testId="departments-form"
-            />
+                open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Department" fields={departmentFields} itemId={selectedDepartment?.id}
+                initialValues={selectedDepartment ?? undefined} service={DepartmentService} onSuccess={loadDepartments} testId="departments-form" />
         </>
     );
 }

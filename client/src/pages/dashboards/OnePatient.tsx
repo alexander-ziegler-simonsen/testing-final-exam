@@ -41,9 +41,7 @@ export default function OnePatient() {
 
     return (
         <Stack gap="4" data-testid="one-patient-page">
-            <Button data-testid="one-patient-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/patients")}>
-                Back to patients
-            </Button>
+            <Button data-testid="one-patient-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/patients")}>Back to patients</Button>
 
             <Heading data-testid="one-patient-heading" size="lg">{patient.firstname} {patient.lastname}</Heading>
 
@@ -59,13 +57,7 @@ export default function OnePatient() {
             </Stack>
 
             <Heading size="md" mt="4">Treatments</Heading>
-            <DataTable
-                testId="patient-treatments-table"
-                data={treatments}
-                columns={treatmentColumns}
-                pageSize={5}
-                onRowClick={(treatment) => navigate(`/app/treatment/${treatment.id}`)}
-            />
+            <DataTable testId="patient-treatments-table" data={treatments} columns={treatmentColumns} pageSize={5} onRowClick={(treatment) => navigate(`/app/treatment/${treatment.id}`)} />
         </Stack>
     );
 }

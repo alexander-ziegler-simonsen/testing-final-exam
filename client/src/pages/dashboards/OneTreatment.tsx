@@ -98,9 +98,7 @@ export default function OneTreatment() {
 
     return (
         <Stack gap="4" data-testid="one-treatment-page">
-            <Button data-testid="one-treatment-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/treatment")}>
-                Back to treatments
-            </Button>
+            <Button data-testid="one-treatment-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/treatment")}>Back to treatments</Button>
 
             <Heading data-testid="one-treatment-heading" size="lg">Treatment #{treatment.id}</Heading>
 
@@ -113,15 +111,7 @@ export default function OneTreatment() {
             <Stack gap="2">
                 <Text>
                     <b>Name:</b>{" "}
-                    <Text
-                        as="span"
-                        data-testid="one-treatment-patient-link"
-                        color="blue.600"
-                        cursor="pointer"
-                        onClick={() => navigate(`/app/patients/${patient.id}`)}
-                    >
-                        {patient.firstname} {patient.lastname}
-                    </Text>
+                    <Text as="span" data-testid="one-treatment-patient-link" color="blue.600" cursor="pointer" onClick={() => navigate(`/app/patients/${patient.id}`)}>{patient.firstname} {patient.lastname}</Text>
                 </Text>
                 <Text data-testid="one-treatment-patient-cpr"><b>CPR Number:</b> {patient.cprNumber}</Text>
                 <Text data-testid="one-treatment-patient-gender"><b>Gender:</b> {patient.gender}</Text>

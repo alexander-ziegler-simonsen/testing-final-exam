@@ -35,17 +35,8 @@ export default function Facilities() {
 
     return (
         <>
-            <Text data-testid="facilities-page-heading" fontSize="xl" fontWeight="bold" mb="4">
-                Facilities
-            </Text>
-
-            <DataTable<BuildingRow>
-                testId="facilities-table"
-                data={rows}
-                columns={columns}
-                pageSize={10}
-                onRowClick={(item) => navigate(`/app/facilities/${item.id}`)}
-            />
+            <Text data-testid="facilities-page-heading" fontSize="xl" fontWeight="bold" mb="4">Facilities</Text>
+            <DataTable<BuildingRow> testId="facilities-table" data={rows} columns={columns} pageSize={10} onRowClick={(item) => navigate(`/app/facilities/${item.id}`)} />
         </>
     );
 }

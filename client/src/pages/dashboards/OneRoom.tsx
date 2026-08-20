@@ -58,9 +58,7 @@ export default function OneRoom() {
 
     return (
         <Stack gap="4" data-testid="one-room-page">
-            <Button data-testid="one-room-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/room_booking")}>
-                Back to room bookings
-            </Button>
+            <Button data-testid="one-room-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/room_booking")}>Back to room bookings</Button>
 
             <Heading data-testid="one-room-heading" size="lg">{room.name}</Heading>
             <Text data-testid="one-room-floor"><b>Floor:</b> {room.floorName}</Text>
@@ -80,17 +78,9 @@ export default function OneRoom() {
                         roomBookings.map((booking) => {
                             const patient = patientMap.get(booking.fkPatientId);
                             return (
-                                <Table.Row
-                                    key={booking.id}
-                                    cursor="pointer"
-                                    _hover={{ bg: "gray.50" }}
-                                    onClick={() => navigate(`/app/room_booking/${booking.id}`)}
-                                    data-testid={`one-room-booking-row-${booking.id}`}
-                                >
+                                <Table.Row key={booking.id} cursor="pointer" _hover={{ bg: "gray.50" }} onClick={() => navigate(`/app/room_booking/${booking.id}`)} data-testid={`one-room-booking-row-${booking.id}`}>
                                     <Table.Cell>{booking.id}</Table.Cell>
-                                    <Table.Cell>
-                                        {patient ? `${patient.firstname} ${patient.lastname}` : `Patient #${booking.fkPatientId}`}
-                                    </Table.Cell>
+                                    <Table.Cell>{patient ? `${patient.firstname} ${patient.lastname}` : `Patient #${booking.fkPatientId}`}</Table.Cell>
                                     <Table.Cell>{booking.startTime ? new Date(booking.startTime).toLocaleString() : ""}</Table.Cell>
                                     <Table.Cell>{booking.endTime ? new Date(booking.endTime).toLocaleString() : ""}</Table.Cell>
                                 </Table.Row>
@@ -98,9 +88,7 @@ export default function OneRoom() {
                         })
                     ) : (
                         <Table.Row>
-                            <Table.Cell colSpan={4} textAlign="center" paddingY="6" data-testid="one-room-bookings-empty">
-                                No bookings for this room yet.
-                            </Table.Cell>
+                            <Table.Cell colSpan={4} textAlign="center" paddingY="6" data-testid="one-room-bookings-empty">No bookings for this room yet.</Table.Cell>
                         </Table.Row>
                     )}
                 </Table.Body>

@@ -28,10 +28,7 @@ export default function ExternalMedicin() {
         setLoading(true);
         setError(null);
 
-        const request =
-            searchMode === "name"
-                ? ExternalMedicinePricesService.getAllByName(query.trim())
-                : ExternalMedicinePricesService.getAllByIngredient(query.trim());
+        const request = searchMode === "name" ? ExternalMedicinePricesService.getAllByName(query.trim()) : ExternalMedicinePricesService.getAllByIngredient(query.trim());
 
         request
             .then((data) => setSearch({ searchMode, query, results: data, searched: true }))
@@ -46,47 +43,26 @@ export default function ExternalMedicin() {
 
     return (
         <>
-            <Text data-testid="external-medicin-page-heading" fontSize="xl" fontWeight="bold" mb="4">
-                Find Medicin Price
-            </Text>
+            <Text data-testid="external-medicin-page-heading" fontSize="xl" fontWeight="bold" mb="4">Find Medicin Price</Text>
 
             <form onSubmit={handleSearch}>
                 <HStack gap="4" mb="4" flexWrap="wrap" align="end">
                     {/* Toggle between searching the external registry by product name or by active ingredient */}
                     <HStack gap="0" data-testid="external-medicin-mode-toggle">
                         <Button
-                            type="button"
-                            size="sm"
+                            type="button" size="sm" borderRightRadius="0"
                             variant={searchMode === "name" ? "solid" : "outline"}
-                            borderRightRadius="0"
-                            onClick={() => setSearchMode("name")}
-                            data-testid="external-medicin-mode-name"
-                        >
-                            By Name
-                        </Button>
+                            onClick={() => setSearchMode("name")} data-testid="external-medicin-mode-name">By Name</Button>
                         <Button
-                            type="button"
-                            size="sm"
+                            type="button" size="sm" borderLeftRadius="0"
                             variant={searchMode === "ingredient" ? "solid" : "outline"}
-                            borderLeftRadius="0"
-                            onClick={() => setSearchMode("ingredient")}
-                            data-testid="external-medicin-mode-ingredient"
-                        >
-                            By Ingredient
-                        </Button>
+                            onClick={() => setSearchMode("ingredient")} data-testid="external-medicin-mode-ingredient">By Ingredient</Button>
                     </HStack>
 
-                    <Input
-                        placeholder={searchMode === "name" ? "Search by medicin name..." : "Search by ingredient..."}
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        maxW="400px"
-                        data-testid="external-medicin-search-input"
-                    />
+                    <Input placeholder={searchMode === "name" ? "Search by medicin name..." : "Search by ingredient..."}
+                        value={query} onChange={(e) => setQuery(e.target.value)} maxW="400px" data-testid="external-medicin-search-input"/>
 
-                    <Button type="submit" loading={loading} data-testid="external-medicin-search-button">
-                        <LuSearch /> Search
-                    </Button>
+                    <Button type="submit" loading={loading} data-testid="external-medicin-search-button"><LuSearch /> Search</Button>
                 </HStack>
             </form>
 
@@ -116,29 +92,20 @@ export default function ExternalMedicin() {
                             return (
                                 <Table.Row
                                     key={`${product.varenummer}-${index}`}
+                                    data-testid={`external-medicin-row-${index}`}
                                     cursor={knownMissing ? "not-allowed" : "pointer"}
                                     opacity={knownMissing ? 0.5 : 1}
                                     _hover={knownMissing ? undefined : { bg: "gray.50" }}
-                                    onClick={() => {
-                                        if (!knownMissing) {
-                                            navigate(`/app/external_medicin/${encodeURIComponent(product.varenummer)}`);
-                                        }
+                                    onClick={
+                                        () => { if (!knownMissing)  {   navigate(`/app/external_medicin/${encodeURIComponent(product.varenummer)}`);  }
                                     }}
-                                    data-testid={`external-medicin-row-${index}`}
                                 >
                                     <Table.Cell>{product.navn}</Table.Cell>
                                     <Table.Cell>{product.firma}</Table.Cell>
                                     <Table.Cell>{product.styrke}</Table.Cell>
                                     <Table.Cell>{product.pakning}</Table.Cell>
-                                    <Table.Cell
-                                        data-testid={`external-medicin-details-${index}`}
-                                        data-state={knownMissing ? "missing" : "available"}
-                                    >
-                                        {knownMissing ? (
-                                            <Badge colorPalette="gray">No details</Badge>
-                                        ) : (
-                                            <Badge colorPalette="teal">View</Badge>
-                                        )}
+                                    <Table.Cell data-testid={`external-medicin-details-${index}`} data-state={knownMissing ? "missing" : "available"}>
+                                        {knownMissing ? ( <Badge colorPalette="gray">No details</Badge> ) : ( <Badge colorPalette="teal">View</Badge> )}
                                     </Table.Cell>
                                 </Table.Row>
                             );

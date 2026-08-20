@@ -66,15 +66,8 @@ export default function Treatments() {
 
   const treatmentFields: FieldConfig<HospitalApiDtosInputsTreatmentInputDto>[] = useMemo(
     () => [
-      {
-        key: "fkPatientId",
-        label: "Patient",
-        type: "select",
-        required: true,
-        options: patients.map((patient) => ({
-          label: [patient.firstname, patient.lastname].filter(Boolean).join(" "),
-          value: patient.id ?? 0,
-        })),
+      { key: "fkPatientId", label: "Patient", type: "select", required: true,
+        options: patients.map((patient) => ({ label: [patient.firstname, patient.lastname].filter(Boolean).join(" "), value: patient.id ?? 0, })),
       },
       { key: "description", label: "Description", type: "text" },
       { key: "time", label: "Time", type: "datetime", required: true },
@@ -97,42 +90,18 @@ export default function Treatments() {
     { key: "id", header: "Id" },
     { key: "fkPatientId", header: "Patient Id", enableSearch: true },
     { key: "description", header: "Description", enableSearch: true },
+    { key: "time", header: "Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
     {
-      key: "time",
-      header: "Time",
-      render: (value) => (value ? new Date(String(value)).toLocaleString() : ""),
-    },
-    {
-      key: "actions",
-      header: "Actions",
-      enableSort: false,
-      render: (_value, item) => (
+      key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
         <HStack gap="2">
-          <IconButton
-            aria-label="Edit treatment"
-            size="sm"
-            variant="ghost"
-            onClick={(e) => {
+          <IconButton aria-label="Edit treatment" size="sm" variant="ghost" data-testid={`treatments-edit-${item.id}`} onClick={(e) => {
               e.stopPropagation();
               openEdit(item);
-            }}
-            data-testid={`treatments-edit-${item.id}`}
-          >
-            <LuPencil />
-          </IconButton>
-          <IconButton
-            aria-label="Delete treatment"
-            size="sm"
-            variant="ghost"
-            colorPalette="red"
-            onClick={(e) => {
+            }}><LuPencil /></IconButton>
+          <IconButton aria-label="Delete treatment" size="sm" variant="ghost"colorPalette="red" data-testid={`treatments-delete-${item.id}`} onClick={(e) => {
               e.stopPropagation();
               openDelete(item);
-            }}
-            data-testid={`treatments-delete-${item.id}`}
-          >
-            <LuTrash2 />
-          </IconButton>
+            }}><LuTrash2 /></IconButton>
         </HStack>
       ),
     },
@@ -141,38 +110,15 @@ export default function Treatments() {
   return (
     <>
       <HStack justify="space-between" mb="4">
-        <Text data-testid="treatments-page-heading" fontSize="xl" fontWeight="bold">
-          Treatments
-        </Text>
-        <Button data-testid="treatments-add-button" onClick={openCreate}>
-          <LuPlus /> Add Treatment
-        </Button>
+        <Text data-testid="treatments-page-heading" fontSize="xl" fontWeight="bold">Treatments</Text>
+        <Button data-testid="treatments-add-button" onClick={openCreate}><LuPlus /> Add Treatment</Button>
       </HStack>
 
-      <DataTable<TreatmentRow>
-        testId="treatments-table"
-        data={data}
-        columns={columns}
-        pageSize={10}
-        onRowClick={(treatment) => navigate(`/app/treatment/${treatment.id}`)}
-      />
+      <DataTable<TreatmentRow> testId="treatments-table" data={data} columns={columns} pageSize={10} onRowClick={(treatment) => navigate(`/app/treatment/${treatment.id}`)} />
 
-      <CommandFormPopup<HospitalApiDtosInputsTreatmentInputDto>
-        open={popupOpen}
-        onOpenChange={setPopupOpen}
-        mode={popupMode}
-        title="Treatment"
-        fields={treatmentFields}
-        itemId={selectedTreatment?.id}
-        initialValues={
-          selectedTreatment
-            ? { ...selectedTreatment, time: toDatetimeLocal(selectedTreatment.time) }
-            : undefined
-        }
-        service={treatmentFormService}
-        onSuccess={loadTreatments}
-        testId="treatments-form"
-      />
+      <CommandFormPopup<HospitalApiDtosInputsTreatmentInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Treatment"
+        fields={treatmentFields} itemId={selectedTreatment?.id} service={treatmentFormService} onSuccess={loadTreatments} testId="treatments-form"
+        initialValues={ selectedTreatment ? { ...selectedTreatment, time: toDatetimeLocal(selectedTreatment.time) } : undefined } />
     </>
   );
 }

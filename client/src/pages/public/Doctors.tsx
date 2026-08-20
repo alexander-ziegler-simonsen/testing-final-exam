@@ -27,15 +27,9 @@ export default function Doctors() {
       <Box bg={"gray.50"} flex={"1"} data-testid="doctors-page">
         <Container maxW={"6xl"} py={{ base: 10, md: 20 }}>
           <Box textAlign={"center"} maxW={"2xl"} mx={"auto"} mb={{ base: 10, md: 14 }}>
-            <Text color={"green.600"} fontWeight={"semibold"} letterSpacing={"wide"} textTransform={"uppercase"} fontSize={"sm"} mb={2}>
-              Our team
-            </Text>
-            <Heading as={"h1"} size={{ base: "2xl", md: "3xl" }} mb={4}>
-              Meet our specialists.
-            </Heading>
-            <Text fontSize={"lg"} color={"gray.600"}>
-              Board-certified physicians across 30 departments, dedicated to giving you the care you deserve.
-            </Text>
+            <Text color={"green.600"} fontWeight={"semibold"} letterSpacing={"wide"} textTransform={"uppercase"} fontSize={"sm"} mb={2}>Our team</Text>
+            <Heading as={"h1"} size={{ base: "2xl", md: "3xl" }} mb={4}>Meet our specialists.</Heading>
+            <Text fontSize={"lg"} color={"gray.600"}>Board-certified physicians across 30 departments, dedicated to giving you the care you deserve.</Text>
           </Box>
 
           {/* <HStack justify={"center"} mb={{ base: 10, md: 14 }}>
@@ -48,40 +42,22 @@ export default function Doctors() {
             {doctors.map((doctor) => {
               const testIdSlug = doctor.name.toLowerCase().replace(/\s+/g, "-");
               return (
-                <Box
-                  key={doctor.name}
-                  bg={"white"}
-                  borderRadius={"2xl"}
-                  shadow={"sm"}
-                  p={6}
-                  textAlign={"center"}
-                  data-testid={`doctors-card-${testIdSlug}`}
-                  _hover={{ shadow: "md", transform: "translateY(-2px)" }}
-                  transition={"all 0.15s ease"}
-                >
+                <Box key={doctor.name} bg={"white"} borderRadius={"2xl"} shadow={"sm"} p={6} textAlign={"center"} data-testid={`doctors-card-${testIdSlug}`} _hover={{ shadow: "md", transform: "translateY(-2px)" }} transition={"all 0.15s ease"}>
                   <Avatar.Root size={"2xl"} mx={"auto"} mb={4}>
                     <Avatar.Image src={doctor.image} />
                     <Avatar.Fallback name={doctor.name} />
                   </Avatar.Root>
 
-                  <Heading as={"h3"} size={"md"} mb={1} data-testid={`doctors-card-${testIdSlug}-name`}>
-                    {doctor.name}
-                  </Heading>
-                  <Text color={"blue.600"} fontWeight={"medium"} fontSize={"sm"} mb={1} data-testid={`doctors-card-${testIdSlug}-specialty`}>
-                    {doctor.specialty}
-                  </Text>
-                  <Text color={"gray.500"} fontSize={"sm"} mb={4} data-testid={`doctors-card-${testIdSlug}-department`}>
-                    {doctor.department}
-                  </Text>
+                  <Heading as={"h3"} size={"md"} mb={1} data-testid={`doctors-card-${testIdSlug}-name`}>{doctor.name}</Heading>
+                  <Text color={"blue.600"} fontWeight={"medium"} fontSize={"sm"} mb={1} data-testid={`doctors-card-${testIdSlug}-specialty`}>{doctor.specialty}</Text>
+                  <Text color={"gray.500"} fontSize={"sm"} mb={4} data-testid={`doctors-card-${testIdSlug}-department`}>{doctor.department}</Text>
 
                   <HStack justify={"center"} gap={4} mb={5}>
                     <HStack gap={1}>
                       <Icon color={"#f5b400"}><Star size={16} fill="#f5b400" /></Icon>
                       <Text fontSize={"sm"} fontWeight={"semibold"} data-testid={`doctors-card-${testIdSlug}-rating`}>{doctor.rating.toFixed(1)}</Text>
                     </HStack>
-                    <Badge colorPalette={"green"} variant={"subtle"} borderRadius={"full"} px={3} data-testid={`doctors-card-${testIdSlug}-years`}>
-                      {doctor.years} yrs experience
-                    </Badge>
+                    <Badge colorPalette={"green"} variant={"subtle"} borderRadius={"full"} px={3} data-testid={`doctors-card-${testIdSlug}-years`}>{doctor.years} yrs experience</Badge>
                   </HStack>
                 </Box>
               );

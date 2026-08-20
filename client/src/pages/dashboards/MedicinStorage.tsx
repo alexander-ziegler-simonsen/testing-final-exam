@@ -102,32 +102,15 @@ export default function MedicinStorage() {
                 if (!storage) return null;
                 return (
                     <HStack gap="2">
-                        <IconButton
-                            aria-label="Edit amount"
-                            size="sm"
-                            variant="ghost"
-                            onClick={(e) => {
+                        <IconButton aria-label="Edit amount" size="sm" variant="ghost" data-testid={`medicin-storage-edit-${item.id}`} onClick={(e) => {
                                 e.stopPropagation();
                                 openEdit(storage);
-                            }}
-                            data-testid={`medicin-storage-edit-${item.id}`}
-                        >
-                            <LuPencil />
-                        </IconButton>
+                            }}><LuPencil /></IconButton>
                         {isAdmin && (
-                            <IconButton
-                                aria-label="Delete storage"
-                                size="sm"
-                                variant="ghost"
-                                colorPalette="red"
-                                onClick={(e) => {
+                            <IconButton aria-label="Delete storage" size="sm" variant="ghost" colorPalette="red" onClick={(e) => {
                                     e.stopPropagation();
                                     openDelete(storage);
-                                }}
-                                data-testid={`medicin-storage-delete-${item.id}`}
-                            >
-                                <LuTrash2 />
-                            </IconButton>
+                                }} data-testid={`medicin-storage-delete-${item.id}`}><LuTrash2 /></IconButton>
                         )}
                     </HStack>
                 );
@@ -138,9 +121,7 @@ export default function MedicinStorage() {
     return (
         <>
             <HStack justify="space-between" mb="4">
-                <Text data-testid="medicin-storage-page-heading" fontSize="xl" fontWeight="bold">
-                    Medicin Storage
-                </Text>
+                <Text data-testid="medicin-storage-page-heading" fontSize="xl" fontWeight="bold">Medicin Storage</Text>
                 {isAdmin && (
                     <Button data-testid="medicin-storage-add-button" onClick={openCreate}>
                         <LuPlus /> Add Storage
@@ -148,26 +129,10 @@ export default function MedicinStorage() {
                 )}
             </HStack>
 
-            <DataTable<StorageRow>
-                testId="medicin-storage-table"
-                data={rows}
-                columns={columns}
-                pageSize={10}
-                onRowClick={(item) => navigate(`/app/medicin_storage/${item.id}`)}
-            />
+            <DataTable<StorageRow> testId="medicin-storage-table" data={rows} columns={columns} pageSize={10} onRowClick={(item) => navigate(`/app/medicin_storage/${item.id}`)} />
 
-            <CommandFormPopup<HospitalApiDtosInputsMedicationStorageInputDto>
-                open={popupOpen}
-                onOpenChange={setPopupOpen}
-                mode={popupMode}
-                title="Medicin Storage"
-                fields={storageFields}
-                itemId={selectedStorage?.id}
-                initialValues={selectedStorage ?? undefined}
-                service={MedicationStorageService}
-                onSuccess={loadStorages}
-                testId="medicin-storage-form"
-            />
+            <CommandFormPopup<HospitalApiDtosInputsMedicationStorageInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Medicin Storage" fields={storageFields}
+                itemId={selectedStorage?.id} initialValues={selectedStorage ?? undefined} service={MedicationStorageService} onSuccess={loadStorages} testId="medicin-storage-form" />
         </>
     );
 }
