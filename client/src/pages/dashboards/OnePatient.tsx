@@ -29,11 +29,7 @@ export default function OnePatient() {
     const treatmentColumns: ColumnConfig<HospitalApiDtosOutputsTreatmentOutputDto>[] = [
         { key: "id", header: "Id" },
         { key: "description", header: "Description", enableSearch: true },
-        {
-            key: "time",
-            header: "Time",
-            render: (value) => (value ? new Date(String(value)).toLocaleString() : ""),
-        },
+        { key: "time", header: "Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
     ];
 
     if (error) return <Text data-testid="one-patient-error" color="red.500">{error}</Text>;

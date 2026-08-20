@@ -15,16 +15,13 @@ export default function DepartmentStaff() {
 
   const columns: ColumnConfig<HospitalApiDtosOutputsDepartmentStaffOutputDto>[] = [
     { key: "id", header: "Id" },
-    {
-      key: "department", header: "Department", sortValue: (item) => item.department?.name,
-      render: (_value, item) => {
+    { key: "department", header: "Department", sortValue: (item) => item.department?.name, render: (_value, item) => {
         const department = item.department;
         const name = department?.name ?? `Department #${department?.id}`;
         return department?.type ? `${name} (${department.type})` : name;
       },
     },
-    {
-      key: "staff", header: "Staff", sortValue: (item) => `${item.staff?.firstname ?? ""} ${item.staff?.lastname ?? ""}`.trim(),
+    { key: "staff", header: "Staff", sortValue: (item) => `${item.staff?.firstname ?? ""} ${item.staff?.lastname ?? ""}`.trim(),
       render: (_value, item) => `${item.staff?.firstname ?? ""} ${item.staff?.lastname ?? ""}`.trim(),
     },
   ];

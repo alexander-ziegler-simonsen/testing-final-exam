@@ -123,9 +123,7 @@ export default function MedicinStorage() {
             <HStack justify="space-between" mb="4">
                 <Text data-testid="medicin-storage-page-heading" fontSize="xl" fontWeight="bold">Medicin Storage</Text>
                 {isAdmin && (
-                    <Button data-testid="medicin-storage-add-button" onClick={openCreate}>
-                        <LuPlus /> Add Storage
-                    </Button>
+                    <Button data-testid="medicin-storage-add-button" onClick={openCreate}><LuPlus /> Add Storage</Button>
                 )}
             </HStack>
 

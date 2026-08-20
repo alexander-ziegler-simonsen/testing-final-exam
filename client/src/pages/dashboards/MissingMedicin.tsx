@@ -16,33 +16,24 @@ export default function MissingMedicin() {
 
   const columns: ColumnConfig<HospitalApiDtosOutputsMedicationStorageMissingOutputDto>[] = [
     {
-      key: "amountMissing",
-      header: "amount Missing",
-      enableSearch: true,
+      key: "amountMissing", header: "amount Missing", enableSearch: true, 
       render: (value) => (
         <Text fontWeight="bold" color="blue.600">{String(value)}</Text>
       )
     },
     {
-      key: "fkMedicationStorageId",
-      header: "fk Medication Storage Id",
-      enableSearch: true,
+      key: "fkMedicationStorageId", header: "fk Medication Storage Id", enableSearch: true,
       render: (value) => (
         <Badge variant="solid" colorPalette="teal">{String(value)}</Badge>
       )
     },
-    {
-      key: "id",
-      header: "id",
-      enableSearch: true,
+    { key: "id", header: "id", enableSearch: true, 
       render: (value) => (
         <Text fontSize="sm" fontStyle="italic">{String(value)}</Text>
       )
     },
     {
-      key: "wentMissingAt",
-      header: "went Missing At",
-      enableSearch: true,
+      key: "wentMissingAt", header: "went Missing At", enableSearch: true, 
       render: (value) => (
         <Code colorPalette="orange">{String(value)}</Code>
       )

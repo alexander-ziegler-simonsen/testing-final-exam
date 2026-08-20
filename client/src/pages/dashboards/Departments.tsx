@@ -53,26 +53,13 @@ export default function Departments() {
         { key: "id", header: "Id" },
         { key: "name", header: "Name", enableSearch: true },
         { key: "type", header: "Type", enableSearch: true },
-        {
-            key: "actions",
-            header: "Actions",
-            enableSort: false,
-            render: (_value, item) => (
+        { key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
                 <HStack gap="2">
-                    <IconButton aria-label="Edit department" size="sm" variant="ghost" data-testid={`departments-edit-${item.id}`}
-                        onClick={(e) => {
+                    <IconButton aria-label="Edit department" size="sm" variant="ghost" data-testid={`departments-edit-${item.id}`} onClick={(e) => {
                             e.stopPropagation();
                             openEdit(item);
-                        }}>
-                        <LuPencil />
-                    </IconButton>
-                    <IconButton aria-label="Delete department" size="sm" variant="ghost" colorPalette="red" data-testid={`departments-delete-${item.id}`}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            openDelete(item);
-                        }}>
-                        <LuTrash2 />
-                    </IconButton>
+                        }}><LuPencil /></IconButton>
+                    <IconButton aria-label="Delete department" size="sm" variant="ghost" colorPalette="red" data-testid={`departments-delete-${item.id}`} onClick={(e) => { e.stopPropagation(); openDelete(item);}}><LuTrash2 /></IconButton>
                 </HStack>
             ),
         },
@@ -87,9 +74,7 @@ export default function Departments() {
 
             <DataTable<DepartmentRow> testId="departments-table" data={data} columns={columns} pageSize={10} />
 
-            <CommandFormPopup<HospitalApiDtosInputsDepartmentInputDto>
-                open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Department" fields={departmentFields} itemId={selectedDepartment?.id}
-                initialValues={selectedDepartment ?? undefined} service={DepartmentService} onSuccess={loadDepartments} testId="departments-form" />
+            <CommandFormPopup<HospitalApiDtosInputsDepartmentInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Department" fields={departmentFields} itemId={selectedDepartment?.id} initialValues={selectedDepartment ?? undefined} service={DepartmentService} onSuccess={loadDepartments} testId="departments-form" />
         </>
     );
 }

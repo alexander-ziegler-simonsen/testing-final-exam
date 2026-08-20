@@ -91,8 +91,7 @@ export default function Treatments() {
     { key: "fkPatientId", header: "Patient Id", enableSearch: true },
     { key: "description", header: "Description", enableSearch: true },
     { key: "time", header: "Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
-    {
-      key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
+    { key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
         <HStack gap="2">
           <IconButton aria-label="Edit treatment" size="sm" variant="ghost" data-testid={`treatments-edit-${item.id}`} onClick={(e) => {
               e.stopPropagation();

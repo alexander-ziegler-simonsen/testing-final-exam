@@ -103,9 +103,7 @@ export default function OneFacility() {
                     ) : (
                         <Wrap gap="2" data-testid={`one-facility-rooms-${floor.id}`}>
                             {rooms.map((room) => (
-                                <Tag.Root
-                                    key={room.id} size="lg" variant="subtle" colorPalette="teal" cursor="pointer" _hover={{ opacity: 0.8 }} 
-                                    onClick={() => navigate(`/app/room_booking/room/${room.id}`)} data-testid={`one-facility-room-${room.id}`}>
+                                <Tag.Root key={room.id} size="lg" variant="subtle" colorPalette="teal" cursor="pointer" _hover={{ opacity: 0.8 }}  onClick={() => navigate(`/app/room_booking/room/${room.id}`)} data-testid={`one-facility-room-${room.id}`}>
                                     <Tag.StartElement><LuDoorOpen /></Tag.StartElement>
                                     <Tag.Label>{room.name}</Tag.Label>
                                 </Tag.Root>
@@ -115,8 +113,7 @@ export default function OneFacility() {
                 </Box>
             ))}
 
-            <CommandFormPopup<HospitalApiDtosInputsFloorInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Floor" fields={floorFields} 
-                itemId={selectedFloor?.id} initialValues={selectedFloor ?? undefined} service={floorService}onSuccess={loadLocation} testId="one-facility-floor-form" />
+            <CommandFormPopup<HospitalApiDtosInputsFloorInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Floor" fields={floorFields}  itemId={selectedFloor?.id} initialValues={selectedFloor ?? undefined} service={floorService}onSuccess={loadLocation} testId="one-facility-floor-form" />
         </Stack>
     );
 }

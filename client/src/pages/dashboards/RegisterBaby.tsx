@@ -40,9 +40,7 @@ export default function RegisterBaby() {
 
   return (
     <Stack gap="4" data-testid="register-baby-page" maxW="md">
-      <Text data-testid="register-baby-page-heading" fontSize="xl" fontWeight="bold">
-        Register Baby
-      </Text>
+      <Text data-testid="register-baby-page-heading" fontSize="xl" fontWeight="bold">Register Baby</Text>
 
       <form onSubmit={handleSubmit}>
         <Stack gap="4">

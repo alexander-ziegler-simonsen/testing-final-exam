@@ -46,15 +46,11 @@ export default function OneMedicin() {
 
     return (
         <Stack gap="4" data-testid="one-medicin-page">
-            <Button data-testid="one-medicin-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/medicin_storage")}>
-                Back to medicin storage
-            </Button>
+            <Button data-testid="one-medicin-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/medicin_storage")}>Back to medicin storage</Button>
 
             <HStack justify="space-between">
                 <Heading data-testid="one-medicin-heading" size="lg">{medication.name}</Heading>
-                <Button data-testid="one-medicin-edit-amount-button" onClick={() => setPopupOpen(true)}>
-                    <LuPencil /> Change Amount
-                </Button>
+                <Button data-testid="one-medicin-edit-amount-button" onClick={() => setPopupOpen(true)}><LuPencil /> Change Amount</Button>
             </HStack>
 
             <Stack gap="2">
@@ -73,8 +69,7 @@ export default function OneMedicin() {
                 <Text data-testid="one-medicin-field-description"><b>Description:</b> {medication.description}</Text>
             </Stack>
 
-            <CommandFormPopup<HospitalApiDtosInputsMedicationStorageInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode="edit" title="Medicin Storage" 
-            fields={amountFields} itemId={storage.id} initialValues={storage} service={MedicationStorageService} onSuccess={loadStorage} testId="one-medicin-form" />
+            <CommandFormPopup<HospitalApiDtosInputsMedicationStorageInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode="edit" title="Medicin Storage"  fields={amountFields} itemId={storage.id} initialValues={storage} service={MedicationStorageService} onSuccess={loadStorage} testId="one-medicin-form" />
         </Stack>
     );
 }

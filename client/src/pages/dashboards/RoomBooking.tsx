@@ -212,7 +212,7 @@ export default function RoomBooking() {
                                 <Input type="date" size="sm" value={toDate} onChange={(e) => setToDate(e.target.value)} data-testid="room-booking-date-filter-to" />
                             </Field.Root>
                             {(fromDate || toDate) && (
-                                <Button data-testid="room-booking-date-filter-clear" variant="ghost" size="sm" alignSelf="end"onClick={() => {
+                                <Button data-testid="room-booking-date-filter-clear" variant="ghost" size="sm" alignSelf="end" onClick={() => {
                                         setFromDate("");
                                         setToDate("");
                                     }}>Clear</Button>)}

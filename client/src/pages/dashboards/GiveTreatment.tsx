@@ -279,14 +279,10 @@ export default function GiveTreatment() {
             <Box borderWidth="1px" borderColor="border" borderRadius="md" p="4">
               <Text fontWeight="medium" mb="3">Doctor authentication</Text>
               <Stack gap="3">
-                <Input data-testid="give-treatment-doctor-username-input" placeholder="Doctor username"
-                  value={doctorUsername} onChange={(e) => setDoctorUsername(e.target.value)} autoComplete="off" />
-                <Input data-testid="give-treatment-doctor-password-input" type="password" placeholder="Password" value={doctorPassword}
-                  onChange={(e) => setDoctorPassword(e.target.value)} autoComplete="off" onKeyDown={(e) => e.key === "Enter" && handleDoctorLogin()}/>
+                <Input data-testid="give-treatment-doctor-username-input" placeholder="Doctor username" value={doctorUsername} onChange={(e) => setDoctorUsername(e.target.value)} autoComplete="off" />
+                <Input data-testid="give-treatment-doctor-password-input" type="password" placeholder="Password" value={doctorPassword} onChange={(e) => setDoctorPassword(e.target.value)} autoComplete="off" onKeyDown={(e) => e.key === "Enter" && handleDoctorLogin()}/>
                 {approvalError && (
-                  <Text data-testid="give-treatment-approval-error" color="red.500" fontSize="sm">
-                    {approvalError}
-                  </Text>
+                  <Text data-testid="give-treatment-approval-error" color="red.500" fontSize="sm">{approvalError}</Text>
                 )}
                 <HStack gap="2">
                   <Button size="sm" variant="outline" onClick={() => {
@@ -295,9 +291,7 @@ export default function GiveTreatment() {
                       setDoctorUsername("");
                       setDoctorPassword("");
                     }}>Back</Button>
-                  <Button size="sm"colorPalette="blue" data-testid="give-treatment-authenticate-button" onClick={handleDoctorLogin} loading={approvalLoading} disabled={!doctorUsername || !doctorPassword}>
-                    Authenticate
-                  </Button>
+                  <Button size="sm"colorPalette="blue" data-testid="give-treatment-authenticate-button" onClick={handleDoctorLogin} loading={approvalLoading} disabled={!doctorUsername || !doctorPassword}>Authenticate</Button>
                 </HStack>
               </Stack>
             </Box>

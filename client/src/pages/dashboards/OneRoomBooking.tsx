@@ -114,9 +114,7 @@ export default function OneRoomBooking() {
 
     return (
         <Stack gap="4" data-testid="one-room-booking-page">
-            <Button data-testid="one-room-booking-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/room_booking")}>
-                Back to room bookings
-            </Button>
+            <Button data-testid="one-room-booking-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/room_booking")}>Back to room bookings</Button>
 
             <HStack justify="space-between">
                 <Heading data-testid="one-room-booking-heading" size="lg">Booking #{booking.id}</Heading>
