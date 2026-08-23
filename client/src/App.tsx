@@ -49,14 +49,14 @@ function App() {
       <MockingNotice />
       <Toaster />
       <Routes>
-        {/* Public Landing Pages */}
+        {/* the public site */}
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="login" element={<Login />} />
         <Route path="doctors" element={<Doctors />} />
         <Route path="Contact" element={<Contact />} />
 
-        {/* 🔒 BASE PROTECTION: Enforces that a user is actively authenticated */}
+        {/* Enforces user authentication */}
         <Route element={<ProtectedRoute />}>
           <Route path="app" element={<DashboardLayout />}>
 
@@ -64,11 +64,12 @@ function App() {
             <Route path="treatment" element={<Treatments />} />
             <Route path="treatment/:id" element={<OneTreatment />} />
 
-            {/* 🩺 STAFF ONLY BOUNDARY: Patients are completely blocked from this nested route tree */}
+            {/* staff only */}
             <Route element={<RoleProtectedRoute allowedRoles={['doctor', 'nurse', 'admin']} />}>
-              {/* Fallback layout: Redirect base /app down to the Overview page */}
+              {/* Fallback layout - path is '/app' */}
               <Route index element={<Navigate to="overview" replace />} />
               <Route path="overview" element={<Overview />} />
+
               <Route path="departments" element={<Departments />} />
               <Route path="department_staff" element={<DepartmentStaff />} />
               <Route path="facilities" element={<Facilities />} />
@@ -85,12 +86,12 @@ function App() {
               <Route path="room_booking/room/:id" element={<OneRoom />} />
               <Route path="room_booking/:id" element={<OneRoomBooking />} />
 
-              {/* 🛠️ ULTRA-RESTRICTED: Only admin accounts can clear staff settings */}
+              {/* Only admin */}
               <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
                 <Route path="staff" element={<Staff />} />
               </Route>
 
-              {/* Give Treatment (with optional prescription + doctor sign-off) is a nurse workflow */}
+              {/* Give Treatment */}
               <Route element={<RoleProtectedRoute allowedRoles={['nurse', 'admin']} />}>
                 <Route path="give_treatment" element={<GiveTreatment />} />
               </Route>

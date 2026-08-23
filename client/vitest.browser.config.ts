@@ -13,30 +13,18 @@ export default defineProject({
         browser: {
             enabled: true,
             provider: playwright(),
-            // Windows/Hyper-V/WSL2 periodically reserve chunks of the high
-            // ephemeral port range for NAT (see `netsh interface ipv4 show
-            // excludedportrange protocol=tcp`), which shifts around and can
-            // land Vitest's randomly-picked dev-server port inside a
-            // reserved block, causing an EACCES (not EADDRINUSE) bind
-            // error. Pin to a low, stable port well outside those ranges.
+            // set a fixed api port, to not hit a randomly used port (happened with Windows/Hyper-V/WSL2)
             api: {
                 port: 5175,
             },
-            // Headless Chromium's default viewport (414x896) is what all
-            // committed baselines were captured at. Pin it explicitly so
-            // headed runs (which don't get this default automatically)
-            // render at the same size instead of falling back to whatever
-            // window size the OS/Playwright happens to open headed.
+            // fixed viewport(414x896) - for component images in Headless Chromium  tests
             viewport: { width: 414, height: 896 },
             instances: [
                 { browser: 'chromium' },
                 // { browser: 'firefox' },
                 // { browser: 'webkit' },
             ],
-            // Baselines are generated on whatever machine happens to run
-            // `img:update` (developer laptops, CI), which don't all render
-            // fonts pixel-identically. Allow a small mismatch so that
-            // doesn't fail the whole suite over rendering noise.
+            // fix for fonts pixel problems with CI ubuntu images - where small mismatch broke the test
             expect: {
                 toMatchScreenshot: {
                     comparatorOptions: {

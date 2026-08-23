@@ -16,9 +16,7 @@ export default function Login() {
           <Text textAlign={"center"} fontSize={"sm"} color={"gray.600"} mt={3}>
             Already have a session?{" "}
             <Link data-testid="login-dashboard-link" to="/app">
-              <Text as={"span"} color={"green.600"} fontWeight={"semibold"}>
-                Go to dashboard
-              </Text>
+              <Text as={"span"} color={"green.600"} fontWeight={"semibold"}>Go to dashboard</Text>
             </Link>
           </Text>
         </Container>
