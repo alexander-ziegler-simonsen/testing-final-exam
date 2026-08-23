@@ -23,8 +23,24 @@ export const handlers = all({
         departmentStaffPut: { body: null },
         departmentStaffDelete: () => new HttpResponse(null, { status: 204 }),
 
-        externalMedicinePricesGetMedicineProductsByName: { body: fx.mockMedicineProducts },
-        externalMedicinePricesGetMedicineProductsByIngredients: { body: fx.mockMedicineProducts },
+        externalMedicinePricesGetMedicineProductsByName: ({ request }) => {
+            const productName = new URL(request.url).searchParams.get("productName")?.trim().toLowerCase() ?? "";
+            const matches = fx.mockMedicineProducts.filter((p) => p.navn.toLowerCase().includes(productName));
+
+            if (matches.length === 0) {
+                return HttpResponse.json({ title: "Not Found", status: 404, detail: `No products found for "${productName}"` }, { status: 404 });
+            }
+            return HttpResponse.json(matches);
+        },
+        externalMedicinePricesGetMedicineProductsByIngredients: ({ request }) => {
+            const ingredientName = new URL(request.url).searchParams.get("ingredientName")?.trim().toLowerCase() ?? "";
+            const matches = fx.mockMedicineProducts.filter((p) => p.navn.toLowerCase().includes(ingredientName));
+
+            if (matches.length === 0) {
+                return HttpResponse.json({ title: "Not Found", status: 404, detail: `No products found for ingredient "${ingredientName}"` }, { status: 404 });
+            }
+            return HttpResponse.json(matches);
+        },
         externalMedicinePricesGetMedicineProductDetails: { body: fx.mockMedicineDetail },
 
         locationGetAllLocations: { body: fx.mockLocations },
