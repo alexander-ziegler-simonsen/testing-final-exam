@@ -1,18 +1,21 @@
 {
-    "name": "db-tests",
-    "version": "1.0.0",
-    "type": "module",
-    "scripts": {
-        "test": "vitest run",
-        "typecheck": "tsc --noEmit"
-    },
-    "devDependencies": {
-        "vitest": "^1.5.0",
-        "pg": "^8.11.0",
-        "@testcontainers/postgresql": "^10.0.0",
-        "testcontainers": "^10.0.0",
-        "typescript": "^5.5.0",
-        "@types/node": "^20.14.0",
-        "@types/pg": "^8.11.0"
+  "name": "dbTests",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.15.1",
+      "onFail": "download"
     }
+  },
+  "type": "module",
+  "devDependencies": {
+    "@testcontainers/postgresql": "^12.1.0",
+    "@types/pg": "^8.23.1",
+    "pg": "^8.23.0",
+    "vitest": "^4.1.11"
+  }
 }
