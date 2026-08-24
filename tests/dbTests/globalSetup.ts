@@ -13,7 +13,7 @@ const { Client } = pkg;
 // file under tests/*.test.ts instead of each file starting (and tearing
 // down) its own container.
 export default async function setup() {
-    const container = await new PostgreSqlContainer("postgres:15").start();
+    const container = await new PostgreSqlContainer("postgres:16-alpine").start();
 
     const connection = {
         host: container.getHost(),
