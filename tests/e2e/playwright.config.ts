@@ -1,29 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
-import path from 'path';
+import path from 'node:path';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   retries: 0,
-  /* Every spec resets the DB per-test (see tests/*.spec.ts beforeEach + dbReset.ts),
-   * against one shared Postgres instance and one shared API process - concurrent
-   * workers would race each other's DROP/CREATE DATABASE and corrupt in-flight
-   * tests. Each CI job (see matrix in E2e.yml) already only runs one browser's
-   * tests, so this keeps them serialized within that job. */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
