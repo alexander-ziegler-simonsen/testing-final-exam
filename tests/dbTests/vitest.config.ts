@@ -5,6 +5,7 @@ export default defineConfig({
     setupFiles: "./src/test-setup.ts",
     fileParallelism: false, 
     isolate: false,        
-    hookTimeout: 60_000,    
+    hookTimeout: 60_000,  
+    reporters: ["verbose"]  
   },
 });

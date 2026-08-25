@@ -8,7 +8,8 @@
 insert into staff_role (name) values
 ('doctor'),
 ('nurse'),
-('admin');
+('admin'),
+('not-in-use');
 
 
 -- buildings
