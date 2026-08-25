@@ -146,11 +146,8 @@ insert into "user" (username, password_hash, salt, fk_staff_id) values
 ('annaj',  '$2b$11$F/xqtdVrZjJUb6hfXptkAuse9F7s3DbH33SigLynX9D0YxMMqZI0O', '$2b$11$F/xqtdVrZjJUb6hfXptkAu', 26),
 ('nurse', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRuGeMLXwumuCHWBCr7by6mccjlzMnT65m', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRu', 27),
 ('admin', '$2b$11$AO5m33t61b01mMygc4uxqelHjDV/qAce9gGg8jX8lKGoI6GddnBlK', '$2b$11$AO5m33t61b01mMygc4uxqe', 51);
-
-
 -- patient users (linked to patient via user_patient, for login - not staff)
 -- password: 'Patient1234!'
-
 insert into "user" (username, password_hash, salt, fk_staff_id) values
 ('patient', '$2b$11$ksR/CXHW8KK5iufZueYHiO1sHNYatmwbDKhvfkhXM0I/FpF554ADS', '$2b$11$ksR/CXHW8KK5iufZueYHiO', null);
 
@@ -170,13 +167,12 @@ insert into department (name, type) values
 
 -- department staff - doctors: 1–25, nurses: 26–50
 insert into department_staff (fk_staff_id, fk_department_id) values
-(1,1),(2,1),(3,2),(4,2),(5,3),(6,3),(7,4),(8,4),(9,5),(10,5),
-(11,1),(12,2),(13,3),(14,4),(15,5),(16,1),(17,2),(18,3),(19,4),(20,5),
-(21,1),(22,2),(23,3),(24,4),(25,5),
+(1,1),(2,1),(3,2),(4,2),(5,3),(6,3),(7,4),(8,4),(9,5),(10,5),(11,1),
+(12,2),(13,3),(14,4),(15,5),(16,1),(17,2),(18,3),(19,4),(20,5),(21,1),
+(22,2),(23,3),(24,4),(25,5),
 (26,1),(27,1),(28,2),(29,2),(30,3),(31,3),(32,4),(33,4),(34,5),(35,5),
 (36,1),(37,2),(38,3),(39,4),(40,5),(41,1),(42,2),(43,3),(44,4),(45,5),
-(46,1),(47,2),(48,3),(49,4),(50,5),
-(50,4);
+(46,1),(47,2),(48,3),(49,4),(50,5),(50,4);
 
 -- treatments
 
