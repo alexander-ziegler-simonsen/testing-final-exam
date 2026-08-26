@@ -60,7 +60,7 @@ describe("user table - negative tests (-)", () => {
     const salt = "salt";
     const fk_staff_id = 1;
     // 101 chars
-    const userName = "123456789x123456789x123456789x123456789x123456789x123456789x123456789x123456789x123456789x123456789x1";
+    const userName = "1".repeat(101); // 101 chars
     await expect(getClient().query('INSERT INTO "user" (username, password_hash, salt, fk_staff_id) VALUES ($1,$2,$3,$4)', [userName, password, salt, fk_staff_id])).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
   });
 

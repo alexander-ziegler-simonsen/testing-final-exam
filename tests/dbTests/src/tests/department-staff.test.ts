@@ -52,7 +52,7 @@ describe("department_staff table - positive tests (+)", () => {
 
 describe("department_staff table - negative tests (-)", () => {
   //   test("(-) add a role with too long a name", async () => {
-  //     const role = "123456789-123456789-123456789-123456789-123456789-1"; // 53 chars
+  //     const role = "1".repeat(51); // 51 chars
   //     await expect(
   //       getClient().query("insert into department_staff (name) VALUES ($1)", [role])
   //     ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation

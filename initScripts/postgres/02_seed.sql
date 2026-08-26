@@ -76,7 +76,8 @@ insert into room (name, fk_floor_id) values
 ('room a301',3),('room a302',3),('room a303',3),('room a304',3),('room a305',3),
 ('room b101',4),('room b102',4),('room b103',4),('room b104',4),('room b105',4),
 ('room b201',5),('room b202',5),('room b203',5),('room b204',5),('room b205',5),
-('room b301',6),('room b302',6),('room b303',6),('room b304',6),('room b305',6);
+('room b301',6),('room b302',6),('room b303',6),('room b304',6),('room b305',6),
+('room b306',6);
 
 
 -- patients (25)

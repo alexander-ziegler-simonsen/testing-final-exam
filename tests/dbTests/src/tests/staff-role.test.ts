@@ -47,7 +47,7 @@ describe("staff_role table - positive tests (+)", () => {
 
 describe("staff_role table - negative tests (-)", () => {
   test("(-) add a role with too long a name", async () => {
-    const role = "123456789-123456789-123456789-123456789-123456789-1"; // 53 chars
+    const role = "1".repeat(51); // 51
     await expect(
       getClient().query("insert into staff_role (name) VALUES ($1)", [role])
     ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
