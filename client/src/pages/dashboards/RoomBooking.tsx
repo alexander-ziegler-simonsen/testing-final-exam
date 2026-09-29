@@ -150,16 +150,17 @@ export default function RoomBooking() {
         { key: "patientName", header: "Patient", enableSearch: true },
         { key: "startTime", header: "Start Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
         { key: "endTime", header: "End Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
-        { key: "actions", header: "Actions", enableSort: false,
+        {
+            key: "actions", header: "Actions", enableSort: false,
             render: (_value, item) => {
                 const booking = bookings.find((b) => b.id === item.id);
                 if (!booking) return null;
                 return (
                     <HStack gap="2">
                         <IconButton aria-label="Edit room booking" size="sm" variant="ghost" data-testid={`room-booking-edit-${item.id}`} onClick={(e) => {
-                                e.stopPropagation();
-                                openEdit(booking);
-                            }}><LuPencil /></IconButton>
+                            e.stopPropagation();
+                            openEdit(booking);
+                        }}><LuPencil /></IconButton>
                         <IconButton aria-label="Delete room booking" size="sm" variant="ghost" colorPalette="red"
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -183,21 +184,21 @@ export default function RoomBooking() {
                 </Tabs.List>
 
                 <Tabs.Content value="bookings">
-                    <HStack justify="space-between" mb="4" flexWrap="wrap" gap="4">
-                        <HStack gap="3" flexWrap="wrap" data-testid="room-booking-date-filter">
-                            <Field.Root maxW="200px">
+                    <HStack justify="space-between" align="end" mb="4" flexWrap="wrap" gap="4">
+                        <HStack gap="3" align="end" flexWrap="wrap" data-testid="room-booking-date-filter">
+                            <Field.Root w="180px">
                                 <Field.Label>From</Field.Label>
                                 <Input type="date" size="sm" value={fromDate} onChange={(e) => setFromDate(e.target.value)} data-testid="room-booking-date-filter-from" />
                             </Field.Root>
-                            <Field.Root maxW="200px">
+                            <Field.Root w="180px">
                                 <Field.Label>To</Field.Label>
                                 <Input type="date" size="sm" value={toDate} onChange={(e) => setToDate(e.target.value)} data-testid="room-booking-date-filter-to" />
                             </Field.Root>
                             {(fromDate || toDate) && (
-                                <Button data-testid="room-booking-date-filter-clear" variant="ghost" size="sm" alignSelf="end" onClick={() => {
-                                        setFromDate("");
-                                        setToDate("");
-                                    }}>Clear</Button>)}
+                                <Button data-testid="room-booking-date-filter-clear" variant="ghost" size="sm" onClick={() => {
+                                    setFromDate("");
+                                    setToDate("");
+                                }}>Clear</Button>)}
                         </HStack>
                         <Button data-testid="room-booking-add-button" onClick={openCreate}><LuPlus /> Add Room Booking</Button>
                     </HStack>
@@ -233,14 +234,14 @@ export default function RoomBooking() {
                 </Tabs.Content>
             </Tabs.Root>
 
-            <CommandFormPopup<HospitalApiDtosInputsRoomBookingInputDto>open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Room Booking"
+            <CommandFormPopup<HospitalApiDtosInputsRoomBookingInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Room Booking"
                 fields={roomBookingFields} itemId={selectedBooking?.id} initialValues={
                     selectedBooking
                         ? {
-                              ...selectedBooking,
-                              startTime: toDatetimeLocal(selectedBooking.startTime),
-                              endTime: toDatetimeLocal(selectedBooking.endTime),
-                          } : undefined
+                            ...selectedBooking,
+                            startTime: toDatetimeLocal(selectedBooking.startTime),
+                            endTime: toDatetimeLocal(selectedBooking.endTime),
+                        } : undefined
                 } service={roomBookingFormService} onSuccess={loadBookings} testId="room-booking-form" />
         </>
     );

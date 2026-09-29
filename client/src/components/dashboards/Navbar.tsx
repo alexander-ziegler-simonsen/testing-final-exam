@@ -17,19 +17,20 @@ export default function Navbar() {
   }
 
   return (
-    <Box w={"full"} alignItems={"center"} justifyContent={"center"} gap={6} display={"flex"} h={"auto"} p={2} shadow={"xl"} borderBottomWidth={1} borderBottomColor={"gray.400"} bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500" data-testid="dashboard-navbar">
+    <Box w={"full"} alignItems={"center"} justifyContent={"center"} gap={6} display={"flex"} h={"auto"} p={2} shadow={"xl"} 
+    borderBottomWidth={1} borderBottomColor={"gray.400"} bgGradient="to-t" gradientFrom="gray.300" gradientTo="gray.500" data-testid="dashboard-navbar">
       {/* logo */}
       <Box bg={"gray.100"} padding={2} rounded={18} m={0}>
         <Link data-testid="dashboard-navbar-logo-link" to={"/app"}>
           <Text textStyle={"4xl"} fontSize={"4xl"} fontWeight={"bold"}>
-            Logo
+            Logo 
           </Text>
         </Link>
       </Box>
 
       {/* links */}
       <Box display={"flex"} gap={6} ml={8} marginEnd={"auto"} data-testid="dashboard-navbar-user-greeting">
-        Hello {user ? `${user.firstName} ${user.lastName}` : "unknown person"}
+        <Text textStyle={"xl"}>{user ? `${user.firstName} ${user.lastName}` : "unknown person"}</Text>
       </Box>
 
       {/* book btn */}
