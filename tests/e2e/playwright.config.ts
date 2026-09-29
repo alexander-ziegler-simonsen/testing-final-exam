@@ -18,6 +18,7 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
+    locale: 'en-GB', /* fixed the problem with date formatting not being the same in headless mode */
   },
 
   /* Configure projects for major browsers */

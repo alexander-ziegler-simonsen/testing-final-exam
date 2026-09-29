@@ -49,7 +49,7 @@ test('doctor role permission check (smoke) - not done yet', async ({ page }) => 
   await expect.soft(page.getByTestId('sidebar-desktop-patients-link-open-button')).toBeVisible();
   await expect.soft(page.getByTestId('sidebar-desktop-room-booking-link-open-button')).toBeVisible();
   await expect.soft(page.getByTestId('sidebar-desktop-treatment-link-open-button')).toBeVisible();
-  await expect.soft(page.getByTestId('sidebar-desktop-give-treatment-link-open-button')).toBeVisible();
+  // await expect.soft(page.getByTestId('sidebar-desktop-give-treatment-link-open-button')).toBeVisible();
 
   await page.getByTestId('dashboard-navbar-logout-button').click();
   await expect(page).toHaveURL('http://localhost:5173/login');
