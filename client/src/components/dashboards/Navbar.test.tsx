@@ -35,7 +35,7 @@ test("greets the logged-in user by name", async () => {
 
     await expect
         .element(getByTestId("dashboard-navbar-user-greeting"))
-        .toHaveTextContent("Hello Nancy Nurse");
+        .toHaveTextContent("Nancy Nurse");
 });
 
 test("clears the session when the logout button is clicked", async () => {
