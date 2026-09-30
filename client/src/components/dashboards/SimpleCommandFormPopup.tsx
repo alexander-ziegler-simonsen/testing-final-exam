@@ -108,9 +108,7 @@ export function SimpleCommandFormPopup<TInput extends Record<string, any>, TId =
       footer={
         <HStack gap="3">
           <Dialog.CloseTrigger asChild>
-            <Button variant="outline" data-testid={`${testId}-cancel-button`} disabled={isSubmitting}>
-              Cancel
-            </Button>
+            <Button variant="outline" data-testid={`${testId}-cancel-button`} disabled={isSubmitting}>Cancel</Button>
           </Dialog.CloseTrigger>
           <Button colorPalette={mode === "delete" ? "red" : "blue"} onClick={handleSubmit} loading={isSubmitting} data-testid={`${testId}-submit-button`}>
             {MODE_LABEL[mode]}

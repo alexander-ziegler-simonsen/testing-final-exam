@@ -54,14 +54,7 @@ export default function MySidebar() {
             {navigationLinks
                 .filter((link) => !link.allowedRoles || (user && link.allowedRoles.includes(user.role)))
                 .map((link) => (
-                    <SidebarElement
-                        key={link.path}
-                        testId={`${testIdPrefix}-${link.testIdSuffix}`}
-                        path={link.path}
-                        selected={false}
-                        title={link.title}
-                        icon={link.icon}
-                    />
+                    <SidebarElement key={link.path} testId={`${testIdPrefix}-${link.testIdSuffix}`} path={link.path} selected={false} title={link.title} icon={link.icon} />
                 ))}
         </>
     );
@@ -93,9 +86,7 @@ export default function MySidebar() {
                                 <Drawer.Title>Navigation</Drawer.Title>
                             </Drawer.Header>
 
-                            <Drawer.Body>
-                                {renderNavigationLinks("sidebar-mobile")}
-                            </Drawer.Body>
+                            <Drawer.Body>{renderNavigationLinks("sidebar-mobile")}</Drawer.Body>
 
                             {/* Chakra UI v3 close configuration */}
                             <Drawer.CloseTrigger asChild>

@@ -55,9 +55,7 @@ export default function LoginCompoent() {
                         Login
                     </Button>
                     {loginFailed && (
-                        <Text data-testid="login-feedback-text" color={"red.500"} fontSize={"sm"} textAlign={"center"}>
-                            {feedback}
-                        </Text>
+                        <Text data-testid="login-feedback-text" color={"red.500"} fontSize={"sm"} textAlign={"center"}>{feedback}</Text>
                     )}
                 </Stack>
             </Box>

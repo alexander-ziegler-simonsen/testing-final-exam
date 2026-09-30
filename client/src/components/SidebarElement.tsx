@@ -18,8 +18,14 @@ export default function SidebarElement({ selected, title, icon, path, testId }: 
             <Box bg={selected ? "red.100" : "transparent"} data-testid={testId}>
                 <HStack gap={2}>
                     <Box marginRight={4}>{icon}</Box>
-                    <Box marginEnd={"auto"}><Text fontWeight={"bold"} >{title}</Text></Box>
-                    <Box><Link to={path}><Button data-testid={`${testId}-open-button`} variant={"outline"} p={3} fontWeight={"bold"} fontSize={18} rounded={48}>open</Button></Link></Box>
+                    <Box marginEnd={"auto"}>
+                        <Text fontWeight={"bold"}>{title}</Text>
+                    </Box>
+                    <Box>
+                        <Link to={path}>
+                            <Button data-testid={`${testId}-open-button`} variant={"outline"} p={3} fontWeight={"bold"} fontSize={18} rounded={48}>open</Button>
+                        </Link>
+                    </Box>
                 </HStack>
             </Box>
             <br />
