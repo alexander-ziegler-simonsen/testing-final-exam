@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/playwright:v1.62.0-noble
+
+RUN corepack enable
+
+ENV CI=true
+ENV PLAYWRIGHT_VERSION=1.62.0
+ENV ELECTRON_SKIP_BINARY_DOWNLOAD=1
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+
+WORKDIR /app/client
+ENTRYPOINT ["bash", "component-test-entry.sh"]
