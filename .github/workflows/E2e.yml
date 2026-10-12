@@ -142,7 +142,7 @@ jobs:
         working-directory: ./tests/e2e
 
       - name: Run Playwright tests
-        run: pnpm exec playwright test --project=${{ matrix.browser }} --reporter=list,html,allure-playwright
+        run: pnpm exec playwright test --project=${{ matrix.browser }} --reporter=list,html
         working-directory: ./tests/e2e
 
       - uses: actions/upload-artifact@v4
@@ -150,14 +150,6 @@ jobs:
         with:
           name: playwright-report-${{ matrix.browser }}
           path: tests/e2e/playwright-report/
-          retention-days: 30
-
-      - name: Upload Allure results
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results-e2e-${{ matrix.browser }}
-          path: tests/e2e/allure-results/
           retention-days: 30
 
   # Split out from full-e2e-testing: the lighthouse audit (~11 pages x ~10s+
@@ -258,7 +250,7 @@ jobs:
         working-directory: ./tests/e2e
 
       - name: Run Lighthouse audit
-        run: pnpm exec playwright test --project=lighthouse --reporter=list,html,allure-playwright
+        run: pnpm exec playwright test --project=lighthouse --reporter=list,html
         working-directory: ./tests/e2e
 
       - uses: actions/upload-artifact@v4
@@ -266,12 +258,4 @@ jobs:
         with:
           name: playwright-report-lighthouse
           path: tests/e2e/playwright-report/
-          retention-days: 30
-
-      - name: Upload Allure results
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results-lighthouse
-          path: tests/e2e/allure-results/
           retention-days: 30

@@ -35,11 +35,3 @@ jobs:
             - name: Run unit tests
               run: pnpm run test:unit
               working-directory: ./client
-
-            - name: Upload Allure results
-              if: always()
-              uses: actions/upload-artifact@v4
-              with:
-                  name: allure-results-client
-                  path: client/docs/vitest_coverage/run_*/allure-results
-                  retention-days: 30

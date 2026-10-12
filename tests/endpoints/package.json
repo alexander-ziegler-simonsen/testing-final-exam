@@ -7,7 +7,6 @@
         "test": "bash run-postman.sh"
     },
     "devDependencies": {
-        "newman": "^6.2.2",
-        "newman-reporter-allure": "^3.10.2"
+        "newman": "^6.2.2"
     }
 }
