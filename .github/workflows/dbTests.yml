@@ -18,8 +18,6 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v4
 
-            # 👉 Install pnpm (pinned version - an unpinned `npm install -g pnpm`
-            # is what broke the client unit pipeline previously)
             - name: Setup pnpm
               uses: pnpm/action-setup@v4
               with:
@@ -32,13 +30,10 @@ jobs:
                   cache: "pnpm"
                   cache-dependency-path: ./tests/dbTests/pnpm-lock.yaml
 
-            # 👉 Install deps inside dbTests
             - name: Install dependencies
               working-directory: ./tests/dbTests
               run: pnpm install --frozen-lockfile
 
-            # 👉 Run tests, also writing a JUnit XML report so it can be
-            # turned into a job summary (same idea as apiUnitTests.yml's trx file)
             - name: Run DB tests
               working-directory: ./tests/dbTests
               run: pnpm exec vitest run --reporter=junit --outputFile=./test-results/junit.xml
