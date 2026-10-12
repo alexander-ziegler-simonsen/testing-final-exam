@@ -1,109 +1,90 @@
 name: API with DB tests
 
 on:
-    push:
-        branches: [main, master]
-    pull_request:
-        branches: [main, master]
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-    apiWithDbTests:
-        environment: monoEnv
-        runs-on: ubuntu-latest
-        timeout-minutes: 15
+  api-db-tests:
+    environment: monoEnv
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
-        services:
-            postgres:
-                image: postgres:16-alpine
-                env:
-                    POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-                    POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-                    POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-                ports:
-                    - 5432:5432
-                options: >-
-                    --health-cmd pg_isready
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
+    services:
+      postgres:
+        image: postgres:16-alpine
         env:
-            ConnectionStrings__DefaultConnection: Host=localhost;Port=5432;Database=${{ secrets.POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}
-            ASPNETCORE_URLS: http://localhost:5028
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        # Job steps don't start until this health check passes
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
 
-        steps:
-            # 1 Checkout FIRST
-            - name: Checkout code
-              uses: actions/checkout@v4
+    env:
+      # Picked up automatically by psql, so no -h/-U/-d flags needed
+      PGHOST: localhost
+      PGUSER: ${{ secrets.POSTGRES_USER }}
+      PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      PGDATABASE: ${{ secrets.POSTGRES_DB }}
+      # API config
+      ConnectionStrings__DefaultConnection: Host=localhost;Port=5432;Database=${{ secrets.POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}
+      ASPNETCORE_URLS: http://localhost:5028
+      BASE_URL: http://localhost:5028
 
-            # 2 Install PostgreSQL client (needed for pg_isready + psql)
-            - name: Install PostgreSQL client
-              run: sudo apt-get update && sudo apt-get install -y postgresql-client
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            # 3 Wait for DB
-            - name: Wait for PostgreSQL
-              run: |
-                  until PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql \
-                    -h localhost \
-                    -U ${{ secrets.POSTGRES_USER }} \
-                    -d ${{ secrets.POSTGRES_DB }} \
-                    -c '\q'; do
-                    echo "Waiting for database..."
-                    sleep 2
-                  done
+      - name: Initialize database (schema + seed)
+        run: |
+          psql -v ON_ERROR_STOP=1 -f initScripts/postgres/01_schema.sql
+          psql -v ON_ERROR_STOP=1 -f initScripts/postgres/02_seed.sql
 
-            # 4 Setup .NET
-            - name: Setup .NET
-              uses: actions/setup-dotnet@v4
-              with:
-                  dotnet-version: "10.0.x"
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
 
-            - name: Restore
-              run: dotnet restore api/hospitalApi.csproj
+      - name: Build API
+        run: dotnet build api/hospitalApi.csproj --configuration Release
 
-            - name: Build
-              run: dotnet build api/hospitalApi.csproj --no-restore --configuration Release
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
-            # 5 Initialize schema + seed
-            - name: Initialize database
-              run: |
-                  PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql \
-                    -h localhost \
-                    -U ${{ secrets.POSTGRES_USER }} \
-                    -d ${{ secrets.POSTGRES_DB }} \
-                    -f initScripts/postgres/01_schema.sql
-                  PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql \
-                    -h localhost \
-                    -U ${{ secrets.POSTGRES_USER }} \
-                    -d ${{ secrets.POSTGRES_DB }} \
-                    -f initScripts/postgres/02_seed.sql
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: tests/endpoints/pnpm-lock.yaml
 
-            # 6 Setup Node + pnpm for Newman
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                  version: 10
+      - name: Install Newman dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: tests/endpoints
 
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-                  cache: "pnpm"
-                  cache-dependency-path: ./tests/endpoints/pnpm-lock.yaml
+      - name: Start API
+        run: |
+          nohup dotnet run --project api/hospitalApi.csproj --configuration Release --no-build > api.log 2>&1 &
+          timeout 90 bash -c 'until nc -z localhost 5028; do sleep 2; done'
 
-            - name: Install Newman dependencies
-              run: pnpm install --frozen-lockfile
-              working-directory: ./tests/endpoints
+      - name: Run Postman collection
+        run: pnpm test
+        working-directory: tests/endpoints
 
-            - name: Start API
-              run: |
-                  dotnet run --project api/hospitalApi.csproj --configuration Release --no-build &
-
-            - name: Wait for API
-              run: |
-                  timeout 90 bash -c 'until nc -z localhost 5028; do sleep 2; done'
-
-            - name: Run Postman Collection
-              run: pnpm test
-              working-directory: ./tests/endpoints
-              env:
-                  BASE_URL: http://localhost:5028
+      - name: Show API log on failure
+        if: failure()
+        run: cat api.log
