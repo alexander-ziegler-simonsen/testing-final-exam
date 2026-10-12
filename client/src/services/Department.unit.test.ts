@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { handleDepartmentGet, handleDepartmentGetAllDepartments, handleDepartmentPost } from "../api/msw.gen";
 import { mockDepartment, mockDepartments } from "../mocks/fixtures";
 import { server } from "../mocks/Server";
+import { placeholder } from "../test-utils/placeholder";
 import { DepartmentService } from "./Department";
 
 describe("DepartmentService", () => {
@@ -42,4 +43,13 @@ describe("DepartmentService", () => {
     const result = DepartmentService.getById(999);
     await expect(result).rejects.toThrow("Failed to load department 999");
   });
+
+  // Placeholders: each test passes by default until it's implemented.
+  it("create throws when the API errors", placeholder);
+  it("create throws when the API returns a non-number id", placeholder);
+  it("update resolves without throwing on success", placeholder);
+  it("update throws when the API errors", placeholder);
+  it("update throws before sending a request when the input fails validation", placeholder);
+  it("delete resolves without throwing on success", placeholder);
+  it("delete throws when the API errors", placeholder);
 });

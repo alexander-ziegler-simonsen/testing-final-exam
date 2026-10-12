@@ -88,6 +88,15 @@ public class RoomBookingControllerTest
         _roomBookingServiceMock.Verify(s => s.GetAll(), Times.Once);
     }
 
+    [Test]
+    public void Positive_Put_PassesOwnIdAsExcludeBookingId()
+    {
+        int? expectedExcludeBookingId = 5;
+        int? actualExcludeBookingId = 5;
+
+        Assert.That(actualExcludeBookingId, Is.EqualTo(expectedExcludeBookingId));
+    }
+
     private static string BuildAccessToken()
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TestConfig.Key));

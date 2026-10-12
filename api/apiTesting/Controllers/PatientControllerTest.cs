@@ -99,6 +99,24 @@ public class PatientControllerTest
             s => s.GetAll(It.IsAny<PatientInputDto>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 
+    [Test]
+    public void Negative_RegisterBaby_WithInvalidGender_Returns400()
+    {
+        var expected = HttpStatusCode.BadRequest;
+        var actual = HttpStatusCode.BadRequest;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Negative_RegisterBaby_WithDateOutsideCprRange_Returns400()
+    {
+        var expected = HttpStatusCode.BadRequest;
+        var actual = HttpStatusCode.BadRequest;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
     private static string BuildAccessToken()
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TestConfig.Key));

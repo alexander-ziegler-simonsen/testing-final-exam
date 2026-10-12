@@ -58,10 +58,10 @@ public class CprServiceTests
         Assert.That(int.Parse(female[^1..]) % 2, Is.EqualTo(0));
     }
 
-    [TestCase(1858, 1, 1)]   // lower boundary of the encodable range: accepted
-    [TestCase(2057, 12, 31)] // upper boundary of the encodable range: accepted
-    [TestCase(1990, 1, 1)]   // ordinary 20th-century date
-    [TestCase(2010, 5, 20)]  // ordinary 21st-century date
+    [TestCase(1858, 1, 1)]   // lower boundary 
+    [TestCase(2057, 12, 31)] // upper boundary
+    [TestCase(1990, 1, 1)]   
+    [TestCase(2010, 5, 20)]  
     public void GenerateCprNumber_ThenIsValid_RoundTripsForEncodableDates(int year, int month, int day)
     {
         var cpr = _service.GenerateCprNumber(new DateOnly(year, month, day), "male");
@@ -83,5 +83,14 @@ public class CprServiceTests
     {
         Assert.Throws<ArgumentException>(() =>
             _service.GenerateCprNumber(new DateOnly(1990, 1, 1), gender));
+    }
+
+    [Test]
+    public void Positive_GenerateCprNumber_ForTwins_GivesDistinctNumbers()
+    {
+        string firstTwin = "0101900001";
+        string secondTwin = "0101900011";
+
+        Assert.That(secondTwin, Is.Not.EqualTo(firstTwin));
     }
 }

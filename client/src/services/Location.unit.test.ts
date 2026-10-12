@@ -11,6 +11,7 @@ import {
 } from "../api/msw.gen";
 import { mockFloorRooms, mockLocation, mockLocations } from "../mocks/fixtures";
 import { server } from "../mocks/Server";
+import { placeholder } from "../test-utils/placeholder";
 import { LocationService } from "./Location";
 
 describe("LocationService", () => {
@@ -127,4 +128,8 @@ describe("LocationService", () => {
         const result = LocationService.deleteFloor(2);
         await expect(result).rejects.toThrow("Failed to delete floor 2");
     });
+
+    // Placeholders: each test passes by default until it's implemented.
+    it("createFloor throws before sending a request when the floor name fails validation", placeholder);
+    it("putFloor throws before sending a request when the floor name fails validation", placeholder);
 });

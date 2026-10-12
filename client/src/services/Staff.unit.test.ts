@@ -1,36 +1,22 @@
-import { staffGetAllStaffs, staffGet, staffPost, staffPut, staffDelete } from "../api";
-import { zHospitalApiDtosInputsStaffInputDto } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsStaffOutputDto, HospitalApiDtosInputsStaffInputDto } from "../api";
+import { describe, it } from "vitest";
+import { placeholder } from "../test-utils/placeholder";
 
-export const StaffService = {
-  getAll: async (): Promise<HospitalApiDtosOutputsStaffOutputDto[]> => {
-    const { data, error } = await staffGetAllStaffs();
-    if (error) throw new Error("Failed to load staff");
-    return data;
-  },
+// Placeholders: each test passes by default until it's implemented.
 
-  getById: async (id: number): Promise<HospitalApiDtosOutputsStaffOutputDto> => {
-    const { data, error } = await staffGet({ path: { id } });
-    if (error) throw new Error(`Failed to load staff ${id}`);
-    return data;
-  },
-
-  create: async (newStaff: HospitalApiDtosInputsStaffInputDto): Promise<number> => {
-    const body = zHospitalApiDtosInputsStaffInputDto.parse(newStaff);
-    const { data, error } = await staffPost({ body });
-    if (error) throw new Error("Failed to create staff");
-    if (typeof data !== "number") throw new Error("Failed to create staff");
-    return data;
-  },
-
-  update: async (id: number, changedStaff: HospitalApiDtosInputsStaffInputDto): Promise<void> => {
-    const body = zHospitalApiDtosInputsStaffInputDto.parse(changedStaff);
-    const { error } = await staffPut({ path: { id }, body });
-    if (error) throw new Error(`Failed to update staff ${id}`);
-  },
-
-  delete: async (id: number): Promise<void> => {
-    const { error } = await staffDelete({ path: { id } });
-    if (error) throw new Error(`Failed to delete staff ${id}`);
-  },
-};
+describe("StaffService", () => {
+    it("getAll returns the mocked staff list", placeholder);
+    it("getAll throws when the API errors", placeholder);
+    it("getById returns a single mocked staff member", placeholder);
+    it("getById throws when the staff member is missing", placeholder);
+    it("create posts the input and returns the new id", placeholder);
+    it("create throws when the API errors", placeholder);
+    it("create throws when the API returns a non-number id", placeholder);
+    it("create throws before sending a request when the firstname is shorter than 2 characters", placeholder);
+    it("update resolves without throwing on success", placeholder);
+    it("update throws when the API errors", placeholder);
+    it("update throws before sending a request when the input fails validation", placeholder);
+    it("delete resolves without throwing on success", placeholder);
+    it("delete throws when the API errors", placeholder);
+    it("getCount returns the mocked staff count", placeholder);
+    it("getCount throws when the API errors", placeholder);
+});

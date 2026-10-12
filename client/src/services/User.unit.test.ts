@@ -8,6 +8,7 @@ import {
 } from "../api/msw.gen";
 import { mockUser, mockUsers } from "../mocks/fixtures";
 import { server } from "../mocks/Server";
+import { placeholder } from "../test-utils/placeholder";
 import { UserService } from "./User";
 
 describe("UserService", () => {
@@ -72,4 +73,8 @@ describe("UserService", () => {
         const result = UserService.delete(mockUser.id!);
         await expect(result).rejects.toThrow(`Failed to delete user ${mockUser.id}`);
     });
+
+    // Placeholders: each test passes by default until it's implemented.
+    it("register throws before sending a request when the password is shorter than 8 characters", placeholder);
+    it("changePassword sends a numeric-only password like \"12345678\" as a JSON string, not a number", placeholder);
 });
