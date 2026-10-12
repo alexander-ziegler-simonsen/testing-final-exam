@@ -2,7 +2,10 @@ name: Lint client
 
 on:
   push:
+    branches: [main]
+    paths: ["client/**", ".github/workflows/lint.yml"]
   pull_request:
+    paths: ["client/**", ".github/workflows/lint.yml"]
 
 jobs:
   lint-client:
@@ -12,55 +15,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 10.20.0
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
 
-      - name: Approve builds
-        working-directory: ./client
-        run: pnpm approve-builds
-
-      - name: Install dependencies
-        working-directory: ./client
-        run: pnpm install --frozen-lockfile
-
-      # --format=json gives one record per finding (file, line, rule, message,
-      # severity) which is used below to build both the inline PR annotations
-      # and the warnings/errors tables in the job summary - a single run
-      # instead of linting twice with two different formatters.
       - name: Run oxlint
-        working-directory: ./client
-        run: |
-          set +e
-          pnpm exec oxlint -c configs/.oxlintrc.json --tsconfig=configs/tsconfig.json --format=json > oxlint-report.json
-          exit_code=$?
-          set -e
-
-          # Inline PR annotations, one workflow command per finding.
-          jq -r '
-            .diagnostics[]
-            | "::\(.severity) file=\(.filename),line=\(.labels[0].span.line // 1),col=\(.labels[0].span.column // 1),title=\(.code)::\(.message)"
-          ' oxlint-report.json
-
-          # Errors table, then warnings table, appended to the job summary.
-          jq -r '
-            def esc: gsub("\\|"; "\\|") | gsub("\n"; " ");
-            def table(sev):
-              [.diagnostics[] | select(.severity == sev)] as $items
-              | if ($items | length) == 0 then
-                  "_None._"
-                else
-                  ["| File | Line | Rule | Message |", "|---|---|---|---|"]
-                  + [$items[] | "| \(.filename) | \(.labels[0].span.line // "-") | \(.code) | \(.message | esc) |"]
-                  | join("\n")
-                end;
-            "## Oxlint results\n\n### Errors\n\n\(table("error"))\n\n### Warnings\n\n\(table("warning"))"
-          ' oxlint-report.json >> "$GITHUB_STEP_SUMMARY"
-
-          exit $exit_code
+        uses: oxc-project/oxlint-action@v2.0.1
+        with:
+            working-directory: ./client
+            config: configs/.oxlintrc.json
+            version: 1.71.0
