@@ -51,10 +51,6 @@ export const mockMedicineDetail: HospitalApiDtosExternalMedicineDetailOutputDto 
     tilskudTekst: null,
 };
 
-// Fixtures for the e2e "external-only" MSW mode (see mocks/e2eHandlers.ts).
-// Shaped to match what tests/e2e/tests/test-2.spec.ts already asserts on: a
-// "panodi" search returning two products with real details and one
-// (varenummer 008453) whose detail lookup 404s.
 export const mockE2eExternalMedicinSearchResults: HospitalApiDtosExternalMedicineProductOutputDto[] = [
     {
         navn: "Panodil",
