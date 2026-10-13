@@ -84,12 +84,7 @@ jobs:
           PGHOST: ${{ env.POSTGRES_HOST }}
           PGUSER: ${{ env.POSTGRES_USER }}
           PGPASSWORD: ${{ env.POSTGRES_PASSWORD }}
-        run: |
-          apt-get update -qq && apt-get install -y -qq --no-install-recommends postgresql-client
-          for f in ./initScripts/postgres/*.sql; do
-            echo "Running $f"
-            psql -v ON_ERROR_STOP=1 -d "$POSTGRES_DB" -f "$f"
-          done
+        run: bash ./tests/e2e/init-db.sh
 
       - uses: actions/download-artifact@v4
         with:
