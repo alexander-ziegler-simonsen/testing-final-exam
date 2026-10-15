@@ -9,8 +9,10 @@ export default function RegisterBaby() {
   const [gender, setGender] = useState<"male" | "female" | "">("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
 
-  const canSubmit = !submitting && firstname.trim() && lastname.trim() && gender && dateOfBirth;
+  const canSubmit = !submitting && firstname.trim() && lastname.trim() && gender && dateOfBirth && weight;
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -23,6 +25,8 @@ export default function RegisterBaby() {
         lastname: lastname.trim(),
         gender,
         dateOfBirth,
+        weightKg: parseFloat(weight),
+        heightCm: parseFloat(height),
       });
 
       toaster.create({ type: "success", title: "Baby registered", description: "A new patient record was created." });
@@ -46,12 +50,22 @@ export default function RegisterBaby() {
         <Stack gap="4">
           <Field.Root required>
             <Field.Label>First name<Field.RequiredIndicator /></Field.Label>
-            <Input data-testid="register-baby-field-firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+            <Input type="text" data-testid="register-baby-field-firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
           </Field.Root>
 
           <Field.Root required>
             <Field.Label>Last name<Field.RequiredIndicator /></Field.Label>
-            <Input data-testid="register-baby-field-lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+            <Input type="text" data-testid="register-baby-field-lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+          </Field.Root>
+
+          <Field.Root required>
+            <Field.Label>Weight<Field.RequiredIndicator /></Field.Label>
+            <Input type="number" data-testid="register-baby-field-weight" value={weight} onChange={(e) => setWeight(e.target.value)} />
+          </Field.Root>
+
+          <Field.Root required>
+            <Field.Label>Height<Field.RequiredIndicator /></Field.Label>
+            <Input type="number" data-testid="register-baby-field-height" value={height} onChange={(e) => setHeight(e.target.value)} />
           </Field.Root>
 
           <Field.Root required>

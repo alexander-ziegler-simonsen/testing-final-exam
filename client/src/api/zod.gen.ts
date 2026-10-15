@@ -99,7 +99,9 @@ export const zHospitalApiDtosInputsPrescriptionInputDto = z.object({
 export const zHospitalApiDtosInputsRegisterBabyDto = z.object({
     firstname: z.string().min(2).max(100).nullish(),
     lastname: z.string().min(2).max(100).nullish(),
-    gender: z.string().min(2).max(50).nullish(),
+    weightKg: z.number().gte(0).lte(20).optional(),
+    heightCm: z.number().gte(0).lte(80).optional(),
+    gender: z.string().nullish(),
     dateOfBirth: z.iso.date().optional()
 });
 

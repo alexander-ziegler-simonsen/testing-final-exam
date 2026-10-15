@@ -101,6 +101,8 @@ export type HospitalApiDtosInputsPrescriptionInputDto = {
 export type HospitalApiDtosInputsRegisterBabyDto = {
     firstname?: null | string;
     lastname?: null | string;
+    weightKg?: number;
+    heightCm?: number;
     gender?: null | string;
     dateOfBirth?: string;
 };
