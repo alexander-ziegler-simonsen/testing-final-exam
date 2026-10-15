@@ -91,7 +91,9 @@ namespace hospitalApi.Controllers
                 Lastname = newBaby.Lastname,
                 Gender = newBaby.Gender,
                 CprNumber = cprNumber,
-                DateOfBirth = newBaby.DateOfBirth
+                DateOfBirth = newBaby.DateOfBirth,
+                WeightKg = newBaby.WeightKg,
+                HeightCm = newBaby.HeightCm
             };
 
             int newId = await _PatientService.CreatePatient(patientInput);
