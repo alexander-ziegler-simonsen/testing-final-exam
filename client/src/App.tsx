@@ -6,29 +6,27 @@ import Login from './pages/auth/Login'
 import Doctors from './pages/public/Doctors'
 import Contact from './pages/public/Contact'
 import DashboardLayout from './pages/DashboardLayout'
-import Overview from './pages/dashboards/Overview'
-import Departments from './pages/dashboards/Departments'
-import DepartmentStaff from './pages/dashboards/DepartmentStaff'
-import Facilities from './pages/dashboards/Facilities'
-import OneFacility from './pages/dashboards/OneFacility'
-import MissingMedicin from './pages/dashboards/MissingMedicin'
-import MedicinStorage from './pages/dashboards/MedicinStorage'
-import OneMedicin from './pages/dashboards/OneMedicin'
-import ExternalMedicin from './pages/dashboards/ExternalMedicin'
-import OneExternalMedicin from './pages/dashboards/OneExternalMedicin'
-import Patients from './pages/dashboards/Patients'
-import OnePatient from './pages/dashboards/OnePatient'
-import RegisterBaby from './pages/dashboards/RegisterBaby'
-import Staff from './pages/dashboards/Staff'
-import RoomBooking from './pages/dashboards/RoomBooking'
-import OneRoomBooking from './pages/dashboards/OneRoomBooking'
-import OneRoom from './pages/dashboards/OneRoom'
-import Treatments from './pages/dashboards/Treatments'
-import OneTreatment from './pages/dashboards/OneTreatment'
-import GiveTreatment from './pages/dashboards/GiveTreatment'
+import Overview from './pages/dashboardsOld/Overview'
+import Departments from './pages/dashboardsOld/Departments'
+import DepartmentStaff from './pages/dashboardsOld/DepartmentStaff'
+import Facilities from './pages/dashboardsOld/Facilities'
+import OneFacility from './pages/dashboardsOld/OneFacility'
+import Patients from './pages/dashboardsOld/Patients'
+import OnePatient from './pages/dashboardsOld/OnePatient'
+import RegisterBaby from './pages/dashboardsOld/RegisterBaby'
+import Staff from './pages/dashboardsOld/Staff'
+import RoomBooking from './pages/dashboardsOld/RoomBooking'
+import OneRoomBooking from './pages/dashboardsOld/OneRoomBooking'
+import OneRoom from './pages/dashboardsOld/OneRoom'
+import Treatments from './pages/dashboardsOld/Treatments'
+import OneTreatment from './pages/dashboardsOld/OneTreatment'
+import GiveTreatment from './pages/dashboardsOld/GiveTreatment'
 import { RoleProtectedRoute } from './components/auth/RoleProtectedRoute'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import { Toaster } from './components/ui/toaster'
+import OneMedicinPage from './pages/dashboards/subPage/OneMedicinPage'
+import MedicinDashboard from './pages/dashboards/MedicinDashboard'
+import OneExternalMedicinPage from './pages/dashboards/subPage/OneExternalMedicinPage'
 
 // https://mswjs.io/docs/integrations/browser/#conditionally-enable-mocking
 function MockingNotice() {
@@ -77,11 +75,9 @@ function App() {
               <Route path="patients" element={<Patients />} />
               <Route path="patients/:id" element={<OnePatient />} />
               <Route path="register_baby" element={<RegisterBaby />} />
-              <Route path="missing_medicin" element={<MissingMedicin />} />
-              <Route path="medicin_storage" element={<MedicinStorage />} />
-              <Route path="medicin_storage/:id" element={<OneMedicin />} />
-              <Route path="external_medicin" element={<ExternalMedicin />} />
-              <Route path="external_medicin/:id" element={<OneExternalMedicin />} />
+              <Route path="medicin" element={<MedicinDashboard />} />
+              <Route path="medicin/:id" element={<OneMedicinPage />} />
+              <Route path="external_medicin/:id" element={<OneExternalMedicinPage />} />
               <Route path="room_booking" element={<RoomBooking />} />
               <Route path="room_booking/room/:id" element={<OneRoom />} />
               <Route path="room_booking/:id" element={<OneRoomBooking />} />

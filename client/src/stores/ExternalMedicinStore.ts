@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { HospitalApiDtosExternalMedicineProductOutputDto } from "../api";
 
-type SearchMode = "name" | "ingredient";
+export type SearchMode = "name" | "ingredient";
 
 interface ExternalMedicinState {
     missingDetailIds: string[];
