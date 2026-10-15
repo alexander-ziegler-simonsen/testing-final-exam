@@ -46,7 +46,7 @@ export default function OneMedicin() {
 
     return (
         <Stack gap="4" data-testid="one-medicin-page">
-            <Button data-testid="one-medicin-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/medicin_storage")}>Back to medicin storage</Button>
+            <Button data-testid="one-medicin-back-button" alignSelf="start" variant="outline" onClick={() => navigate("/app/medicin")}>Back to medicin storage</Button>
 
             <HStack justify="space-between">
                 <Heading data-testid="one-medicin-heading" size="lg">{medication.name}</Heading>
