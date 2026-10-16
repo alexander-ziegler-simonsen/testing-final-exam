@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Medicin", to: "/app/medicin" },
   { label: "Rooms", to: "/app/rooms" },
   { label: "staff", to: "/app/staff" },
+  { label: "settings", to: "/app/settings" },
 ];
 
 const roleIcons: Record<string, { icon: IconType; color: string }> = {
