@@ -3,13 +3,29 @@ import { DataTable, type ColumnConfig } from "../../../../components/dashboards/
 import { TreatmentService } from "../../../../services/patients/Treatment";
 import { useEffect, useMemo, useState } from "react";
 import { PatientService } from "../../../../services/patients/Patient";
-import { authLogin, zHospitalApiDtosInputsLoginInputDto, type HospitalApiDtosOutputsMedicationOutputDto, type HospitalApiDtosOutputsMedicationStorageOutputDto, type HospitalApiDtosOutputsPatientOutputDto, type HospitalApiDtosOutputsTreatmentOutputDto } from "../../../../api";
+import { authLogin, zHospitalApiDtosInputsLoginInputDto, type HospitalApiDtosInputsPatientInputDto, type HospitalApiDtosOutputsMedicationOutputDto, type HospitalApiDtosOutputsMedicationStorageOutputDto, type HospitalApiDtosOutputsPatientOutputDto, type HospitalApiDtosOutputsTreatmentOutputDto } from "../../../../api";
 import { useNavigate, useParams } from "react-router";
 import { toaster } from "../../../../components/ui/toaster";
 import { MedicationService } from "../../../../services/medicin/Medication";
 import { MedicationStorageService } from "../../../../services/medicin/MedicationStorage";
 import { useAuthStore } from "../../../../stores/AuthStore";
 import { PrescriptionService } from "../../../../services/patients/Prescription";
+import { CommandFormPopup, type FieldConfig } from "../../../../components/dashboards/CommandFormPopup";
+import { useCommandPopup } from "../../../../hooks/useCommandPopup";
+import { LuPencil, LuTrash2 } from "react-icons/lu";
+
+const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
+    { key: "firstname", label: "First name", type: "text", required: true, lockedOnEdit: true },
+    { key: "lastname", label: "Last name", type: "text", required: true, lockedOnEdit: true },
+    {
+        key: "gender", label: "Gender", type: "select", required: true, lockedOnEdit: true,
+        options: [{ label: "Male", value: "Male" }, { label: "Female", value: "Female" }, { label: "Other", value: "Other" },],
+    },
+    { key: "cprNumber", label: "CPR Number", type: "text", required: true, lockedOnEdit: true },
+    { key: "dateOfBirth", label: "Date of birth", type: "date", lockedOnEdit: true },
+    { key: "weightKg", label: "Weight (kg)", type: "number" },
+    { key: "heightCm", label: "Height (cm)", type: "number" },
+];
 
 // give treatment
 type ApprovalStep = "none" | "required" | "signing" | "approved";
@@ -35,15 +51,23 @@ export default function OnePatientPage() {
     const [patient, setPatient] = useState<HospitalApiDtosOutputsPatientOutputDto | null>(null);
     const [treatments, setTreatments] = useState<HospitalApiDtosOutputsTreatmentOutputDto[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, openEdit, openDelete } =
+        useCommandPopup<HospitalApiDtosOutputsPatientOutputDto>();
 
-    useEffect(() => {
+    const loadPatient = () => {
         if (!id) return;
         PatientService.getById(Number(id))
             .then(setPatient)
             .catch((err) => setError(err.message));
+    };
+
+    useEffect(() => {
+        if (!id) return;
+        loadPatient();
         TreatmentService.getAll({ fkPatientId: Number(id) })
             .then(setTreatments)
             .catch((err) => setError(err.message));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     // give treatment
@@ -233,7 +257,13 @@ export default function OnePatientPage() {
 
                 <HStack gap="60" align="center" wrap="wrap">
                     <div>
-                        <Heading data-testid="one-patient-heading" size="lg">{patient.firstname} {patient.lastname}</Heading>
+                        <HStack justify="space-between" gap="4">
+                            <Heading data-testid="one-patient-heading" size="lg">{patient.firstname} {patient.lastname}</Heading>
+                            <HStack gap="2">
+                                <Button data-testid="one-patient-edit-button" size="sm" variant="outline" onClick={() => openEdit(patient)}><LuPencil /> Edit</Button>
+                                <Button data-testid="one-patient-delete-button" size="sm" variant="outline" colorPalette="red" onClick={() => openDelete(patient)}><LuTrash2 /> Delete</Button>
+                            </HStack>
+                        </HStack>
 
                         <Stack gap="2">
                             <Text data-testid="one-patient-field-id"><b>Id:</b> {patient.id}</Text>
@@ -359,6 +389,10 @@ export default function OnePatientPage() {
                 <Heading size="md" mt="4">Treatments</Heading>
                 <DataTable testId="patient-treatments-table" data={treatments} columns={treatmentColumns} pageSize={5} onRowClick={(treatment) => navigate(`/app/treatment/${treatment.id}`)} />
             </Stack>
+
+            <CommandFormPopup<HospitalApiDtosInputsPatientInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Patient" fields={patientFields}
+                itemId={patient.id} initialValues={patient} service={PatientService} testId="one-patient-form"
+                onSuccess={(mode) => (mode === "delete" ? navigate("/app/patients") : loadPatient())} />
         </>
     );
 }

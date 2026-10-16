@@ -1,14 +1,15 @@
-import { Button, Field, HStack, IconButton, Input } from "@chakra-ui/react";
-import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
+import { Button, Field, HStack, Input } from "@chakra-ui/react";
+import { LuPlus } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import { useEffect, useMemo, useState } from "react";
 import type { HospitalApiDtosInputsRoomBookingInputDto, HospitalApiDtosOutputsFloorRoomsOutputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsRoomBookingOutputDto } from "../../../api";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 import { RoomBookingService } from "../../../services/rooms/RoomBooking";
 import { PatientService } from "../../../services/patients/Patient";
-import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
+import { CommandFormPopup } from "../../../components/dashboards/CommandFormPopup";
 import { useNavigate } from "react-router";
 import { LocationService } from "../../../services/facilities/Location";
+import { buildRoomBookingFields, roomBookingFormService } from "./roomBookingForm";
 
 interface RoomBookingRow {
   id?: number;
@@ -16,27 +17,24 @@ interface RoomBookingRow {
   patientName: string;
   startTime?: string;
   endTime?: string;
-  actions?: undefined;
 }
 
-// datetime-local inputs need "YYYY-MM-DDTHH:mm", not a full ISO string.
-const toDatetimeLocal = (value?: string | null) => (value ? value.slice(0, 16) : "");
+const columns: ColumnConfig<RoomBookingRow>[] = [
+  { key: "id", header: "Id" },
+  { key: "roomName", header: "Room", enableSearch: true },
+  { key: "patientName", header: "Patient", enableSearch: true },
+  { key: "startTime", header: "Start Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
+  { key: "endTime", header: "End Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
+];
 
-// The API's zod schema requires a full ISO datetime (seconds + timezone),
-// but datetime-local inputs only produce "YYYY-MM-DDTHH:mm".
-const fromDatetimeLocal = (value: unknown): string | undefined => {
-  if (typeof value !== "string" || !value) return undefined;
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
-};
-
+// Edit and delete live on the booking's own page (OneRoomBookingPage).
 export default function BookingsTab() {
   const navigate = useNavigate();
 
   const [bookings, setBookings] = useState<HospitalApiDtosOutputsRoomBookingOutputDto[]>([]);
   const [floors, setFloors] = useState<HospitalApiDtosOutputsFloorRoomsOutputDto[]>([]);
   const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedBooking, openCreate, openEdit, openDelete } =
+  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, openCreate } =
     useCommandPopup<HospitalApiDtosOutputsRoomBookingOutputDto>();
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -90,79 +88,7 @@ export default function BookingsTab() {
     [dateFilteredBookings, roomMap, patientMap],
   );
 
-  const roomOptions = useMemo(
-    () => rooms.map((r) => ({ label: r.name ?? `Room #${r.id}`, value: r.id ?? 0 })),
-    [rooms],
-  );
-
-  const patientOptions = useMemo(
-    () =>
-      patients.map((p) => ({
-        label: [p.firstname, p.lastname].filter(Boolean).join(" "),
-        value: p.id ?? 0,
-      })),
-    [patients],
-  );
-
-  const roomBookingFields: FieldConfig<HospitalApiDtosInputsRoomBookingInputDto>[] = useMemo(
-    () => [
-      { key: "fkRoomId", label: "Room", type: "select", required: true, options: roomOptions },
-      { key: "fkPatientId", label: "Patient", type: "select", required: true, options: patientOptions },
-      { key: "startTime", label: "Start Time", type: "datetime", required: true },
-      { key: "endTime", label: "End Time", type: "datetime", required: true },
-    ],
-    [roomOptions, patientOptions],
-  );
-
-  // Converts the datetime-local values from the form into full ISO strings
-  // before they hit the API's zod validation.
-  const roomBookingFormService: CommandFormService<HospitalApiDtosInputsRoomBookingInputDto> = useMemo(
-    () => ({
-      create: (values) =>
-        RoomBookingService.create({
-          ...values,
-          startTime: fromDatetimeLocal(values.startTime),
-          endTime: fromDatetimeLocal(values.endTime),
-        }),
-      update: (id, values) =>
-        RoomBookingService.update(id, {
-          ...values,
-          startTime: fromDatetimeLocal(values.startTime),
-          endTime: fromDatetimeLocal(values.endTime),
-        }),
-      delete: (id) => RoomBookingService.delete(id),
-    }),
-    [],
-  );
-
-  const columns: ColumnConfig<RoomBookingRow>[] = [
-    { key: "id", header: "Id" },
-    { key: "roomName", header: "Room", enableSearch: true },
-    { key: "patientName", header: "Patient", enableSearch: true },
-    { key: "startTime", header: "Start Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
-    { key: "endTime", header: "End Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
-    {
-      key: "actions", header: "Actions", enableSort: false,
-      render: (_value, item) => {
-        const booking = bookings.find((b) => b.id === item.id);
-        if (!booking) return null;
-        return (
-          <HStack gap="2">
-            <IconButton aria-label="Edit room booking" size="sm" variant="ghost" data-testid={`room-booking-edit-${item.id}`} onClick={(e) => {
-              e.stopPropagation();
-              openEdit(booking);
-            }}><LuPencil /></IconButton>
-            <IconButton aria-label="Delete room booking" size="sm" variant="ghost" colorPalette="red"
-              onClick={(e) => {
-                e.stopPropagation();
-                openDelete(booking);
-              }}
-              data-testid={`room-booking-delete-${item.id}`}><LuTrash2 /></IconButton>
-          </HStack>
-        );
-      },
-    },
-  ];
+  const roomBookingFields = useMemo(() => buildRoomBookingFields(rooms, patients), [rooms, patients]);
 
   return (
     <>
@@ -185,17 +111,10 @@ export default function BookingsTab() {
         <Button data-testid="room-booking-add-button" onClick={openCreate}><LuPlus /> Add Room Booking</Button>
       </HStack>
 
-      <DataTable<RoomBookingRow> testId="room-booking-table" data={rows} columns={columns} pageSize={10} onRowClick={(item) => navigate(`/app/rooms/${item.id}`)} />
+      <DataTable<RoomBookingRow> testId="room-booking-table" data={rows} columns={columns} pageSize={10} onRowClick={(item) => navigate(`/app/room_booking/${item.id}`)} />
 
       <CommandFormPopup<HospitalApiDtosInputsRoomBookingInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Room Booking"
-        fields={roomBookingFields} itemId={selectedBooking?.id} initialValues={
-          selectedBooking
-            ? {
-              ...selectedBooking,
-              startTime: toDatetimeLocal(selectedBooking.startTime),
-              endTime: toDatetimeLocal(selectedBooking.endTime),
-            } : undefined
-        } service={roomBookingFormService} onSuccess={loadBookings} testId="room-booking-form" />
+        fields={roomBookingFields} service={roomBookingFormService} onSuccess={loadBookings} testId="room-booking-form" />
     </>
   );
 }

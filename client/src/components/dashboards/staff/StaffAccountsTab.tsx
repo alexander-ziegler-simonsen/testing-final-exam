@@ -1,23 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
-import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Button, HStack, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 import type { HospitalApiDtosInputsRegisterInputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsStaffOutputDto, HospitalApiDtosOutputsUserOutputDto } from "../../../api";
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../CommandFormPopup";
 import { DataTable, type ColumnConfig } from "../DataTable";
-import { LuKeyRound, LuPlus, LuTrash2 } from "react-icons/lu";
+import { LuPlus } from "react-icons/lu";
 import { StaffService } from "../../../services/staff/Staff";
 import { PatientService } from "../../../services/patients/Patient";
 import { UserService } from "../../../services/auth/User";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 
-// Extends the output DTO with a synthetic column key for the actions cell,
-// since ColumnConfig keys must be keyof T.
-type UserRow = HospitalApiDtosOutputsUserOutputDto & { actions?: undefined };
-
+// Change password and delete live on the user's own page (OneUserPage).
 export default function StaffAccountsTab() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState<HospitalApiDtosOutputsUserOutputDto[]>([]);
   const [staff, setStaff] = useState<HospitalApiDtosOutputsStaffOutputDto[]>([]);
   const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedUser, openCreate, openEdit, openDelete } =
+  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, openCreate } =
     useCommandPopup<HospitalApiDtosOutputsUserOutputDto>();
 
   const loadUsers = () => {
@@ -73,22 +72,17 @@ export default function StaffAccountsTab() {
     [patients],
   );
 
-  // "Edit" on a user account only ever changes the password - the API has no
-  // endpoint to rename a username or re-point fkStaffId/fkPatientId - so the
-  // field list is mode-dependent instead of shared between create and edit.
   // A user is either a staff login or a patient login - pick one, leave the
   // other blank.
-  const userFields: FieldConfig<HospitalApiDtosInputsRegisterInputDto>[] = useMemo(() => {
-    if (popupMode === "edit") {
-      return [{ key: "password", label: "New Password", type: "text", required: true }];
-    }
-    return [
+  const userFields: FieldConfig<HospitalApiDtosInputsRegisterInputDto>[] = useMemo(
+    () => [
       { key: "username", label: "Username", type: "text", required: true },
       { key: "password", label: "Password", type: "text", required: true },
       { key: "fkStaffId", label: "Staff Member", type: "select", options: staffOptions, placeholder: "— none —" },
       { key: "fkPatientId", label: "Patient", type: "select", options: patientOptions, placeholder: "— none —" },
-    ];
-  }, [popupMode, staffOptions, patientOptions]);
+    ],
+    [staffOptions, patientOptions],
+  );
 
   const userFormService: CommandFormService<HospitalApiDtosInputsRegisterInputDto> = useMemo(
     () => ({
@@ -106,32 +100,14 @@ export default function StaffAccountsTab() {
           fkPatientId: hasPatient ? values.fkPatientId : undefined,
         });
       },
-      update: (id, values) => UserService.changePassword(id, String(values.password ?? "")),
-      delete: (id) => UserService.delete(id),
     }),
     [],
   );
 
-  const columns: ColumnConfig<UserRow>[] = [
+  const columns: ColumnConfig<HospitalApiDtosOutputsUserOutputDto>[] = [
     { key: "id", header: "Id" },
     { key: "username", header: "Username", enableSearch: true },
     { key: "fkStaffId", header: "Linked Account", enableSearch: true, sortValue: (item) => linkedAccountLabel(item), render: (_value, item) => linkedAccountLabel(item), },
-    {
-      key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
-        <HStack gap="2">
-          <IconButton aria-label="Change password" size="sm" variant="ghost" onClick={(e) => {
-            e.stopPropagation();
-            openEdit(item);
-          }} data-testid={`staff-edit-${item.id}`}><LuKeyRound /></IconButton>
-
-          <IconButton aria-label="Delete user" size="sm" variant="ghost" colorPalette="red" onClick={(e) => {
-            e.stopPropagation();
-            openDelete(item);
-          }}
-            data-testid={`staff-delete-${item.id}`}><LuTrash2 /></IconButton>
-        </HStack>
-      ),
-    },
   ];
 
   return (
@@ -141,9 +117,9 @@ export default function StaffAccountsTab() {
         <Button data-testid="staff-add-button" onClick={openCreate}><LuPlus /> Add User</Button>
       </HStack>
 
-      <DataTable<UserRow> testId="staff-table" data={users} columns={columns} pageSize={10} />
+      <DataTable<HospitalApiDtosOutputsUserOutputDto> testId="staff-table" data={users} columns={columns} pageSize={10} onRowClick={(user) => navigate(`/app/users/${user.id}`)} />
 
-      <CommandFormPopup<HospitalApiDtosInputsRegisterInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="User" fields={userFields} itemId={selectedUser?.id} initialValues={selectedUser ?? undefined} service={userFormService} onSuccess={loadUsers} testId="staff-form" />
+      <CommandFormPopup<HospitalApiDtosInputsRegisterInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="User" fields={userFields} service={userFormService} onSuccess={loadUsers} testId="staff-form" />
     </>
   );
 }
