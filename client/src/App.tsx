@@ -22,6 +22,7 @@ import StaffDashboard from './pages/dashboards/StaffDashboard'
 import OneRoomPage from './pages/dashboards/subPage/rooms/OneRoomPage'
 import OneFacilityPage from './pages/dashboards/subPage/facilities/OneFacilityPage'
 import TreatmentDashboard from './pages/dashboards/TreatmentDashboard'
+import ConfigDashboard from './pages/dashboards/ConfigDashboard'
 
 // https://mswjs.io/docs/integrations/browser/#conditionally-enable-mocking
 function MockingNotice() {
@@ -51,7 +52,9 @@ function App() {
 
         {/* Enforces user authentication */}
         <Route element={<ProtectedRoute />}>
-          <Route path="app" element={<DashboardLayout />}>
+          <Route path="app" element={<DashboardLayout />}>'
+
+            <Route path="settings" element={<ConfigDashboard />} />
 
             {/* Accessible by Everyone (Staff AND Patients) */}
             <Route path="treatment" element={<TreatmentDashboard />} />
