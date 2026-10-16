@@ -1,7 +1,15 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Link as ChakraLink, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 import { useAuthStore } from "../../stores/AuthStore";
 import { AuthService } from "../../services/Auth";
+
+const navLinks = [
+  { label: "facilities", to: "/app/facilities" },
+  { label: "Patients", to: "/app/patients" },
+  { label: "Medicin", to: "/app/medicin" },
+  { label: "Rooms", to: "/app/rooms" },
+  { label: "staff", to: "/app/staff" },
+];
 
 export default function Navbar() {
   const user = useAuthStore((state) => state.user);
@@ -30,6 +38,14 @@ export default function Navbar() {
       <Box display={"flex"} gap={6} ml={8} marginEnd={"auto"} data-testid="dashboard-navbar-user-greeting">
         <Text textStyle={"xl"}>{user ? `${user.firstName} ${user.lastName}` : "unknown person"}</Text>
       </Box>
+
+      <HStack as="nav" gap={4} data-testid="dashboard-navbar-links">
+        {navLinks.map((link) => (
+          <ChakraLink key={link.to} asChild fontWeight={"medium"} px={3} py={1} rounded={"md"} _hover={{ bg: "gray.100" }}>
+            <Link to={link.to}>{link.label}</Link>
+          </ChakraLink>
+        ))}
+      </HStack>
 
       {/* book btn */}
       <Box display={"flex"}>
