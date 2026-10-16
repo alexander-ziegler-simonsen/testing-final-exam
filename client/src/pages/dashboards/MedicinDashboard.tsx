@@ -3,9 +3,9 @@ import { Tabs, Text } from "@chakra-ui/react";
 import { useSearchParams } from "react-router";
 import { LuFlaskConical, LuPackageX, LuTextSearch, LuWarehouse } from "react-icons/lu";
 import { useExternalMedicinStore } from "../../stores/ExternalMedicinStore";
-import StorageTab from "./medicin/StorageTab";
-import MissingMedicinTab from "./medicin/MissingMedicinTab";
-import ExternalMedicinSearchTab from "./medicin/ExternalMedicinSearchTab";
+import StorageTab from "../../components/dashboards/medicin/StorageTab";
+import MissingMedicinTab from "../../components/dashboards/medicin/MissingMedicinTab";
+import ExternalMedicinSearchTab from "../../components/dashboards/medicin/ExternalMedicinSearchTab";
 
 const medicinTabs = ["storage", "missing", "name", "ingredient"] as const;
 type MedicinTab =(typeof medicinTabs)[number];
@@ -38,10 +38,6 @@ export default function MedicinDashboard() {
         MedicinDashboard
       </Text>
 
-      {/* lazyMount + unmountOnExit keeps only the active tab in the DOM, so the
-          search tabs' shared data-testids stay unique. Tab clicks replace the
-          history entry, so the browser back button from a detail page also
-          lands on the tab the user left from. */}
       <Tabs.Root
         value={activeTab}
         lazyMount
