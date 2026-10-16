@@ -1,6 +1,6 @@
 import { Button, Heading, Stack, Table, Text } from "@chakra-ui/react";
 import { useEffect, useMemo, useState } from "react";
-import { LocationService } from "../../../../services/Location";
+import { LocationService } from "../../../../services/facilities/Location";
 import { RoomBookingService } from "../../../../services/rooms/RoomBooking";
 import { PatientService } from "../../../../services/patients/Patient";
 import type { HospitalApiDtosOutputsFloorRoomsOutputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsRoomBookingOutputDto } from "../../../../api";

@@ -1,6 +1,6 @@
-import { locationGetAllLocations, locationGet, locationGetAllFloors, locationPostFloor, locationDeleteFloor, locationGetFloor, locationPutFloor } from "../api";
-import type { HospitalApiDtosOutputsLocationOutputDto, HospitalApiDtosOutputsFloorRoomsOutputDto, HospitalApiDtosInputsFloorInputDto } from "../api";
-import { zHospitalApiDtosInputsFloorInputDto } from "../api/zod.gen";
+import { locationGetAllLocations, locationGet, locationGetAllFloors, locationPostFloor, locationDeleteFloor, locationGetFloor, locationPutFloor } from "../../api";
+import type { HospitalApiDtosOutputsLocationOutputDto, HospitalApiDtosOutputsFloorRoomsOutputDto, HospitalApiDtosInputsFloorInputDto } from "../../api";
+import { zHospitalApiDtosInputsFloorInputDto } from "../../api/zod.gen";
 
 export const LocationService = {
   getAll: async (): Promise<HospitalApiDtosOutputsLocationOutputDto[]> => {

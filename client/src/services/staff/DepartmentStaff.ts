@@ -1,6 +1,6 @@
-import { departmentStaffGetAll, departmentStaffGet, departmentStaffPost, departmentStaffPut, departmentStaffDelete } from "../api";
-import { zHospitalApiDtosInputsDepartmentStaffInputDto } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsDepartmentStaffOutputDto, HospitalApiDtosInputsDepartmentStaffInputDto } from "../api";
+import { departmentStaffGetAll, departmentStaffGet, departmentStaffPost, departmentStaffPut, departmentStaffDelete } from "../../api";
+import { zHospitalApiDtosInputsDepartmentStaffInputDto } from "../../api/zod.gen";
+import type { HospitalApiDtosOutputsDepartmentStaffOutputDto, HospitalApiDtosInputsDepartmentStaffInputDto } from "../../api";
 
 export const DepartmentStaffService = {
   getAll: async (): Promise<HospitalApiDtosOutputsDepartmentStaffOutputDto[]> => {
