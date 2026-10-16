@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
+import { HStack, IconButton, Text } from "@chakra-ui/react";
 import type { HospitalApiDtosInputsPatientInputDto, HospitalApiDtosOutputsPatientOutputDto } from "../../../api";
 import { useNavigate } from "react-router";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 import { PatientService } from "../../../services/patients/Patient";
 import type { ColumnConfig } from "../../../hooks/useDataTable";
-import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
+import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { DataTable } from "../DataTable";
 import { CommandFormPopup, type FieldConfig } from "../CommandFormPopup";
 
@@ -29,7 +29,7 @@ const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
 export default function PatientsTab() {
   const navigate = useNavigate();
   const [data, setData] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedPatient, openCreate, openEdit, openDelete } =
+  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedPatient, openEdit, openDelete } =
     useCommandPopup<HospitalApiDtosOutputsPatientOutputDto>();
 
   const loadPatients = () => {
@@ -72,7 +72,6 @@ export default function PatientsTab() {
     <>
       <HStack justify="space-between" mb="4">
         <Text data-testid="patients-page-heading" fontSize="xl" fontWeight="bold">Patients</Text>
-        <Button data-testid="patients-add-button" onClick={openCreate}><LuPlus /> Add Patient</Button>
       </HStack>
 
       <DataTable<PatientRow> testId="patients-table" data={data} columns={columns} pageSize={10} onRowClick={(patient) => navigate(`/app/patients/${patient.id}`)} />
