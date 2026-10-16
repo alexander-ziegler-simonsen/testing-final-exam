@@ -12,13 +12,17 @@ export default defineProject({
         setupFiles: [path.resolve(__dirname, './src/mocks/setupMswBrowser.ts')],
         browser: {
             enabled: true,
-            provider: playwright(),
+            provider: playwright({
+                contextOptions: {
+                    viewport: { width: 1920, height: 1920 },
+                },
+            }),
             // set a fixed api port, to not hit a randomly used port (happened with Windows/Hyper-V/WSL2)
             api: {
                 port: 5175,
             },
-            // fixed viewport(414x896) - for component images in Headless Chromium  tests
-            viewport: { width: 414, height: 896 },
+            
+            // viewport: { width: 414, height: 896 },
             instances: [
                 { browser: 'chromium' },
                 // { browser: 'firefox' },

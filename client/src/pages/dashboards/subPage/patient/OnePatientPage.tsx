@@ -12,7 +12,7 @@ import { useAuthStore } from "../../../../stores/AuthStore";
 import { PrescriptionService } from "../../../../services/patients/Prescription";
 import { CommandFormPopup, type FieldConfig } from "../../../../components/dashboards/CommandFormPopup";
 import { useCommandPopup } from "../../../../hooks/useCommandPopup";
-import { LuPencil, LuTrash2 } from "react-icons/lu";
+import { LuPencil } from "react-icons/lu";
 
 const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
     { key: "firstname", label: "First name", type: "text", required: true, lockedOnEdit: true },
@@ -51,7 +51,7 @@ export default function OnePatientPage() {
     const [patient, setPatient] = useState<HospitalApiDtosOutputsPatientOutputDto | null>(null);
     const [treatments, setTreatments] = useState<HospitalApiDtosOutputsTreatmentOutputDto[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, openEdit, openDelete } =
+    const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, openEdit } =
         useCommandPopup<HospitalApiDtosOutputsPatientOutputDto>();
 
     const loadPatient = () => {
@@ -259,10 +259,8 @@ export default function OnePatientPage() {
                     <div>
                         <HStack justify="space-between" gap="4">
                             <Heading data-testid="one-patient-heading" size="lg">{patient.firstname} {patient.lastname}</Heading>
-                            <HStack gap="2">
-                                <Button data-testid="one-patient-edit-button" size="sm" variant="outline" onClick={() => openEdit(patient)}><LuPencil /> Edit</Button>
-                                <Button data-testid="one-patient-delete-button" size="sm" variant="outline" colorPalette="red" onClick={() => openDelete(patient)}><LuTrash2 /> Delete</Button>
-                            </HStack>
+                            {/* No delete on purpose - patient records are never removed. */}
+                            <Button data-testid="one-patient-edit-button" size="sm" variant="outline" onClick={() => openEdit(patient)}><LuPencil /> Edit</Button>
                         </HStack>
 
                         <Stack gap="2">
@@ -392,7 +390,7 @@ export default function OnePatientPage() {
 
             <CommandFormPopup<HospitalApiDtosInputsPatientInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Patient" fields={patientFields}
                 itemId={patient.id} initialValues={patient} service={PatientService} testId="one-patient-form"
-                onSuccess={(mode) => (mode === "delete" ? navigate("/app/patients") : loadPatient())} />
+                onSuccess={loadPatient} />
         </>
     );
 }

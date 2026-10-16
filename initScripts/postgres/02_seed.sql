@@ -1,5 +1,5 @@
 
--- insert data _______________________
+-- insert data
 
 
 
@@ -27,7 +27,7 @@ insert into floor (name, fk_building_id) values
 ('test-delete target', 1);
 
 
--- medication (26)
+-- medication
 
 insert into medication (name,generic_name,brand,form,strength,category,description) values
 ('paracetamol','acetaminophen','panodil','tablet','500mg','pain relief','used to treat mild to moderate pain and fever.'),

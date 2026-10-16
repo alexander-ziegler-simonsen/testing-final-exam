@@ -23,6 +23,9 @@ import OneRoomPage from './pages/dashboards/subPage/rooms/OneRoomPage'
 import OneFacilityPage from './pages/dashboards/subPage/facilities/OneFacilityPage'
 import TreatmentDashboard from './pages/dashboards/TreatmentDashboard'
 import ConfigDashboard from './pages/dashboards/ConfigDashboard'
+import OneDepartmentPage from './pages/dashboards/subPage/facilities/OneDepartmentPage'
+import OneRoomBookingPage from './pages/dashboards/subPage/rooms/OneRoomBookingPage'
+import OneUserPage from './pages/dashboards/subPage/staff/OneUserPage'
 
 // https://mswjs.io/docs/integrations/browser/#conditionally-enable-mocking
 function MockingNotice() {
@@ -68,6 +71,7 @@ function App() {
 
               <Route path="facilities" element={<FacilityDashboard />} />
               <Route path="facilities/:id" element={<OneFacilityPage />} />
+              <Route path="departments/:id" element={<OneDepartmentPage />} />
               <Route path="patients" element={<PatientDashboard />} />
               <Route path="patients/:id" element={<OnePatientPage />} />
               <Route path="medicin" element={<MedicinDashboard />} />
@@ -75,8 +79,10 @@ function App() {
               <Route path="external_medicin/:id" element={<OneExternalMedicinPage />} />
               <Route path="rooms" element={<RoomsDashboard />} />
               <Route path="staff" element={<StaffDashboard />} />
+              <Route path="users/:id" element={<OneUserPage />} />
               <Route path="rooms" element={<RoomsDashboard />} />
               <Route path="rooms/:id" element={<OneRoomPage />} />
+              <Route path="room_booking/:id" element={<OneRoomBookingPage />} />
 
               {/* Only admin */}
               {/* <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>

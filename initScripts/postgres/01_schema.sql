@@ -5,8 +5,7 @@
 -- create database hospitaldb;
 -- \c hospitaldb;
 
-
--- tables _______________________
+-- tables
 
 
 create table staff_role (
@@ -130,7 +129,7 @@ create table treatment_staff (
 );
 
 
--- functions _______________________
+-- functions
 
 
 create or replace function calculate_patient_age(date_of_birth date)
@@ -194,7 +193,7 @@ end;
 $$;
 
 
--- procedure _______________________
+-- procedure
 
 
 create or replace function sp_get_nurse_by_id(p_nurse_id int)
