@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { Button, HStack, Text } from "@chakra-ui/react";
+import { Button, HStack, Table, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import type { HospitalApiDtosInputsRegisterInputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsStaffOutputDto, HospitalApiDtosOutputsUserOutputDto } from "../../../api";
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../CommandFormPopup";
-import { DataTable, type ColumnConfig } from "../DataTable";
 import { LuPlus } from "react-icons/lu";
 import { StaffService } from "../../../services/staff/Staff";
 import { PatientService } from "../../../services/patients/Patient";
@@ -104,12 +103,6 @@ export default function StaffAccountsTab() {
     [],
   );
 
-  const columns: ColumnConfig<HospitalApiDtosOutputsUserOutputDto>[] = [
-    { key: "id", header: "Id" },
-    { key: "username", header: "Username", enableSearch: true },
-    { key: "fkStaffId", header: "Linked Account", enableSearch: true, sortValue: (item) => linkedAccountLabel(item), render: (_value, item) => linkedAccountLabel(item), },
-  ];
-
   return (
     <>
       <HStack justify="space-between" mb="4">
@@ -117,7 +110,24 @@ export default function StaffAccountsTab() {
         <Button data-testid="staff-add-button" onClick={openCreate}><LuPlus /> Add User</Button>
       </HStack>
 
-      <DataTable<HospitalApiDtosOutputsUserOutputDto> testId="staff-table" data={users} columns={columns} pageSize={10} onRowClick={(user) => navigate(`/app/users/${user.id}`)} />
+      <Table.Root interactive data-testid="staff-table">
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeader>Id</Table.ColumnHeader>
+            <Table.ColumnHeader>Username</Table.ColumnHeader>
+            <Table.ColumnHeader>Linked Account</Table.ColumnHeader>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {users.map((user, index) => (
+            <Table.Row key={user.id} data-testid={`staff-table-row-${index}`} cursor="pointer" onClick={() => navigate(`/app/users/${user.id}`)}>
+              <Table.Cell data-testid={`staff-table-row-${index}-cell-id`}>{user.id}</Table.Cell>
+              <Table.Cell data-testid={`staff-table-row-${index}-cell-username`}>{user.username}</Table.Cell>
+              <Table.Cell data-testid={`staff-table-row-${index}-cell-fkStaffId`}>{linkedAccountLabel(user)}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Root>
 
       <CommandFormPopup<HospitalApiDtosInputsRegisterInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="User" fields={userFields} service={userFormService} onSuccess={loadUsers} testId="staff-form" />
     </>
