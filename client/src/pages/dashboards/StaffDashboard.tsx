@@ -1,192 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
-import { Button, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
-import type { HospitalApiDtosInputsRegisterInputDto, HospitalApiDtosOutputsDepartmentStaffOutputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsStaffOutputDto, HospitalApiDtosOutputsUserOutputDto } from "../../api";
-import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
-import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
-import { LuKeyRound, LuPlus, LuTrash2 } from "react-icons/lu";
-import { StaffService } from "../../services/staff/Staff";
-import { PatientService } from "../../services/patients/Patient";
-import { UserService } from "../../services/auth/User";
-import { useCommandPopup } from "../../hooks/useCommandPopup";
-import { DepartmentStaffService } from "../../services/staff/DepartmentStaff";
-
-
-
-
-// staff
-// Extends the output DTO with a synthetic column key for the actions cell,
-// since ColumnConfig keys must be keyof T.
-type UserRow = HospitalApiDtosOutputsUserOutputDto & { actions?: undefined };
+import { Tabs, Text } from "@chakra-ui/react";
+import StaffAccountsTab from "../../components/dashboards/staff/StaffAccountsTab";
+import DepartmentStaffTab from "../../components/dashboards/staff/DepartmentStaffTab";
 
 export default function StaffDashboard() {
-  // department
-    const [data, setData] = useState<HospitalApiDtosOutputsDepartmentStaffOutputDto[]>([]);
-  
-    useEffect(() => {
-      DepartmentStaffService.getAll()
-        .then(setData)
-        .catch((error) => console.error(error));
-    }, []);
-  
-    const columns: ColumnConfig<HospitalApiDtosOutputsDepartmentStaffOutputDto>[] = [
-      { key: "id", header: "Id" },
-      { key: "department", header: "Department", sortValue: (item) => item.department?.name, render: (_value, item) => {
-          const department = item.department;
-          const name = department?.name ?? `Department #${department?.id}`;
-          return department?.type ? `${name} (${department.type})` : name;
-        },
-      },
-      { key: "staff", header: "Staff", sortValue: (item) => `${item.staff?.firstname ?? ""} ${item.staff?.lastname ?? ""}`.trim(),
-        render: (_value, item) => `${item.staff?.firstname ?? ""} ${item.staff?.lastname ?? ""}`.trim(),
-      },
-    ];
-  
-  // staff
-  const [users, setUsers] = useState<HospitalApiDtosOutputsUserOutputDto[]>([]);
-  const [staff, setStaff] = useState<HospitalApiDtosOutputsStaffOutputDto[]>([]);
-  const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedUser, openCreate, openEdit, openDelete } =
-    useCommandPopup<HospitalApiDtosOutputsUserOutputDto>();
-
-  const loadUsers = () => {
-    UserService.getAll()
-      .then(setUsers)
-      .catch((error) => console.error(error));
-  };
-
-  useEffect(() => {
-    loadUsers();
-    StaffService.getAll()
-      .then(setStaff)
-      .catch((error) => console.error(error));
-    PatientService.getAll()
-      .then(setPatients)
-      .catch((error) => console.error(error));
-  }, []);
-
-  const staffName = (staffId?: number | null) => {
-    const match = staff.find((s) => s.id === staffId);
-    if (match) return [match.firstname, match.lastname].filter(Boolean).join(" ");
-    return staffId ? `#${staffId}` : "";
-  };
-
-  const patientName = (patientId?: number | null) => {
-    const match = patients.find((p) => p.id === patientId);
-    if (match) return [match.firstname, match.lastname].filter(Boolean).join(" ");
-    return patientId ? `#${patientId}` : "";
-  };
-
-  // Every user is linked to exactly one of a staff member or a patient.
-  const linkedAccountLabel = (item: HospitalApiDtosOutputsUserOutputDto) => {
-    if (item.fkStaffId) return staffName(item.fkStaffId);
-    if (item.fkPatientId) return `Patient: ${patientName(item.fkPatientId)}`;
-    return "—";
-  };
-
-  const staffOptions = useMemo(
-    () =>
-      staff.map((s) => ({
-        label: [s.firstname, s.lastname].filter(Boolean).join(" ") || `Staff #${s.id}`,
-        value: s.id ?? 0,
-      })),
-    [staff],
-  );
-
-  const patientOptions = useMemo(
-    () =>
-      patients.map((p) => ({
-        label: [p.firstname, p.lastname].filter(Boolean).join(" ") || `Patient #${p.id}`,
-        value: p.id ?? 0,
-      })),
-    [patients],
-  );
-
-  // "Edit" on a user account only ever changes the password - the API has no
-  // endpoint to rename a username or re-point fkStaffId/fkPatientId - so the
-  // field list is mode-dependent instead of shared between create and edit.
-  // A user is either a staff login or a patient login - pick one, leave the
-  // other blank.
-  const userFields: FieldConfig<HospitalApiDtosInputsRegisterInputDto>[] = useMemo(() => {
-    if (popupMode === "edit") {
-      return [{ key: "password", label: "New Password", type: "text", required: true }];
-    }
-    return [
-      { key: "username", label: "Username", type: "text", required: true },
-      { key: "password", label: "Password", type: "text", required: true },
-      { key: "fkStaffId", label: "Staff Member", type: "select", options: staffOptions, placeholder: "— none —" },
-      { key: "fkPatientId", label: "Patient", type: "select", options: patientOptions, placeholder: "— none —" },
-    ];
-  }, [popupMode, staffOptions, patientOptions]);
-
-  const userFormService: CommandFormService<HospitalApiDtosInputsRegisterInputDto> = useMemo(
-    () => ({
-      create: (values) => {
-        const hasStaff = values.fkStaffId !== undefined && values.fkStaffId !== null;
-        const hasPatient = values.fkPatientId !== undefined && values.fkPatientId !== null;
-        if (hasStaff === hasPatient) {
-          return Promise.reject(new Error("Pick exactly one of Staff Member or Patient."));
-        }
-        return UserService.register({
-          ...values,
-          // fkStaffId defaults to a staff id when left unset, so a patient
-          // login needs it explicitly nulled out rather than left blank.
-          fkStaffId: hasStaff ? values.fkStaffId : null,
-          fkPatientId: hasPatient ? values.fkPatientId : undefined,
-        });
-      },
-      update: (id, values) => UserService.changePassword(id, String(values.password ?? "")),
-      delete: (id) => UserService.delete(id),
-    }),
-    [],
-  );
-
-  const columns1: ColumnConfig<UserRow>[] = [
-    { key: "id", header: "Id" },
-    { key: "username", header: "Username", enableSearch: true },
-    { key: "fkStaffId", header: "Linked Account", enableSearch: true, sortValue: (item) => linkedAccountLabel(item), render: (_value, item) => linkedAccountLabel(item), },
-    {
-      key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
-        <HStack gap="2">
-          <IconButton aria-label="Change password" size="sm" variant="ghost" onClick={(e) => {
-            e.stopPropagation();
-            openEdit(item);
-          }} data-testid={`staff-edit-${item.id}`}><LuKeyRound /></IconButton>
-
-          <IconButton aria-label="Delete user" size="sm" variant="ghost" colorPalette="red" onClick={(e) => {
-            e.stopPropagation();
-            openDelete(item);
-          }}
-            data-testid={`staff-delete-${item.id}`}><LuTrash2 /></IconButton>
-        </HStack>
-      ),
-    },
-  ];
-
   return (
     <>
-      <Tabs.Root>
-        <Tabs.List>
-          <Tabs.Trigger value="users">Staff</Tabs.Trigger>
-          <Tabs.Trigger value="departments">Departments</Tabs.Trigger>
+      <Text data-testid="placeholderText">StaffDashboard</Text>
+      <Tabs.Root defaultValue="users" data-testid="staff-tabs">
+        <Tabs.List mb="4">
+          <Tabs.Trigger value="users" data-testid="staff-tab-users">Staff</Tabs.Trigger>
+          <Tabs.Trigger value="departments" data-testid="staff-tab-departments">Departments</Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value="users">
-          <Text data-testid="placeholderText">StaffDashboard</Text>
-          <HStack justify="space-between" mb="4">
-            <Text data-testid="staff-page-heading" fontSize="xl" fontWeight="bold">Staff Accounts</Text>
-            <Button data-testid="staff-add-button" onClick={openCreate}><LuPlus /> Add User</Button>
-          </HStack>
+          <StaffAccountsTab />
+        </Tabs.Content>
 
-          <DataTable<UserRow> testId="staff-table" data={users} columns={columns1} pageSize={10} />
-
-          <CommandFormPopup<HospitalApiDtosInputsRegisterInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="User" fields={userFields} itemId={selectedUser?.id} initialValues={selectedUser ?? undefined} service={userFormService} onSuccess={loadUsers} testId="staff-form" />
-            </Tabs.Content>
         <Tabs.Content value="departments">
-          <Text data-testid="placeholderText">Departments</Text>
-              <>
-      <Text data-testid="department-staff-page-heading" fontSize="xl" fontWeight="bold" mb="4">Department Staff</Text>
-      <DataTable testId="department-staff-table" data={data} columns={columns} pageSize={10} />
-    </>
+          <DepartmentStaffTab />
         </Tabs.Content>
       </Tabs.Root>
     </>
