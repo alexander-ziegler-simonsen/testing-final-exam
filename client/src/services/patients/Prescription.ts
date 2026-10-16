@@ -1,6 +1,6 @@
-import { prescriptionGetAllPrescriptions, prescriptionGet, prescriptionPost, prescriptionPut, prescriptionDelete } from "../api";
-import { zHospitalApiDtosInputsPrescriptionInputDto } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsPrescriptionOutputDto, HospitalApiDtosInputsPrescriptionInputDto } from "../api";
+import { prescriptionGetAllPrescriptions, prescriptionGet, prescriptionPost, prescriptionPut, prescriptionDelete } from "../../api";
+import { zHospitalApiDtosInputsPrescriptionInputDto } from "../../api/zod.gen";
+import type { HospitalApiDtosOutputsPrescriptionOutputDto, HospitalApiDtosInputsPrescriptionInputDto } from "../../api";
 
 export const PrescriptionService = {
   getAll: async (): Promise<HospitalApiDtosOutputsPrescriptionOutputDto[]> => {

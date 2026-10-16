@@ -1,8 +1,8 @@
 import type { AxiosError, InternalAxiosRequestConfig } from "axios";
-import { client } from "../api/client.gen";
-import { useAuthStore } from "../stores/AuthStore";
+import { client } from "../../api/client.gen";
+import { useAuthStore } from "../../stores/AuthStore";
 import { AuthService } from "./Auth";
-import type { HospitalApiDtosOutputsLoginOutputDto } from "../api";
+import type { HospitalApiDtosOutputsLoginOutputDto } from "../../api";
 
 interface RetryableRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;

@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import type { HospitalApiDtosOutputsMedicationOutputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsPrescriptionOutputDto, HospitalApiDtosOutputsStaffOutputDto, HospitalApiDtosOutputsTreatmentOutputDto } from "../../../../api";
-import { TreatmentService } from "../../../../services/Treatment";
-import { PatientService } from "../../../../services/Patient";
-import { PrescriptionService } from "../../../../services/Prescription";
-import { TreatmentStaffService } from "../../../../services/TreatmentStaff";
-import { StaffService } from "../../../../services/Staff";
-import { MedicationService } from "../../../../services/Medication";
+import { TreatmentService } from "../../../../services/patients/Treatment";
+import { PatientService } from "../../../../services/patients/Patient";
+import { PrescriptionService } from "../../../../services/patients/Prescription";
+import { TreatmentStaffService } from "../../../../services/patients/TreatmentStaff";
+import { StaffService } from "../../../../services/staff/Staff";
+import { MedicationService } from "../../../../services/medicin/Medication";
 import type { ColumnConfig } from "../../../../hooks/useDataTable";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { DataTable } from "../../../../components/dashboards/DataTable";

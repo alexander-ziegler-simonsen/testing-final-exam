@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { CommandFormPopup, type FieldConfig } from "../../../../components/dashboards/CommandFormPopup";
 import type { HospitalApiDtosInputsMedicationStorageInputDto, HospitalApiDtosOutputsMedicationOutputDto, HospitalApiDtosOutputsMedicationStorageOutputDto } from "../../../../api";
-import { MedicationStorageService } from "../../../../services/MedicationStorage";
-import { MedicationService } from "../../../../services/Medication";
+import { MedicationStorageService } from "../../../../services/medicin/MedicationStorage";
+import { MedicationService } from "../../../../services/medicin/Medication";
 import { Button, HStack, Stack, Text, Heading } from "@chakra-ui/react";
 import { LuPencil } from "react-icons/lu";
 

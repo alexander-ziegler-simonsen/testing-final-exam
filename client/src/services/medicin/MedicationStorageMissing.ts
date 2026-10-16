@@ -1,6 +1,6 @@
-import { missingStorageGetAllMedicationStorageMissings, missingStorageGet, missingStoragePost, missingStoragePut, missingStorageDelete, missingStorageGetMissingCount } from "../api";
-import { zHospitalApiDtosInputsMedicationStorageMissingInputDto } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsMedicationStorageMissingOutputDto, HospitalApiDtosInputsMedicationStorageMissingInputDto } from "../api";
+import { missingStorageGetAllMedicationStorageMissings, missingStorageGet, missingStoragePost, missingStoragePut, missingStorageDelete, missingStorageGetMissingCount } from "../../api";
+import { zHospitalApiDtosInputsMedicationStorageMissingInputDto } from "../../api/zod.gen";
+import type { HospitalApiDtosOutputsMedicationStorageMissingOutputDto, HospitalApiDtosInputsMedicationStorageMissingInputDto } from "../../api";
 
 export const MedicationStorageMissingService = {
   getAll: async (): Promise<HospitalApiDtosOutputsMedicationStorageMissingOutputDto[]> => {

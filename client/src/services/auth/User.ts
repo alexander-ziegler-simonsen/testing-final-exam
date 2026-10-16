@@ -1,6 +1,6 @@
-import { userGetAll, userRegister, userChangePassword, userDelete } from "../api";
-import { zUserRegisterBody, zUserChangePasswordBody } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsUserOutputDto, HospitalApiDtosInputsRegisterInputDto } from "../api";
+import { userGetAll, userRegister, userChangePassword, userDelete } from "../../api";
+import { zUserRegisterBody, zUserChangePasswordBody } from "../../api/zod.gen";
+import type { HospitalApiDtosOutputsUserOutputDto, HospitalApiDtosInputsRegisterInputDto } from "../../api";
 
 export const UserService = {
   getAll: async (): Promise<HospitalApiDtosOutputsUserOutputDto[]> => {

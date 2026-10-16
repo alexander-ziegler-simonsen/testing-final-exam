@@ -1,5 +1,5 @@
-import { externalMedicinePricesGetMedicineProductsByName, externalMedicinePricesGetMedicineProductsByIngredients, externalMedicinePricesGetMedicineProductDetails } from "../api";
-import type { HospitalApiDtosExternalMedicineProductOutputDto, HospitalApiDtosExternalMedicineDetailOutputDto } from "../api";
+import { externalMedicinePricesGetMedicineProductsByName, externalMedicinePricesGetMedicineProductsByIngredients, externalMedicinePricesGetMedicineProductDetails } from "../../api";
+import type { HospitalApiDtosExternalMedicineProductOutputDto, HospitalApiDtosExternalMedicineDetailOutputDto } from "../../api";
 
 export const ExternalMedicinePricesService = {
   getAllByName: async (productName: string): Promise<HospitalApiDtosExternalMedicineProductOutputDto[]> => {

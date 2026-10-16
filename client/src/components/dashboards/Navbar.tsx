@@ -1,7 +1,7 @@
 import { Box, Button, HStack, Link as ChakraLink, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 import { useAuthStore } from "../../stores/AuthStore";
-import { AuthService } from "../../services/Auth";
+import { AuthService } from "../../services/auth/Auth";
 
 const navLinks = [
   { label: "facilities", to: "/app/facilities" },

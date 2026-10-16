@@ -1,6 +1,6 @@
-import { client } from "../api/client.gen";
-import { zHospitalApiDtosInputsLoginInputDto, authLogin, authRefresh, authLogout } from "../api";
-import type { HospitalApiDtosOutputsLoginOutputDto, HospitalApiDtosInputsLoginInputDto } from "../api";
+import { client } from "../../api/client.gen";
+import { zHospitalApiDtosInputsLoginInputDto, authLogin, authRefresh, authLogout } from "../../api";
+import type { HospitalApiDtosOutputsLoginOutputDto, HospitalApiDtosInputsLoginInputDto } from "../../api";
 
 export const AuthService = {
   login: async (input: HospitalApiDtosInputsLoginInputDto): Promise<HospitalApiDtosOutputsLoginOutputDto> => {

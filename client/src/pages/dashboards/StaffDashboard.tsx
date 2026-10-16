@@ -4,11 +4,12 @@ import type { HospitalApiDtosInputsRegisterInputDto, HospitalApiDtosOutputsDepar
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
 import { LuKeyRound, LuPlus, LuTrash2 } from "react-icons/lu";
-import { StaffService } from "../../services/Staff";
-import { PatientService } from "../../services/Patient";
-import { UserService } from "../../services/User";
+import { StaffService } from "../../services/staff/Staff";
+import { PatientService } from "../../services/patients/Patient";
+import { UserService } from "../../services/auth/User";
 import { useCommandPopup } from "../../hooks/useCommandPopup";
-import { DepartmentStaffService } from "../../services/DepartmentStaff";
+import { DepartmentStaffService } from "../../services/staff/DepartmentStaff";
+
 
 
 

@@ -1,9 +1,9 @@
 import { Box, Button, Center, Heading, Input, Stack, Text } from "@chakra-ui/react";
-import { AuthService } from "../services/Auth";
+import { AuthService } from "../../services/auth/Auth";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import type { HospitalApiDtosOutputsLoginOutputDto } from "../api";
-import { useAuthStore } from "../stores/AuthStore";
+import type { HospitalApiDtosOutputsLoginOutputDto } from "../../api";
+import { useAuthStore } from "../../stores/AuthStore";
 
 export default function LoginCompoent() {
     const [username, setUsername] = useState<string>("");

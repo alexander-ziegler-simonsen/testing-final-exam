@@ -1,15 +1,15 @@
 import { Box, Button, Field, Heading, HStack, Input, NativeSelect, Stack, Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../../components/dashboards/DataTable";
-import { TreatmentService } from "../../../../services/Treatment";
+import { TreatmentService } from "../../../../services/patients/Treatment";
 import { useEffect, useMemo, useState } from "react";
-import { PatientService } from "../../../../services/Patient";
+import { PatientService } from "../../../../services/patients/Patient";
 import { authLogin, zHospitalApiDtosInputsLoginInputDto, type HospitalApiDtosOutputsMedicationOutputDto, type HospitalApiDtosOutputsMedicationStorageOutputDto, type HospitalApiDtosOutputsPatientOutputDto, type HospitalApiDtosOutputsTreatmentOutputDto } from "../../../../api";
 import { useNavigate, useParams } from "react-router";
 import { toaster } from "../../../../components/ui/toaster";
-import { MedicationService } from "../../../../services/Medication";
-import { MedicationStorageService } from "../../../../services/MedicationStorage";
+import { MedicationService } from "../../../../services/medicin/Medication";
+import { MedicationStorageService } from "../../../../services/medicin/MedicationStorage";
 import { useAuthStore } from "../../../../stores/AuthStore";
-import { PrescriptionService } from "../../../../services/Prescription";
+import { PrescriptionService } from "../../../../services/patients/Prescription";
 
 // give treatment
 type ApprovalStep = "none" | "required" | "signing" | "approved";

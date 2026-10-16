@@ -3,7 +3,7 @@ import { Button, Field, HStack, IconButton, Input, NativeSelect, Stack, Tabs, Te
 import type { HospitalApiDtosInputsPatientInputDto, HospitalApiDtosOutputsPatientOutputDto } from "../../api";
 import { useNavigate } from "react-router";
 import { useCommandPopup } from "../../hooks/useCommandPopup";
-import { PatientService } from "../../services/Patient";
+import { PatientService } from "../../services/patients/Patient";
 import type { ColumnConfig } from "../../hooks/useDataTable";
 import { LuBaby, LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable } from "../../components/dashboards/DataTable";

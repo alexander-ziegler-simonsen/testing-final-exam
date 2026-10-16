@@ -1,6 +1,6 @@
-import { roomBookingGetAll, roomBookingGet, roomBookingPost, roomBookingPut, roomBookingDelete, roomBookingGetEmptyRoomsCountForDay, roomBookingGetRoomsInUseCountByFloor } from "../api";
-import { zHospitalApiDtosInputsRoomBookingInputDto } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsRoomBookingOutputDto, HospitalApiDtosInputsRoomBookingInputDto } from "../api";
+import { roomBookingGetAll, roomBookingGet, roomBookingPost, roomBookingPut, roomBookingDelete, roomBookingGetEmptyRoomsCountForDay, roomBookingGetRoomsInUseCountByFloor } from "../../api";
+import { zHospitalApiDtosInputsRoomBookingInputDto } from "../../api/zod.gen";
+import type { HospitalApiDtosOutputsRoomBookingOutputDto, HospitalApiDtosInputsRoomBookingInputDto } from "../../api";
 
 export const RoomBookingService = {
   getAll: async (): Promise<HospitalApiDtosOutputsRoomBookingOutputDto[]> => {

@@ -1,8 +1,8 @@
 import { Table } from "@chakra-ui/react";
 import { useEffect, useMemo, useState } from "react";
 import type { HospitalApiDtosOutputsFloorRoomsOutputDto } from "../../../api";
-import { LocationService } from "../../../services/Location";
 import { useNavigate } from "react-router";
+import { LocationService } from "../../../services/facilities/Location";
 
 export default function RoomsTab() {
   const navigate = useNavigate();

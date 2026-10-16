@@ -3,7 +3,7 @@ import { Badge, Button, HStack, Input, Table, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import { LuSearch } from "react-icons/lu";
 import { useExternalMedicinStore, type SearchMode } from "../../../stores/ExternalMedicinStore";
-import { ExternalMedicinePricesService } from "../../../services/ExternalMedicinePrices";
+import { ExternalMedicinePricesService } from "../../../services/medicin/ExternalMedicinePrices";
 
 const placeholders: Record<SearchMode, string> = {
   name: "Search by medicin name...",

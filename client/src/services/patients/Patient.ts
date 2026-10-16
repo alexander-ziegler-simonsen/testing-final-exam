@@ -1,6 +1,6 @@
-import { patientGetAllPatients, patientGet, patientPost, patientPut, patientDelete, patientRegisterBaby, patientGetPatientCount } from "../api";
-import { zHospitalApiDtosInputsPatientInputDto, zHospitalApiDtosInputsRegisterBabyDto } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosInputsPatientInputDto, HospitalApiDtosInputsRegisterBabyDto } from "../api";
+import { patientGetAllPatients, patientGet, patientPost, patientPut, patientDelete, patientRegisterBaby, patientGetPatientCount } from "../../api";
+import { zHospitalApiDtosInputsPatientInputDto, zHospitalApiDtosInputsRegisterBabyDto } from "../../api/zod.gen";
+import type { HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosInputsPatientInputDto, HospitalApiDtosInputsRegisterBabyDto } from "../../api";
 
 export const PatientService = {
   getAll: async (filter?: HospitalApiDtosInputsPatientInputDto, sortBy?: string, sortDir?: string): Promise<HospitalApiDtosOutputsPatientOutputDto[]> => {

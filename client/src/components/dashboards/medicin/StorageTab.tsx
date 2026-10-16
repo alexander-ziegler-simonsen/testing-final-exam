@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
-import { MedicationStorageService } from "../../../services/MedicationStorage";
+import { MedicationStorageService } from "../../../services/medicin/MedicationStorage";
 import type { HospitalApiDtosOutputsMedicationStorageOutputDto } from "../../../api";
 
 export default function StorageTab() {

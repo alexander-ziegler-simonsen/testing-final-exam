@@ -4,11 +4,11 @@ import { DataTable, type ColumnConfig } from "../../../components/dashboards/Dat
 import { useEffect, useMemo, useState } from "react";
 import type { HospitalApiDtosInputsRoomBookingInputDto, HospitalApiDtosOutputsFloorRoomsOutputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsRoomBookingOutputDto } from "../../../api";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
-import { RoomBookingService } from "../../../services/RoomBooking";
-import { LocationService } from "../../../services/Location";
-import { PatientService } from "../../../services/Patient";
+import { RoomBookingService } from "../../../services/rooms/RoomBooking";
+import { PatientService } from "../../../services/patients/Patient";
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
 import { useNavigate } from "react-router";
+import { LocationService } from "../../../services/facilities/Location";
 
 interface RoomBookingRow {
   id?: number;

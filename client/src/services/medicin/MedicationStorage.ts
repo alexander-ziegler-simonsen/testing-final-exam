@@ -1,6 +1,6 @@
-import { storageGetAllMedicationStorages, storageGet, storagePost, storagePut, storageDelete } from "../api";
-import { zHospitalApiDtosInputsMedicationStorageInputDto } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsMedicationStorageOutputDto, HospitalApiDtosInputsMedicationStorageInputDto } from "../api";
+import { storageGetAllMedicationStorages, storageGet, storagePost, storagePut, storageDelete } from "../../api";
+import { zHospitalApiDtosInputsMedicationStorageInputDto } from "../../api/zod.gen";
+import type { HospitalApiDtosOutputsMedicationStorageOutputDto, HospitalApiDtosInputsMedicationStorageInputDto } from "../../api";
 
 export const MedicationStorageService = {
   getAll: async (): Promise<HospitalApiDtosOutputsMedicationStorageOutputDto[]> => {

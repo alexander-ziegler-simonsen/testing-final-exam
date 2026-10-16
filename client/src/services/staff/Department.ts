@@ -1,7 +1,7 @@
 // src/services/departmentService.ts
-import { departmentGetAllDepartments, departmentGet, departmentPost, departmentPut, departmentDelete } from "../api";
-import { zHospitalApiDtosInputsDepartmentInputDto } from "../api/zod.gen";
-import type { HospitalApiDtosOutputsDepartmentOutputDto, HospitalApiDtosInputsDepartmentInputDto } from "../api";
+
+import { departmentDelete, departmentGet, departmentGetAllDepartments, departmentPost, departmentPut, zHospitalApiDtosInputsDepartmentInputDto, type HospitalApiDtosInputsDepartmentInputDto, type HospitalApiDtosOutputsDepartmentOutputDto } from "../../api";
+
 
 export const DepartmentService = {
   getAll: async (): Promise<HospitalApiDtosOutputsDepartmentOutputDto[]> => {

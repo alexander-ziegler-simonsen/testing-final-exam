@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button, HStack, IconButton, Tabs, Text } from "@chakra-ui/react";
-import { LocationService } from "../../services/Location";
 import type { HospitalApiDtosInputsDepartmentInputDto, HospitalApiDtosOutputsDepartmentOutputDto, HospitalApiDtosOutputsLocationOutputDto } from "../../api";
 import { useNavigate } from "react-router";
 import { DataTable, type ColumnConfig } from "../../components/dashboards/DataTable";
 import { useCommandPopup } from "../../hooks/useCommandPopup";
-import { DepartmentService } from "../../services/Department";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { CommandFormPopup, type FieldConfig } from "../../components/dashboards/CommandFormPopup";
+import { DepartmentService } from "../../services/staff/Department";
+import { LocationService } from "../../services/facilities/Location";
 
 // department
 // Extends the output DTO with a synthetic column key for the actions cell,
