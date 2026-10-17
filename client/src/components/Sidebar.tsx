@@ -5,13 +5,6 @@ import { useState } from "react";
 import { matchPath, useLocation } from "react-router";
 import { useAuthStore } from "../stores/AuthStore";
 
-// interface MySidebarProps {
-//     title?: string;
-//     description?: string;
-//     successText?: string;
-//     cancelText?: string;
-// }
-
 type Role = 'doctor' | 'nurse' | 'admin' | 'patient'
 
 interface NavigationLink {
@@ -61,7 +54,7 @@ const navigationGroups: NavigationGroup[] = [
     },
 ];
 
-// every group starts open, the user can collapse them
+
 const allGroupIds = navigationGroups.map((group) => group.id);
 
 export default function MySidebar() {
@@ -71,7 +64,7 @@ export default function MySidebar() {
 
     const canSee = (link: NavigationLink) => !link.allowedRoles || (user && link.allowedRoles.includes(user.role));
 
-    // end: false so detail pages (e.g. /app/medicin_storage/12) keep their list page highlighted
+    
     const isSelected = (link: NavigationLink) => matchPath({ path: `/app/${link.path}`, end: false }, pathname) !== null;
 
     const renderLink = (link: NavigationLink, testIdPrefix: string) => (
