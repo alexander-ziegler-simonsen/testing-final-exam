@@ -34,7 +34,7 @@ test("searches by name and renders the matching products", async () => {
         .toHaveTextContent("Panodil");
     await expect
         .element(getByTestId("external-medicin-row-0"))
-        .toHaveTextContent("GlaxoSmithKline Consumer Healthcare");
+        .toHaveTextContent("Haleon Denmark ApS");
 
     await matchScreenshot(container, "external-medicin");
 });

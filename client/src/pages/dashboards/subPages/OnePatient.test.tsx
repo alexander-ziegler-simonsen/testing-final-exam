@@ -7,8 +7,9 @@ import { Provider } from "../../../components/ui/provider";
 
 // OnePatient reads the patient id from the route (useParams), so it needs a
 // matching <Route>. PatientService.getById is served by the default MSW
-// handler regardless of which id is requested, returning mockPatient (id 42)
-// - see mocks/fixtures/patient.ts.
+// handler, which looks the patient up by id - patient 1 is mockPatientResponse,
+// and treatments 1-2 belong to it - see mocks/fixtures/responses/PatientFixture.ts
+// and TreatmentFixture.ts.
 function renderOnePatient() {
     return render(
         <Routes>
@@ -17,7 +18,7 @@ function renderOnePatient() {
         {
             wrapper: ({ children }) => (
                 <Provider>
-                    <MemoryRouter initialEntries={["/app/patients/42"]}>{children}</MemoryRouter>
+                    <MemoryRouter initialEntries={["/app/patients/1"]}>{children}</MemoryRouter>
                 </Provider>
             ),
         },
@@ -27,12 +28,12 @@ function renderOnePatient() {
 test("loads the patient and their treatment history", async () => {
     const { getByTestId, container } = await renderOnePatient();
 
-    await expect.element(getByTestId("one-patient-heading")).toHaveTextContent("Mette Sørensen");
-    await expect.element(getByTestId("one-patient-field-cpr")).toHaveTextContent("1503851234");
+    await expect.element(getByTestId("one-patient-heading")).toHaveTextContent("Lars Jensen");
+    await expect.element(getByTestId("one-patient-field-cpr")).toHaveTextContent("0101801234");
 
     await expect
         .element(getByTestId("patient-treatments-table-row-0-cell-description"))
-        .toHaveTextContent("Rutinetjek og blodprøve");
+        .toHaveTextContent("Initial examination and blood test.");
 
     await matchScreenshot(container, "one-patient");
 });

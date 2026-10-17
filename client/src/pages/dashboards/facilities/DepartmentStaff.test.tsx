@@ -20,7 +20,7 @@ test("loads department-staff links and renders the joined names", async () => {
         .toHaveTextContent("Cardiology (Medical)");
     await expect
         .element(getByTestId("department-staff-table-row-0-cell-staff"))
-        .toHaveTextContent("Karen Holm");
+        .toHaveTextContent("John Smith");
 
     await matchScreenshot(container, "department-staff");
 });

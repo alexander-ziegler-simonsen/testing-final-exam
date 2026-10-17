@@ -7,9 +7,10 @@ import { Provider } from "../../../components/ui/provider";
 
 // OneFacility reads the building id from the route (useParams), so it needs
 // to be rendered under a matching <Route>, not just a bare <MemoryRouter>.
-// LocationService.getById is served by the default MSW handler regardless of
-// which id is requested, returning mockLocation (building id 1) - see
-// mocks/fixtures/location.ts.
+// LocationService.getById is served by the default MSW handler, which looks
+// the building up by id - building 1 is mockLocationResponse, with floor 1
+// ("Ground Floor", rooms 1-2) and floor 2 ("First Floor", room 3) - see
+// mocks/fixtures/responses/LocationFixture.ts.
 function renderOneFacility() {
     return render(
         <Routes>
@@ -33,14 +34,14 @@ test("loads the building and lists its floors and rooms", async () => {
         .toHaveTextContent("Main Building");
     await expect
         .element(getByTestId("one-facility-address"))
-        .toHaveTextContent("Nørrebrogade 44, 8000 Aarhus C");
+        .toHaveTextContent("Hospitalsvej 1, 2100 København Ø");
 
     await expect
-        .element(getByTestId("one-facility-floor-2"))
-        .toHaveTextContent("2nd floor");
+        .element(getByTestId("one-facility-floor-1"))
+        .toHaveTextContent("Ground Floor");
     await expect
-        .element(getByTestId("one-facility-room-14"))
-        .toHaveTextContent("Room 201");
+        .element(getByTestId("one-facility-room-1"))
+        .toHaveTextContent("Room 001");
 
     await matchScreenshot(container, "one-facility");
 });

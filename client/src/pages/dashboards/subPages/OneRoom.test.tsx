@@ -8,9 +8,9 @@ import { Provider } from "../../../components/ui/provider";
 // OneRoom reads the room id from the route (useParams), so it needs a
 // matching <Route>. It loads floors/rooms, all bookings, and all patients,
 // all served by the default MSW handlers, then finds the room and its
-// bookings client-side. Room 14 ("Room 201", 2nd floor) has one booking
-// (id 4, patient 42) in the fixtures - see mocks/fixtures/location.ts and
-// roomBooking.ts.
+// bookings client-side. Room 1 ("Room 001", Ground Floor) has one booking
+// (id 1, patient 1) in the fixtures - see mocks/fixtures/responses/RoomFixture.ts
+// and RoomBookingFixture.ts.
 function renderOneRoom() {
     return render(
         <Routes>
@@ -19,7 +19,7 @@ function renderOneRoom() {
         {
             wrapper: ({ children }) => (
                 <Provider>
-                    <MemoryRouter initialEntries={["/app/room_booking/room/14"]}>{children}</MemoryRouter>
+                    <MemoryRouter initialEntries={["/app/room_booking/room/1"]}>{children}</MemoryRouter>
                 </Provider>
             ),
         },
@@ -29,12 +29,12 @@ function renderOneRoom() {
 test("loads the room and its booking history", async () => {
     const { getByTestId, container } = await renderOneRoom();
 
-    await expect.element(getByTestId("one-room-heading")).toHaveTextContent("Room 201");
-    await expect.element(getByTestId("one-room-floor")).toHaveTextContent("2nd floor");
+    await expect.element(getByTestId("one-room-heading")).toHaveTextContent("Room 001");
+    await expect.element(getByTestId("one-room-floor")).toHaveTextContent("Ground Floor");
 
     await expect
-        .element(getByTestId("one-room-booking-row-4"))
-        .toHaveTextContent("Mette Sørensen");
+        .element(getByTestId("one-room-booking-row-1"))
+        .toHaveTextContent("Lars Jensen");
 
     await matchScreenshot(container, "one-room");
 });

@@ -7,7 +7,7 @@ import RoomBooking from "./RoomBooking";
 
 // RoomBooking joins RoomBookingService, LocationService (floors/rooms), and
 // PatientService data, all served by the default MSW handlers - see
-// mocks/fixtures/roomBooking.ts, location.ts, patient.ts.
+// mocks/fixtures/responses/RoomBookingFixture.ts, FloorRoomsFixture.ts, PatientFixture.ts.
 function renderRoomBooking() {
     return render(<RoomBooking />, {
         wrapper: ({ children }) => (
@@ -23,13 +23,13 @@ test("resolves each booking's room and patient names", async () => {
 
     await expect.element(getByTestId("room-booking-page-heading")).toBeInTheDocument();
 
-    // mockRoomBooking.fkRoomId (14) -> "Room 201", fkPatientId (42) -> "Mette Sørensen".
+    // mockRoomBookingResponse.fkRoomId (1) -> "Room 001", fkPatientId (1) -> "Lars Jensen".
     await expect
         .element(getByTestId("room-booking-table-row-0-cell-roomName"))
-        .toHaveTextContent("Room 201");
+        .toHaveTextContent("Room 001");
     await expect
         .element(getByTestId("room-booking-table-row-0-cell-patientName"))
-        .toHaveTextContent("Mette Sørensen");
+        .toHaveTextContent("Lars Jensen");
 
     await matchScreenshot(container, "room-booking");
 });

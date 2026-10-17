@@ -23,13 +23,13 @@ test("loads patients from the API and renders them in the table", async () => {
 
     await expect
         .element(getByTestId("patients-table-row-0-cell-firstname"))
-        .toHaveTextContent("Mette");
+        .toHaveTextContent("Lars");
     await expect
         .element(getByTestId("patients-table-row-0-cell-lastname"))
-        .toHaveTextContent("Sørensen");
+        .toHaveTextContent("Jensen");
     await expect
         .element(getByTestId("patients-table-row-0-cell-cprNumber"))
-        .toHaveTextContent("1503851234");
+        .toHaveTextContent("0101801234");
 
     await matchScreenshot(container, "patients");
 });

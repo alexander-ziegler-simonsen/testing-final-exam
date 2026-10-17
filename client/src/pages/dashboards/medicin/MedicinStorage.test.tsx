@@ -6,8 +6,8 @@ import MedicinStorage from "./MedicinStorage";
 import { Provider } from "../../../components/ui/provider";
 
 // MedicinStorage joins MedicationStorageService and MedicationService data,
-// both served by the default MSW handlers - see mocks/fixtures/medication.ts
-// and mocks/fixtures/medicationStorage.ts.
+// both served by the default MSW handlers - see
+// mocks/fixtures/responses/MedicationFixture.ts and MedicationStorageFixture.ts.
 function renderMedicinStorage() {
     return render(<MedicinStorage />, {
         wrapper: ({ children }) => (
@@ -23,13 +23,13 @@ test("resolves each storage row's medication name and amount", async () => {
 
     await expect.element(getByTestId("medicin-storage-page-heading")).toBeInTheDocument();
 
-    // mockStorage.fkMedicationId (11) resolves against the medication list to "Panodil".
+    // mockMedicationStorageResponse.fkMedicationId (1) resolves against the medication list to "Panodil".
     await expect
         .element(getByTestId("medicin-storage-table-row-0-cell-medicationName"))
         .toHaveTextContent("Panodil");
     await expect
         .element(getByTestId("medicin-storage-table-row-0-cell-amount"))
-        .toHaveTextContent("142");
+        .toHaveTextContent("120");
 
     await matchScreenshot(container, "medicin-storage");
 });

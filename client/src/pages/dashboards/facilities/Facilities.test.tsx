@@ -25,7 +25,7 @@ test("loads locations from the API and renders them in the table", async () => {
         .toHaveTextContent("Main Building");
     await expect
         .element(getByTestId("facilities-table-row-0-cell-address"))
-        .toHaveTextContent("Nørrebrogade 44, 8000 Aarhus C");
+        .toHaveTextContent("Hospitalsvej 1, 2100 København Ø");
 
     await matchScreenshot(container, "facilities");
 });

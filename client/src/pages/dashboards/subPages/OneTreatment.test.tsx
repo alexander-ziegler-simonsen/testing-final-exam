@@ -7,10 +7,10 @@ import { Provider } from "../../../components/ui/provider";
 
 // OneTreatment reads the treatment id from the route (useParams), so it
 // needs a matching <Route>. TreatmentService.getById is served by the
-// default MSW handler regardless of which id is requested, returning
-// mockTreatment (id 6); both fixture prescriptions and treatment-staff links
-// point at treatment id 6 - see mocks/fixtures/treatment.ts and
-// prescription.ts.
+// default MSW handler, which looks the treatment up by id - treatment 1 is for
+// patient 1, has staff 1 and 2 linked, and prescription 1 (medication 1) - see
+// mocks/fixtures/responses/TreatmentFixture.ts, TreatmentStaffFixture.ts and
+// PrescriptionFixture.ts.
 function renderOneTreatment() {
     return render(
         <Routes>
@@ -19,7 +19,7 @@ function renderOneTreatment() {
         {
             wrapper: ({ children }) => (
                 <Provider>
-                    <MemoryRouter initialEntries={["/app/treatment/6"]}>{children}</MemoryRouter>
+                    <MemoryRouter initialEntries={["/app/treatment/1"]}>{children}</MemoryRouter>
                 </Provider>
             ),
         },
@@ -29,14 +29,14 @@ function renderOneTreatment() {
 test("loads the treatment with its patient, staff, and prescriptions", async () => {
     const { getByTestId, container } = await renderOneTreatment();
 
-    await expect.element(getByTestId("one-treatment-heading")).toHaveTextContent("Treatment #6");
+    await expect.element(getByTestId("one-treatment-heading")).toHaveTextContent("Treatment #1");
     await expect
         .element(getByTestId("one-treatment-patient-link"))
-        .toHaveTextContent("Mette Sørensen");
+        .toHaveTextContent("Lars Jensen");
 
     await expect
         .element(getByTestId("treatment-staff-table-row-0-cell-firstname"))
-        .toHaveTextContent("Karen");
+        .toHaveTextContent("John");
     await expect
         .element(getByTestId("treatment-prescriptions-table-row-0-cell-medicationName"))
         .toHaveTextContent("Panodil");

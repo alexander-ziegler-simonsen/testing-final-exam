@@ -6,7 +6,7 @@ import { Provider } from "../../../components/ui/provider";
 import Treatments from "./Treatments";
 
 // Treatments fetches via TreatmentService, served here by the default MSW
-// handlers, which return the fixtures from mocks/fixtures/treatment.ts.
+// handlers, which return the fixtures from mocks/fixtures/responses/TreatmentFixture.ts.
 function renderTreatments() {
     return render(<Treatments />, {
         wrapper: ({ children }) => (
@@ -24,10 +24,10 @@ test("loads treatments from the API and renders them in the table", async () => 
 
     await expect
         .element(getByTestId("treatments-table-row-0-cell-description"))
-        .toHaveTextContent("Rutinetjek og blodprøve");
+        .toHaveTextContent("Initial examination and blood test.");
     await expect
         .element(getByTestId("treatments-table-row-0-cell-fkPatientId"))
-        .toHaveTextContent("42");
+        .toHaveTextContent("1");
 
     await matchScreenshot(container, "treatments");
 });

@@ -6,7 +6,7 @@ import { Provider } from "../../../components/ui/provider";
 
 // MissingMedicin only renders Chakra components (no router/auth involved),
 // and fetches via MedicationStorageMissingService, served by the default MSW
-// handler - see mocks/fixtures/medicationStorageMissing.ts.
+// handler - see mocks/fixtures/responses/MedicationStorageMissingFixture.ts.
 function renderMissingMedicin() {
     return render(<MissingMedicin />, {
         wrapper: ({ children }) => <Provider>{children}</Provider>,
@@ -20,10 +20,10 @@ test("loads missing-storage reports and renders them in the table", async () => 
 
     await expect
         .element(getByTestId("missing-medicine-table-row-0-cell-amountMissing"))
-        .toHaveTextContent("12");
+        .toHaveTextContent("5");
     await expect
         .element(getByTestId("missing-medicine-table-row-0-cell-fkMedicationStorageId"))
-        .toHaveTextContent("5");
+        .toHaveTextContent("1");
 
     await matchScreenshot(container, "missing-medicin");
 });

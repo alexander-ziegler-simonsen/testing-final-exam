@@ -7,9 +7,8 @@ import { Provider } from "../../../components/ui/provider";
 
 // OneRoomBooking reads the booking id from the route (useParams), so it
 // needs a matching <Route>. RoomBookingService.getById and PatientService
-// are served by the default MSW handlers regardless of which id is
-// requested, returning mockRoomBooking (id 4) and mockPatient (id 42), which
-// consistently share fkPatientId 42.
+// are served by the default MSW handlers, which look the rows up by id -
+// booking 1 is for room 1 ("Room 001") and patient 1 ("Lars Jensen").
 function renderOneRoomBooking() {
     return render(
         <Routes>
@@ -18,7 +17,7 @@ function renderOneRoomBooking() {
         {
             wrapper: ({ children }) => (
                 <Provider>
-                    <MemoryRouter initialEntries={["/app/room_booking/4"]}>{children}</MemoryRouter>
+                    <MemoryRouter initialEntries={["/app/room_booking/1"]}>{children}</MemoryRouter>
                 </Provider>
             ),
         },
@@ -28,11 +27,11 @@ function renderOneRoomBooking() {
 test("loads the booking with its room and patient details", async () => {
     const { getByTestId, container } = await renderOneRoomBooking();
 
-    await expect.element(getByTestId("one-room-booking-heading")).toHaveTextContent("Booking #4");
-    await expect.element(getByTestId("one-room-booking-field-room")).toHaveTextContent("Room 201");
+    await expect.element(getByTestId("one-room-booking-heading")).toHaveTextContent("Booking #1");
+    await expect.element(getByTestId("one-room-booking-field-room")).toHaveTextContent("Room 001");
     await expect
         .element(getByTestId("one-room-booking-patient-link"))
-        .toHaveTextContent("Mette Sørensen");
+        .toHaveTextContent("Lars Jensen");
 
     await matchScreenshot(container, "one-room-booking");
 });

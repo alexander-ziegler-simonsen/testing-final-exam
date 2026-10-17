@@ -6,9 +6,10 @@ import { Provider } from "../../../components/ui/provider";
 import OneExternalMedicin from "./OneExternalMedicin";
 
 // OneExternalMedicin reads the varenummer from the route (useParams), so it
-// needs a matching <Route>. ExternalMedicinePricesService.productDetails is
-// served by the default MSW handler regardless of which id is requested,
-// returning mockMedicineDetail - see mocks/fixtures/externalMedicinePrices.ts.
+// needs a matching <Route>. The default MSW handler only answers
+// ExternalMedicinePricesService.productDetails for varenummer "014191",
+// returning mockMedicineDetailResponse - see mocks/handlers/e2eHandlers.ts and
+// mocks/fixtures/responses/MedicineDetailFixture.ts.
 function renderOneExternalMedicin() {
     return render(
         <Routes>
@@ -17,7 +18,7 @@ function renderOneExternalMedicin() {
         {
             wrapper: ({ children }) => (
                 <Provider>
-                    <MemoryRouter initialEntries={["/app/external_medicin/118420"]}>{children}</MemoryRouter>
+                    <MemoryRouter initialEntries={["/app/external_medicin/014191"]}>{children}</MemoryRouter>
                 </Provider>
             ),
         },
@@ -33,7 +34,7 @@ test("loads and renders the product's details", async () => {
         .toHaveTextContent("Paracetamol");
     await expect
         .element(getByTestId("one-external-medicin-field-firma"))
-        .toHaveTextContent("GlaxoSmithKline Consumer Healthcare");
+        .toHaveTextContent("Haleon Denmark ApS");
 
     await matchScreenshot(container, "one-external-medicin");
 });

@@ -6,7 +6,7 @@ import { Provider } from "../../../components/ui/provider";
 import Staff from "./Staff";
 
 // Staff fetches users/staff/patients via their services, served here by the
-// default MSW handlers, which return the fixtures from mocks/fixtures/*.
+// default MSW handlers, which return the fixtures from mocks/fixtures/responses/*.
 function renderStaff() {
     return render(<Staff />, {
         wrapper: ({ children }) => (
@@ -24,11 +24,11 @@ test("loads user accounts and resolves the linked staff member's name", async ()
 
     await expect
         .element(getByTestId("staff-table-row-0-cell-username"))
-        .toHaveTextContent("kholm");
-    // mockUser.fkStaffId (7) is resolved against the staff list to "Karen Holm".
+        .toHaveTextContent("jsmith");
+    // mockUserResponse.fkStaffId (1) is resolved against the staff list to "John Smith".
     await expect
         .element(getByTestId("staff-table-row-0-cell-fkStaffId"))
-        .toHaveTextContent("Karen Holm");
+        .toHaveTextContent("John Smith");
 
     await matchScreenshot(container, "staff");
 });
