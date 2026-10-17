@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll } from "vitest";
-import { worker } from "./Browser";
+import { worker } from "./config/Browser";
 
 beforeAll(() => worker.start({ onUnhandledRequest: "bypass" }));
 

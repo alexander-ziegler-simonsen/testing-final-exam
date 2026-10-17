@@ -11,7 +11,7 @@ export default defineProject({
         name: 'browser',
         include: ['src/**/*.test.{ts,tsx}'],
         exclude: ['src/**/*.unit.test.ts'],
-        setupFiles: [path.resolve(__dirname, '../src/mocks/setupMswBrowser.ts')],
+        setupFiles: [path.resolve(__dirname, '../src/mocks/SetupMswBrowser.ts')],
         browser: {
             enabled: true,
             provider: playwright(),

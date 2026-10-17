@@ -17,7 +17,7 @@ async function enableMocking() {
   const mocking = import.meta.env.VITE_API_MOCKING
 
   if (mocking === 'enabled') {
-    const { worker } = await import('./mocks/Browser');
+    const { worker } = await import('./mocks/config/Browser');
     console.log("yep, the MSW worker should be running");
     return worker.start()
   }
@@ -26,7 +26,7 @@ async function enableMocking() {
   // e2e runs never call the real api.medicinpriser.dk. Everything else is
   // unhandled by MSW and bypassed straight through to the real local API.
   if (mocking === 'external-only') {
-    const { worker } = await import('./mocks/BrowserExternalOnly');
+    const { worker } = await import('./mocks/config/BrowserExternalOnly');
     console.log("[msw] external-only mocking is running — only ExternalMedicinePrices endpoints are mocked");
     return worker.start({ onUnhandledRequest: 'bypass' })
   }
