@@ -2,10 +2,10 @@
 
 export interface  BuildingRequest
 {
-    Name: string;
-    Address: string | null;
+    name: string;
+    address: string | null;
 }
 export const BuildingRequestSchema = z.object({
-    Name: z.string().min(2).max(100),
-    Address: z.string().min(2).max(255).nullable(),
+    name: z.string().min(2).max(100),
+    address: z.string().min(2).max(255).nullable(),
 })

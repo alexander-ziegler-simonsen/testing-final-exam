@@ -1,15 +1,14 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-export interface  UserResponse
-{
-    Id : number ;
-    Username : string;
-    FkStaffId : number | null; 
-    FkPatientId : number | null; 
+export interface UserResponse {
+  id: number;
+  username: string;
+  fkStaffId: number | null;
+  fkPatientId: number | null;
 }
 export const UserResponseSchema = z.object({
-    Id: z.int32(),
-    Username: z.string().min(2).max(100),
-    FkStaffId: z.int32().nullable(),
-    FkPatientId: z.int32().nullable(),
-})
+  id: z.int32(),
+  username: z.string().min(2).max(100),
+  fkStaffId: z.int32().nullable(),
+  fkPatientId: z.int32().nullable(),
+});

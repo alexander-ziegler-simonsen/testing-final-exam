@@ -3,11 +3,11 @@ import { type RoomResponse, RoomResponseSchema } from "./RoomResponse";
 import { z } from "zod";
 
 export interface FloorRoomsResponse {
-  Floor: FloorResponse;
-  Rooms: RoomResponse[];
+  floor: FloorResponse;
+  rooms: RoomResponse[];
 }
 
 export const FloorRoomsResponseSchema = z.object({
-  Floor: FloorResponseSchema,
-  Rooms: z.array(RoomResponseSchema),
+  floor: FloorResponseSchema,
+  rooms: z.array(RoomResponseSchema),
 });

@@ -2,11 +2,11 @@
 
 export interface TreatmentStaffRequest
 {
-    FkTreatmentId: number;
-    FkStaffId: number;
+    fkTreatmentId: number;
+    fkStaffId: number;
 }
 
 export const TreatmentStaffRequestSchema = z.object({
-    FkTreatmentId: z.int32(),
-    FkStaffId: z.int32(),
+    fkTreatmentId: z.int32(),
+    fkStaffId: z.int32(),
 })

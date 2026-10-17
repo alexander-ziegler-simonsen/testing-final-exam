@@ -1,28 +1,25 @@
-﻿import { z } from 'zod';
+﻿import { z } from "zod";
 
-
-export interface  PatientResponse
-{
-    Id : number; 
-    
-    Firstname : string | null; 
-    
-    Lastname : string | null; 
-    
-    Gender : string | null; 
-    
-    CprNumber : string | null; 
-    DateOfBirth : Date | null; 
-    WeightKg : number | null; 
-    HeightCm : number | null; 
+export interface PatientResponse {
+  id: number;
+  firstname: string | null;
+  lastname: string | null;
+  gender: string | null;
+  cprNumber: string | null;
+  dateOfBirth: Date | null;
+  weightKg: number | null;
+  heightCm: number | null;
 }
 export const PatientResponseSchema = z.object({
-    Id: z.int32(),
-    Firstname: z.string().min(2).max(100).nullable(),
-    Lastname: z.string().min(2).max(100).nullable(),
-    Gender: z.string().min(2).max(50).nullable(),
-    CprNumber: z.string().max(10).nullable(),
-    DateOfBirth: z.iso.date().transform((s) => new Date(s)).nullable(),
-    WeightKg: z.number().nullable(),
-    HeightCm: z.number().nullable(),
-})
+  id: z.int32(),
+  firstname: z.string().min(2).max(100).nullable(),
+  lastname: z.string().min(2).max(100).nullable(),
+  gender: z.string().min(2).max(50).nullable(),
+  cprNumber: z.string().max(10).nullable(),
+  dateOfBirth: z.iso
+    .date()
+    .transform((s) => new Date(s))
+    .nullable(),
+  weightKg: z.number().nullable(),
+  heightCm: z.number().nullable(),
+});

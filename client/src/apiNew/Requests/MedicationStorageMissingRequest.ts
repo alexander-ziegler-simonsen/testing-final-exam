@@ -3,13 +3,13 @@ import { z } from 'zod';
 
 export interface MedicationStorageMissingRequest
 {
-    FkMedicationStorageId: number;
-    AmountMissing: number;
-    WentMissingAt: Date;
+    fkMedicationStorageId: number;
+    amountMissing: number;
+    wentMissingAt: Date;
 }
 
 export const MedicationStorageMissingRequestSchema = z.object({
-    FkMedicationStorageId: z.int32(),
-    AmountMissing: z.number(),
-    WentMissingAt: z.date(),
+    fkMedicationStorageId: z.int32(),
+    amountMissing: z.number(),
+    wentMissingAt: z.date(),
 })

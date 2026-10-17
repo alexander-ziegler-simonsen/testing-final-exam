@@ -1,12 +1,12 @@
 ﻿import { z } from 'zod';
 export interface TreatmentRequest
 {
-    FkPatientId: number;
-    Description: string;
-    Time: Date;
+    fkPatientId: number;
+    description: string | null;
+    time: Date;
 }
 export const TreatmentRequestSchema = z.object({
-    FkPatientId: z.int32(),
-    Description: z.string().min(2).max(500),
-    Time: z.date(),
+    fkPatientId: z.int32(),
+    description: z.string().min(2).max(500).nullable(),
+    time: z.date(),
 })

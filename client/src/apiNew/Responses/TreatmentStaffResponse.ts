@@ -1,16 +1,12 @@
-﻿import { z } from 'zod';
+﻿import { z } from "zod";
 
-export interface TreatmentStaffResponse
-{
-    Id : number; 
-
-    FkTreatmentId : number; 
-
-    FkStaffId : number; 
-
+export interface TreatmentStaffResponse {
+  id: number;
+  fkTreatmentId: number;
+  fkStaffId: number;
 }
 export const TreatmentStaffResponseSchema = z.object({
-    Id: z.int32(),
-    FkTreatmentId: z.int32(),
-    FkStaffId: z.int32(),
-})
+  id: z.int32(),
+  fkTreatmentId: z.int32(),
+  fkStaffId: z.int32(),
+});

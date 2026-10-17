@@ -3,8 +3,8 @@
 
 export interface StaffRoleRequest
 {
-    Name: string;
+    name: string;
 }
 export const StaffRoleRequestSchema = z.object({
-    Name: z.string().min(2).max(50),
+    name: z.string().min(2).max(50),
 })

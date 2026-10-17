@@ -1,16 +1,12 @@
-﻿import { z } from 'zod';
+﻿import { z } from "zod";
 
-
-export interface  RoomResponse
-{
-    Id : number; 
-
-    Name : string;
-
-    FkFloorId : number; 
+export interface RoomResponse {
+  id: number;
+  name: string;
+  fkFloorId: number;
 }
 export const RoomResponseSchema = z.object({
-    Id: z.int32(),
-    Name: z.string(),
-    FkFloorId: z.int32(),
-})
+  id: z.int32(),
+  name: z.string(),
+  fkFloorId: z.int32(),
+});

@@ -3,10 +3,10 @@
 
 export interface RoomRequest
 {
-    Name: string;
-    FkFloorId: number;
+    name: string;
+    fkFloorId: number;
 }
 export const RoomRequestSchema = z.object({
-    Name: z.string(),
-    FkFloorId: z.int32(),
+    name: z.string(),
+    fkFloorId: z.int32(),
 })

@@ -3,20 +3,20 @@
 
 export interface MedicationRequest
 {
-    Name: string | null;
-    GenericName: string | null;
-    Brand: string | null;
-    Form: string | null;
-    Strength: string | null;
-    Category: string | null;
-    Description: string | null;
+    name: string | null;
+    genericName: string | null;
+    brand: string | null;
+    form: string | null;
+    strength: string | null;
+    category: string | null;
+    description: string | null;
 }
 export const MedicationRequestSchema = z.object({
-    Name: z.string().min(2).max(100).nullable(),
-    GenericName: z.string().min(2).max(100).nullable(),
-    Brand: z.string().min(2).max(100).nullable(),
-    Form: z.string().min(2).max(100).nullable(),
-    Strength: z.string().min(2).max(100).nullable(),
-    Category: z.string().min(2).max(100).nullable(),
-    Description: z.string().nullable(),
+    name: z.string().min(2).max(100).nullable(),
+    genericName: z.string().min(2).max(100).nullable(),
+    brand: z.string().min(2).max(100).nullable(),
+    form: z.string().min(2).max(100).nullable(),
+    strength: z.string().min(2).max(100).nullable(),
+    category: z.string().min(2).max(100).nullable(),
+    description: z.string().nullable(),
 })

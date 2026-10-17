@@ -3,12 +3,12 @@ import { type StaffResponse, StaffResponseSchema } from "./StaffResponse";
 import { z } from 'zod';
 
 export interface DepartmentStaffResponse {
-  Id: number;
-  Department: DepartmentResponse;
-  Staff: StaffResponse;
+  id: number;
+  department: DepartmentResponse;
+  staff: StaffResponse;
 }
 export const DepartmentStaffResponseSchema = z.object({
-  Id: z.int32(),
-  Department: DepartmentResponseSchema,
-  Staff: StaffResponseSchema,
+  id: z.int32(),
+  department: DepartmentResponseSchema,
+  staff: StaffResponseSchema,
 })

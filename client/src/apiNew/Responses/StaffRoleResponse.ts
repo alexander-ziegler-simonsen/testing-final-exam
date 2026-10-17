@@ -1,13 +1,11 @@
-﻿import { z } from 'zod';
+﻿import { z } from "zod";
 
-
-export interface  StaffRoleResponse
-{
-    Id : number; 
-    Name : string; 
+export interface StaffRoleResponse {
+  id: number;
+  name: string;
 }
 
 export const StaffRoleResponseSchema = z.object({
-    Id: z.int32(),
-    Name: z.string().min(2).max(50),
-})
+  id: z.int32(),
+  name: z.string().min(2).max(50),
+});

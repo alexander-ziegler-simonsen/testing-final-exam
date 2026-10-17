@@ -2,12 +2,12 @@
 
 export interface  MedicationStorageResponse
 {
-    Id : number;   
-    FkMedicationId : number;   
-    Amount : number;   
+    id : number;   
+    fkMedicationId : number;   
+    amount : number;   
 }
 export const MedicationStorageResponseSchema = z.object({
-    Id: z.int32(),
-    FkMedicationId: z.int32(),
-    Amount: z.number(),
+    id: z.int32(),
+    fkMedicationId: z.int32(),
+    amount: z.number(),
 })

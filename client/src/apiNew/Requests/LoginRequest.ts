@@ -2,10 +2,10 @@ import { z } from 'zod';
 
 export interface LoginRequest
 {
-    Username: string;
-    Password: string;
+    username: string;
+    password: string;
 }
 export const LoginRequestSchema = z.object({
-    Username: z.string().min(2).max(100),
-    Password: z.string().min(8).max(40),
+    username: z.string().min(2).max(100),
+    password: z.string().min(8).max(40),
 })

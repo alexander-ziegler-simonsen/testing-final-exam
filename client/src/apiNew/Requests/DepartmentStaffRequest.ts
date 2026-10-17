@@ -3,12 +3,11 @@ import { z } from 'zod';
 
 export interface DepartmentStaffRequest
 {
-    FkStaffId: number;
-
-    FkDepartmentId: number;
+    fkStaffId: number;
+    fkDepartmentId: number;
 }
 
 export const DepartmentStaffRequestSchema = z.object({
-    FkStaffId: z.int32(),
-    FkDepartmentId: z.int32(),
+    fkStaffId: z.int32(),
+    fkDepartmentId: z.int32(),
 })

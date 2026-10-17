@@ -1,55 +1,54 @@
-﻿import { z } from 'zod';
+﻿import { z } from "zod";
 
-export interface MedicineDetailResponse
-    {
-        Navn : string | null; 
-        Varenummer : string | null; 
-        Styrke : string | null; 
-        Pakning : string | null; 
-        VirksomtStof : string | null; 
-        Firma : string | null; 
-        AtcKode : string | null; 
-        Dosisdispensering : boolean; 
-        Udleveringsgruppe : string | null; 
-        PrisPrPakning : string | null; 
-        PrisPrEnhed : string | null; 
-        AIP : string | null; 
-        TilskudBeregnesAf : string | null; 
-        Udgaaet : boolean; 
-        UdgaaetDato : string | null; 
-        Dosering : string | null; 
-        Indikation : string | null; 
-        TrafikAdvarsel : boolean; 
-        DDD : string | null; 
-        Opbevaringsbetingelser : string | null; 
-        NbsSpeciale : string | null; 
-        Haandkoeb : boolean; 
-        TilskudKode : string | null; 
-        TilskudTekst : string | null; 
-    }
+export interface MedicineDetailResponse {
+  navn: string | null;
+  varenummer: string | null;
+  styrke: string | null;
+  pakning: string | null;
+  virksomtStof: string | null;
+  firma: string | null;
+  atcKode: string | null;
+  dosisdispensering: boolean;
+  udleveringsgruppe: string | null;
+  prisPrPakning: string | null;
+  prisPrEnhed: string | null;
+  aip: string | null;
+  tilskudBeregnesAf: string | null;
+  udgaaet: boolean;
+  udgaaetDato: string | null;
+  dosering: string | null;
+  indikation: string | null;
+  trafikAdvarsel: boolean;
+  ddd: string | null;
+  opbevaringsbetingelser: string | null;
+  nbsSpeciale: string | null;
+  haandkoeb: boolean;
+  tilskudKode: string | null;
+  tilskudTekst: string | null;
+}
 export const MedicineDetailResponseSchema = z.object({
-    Navn: z.string().nullable(),
-    Varenummer: z.string().nullable(),
-    Styrke: z.string().nullable(),
-    Pakning: z.string().nullable(),
-    VirksomtStof: z.string().nullable(),
-    Firma: z.string().nullable(),
-    AtcKode: z.string().nullable(),
-    Dosisdispensering: z.boolean(),
-    Udleveringsgruppe: z.string().nullable(),
-    PrisPrPakning: z.string().nullable(),
-    PrisPrEnhed: z.string().nullable(),
-    AIP: z.string().nullable(),
-    TilskudBeregnesAf: z.string().nullable(),
-    Udgaaet: z.boolean(),
-    UdgaaetDato: z.string().nullable(),
-    Dosering: z.string().nullable(),
-    Indikation: z.string().nullable(),
-    TrafikAdvarsel: z.boolean(),
-    DDD: z.string().nullable(),
-    Opbevaringsbetingelser: z.string().nullable(),
-    NbsSpeciale: z.string().nullable(),
-    Haandkoeb: z.boolean(),
-    TilskudKode: z.string().nullable(),
-    TilskudTekst: z.string().nullable(),
-})
+  navn: z.string().nullable(),
+  varenummer: z.string().nullable(),
+  styrke: z.string().nullable(),
+  pakning: z.string().nullable(),
+  virksomtStof: z.string().nullable(),
+  firma: z.string().nullable(),
+  atcKode: z.string().nullable(),
+  dosisdispensering: z.boolean(),
+  udleveringsgruppe: z.string().nullable(),
+  prisPrPakning: z.string().nullable(),
+  prisPrEnhed: z.string().nullable(),
+  aip: z.string().nullable(),
+  tilskudBeregnesAf: z.string().nullable(),
+  udgaaet: z.boolean(),
+  udgaaetDato: z.string().nullable(),
+  dosering: z.string().nullable(),
+  indikation: z.string().nullable(),
+  trafikAdvarsel: z.boolean(),
+  ddd: z.string().nullable(),
+  opbevaringsbetingelser: z.string().nullable(),
+  nbsSpeciale: z.string().nullable(),
+  haandkoeb: z.boolean(),
+  tilskudKode: z.string().nullable(),
+  tilskudTekst: z.string().nullable(),
+});

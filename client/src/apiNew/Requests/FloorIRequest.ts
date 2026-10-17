@@ -2,10 +2,10 @@
 
 export interface FloorIRequest
 {
-    Name: string;
-    FkBuildingId: number;
+    name: string;
+    fkBuildingId: number;
 }
 export const FloorIRequestSchema = z.object({
-    Name: z.string().min(2).max(100),
-    FkBuildingId: z.int32(),
+    name: z.string().min(2).max(100),
+    fkBuildingId: z.int32(),
 })

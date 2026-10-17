@@ -3,12 +3,12 @@
 
 export interface  BuildingResponse
 {
-    Id : number;
-    Name : string;
-    Address : string | null;
+    id : number;
+    name : string;
+    address : string | null;
 }
 export const BuildingResponseSchema = z.object({
-    Id: z.int32(),
-    Name: z.string().min(2).max(100),
-    Address: z.string().min(2).max(255).nullable(),
+    id: z.int32(),
+    name: z.string().min(2).max(100),
+    address: z.string().min(2).max(255).nullable(),
 })

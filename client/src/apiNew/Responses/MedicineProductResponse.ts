@@ -1,19 +1,18 @@
-﻿import { z } from 'zod';
+﻿import { z } from "zod";
 
-export interface  MedicineProductResponse
-    {
-        Navn : string; 
-        Varenummer : string; 
-        Firma : string; 
-        Styrke : string; 
-        Detaljer : string; 
-        Pakning : string; 
-    }
+export interface MedicineProductResponse {
+  navn: string;
+  varenummer: string;
+  firma: string;
+  styrke: string;
+  detaljer: string;
+  pakning: string;
+}
 export const MedicineProductResponseSchema = z.object({
-    Navn: z.string(),
-    Varenummer: z.string(),
-    Firma: z.string(),
-    Styrke: z.string(),
-    Detaljer: z.string(),
-    Pakning: z.string(),
-})
+  navn: z.string(),
+  varenummer: z.string(),
+  firma: z.string(),
+  styrke: z.string(),
+  detaljer: z.string(),
+  pakning: z.string(),
+});

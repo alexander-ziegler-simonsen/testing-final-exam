@@ -2,12 +2,12 @@
 
 export interface  FloorResponse
 {
-    Id:  number; 
-    Name:  string | null; 
-    FkBuildingId:  number; 
+    id:  number; 
+    name:  string | null; 
+    fkBuildingId:  number; 
 }
 export const FloorResponseSchema = z.object({
-    Id: z.int32(),
-    Name: z.string().min(2).max(100).nullable(),
-    FkBuildingId: z.int32(),
+    id: z.int32(),
+    name: z.string().min(2).max(100).nullable(),
+    fkBuildingId: z.int32(),
 })

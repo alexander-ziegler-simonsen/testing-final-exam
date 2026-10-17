@@ -2,18 +2,18 @@ import { z } from 'zod';
 
 export interface LoginResponse
 {
-    Token : string 
-    StaffId : number | null 
-    PatientId : number | null 
-    Firstname : string | null 
-    Lastname : string | null 
-    Role : string 
+    token : string 
+    staffId : number | null 
+    patientId : number | null 
+    firstname : string | null 
+    lastname : string | null 
+    role : string 
 }
 export const LoginResponseSchema = z.object({
-    Token: z.string().max(255),
-    StaffId: z.int32().nullable(),
-    PatientId: z.int32().nullable(),
-    Firstname: z.string().min(2).max(100).nullable(),
-    Lastname: z.string().min(2).max(100).nullable(),
-    Role: z.string(),
+    token: z.string(),
+    staffId: z.int32().nullable(),
+    patientId: z.int32().nullable(),
+    firstname: z.string().min(2).max(100).nullable(),
+    lastname: z.string().min(2).max(100).nullable(),
+    role: z.string(),
 })

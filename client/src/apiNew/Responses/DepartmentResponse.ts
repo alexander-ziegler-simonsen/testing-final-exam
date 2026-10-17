@@ -1,12 +1,12 @@
 ﻿import { z } from 'zod';
 
 export interface DepartmentResponse {
-  Id: number;
-  Name: string | null;
-  Type: string | null;
+  id: number;
+  name: string | null;
+  type: string | null;
 }
 export const DepartmentResponseSchema = z.object({
-  Id: z.int32(),
-  Name: z.string().min(2).max(100).nullable(),
-  Type: z.string().min(2).max(100).nullable(),
+  id: z.int32(),
+  name: z.string().min(2).max(100).nullable(),
+  type: z.string().min(2).max(100).nullable(),
 })

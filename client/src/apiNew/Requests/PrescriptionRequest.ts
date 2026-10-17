@@ -1,14 +1,14 @@
 ﻿import { z } from 'zod';
 
 export interface PrescriptionRequest {
-  FkMedicationId: number;
-  FkTreatmentId: number;
-  FkPrescribedByStaffId: number;
-  Doses: number;
+  fkMedicationId: number;
+  fkTreatmentId: number;
+  fkPrescribedByStaffId: number;
+  doses: number;
 }
 export const PrescriptionRequestSchema = z.object({
-  FkMedicationId: z.int32(),
-  FkTreatmentId: z.int32(),
-  FkPrescribedByStaffId: z.int32(),
-  Doses: z.number(),
+  fkMedicationId: z.int32(),
+  fkTreatmentId: z.int32(),
+  fkPrescribedByStaffId: z.int32(),
+  doses: z.number(),
 })
