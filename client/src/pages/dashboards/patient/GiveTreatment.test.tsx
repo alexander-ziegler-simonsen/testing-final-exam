@@ -1,0 +1,35 @@
+import { expect, test } from "vitest";
+import { matchScreenshot } from "../../../test-utils/matchScreenshot";
+import { render } from "vitest-browser-react";
+import { MemoryRouter } from "react-router";
+import { Provider } from "../../../components/ui/provider";
+import GiveTreatment from "./GiveTreatment";
+
+// GiveTreatment loads patients/medications/storages via Promise.all before
+// rendering the form (see its `dataLoading` state), served here by the
+// default MSW handlers.
+function renderGiveTreatment() {
+    return render(<GiveTreatment />, {
+        wrapper: ({ children }) => (
+            <Provider>
+                <MemoryRouter>{children}</MemoryRouter>
+            </Provider>
+        ),
+    });
+}
+
+test("renders the form once patient/medication data has loaded", async () => {
+    const { getByTestId, container } = await renderGiveTreatment();
+
+    await expect.element(getByTestId("give-treatment-page")).toBeInTheDocument();
+    await expect.element(getByTestId("give-treatment-field-patient")).toBeInTheDocument();
+
+    // No patient selected yet, so submit is disabled.
+    await expect.element(getByTestId("give-treatment-submit-button")).toBeDisabled();
+
+    // The "Time" field defaults to `new Date()`. Pin it to a fixed value so
+    // the screenshot baseline doesn't drift on every run.
+    await getByTestId("give-treatment-field-time").fill("2026-01-15T10:30");
+
+    await matchScreenshot(container, "give-treatment");
+});
