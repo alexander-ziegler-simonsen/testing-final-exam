@@ -11,9 +11,9 @@ const timestamp = new Date().toISOString()
 export default defineConfig({
     test: {
         // fast Node-only tests (msw/node, no browser) vs. real-browser tests
-        // (msw/browser, Playwright chromium) — see vitest.unit.config.ts /
-        // vitest.browser.config.ts.
-        projects: ['./vitest.unit.config.ts', './vitest.browser.config.ts'],
+        // (msw/browser, Playwright chromium) — see configs/vitest.unit.config.ts /
+        // configs/vitest.browser.config.ts.
+        projects: ['./configs/vitest.unit.config.ts', './configs/vitest.browser.config.ts'],
 
         // 2. Pass the instantiated class into the top-level test reporters array
         reporters: [ 'default'],

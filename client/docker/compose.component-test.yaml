@@ -3,12 +3,12 @@ name: client-component-tests
 services:
   component-tests:
     build:
-      context: .
-      dockerfile: Dockerfile.component-test
+      context: ..
+      dockerfile: docker/Dockerfile.component-test
     platform: linux/amd64
     shm_size: 1gb 
     volumes:
-      - ./:/app/client
+      - ../:/app/client
       - node_modules:/app/client/node_modules
       - pnpm_store:/pnpm-store
     environment:

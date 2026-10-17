@@ -18,13 +18,13 @@
     "test": "vitest",
     "test:unit": "vitest --project unit",
     "img:update": "vitest --update --browser.headless",
-    "img:update:docker": "docker compose -f compose.component-test.yaml run --rm --build component-tests --update",
+    "img:update:docker": "docker compose -f docker/compose.component-test.yaml run --rm --build component-tests --update",
     "img:update-head": "vitest --update --browser.ui=false",
     "openapi": "openapi-ts -f configs/openapi-ts.config.ts",
     "coverage": "vitest run --coverage",
     "test:browser": "vitest --project browser --browser.headless",
     "test:browser-head": "vitest --project browser",
-    "test:browser:docker": "docker compose -f compose.component-test.yaml run --rm --build component-tests"
+    "test:browser:docker": "docker compose -f docker/compose.component-test.yaml run --rm --build component-tests"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.36.1",

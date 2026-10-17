@@ -7,9 +7,11 @@ export default defineProject({
   plugins: [react()],
   test: {
     name: "browser",
-    include: ["src/**/*.test.{ts,tsx}", "vitest-example/**/*.test.tsx"],
+    // project root defaults to this file's folder (configs/), point it back at client/
+    root: path.resolve(__dirname, ".."),
+    include: ["src/**/*.test.{ts,tsx}"],
     exclude: ["src/**/*.unit.test.ts"],
-    setupFiles: [path.resolve(__dirname, "./src/mocks/setupMswBrowser.ts")],
+    setupFiles: [path.resolve(__dirname, "../src/mocks/setupMswBrowser.ts")],
     browser: {
       enabled: true,
       provider: playwright({

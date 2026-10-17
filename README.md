@@ -1,3 +1,0 @@
-# testing-final-exam
-
-test

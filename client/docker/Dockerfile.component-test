@@ -8,4 +8,4 @@ ENV ELECTRON_SKIP_BINARY_DOWNLOAD=1
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 
 WORKDIR /app/client
-ENTRYPOINT ["bash", "component-test-entry.sh"]
+ENTRYPOINT ["bash", "docker/component-test-entry.sh"]
