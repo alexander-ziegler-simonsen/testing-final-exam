@@ -1,5 +1,5 @@
 import { Box, Container, Text } from "@chakra-ui/react";
-import LoginCompoent from "../../components/LoginCompoent";
+import LoginCompoent from "../../components/public/LoginCompoent";
 import Navbar from "../../components/public/Navbar";
 import Footer from "../../components/public/Footer";
 import { Link } from "react-router";

@@ -1,11 +1,31 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Icon, Link as ChakraLink, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
+import type { IconType } from "react-icons";
+import { LuShieldCheck, LuStethoscope, LuSyringe, LuUser } from "react-icons/lu";
 import { useAuthStore } from "../../stores/AuthStore";
-import { AuthService } from "../../services/Auth";
+import { AuthService } from "../../services/auth/Auth";
+
+const navLinks = [
+  { label: "facilities", to: "/app/facilities" },
+  { label: "Patients", to: "/app/patients" },
+  { label: "Medicin", to: "/app/medicin" },
+  { label: "Rooms", to: "/app/rooms" },
+  { label: "staff", to: "/app/staff" },
+  { label: "settings", to: "/app/settings" },
+];
+
+const roleIcons: Record<string, { icon: IconType; color: string }> = {
+  admin: { icon: LuShieldCheck, color: "purple.600" },
+  doctor: { icon: LuStethoscope, color: "blue.600" },
+  nurse: { icon: LuSyringe, color: "teal.600" },
+  patient: { icon: LuUser, color: "gray.700" },
+};
 
 export default function Navbar() {
   const user = useAuthStore((state) => state.user);
   const clearSession = useAuthStore((state) => state.clearSession);
+  const role = user?.role?.toLowerCase();
+  const roleIcon = role ? roleIcons[role] : undefined;
 
   function logoutFunction() {
     // Clear local session immediately so the UI reacts right away; revoke the
@@ -27,9 +47,20 @@ export default function Navbar() {
       </Box>
 
       {/* links */}
-      <Box display={"flex"} gap={6} ml={8} marginEnd={"auto"} data-testid="dashboard-navbar-user-greeting">
+      <Box display={"flex"} alignItems={"center"} gap={2} ml={8} marginEnd={"auto"} data-testid="dashboard-navbar-user-greeting">
+        {roleIcon && (
+          <Icon as={roleIcon.icon} boxSize={6} color={roleIcon.color} aria-label={role} data-testid={`dashboard-navbar-role-icon-${role}`} />
+        )}
         <Text textStyle={"xl"}>{user ? `${user.firstName} ${user.lastName}` : "unknown person"}</Text>
       </Box>
+
+      <HStack as="nav" gap={4} data-testid="dashboard-navbar-links">
+        {navLinks.map((link) => (
+          <ChakraLink key={link.to} asChild fontWeight={"medium"} px={3} py={1} rounded={"md"} _hover={{ bg: "gray.100" }}>
+            <Link to={link.to}>{link.label}</Link>
+          </ChakraLink>
+        ))}
+      </HStack>
 
       {/* book btn */}
       <Box display={"flex"}>

@@ -7,28 +7,25 @@ import Doctors from './pages/public/Doctors'
 import Contact from './pages/public/Contact'
 import DashboardLayout from './pages/DashboardLayout'
 import Overview from './pages/dashboards/Overview'
-import Departments from './pages/dashboards/Departments'
-import DepartmentStaff from './pages/dashboards/DepartmentStaff'
-import Facilities from './pages/dashboards/Facilities'
-import OneFacility from './pages/dashboards/OneFacility'
-import MissingMedicin from './pages/dashboards/MissingMedicin'
-import MedicinStorage from './pages/dashboards/MedicinStorage'
-import OneMedicin from './pages/dashboards/OneMedicin'
-import ExternalMedicin from './pages/dashboards/ExternalMedicin'
-import OneExternalMedicin from './pages/dashboards/OneExternalMedicin'
-import Patients from './pages/dashboards/Patients'
-import OnePatient from './pages/dashboards/OnePatient'
-import RegisterBaby from './pages/dashboards/RegisterBaby'
-import Staff from './pages/dashboards/Staff'
-import RoomBooking from './pages/dashboards/RoomBooking'
-import OneRoomBooking from './pages/dashboards/OneRoomBooking'
-import OneRoom from './pages/dashboards/OneRoom'
-import Treatments from './pages/dashboards/Treatments'
-import OneTreatment from './pages/dashboards/OneTreatment'
-import GiveTreatment from './pages/dashboards/GiveTreatment'
 import { RoleProtectedRoute } from './components/auth/RoleProtectedRoute'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import { Toaster } from './components/ui/toaster'
+import OneMedicinPage from './pages/dashboards/subPage/medicin/OneMedicinPage'
+import MedicinDashboard from './pages/dashboards/MedicinDashboard'
+import OneExternalMedicinPage from './pages/dashboards/subPage/medicin/OneExternalMedicinPage'
+import OnePatientPage from './pages/dashboards/subPage/patient/OnePatientPage'
+import OneTreatmentPage from './pages/dashboards/subPage/patient/OneTreatmentPage'
+import FacilityDashboard from './pages/dashboards/FacilityDashboard'
+import PatientDashboard from './pages/dashboards/PatientDashboard'
+import RoomsDashboard from './pages/dashboards/RoomsDashboard'
+import StaffDashboard from './pages/dashboards/StaffDashboard'
+import OneRoomPage from './pages/dashboards/subPage/rooms/OneRoomPage'
+import OneFacilityPage from './pages/dashboards/subPage/facilities/OneFacilityPage'
+import TreatmentDashboard from './pages/dashboards/TreatmentDashboard'
+import ConfigDashboard from './pages/dashboards/ConfigDashboard'
+import OneDepartmentPage from './pages/dashboards/subPage/facilities/OneDepartmentPage'
+import OneRoomBookingPage from './pages/dashboards/subPage/rooms/OneRoomBookingPage'
+import OneUserPage from './pages/dashboards/subPage/staff/OneUserPage'
 
 // https://mswjs.io/docs/integrations/browser/#conditionally-enable-mocking
 function MockingNotice() {
@@ -58,11 +55,13 @@ function App() {
 
         {/* Enforces user authentication */}
         <Route element={<ProtectedRoute />}>
-          <Route path="app" element={<DashboardLayout />}>
+          <Route path="app" element={<DashboardLayout />}>'
+
+            <Route path="settings" element={<ConfigDashboard />} />
 
             {/* Accessible by Everyone (Staff AND Patients) */}
-            <Route path="treatment" element={<Treatments />} />
-            <Route path="treatment/:id" element={<OneTreatment />} />
+            <Route path="treatment" element={<TreatmentDashboard />} />
+            <Route path="treatment/:id" element={<OneTreatmentPage />} />
 
             {/* staff only */}
             <Route element={<RoleProtectedRoute allowedRoles={['doctor', 'nurse', 'admin']} />}>
@@ -70,31 +69,30 @@ function App() {
               <Route index element={<Navigate to="overview" replace />} />
               <Route path="overview" element={<Overview />} />
 
-              <Route path="departments" element={<Departments />} />
-              <Route path="department_staff" element={<DepartmentStaff />} />
-              <Route path="facilities" element={<Facilities />} />
-              <Route path="facilities/:id" element={<OneFacility />} />
-              <Route path="patients" element={<Patients />} />
-              <Route path="patients/:id" element={<OnePatient />} />
-              <Route path="register_baby" element={<RegisterBaby />} />
-              <Route path="missing_medicin" element={<MissingMedicin />} />
-              <Route path="medicin_storage" element={<MedicinStorage />} />
-              <Route path="medicin_storage/:id" element={<OneMedicin />} />
-              <Route path="external_medicin" element={<ExternalMedicin />} />
-              <Route path="external_medicin/:id" element={<OneExternalMedicin />} />
-              <Route path="room_booking" element={<RoomBooking />} />
-              <Route path="room_booking/room/:id" element={<OneRoom />} />
-              <Route path="room_booking/:id" element={<OneRoomBooking />} />
+              <Route path="facilities" element={<FacilityDashboard />} />
+              <Route path="facilities/:id" element={<OneFacilityPage />} />
+              <Route path="departments/:id" element={<OneDepartmentPage />} />
+              <Route path="patients" element={<PatientDashboard />} />
+              <Route path="patients/:id" element={<OnePatientPage />} />
+              <Route path="medicin" element={<MedicinDashboard />} />
+              <Route path="medicin/:id" element={<OneMedicinPage />} />
+              <Route path="external_medicin/:id" element={<OneExternalMedicinPage />} />
+              <Route path="rooms" element={<RoomsDashboard />} />
+              <Route path="staff" element={<StaffDashboard />} />
+              <Route path="users/:id" element={<OneUserPage />} />
+              <Route path="rooms" element={<RoomsDashboard />} />
+              <Route path="rooms/:id" element={<OneRoomPage />} />
+              <Route path="room_booking/:id" element={<OneRoomBookingPage />} />
 
               {/* Only admin */}
-              <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
+              {/* <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
                 <Route path="staff" element={<Staff />} />
-              </Route>
+              </Route> */}
 
               {/* Give Treatment */}
-              <Route element={<RoleProtectedRoute allowedRoles={['nurse', 'admin']} />}>
+              {/* <Route element={<RoleProtectedRoute allowedRoles={['nurse', 'admin']} />}>
                 <Route path="give_treatment" element={<GiveTreatment />} />
-              </Route>
+              </Route> */}
             </Route>
 
           </Route>

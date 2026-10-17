@@ -37,7 +37,7 @@ export function DataTable<T>({ data, columns, pageSize = 5, pageSizeOptions, onR
     } = useDataTable({ data, columns, pageSize, pageSizeOptions });
 
     return (
-        <Stack width="full" gap="4" data-testid={testId}>
+        <Stack width="full" gap="4" data-testid={testId} background={"cyan.100"}>
             {/* Table Container */}
             <Table.Root variant="line" size="md" interactive data-testid={`${testId}-table`}>
                 <Table.Header>
