@@ -6,11 +6,8 @@ import { mockLoginResponses } from "../fixtures/responses/LoginFixture";
 // the api keeps the refresh token in an httpOnly cookie - msw stores mocked cookies and sends them back like a browser
 const REFRESH_COOKIE = "refreshToken";
 
-// mockLoginRequests[i] logs in as mockLoginResponses[i]
-const findLogin = (username: string | undefined) => {
-  const index = mockLoginRequests.findIndex((login) => login.username === username);
-  return index === -1 ? undefined : mockLoginResponses[index];
-};
+// every mock username is the role it logs in as ("doctor", "nurse", "patient", "admin")
+const findLogin = (username: string | undefined) => mockLoginResponses.find((login) => login.role === username);
 
 export const authHandlers = [
   http.post("*/api/Auth/login", async ({ request }) => {
