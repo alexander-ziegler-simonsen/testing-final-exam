@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import type { HospitalApiDtosOutputsDepartmentStaffOutputDto } from "../../../api";
-import { DepartmentStaffService } from "../../../services/DepartmentStaff";
+import { DepartmentStaffService } from "../../../services/facilities/DepartmentStaff";
 
 export default function DepartmentStaff() {
   const [data, setData] = useState<HospitalApiDtosOutputsDepartmentStaffOutputDto[]>([]);

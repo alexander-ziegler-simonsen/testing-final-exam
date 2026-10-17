@@ -10,7 +10,7 @@ import type {
     HospitalApiDtosOutputsRoomOutputDto,
 } from "../../../api";
 import { RoomBookingService } from "../../../services/RoomBooking";
-import { LocationService } from "../../../services/Location";
+import { LocationService } from "../../../services/facilities/Location";
 import { PatientService } from "../../../services/Patient";
 
 // datetime-local inputs need "YYYY-MM-DDTHH:mm", not a full ISO string.

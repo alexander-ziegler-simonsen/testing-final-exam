@@ -8,8 +8,8 @@ import type {
     HospitalApiDtosOutputsMedicationOutputDto,
     HospitalApiDtosOutputsMedicationStorageOutputDto,
 } from "../../../api";
-import { MedicationStorageService } from "../../../services/MedicationStorage";
-import { MedicationService } from "../../../services/Medication";
+import { MedicationStorageService } from "../../../services/medicin/MedicationStorage";
+import { MedicationService } from "../../../services/medicin/Medication";
 
 const amountFields: FieldConfig<HospitalApiDtosInputsMedicationStorageInputDto>[] = [
     { key: "amount", label: "Amount", type: "number", required: true },

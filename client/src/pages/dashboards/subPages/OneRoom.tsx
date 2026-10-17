@@ -7,7 +7,7 @@ import type {
     HospitalApiDtosOutputsRoomBookingOutputDto,
 } from "../../../api";
 import { RoomBookingService } from "../../../services/RoomBooking";
-import { LocationService } from "../../../services/Location";
+import { LocationService } from "../../../services/facilities/Location";
 import { PatientService } from "../../../services/Patient";
 
 export default function OneRoom() {

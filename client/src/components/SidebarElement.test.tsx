@@ -4,9 +4,6 @@ import { MemoryRouter } from "react-router";
 import SidebarElement from "./SidebarElement";
 import { Provider } from "./ui/provider";
 
-// SidebarElement renders a react-router <Link> (needs a Router) and Chakra
-// components (needs ChakraProvider), same wrapper pattern as Sidebar.test.tsx,
-// which is the component that actually mounts SidebarElement in the app.
 function renderSidebarElement(props: React.ComponentProps<typeof SidebarElement>) {
   return render(<SidebarElement {...props} />, {
     wrapper: ({ children }) => (
@@ -39,16 +36,10 @@ test("renders the open button as a link to the given path", async () => {
     testId: "sidebar-desktop-shifts-link",
   });
 
-  // The data-testid sits on the <Button> nested inside the react-router
-  // <Link>, so the href actually lives on the surrounding <a> - querying by
-  // its "link" role reaches that anchor directly.
   await expect.element(getByRole("link", { name: "open" })).toHaveAttribute("href", "/shifts");
 });
 
 test("keeps testIds distinct per caller so the same element can render twice", async () => {
-  // Sidebar.tsx renders this same list once for the desktop panel and once for
-  // the mobile drawer, both mounted at once - this is why the caller supplies
-  // a distinct testId prefix instead of the component deriving one from title/path.
   const { getByTestId } = await renderSidebarElement({
     selected: false,
     title: "shifts",

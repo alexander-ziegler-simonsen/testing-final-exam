@@ -5,9 +5,6 @@ import { MemoryRouter } from "react-router";
 import Departments from "./Departments";
 import { Provider } from "../../../components/ui/provider";
 
-// Departments fetches via DepartmentService, served here by the default MSW
-// handlers (see mocks/handlers.ts), which return the fixtures from
-// mocks/fixtures/department.ts.
 function renderDepartments() {
     return render(<Departments />, {
         wrapper: ({ children }) => (

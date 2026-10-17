@@ -1,7 +1,7 @@
 import { Badge, Code, Input, Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import type { HospitalApiDtosOutputsMedicationStorageMissingOutputDto } from "../../../api";
-import { MedicationStorageMissingService } from "../../../services/MedicationStorageMissing";
+import { MedicationStorageMissingService } from "../../../services/medicin/MedicationStorageMissing";
 import { useEffect, useState } from "react";
 
 export default function MissingMedicin() {

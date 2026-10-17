@@ -9,8 +9,8 @@ import type {
   HospitalApiDtosOutputsStaffOutputDto,
   HospitalApiDtosOutputsUserOutputDto,
 } from "../../../api";
-import { UserService } from "../../../services/User";
-import { StaffService } from "../../../services/Staff";
+import { UserService } from "../../../services/auth/User";
+import { StaffService } from "../../../services/staff/Staff";
 import { PatientService } from "../../../services/Patient";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 

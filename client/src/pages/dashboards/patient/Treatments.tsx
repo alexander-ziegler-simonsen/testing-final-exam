@@ -5,7 +5,7 @@ import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
 import type { HospitalApiDtosInputsTreatmentInputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsTreatmentOutputDto } from "../../../api";
-import { TreatmentService } from "../../../services/Treatment";
+import { TreatmentService } from "../../../services/patient/Treatment";
 import { PatientService } from "../../../services/Patient";
 import { useAuthStore } from "../../../stores/AuthStore";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";

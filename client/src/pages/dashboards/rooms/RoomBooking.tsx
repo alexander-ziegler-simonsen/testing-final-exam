@@ -11,7 +11,7 @@ import type {
     HospitalApiDtosOutputsRoomBookingOutputDto,
 } from "../../../api";
 import { RoomBookingService } from "../../../services/RoomBooking";
-import { LocationService } from "../../../services/Location";
+import { LocationService } from "../../../services/facilities/Location";
 import { PatientService } from "../../../services/Patient";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 

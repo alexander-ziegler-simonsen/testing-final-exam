@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import type { HospitalApiDtosOutputsLocationOutputDto } from "../../../api";
-import { LocationService } from "../../../services/Location";
+import { LocationService } from "../../../services/facilities/Location";
 
 interface BuildingRow {
     id?: number;

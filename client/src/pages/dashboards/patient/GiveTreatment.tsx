@@ -6,10 +6,10 @@ import type {
   HospitalApiDtosOutputsMedicationStorageOutputDto,
   HospitalApiDtosOutputsPatientOutputDto,
 } from "../../../api";
-import { TreatmentService } from "../../../services/Treatment";
-import { PrescriptionService } from "../../../services/Prescription";
-import { MedicationStorageService } from "../../../services/MedicationStorage";
-import { MedicationService } from "../../../services/Medication";
+import { TreatmentService } from "../../../services/patient/Treatment";
+import { PrescriptionService } from "../../../services/patient/Prescription";
+import { MedicationStorageService } from "../../../services/medicin/MedicationStorage";
+import { MedicationService } from "../../../services/medicin/Medication";
 import { PatientService } from "../../../services/Patient";
 import { useAuthStore } from "../../../stores/AuthStore";
 import { toaster } from "../../../components/ui/toaster";

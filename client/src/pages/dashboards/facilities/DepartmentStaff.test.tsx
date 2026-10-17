@@ -4,9 +4,6 @@ import { render } from "vitest-browser-react";
 import DepartmentStaff from "./DepartmentStaff";
 import { Provider } from "../../../components/ui/provider";
 
-// DepartmentStaff only renders Chakra components (no router/auth involved),
-// and fetches via DepartmentStaffService, served by the default MSW handler
-// - see mocks/fixtures/departmentStaff.ts.
 function renderDepartmentStaff() {
     return render(<DepartmentStaff />, {
         wrapper: ({ children }) => <Provider>{children}</Provider>,

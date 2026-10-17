@@ -1,13 +1,5 @@
 import { defineConfig } from 'vitest/config'
 
-process.env.ALLURE_HOST_NAME = 'CI-Runner'
-process.env.ALLURE_THREAD_NAME = 'Main-Thread'
-
-const timestamp = new Date().toISOString()
-    .replace(/T/, '_')
-    .replace(/:/g, '-')
-    .split('.')[0]
-
 export default defineConfig({
     test: {
         // fast Node-only tests (msw/node, no browser) vs. real-browser tests
@@ -25,11 +17,7 @@ export default defineConfig({
             include: ['src/**/*.{ts,tsx}'],
             exclude: ['src/api/**/*'],
 
-            reporter: [
-                'text',
-                'json',
-                ['json-summary', { file: `report-${timestamp}.json` }]
-            ],
+            reporter: [ 'text', 'json' ],
         },
     },
 })

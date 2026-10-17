@@ -9,12 +9,12 @@ import type {
     HospitalApiDtosOutputsStaffOutputDto,
     HospitalApiDtosOutputsTreatmentOutputDto,
 } from "../../../api";
-import { TreatmentService } from "../../../services/Treatment";
+import { TreatmentService } from "../../../services/patient/Treatment";
 import { PatientService } from "../../../services/Patient";
-import { PrescriptionService } from "../../../services/Prescription";
-import { TreatmentStaffService } from "../../../services/TreatmentStaff";
-import { StaffService } from "../../../services/Staff";
-import { MedicationService } from "../../../services/Medication";
+import { PrescriptionService } from "../../../services/patient/Prescription";
+import { TreatmentStaffService } from "../../../services/patient/TreatmentStaff";
+import { StaffService } from "../../../services/staff/Staff";
+import { MedicationService } from "../../../services/medicin/Medication";
 
 interface PrescriptionRow {
     id?: number;

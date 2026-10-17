@@ -4,7 +4,7 @@ import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import { CommandFormPopup, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
 import type { HospitalApiDtosInputsDepartmentInputDto, HospitalApiDtosOutputsDepartmentOutputDto } from "../../../api";
-import { DepartmentService } from "../../../services/Department";
+import { DepartmentService } from "../../../services/facilities/Department";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 
 // Extends the output DTO with a synthetic column key for the actions cell,

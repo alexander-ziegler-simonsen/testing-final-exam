@@ -5,8 +5,6 @@ import { MemoryRouter } from "react-router";
 import Facilities from "./Facilities";
 import { Provider } from "../../../components/ui/provider";
 
-// Facilities fetches via LocationService, served here by the default MSW
-// handlers, which return the fixtures from mocks/fixtures/location.ts.
 function renderFacilities() {
     return render(<Facilities />, {
         wrapper: ({ children }) => (

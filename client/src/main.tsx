@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { Provider } from './components/ui/provider.tsx'
 import { client } from './api/client.gen.ts'
-import { setupAuthInterceptor } from './services/authInterceptor.ts'
+import { setupAuthInterceptor } from './services/auth/authInterceptor.ts'
 
 // set config for the client singleton instance, this is the default config for all requests made by the client.
 client.setConfig({

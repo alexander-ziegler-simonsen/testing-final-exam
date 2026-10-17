@@ -8,7 +8,7 @@ import type {
     HospitalApiDtosOutputsFloorOutputDto,
     HospitalApiDtosOutputsLocationOutputDto,
 } from "../../../api";
-import { LocationService } from "../../../services/Location";
+import { LocationService } from "../../../services/facilities/Location";
 import { useAuthStore } from "../../../stores/AuthStore";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 

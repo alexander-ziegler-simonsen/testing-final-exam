@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import type { HospitalApiDtosExternalMedicineDetailOutputDto } from "../../../api";
-import { ExternalMedicinePricesService } from "../../../services/ExternalMedicinePrices";
+import { ExternalMedicinePricesService } from "../../../services/medicin/ExternalMedicinePrices";
 import { useExternalMedicinStore } from "../../../stores/ExternalMedicinStore";
 
 export default function OneExternalMedicin() {

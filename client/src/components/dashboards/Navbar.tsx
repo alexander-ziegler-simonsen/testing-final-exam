@@ -1,7 +1,7 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 import { useAuthStore } from "../../stores/AuthStore";
-import { AuthService } from "../../services/Auth";
+import { AuthService } from "../../services/auth/Auth";
 
 export default function Navbar() {
   const user = useAuthStore((state) => state.user);
