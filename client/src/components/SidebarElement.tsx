@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Text } from "@chakra-ui/react";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 
 interface SidebarElementProps {
@@ -11,22 +11,13 @@ interface SidebarElementProps {
 
 export default function SidebarElement({ selected, title, icon, path, testId }: Readonly<SidebarElementProps>) {
     return (
-        <>
-            <Box bg={selected ? "red.100" : "transparent"} data-testid={testId}>
-                <HStack gap={2}>
-                    <Box marginRight={4}>{icon}</Box>
-                    <Box marginEnd={"auto"}>
-                        <Text fontWeight={"bold"}>{title}</Text>
-                    </Box>
-                    <Box>
-                        <Link to={path}>
-                            <Button data-testid={`${testId}-open-button`} variant={"outline"} p={3} fontWeight={"bold"} fontSize={18} rounded={48}>open</Button>
-                        </Link>
-                    </Box>
-                </HStack>
-            </Box>
-            <br />
-        </>
-
+        <Box data-testid={testId}>
+            <HStack asChild gap={3} px={3} py={2} rounded="md" bg={selected ? "red.subtle" : "transparent"} _hover={{ bg: selected ? "red.subtle" : "bg.muted" }}>
+                <Link to={path} data-testid={`${testId}-open-button`} aria-current={selected ? "page" : undefined}>
+                    {icon}
+                    <Text fontWeight={selected ? "bold" : "medium"}>{title}</Text>
+                </Link>
+            </HStack>
+        </Box>
     );
 }
