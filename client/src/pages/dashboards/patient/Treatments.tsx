@@ -6,9 +6,9 @@ import { DataTable, type ColumnConfig } from "../../../components/dashboards/Dat
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
 import type { HospitalApiDtosInputsTreatmentInputDto, HospitalApiDtosOutputsPatientOutputDto, HospitalApiDtosOutputsTreatmentOutputDto } from "../../../api";
 import { TreatmentService } from "../../../services/patient/Treatment";
-import { PatientService } from "../../../services/Patient";
 import { useAuthStore } from "../../../stores/AuthStore";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
+import { PatientService } from "../../../services/patient/Patient";
 
 // Extends the output DTO with a synthetic column key for the actions cell,
 // since ColumnConfig keys must be keyof T.

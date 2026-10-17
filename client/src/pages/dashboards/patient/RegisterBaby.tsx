@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Field, Input, NativeSelect, Stack, Text } from "@chakra-ui/react";
-import { PatientService } from "../../../services/Patient";
 import { toaster } from "../../../components/ui/toaster";
+import { PatientService } from "../../../services/patient/Patient";
 
 export default function RegisterBaby() {
   const [firstname, setFirstname] = useState("");

@@ -10,9 +10,9 @@ import { TreatmentService } from "../../../services/patient/Treatment";
 import { PrescriptionService } from "../../../services/patient/Prescription";
 import { MedicationStorageService } from "../../../services/medicin/MedicationStorage";
 import { MedicationService } from "../../../services/medicin/Medication";
-import { PatientService } from "../../../services/Patient";
 import { useAuthStore } from "../../../stores/AuthStore";
 import { toaster } from "../../../components/ui/toaster";
+import { PatientService } from "../../../services/patient/Patient";
 
 type ApprovalStep = "none" | "required" | "signing" | "approved";
 

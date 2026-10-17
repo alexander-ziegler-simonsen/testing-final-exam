@@ -9,9 +9,9 @@ import type {
     HospitalApiDtosOutputsRoomBookingOutputDto,
     HospitalApiDtosOutputsRoomOutputDto,
 } from "../../../api";
-import { RoomBookingService } from "../../../services/RoomBooking";
 import { LocationService } from "../../../services/facilities/Location";
-import { PatientService } from "../../../services/Patient";
+import { RoomBookingService } from "../../../services/rooms/RoomBooking";
+import { PatientService } from "../../../services/patient/Patient";
 
 // datetime-local inputs need "YYYY-MM-DDTHH:mm", not a full ISO string.
 const toDatetimeLocal = (value?: string | null) => (value ? value.slice(0, 16) : "");

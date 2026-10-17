@@ -11,8 +11,8 @@ import type {
 } from "../../../api";
 import { UserService } from "../../../services/auth/User";
 import { StaffService } from "../../../services/staff/Staff";
-import { PatientService } from "../../../services/Patient";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
+import { PatientService } from "../../../services/patient/Patient";
 
 // Extends the output DTO with a synthetic column key for the actions cell,
 // since ColumnConfig keys must be keyof T.

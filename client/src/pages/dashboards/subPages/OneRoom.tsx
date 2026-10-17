@@ -6,9 +6,9 @@ import type {
     HospitalApiDtosOutputsPatientOutputDto,
     HospitalApiDtosOutputsRoomBookingOutputDto,
 } from "../../../api";
-import { RoomBookingService } from "../../../services/RoomBooking";
 import { LocationService } from "../../../services/facilities/Location";
-import { PatientService } from "../../../services/Patient";
+import { PatientService } from "../../../services/patient/Patient";
+import { RoomBookingService } from "../../../services/rooms/RoomBooking";
 
 export default function OneRoom() {
     const { id } = useParams<{ id: string }>();

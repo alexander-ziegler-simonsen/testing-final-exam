@@ -10,10 +10,10 @@ import type {
     HospitalApiDtosOutputsPatientOutputDto,
     HospitalApiDtosOutputsRoomBookingOutputDto,
 } from "../../../api";
-import { RoomBookingService } from "../../../services/RoomBooking";
 import { LocationService } from "../../../services/facilities/Location";
-import { PatientService } from "../../../services/Patient";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
+import { RoomBookingService } from "../../../services/rooms/RoomBooking";
+import { PatientService } from "../../../services/patient/Patient";
 
 interface RoomBookingRow {
     id?: number;

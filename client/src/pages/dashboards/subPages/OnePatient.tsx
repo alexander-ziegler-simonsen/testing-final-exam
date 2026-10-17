@@ -6,8 +6,8 @@ import type {
     HospitalApiDtosOutputsPatientOutputDto,
     HospitalApiDtosOutputsTreatmentOutputDto,
 } from "../../../api";
-import { PatientService } from "../../../services/Patient";
 import { TreatmentService } from "../../../services/patient/Treatment";
+import { PatientService } from "../../../services/patient/Patient";
 
 export default function OnePatient() {
     const { id } = useParams<{ id: string }>();

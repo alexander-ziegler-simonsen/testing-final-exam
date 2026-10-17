@@ -5,9 +5,9 @@ import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { CommandFormPopup, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
 import type { HospitalApiDtosInputsPatientInputDto, HospitalApiDtosOutputsPatientOutputDto } from "../../../api";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
-import { PatientService } from "../../../services/Patient";
 import type { ColumnConfig } from "../../../hooks/useDataTable";
 import { DataTable } from "../../../components/dashboards/DataTable";
+import { PatientService } from "../../../services/patient/Patient";
 
 
 // Extends the output DTO with a synthetic column key for the actions cell,
