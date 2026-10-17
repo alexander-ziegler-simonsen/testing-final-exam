@@ -7,7 +7,7 @@ export default defineProject({
     plugins: [react()],
     test: {
         name: 'browser',
-        include: ['src/**/*.test.{ts,tsx}', 'vitest-example/**/*.test.tsx'],
+        include: ['src/**/*.test.{ts,tsx}'],
         exclude: ['src/**/*.unit.test.ts'],
         setupFiles: [path.resolve(__dirname, './src/mocks/setupMswBrowser.ts')],
         browser: {
