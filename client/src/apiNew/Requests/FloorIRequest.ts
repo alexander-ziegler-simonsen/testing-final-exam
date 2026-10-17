@@ -6,5 +6,6 @@ export interface FloorIRequest
     FkBuildingId: number;
 }
 export const FloorIRequestSchema = z.object({
-
+    Name: z.string().min(2).max(100),
+    FkBuildingId: z.int32(),
 })

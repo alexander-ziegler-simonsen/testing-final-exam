@@ -11,5 +11,8 @@ export interface  MedicationStorageMissingResponse
     WentMissingAt :  Date; 
 }
 export const MedicationStorageMissingResponseSchema = z.object({
-    
+    Id: z.int32(),
+    FkMedicationStorageId: z.int32(),
+    AmountMissing: z.number(),
+    WentMissingAt: z.iso.datetime({ offset: true, local: true }).transform((s) => new Date(s)),
 })

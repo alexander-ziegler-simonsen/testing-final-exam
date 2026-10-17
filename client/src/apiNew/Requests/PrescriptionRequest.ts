@@ -7,5 +7,8 @@ export interface PrescriptionRequest {
   Doses: number;
 }
 export const PrescriptionRequestSchema = z.object({
-    
+  FkMedicationId: z.int32(),
+  FkTreatmentId: z.int32(),
+  FkPrescribedByStaffId: z.int32(),
+  Doses: z.number(),
 })

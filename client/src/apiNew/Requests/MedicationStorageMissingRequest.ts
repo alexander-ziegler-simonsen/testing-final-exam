@@ -9,5 +9,7 @@ export interface MedicationStorageMissingRequest
 }
 
 export const MedicationStorageMissingRequestSchema = z.object({
-
+    FkMedicationStorageId: z.int32(),
+    AmountMissing: z.number(),
+    WentMissingAt: z.date(),
 })

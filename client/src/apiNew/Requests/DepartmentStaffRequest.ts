@@ -9,5 +9,6 @@ export interface DepartmentStaffRequest
 }
 
 export const DepartmentStaffRequestSchema = z.object({
-
+    FkStaffId: z.int32(),
+    FkDepartmentId: z.int32(),
 })

@@ -11,5 +11,11 @@ export interface PatientRequest {
 }
 
 export const PatientRequestSchema = z.object({
-
+  Firstname: z.string().min(2).max(100).nullable(),
+  Lastname: z.string().min(2).max(100).nullable(),
+  Gender: z.string().min(2).max(50).nullable(),
+  CprNumber: z.string().max(10).nullable(),
+  DateOfBirth: z.date().nullable(),
+  WeightKg: z.number().nullable(),
+  HeightCm: z.number().nullable(),
 })

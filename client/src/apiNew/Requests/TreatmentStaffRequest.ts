@@ -7,5 +7,6 @@ export interface TreatmentStaffRequest
 }
 
 export const TreatmentStaffRequestSchema = z.object({
-    
+    FkTreatmentId: z.int32(),
+    FkStaffId: z.int32(),
 })

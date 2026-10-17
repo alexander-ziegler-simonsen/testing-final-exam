@@ -28,5 +28,28 @@ export interface MedicineDetailResponse
         TilskudTekst : string | null; 
     }
 export const MedicineDetailResponseSchema = z.object({
-    
+    Navn: z.string().nullable(),
+    Varenummer: z.string().nullable(),
+    Styrke: z.string().nullable(),
+    Pakning: z.string().nullable(),
+    VirksomtStof: z.string().nullable(),
+    Firma: z.string().nullable(),
+    AtcKode: z.string().nullable(),
+    Dosisdispensering: z.boolean(),
+    Udleveringsgruppe: z.string().nullable(),
+    PrisPrPakning: z.string().nullable(),
+    PrisPrEnhed: z.string().nullable(),
+    AIP: z.string().nullable(),
+    TilskudBeregnesAf: z.string().nullable(),
+    Udgaaet: z.boolean(),
+    UdgaaetDato: z.string().nullable(),
+    Dosering: z.string().nullable(),
+    Indikation: z.string().nullable(),
+    TrafikAdvarsel: z.boolean(),
+    DDD: z.string().nullable(),
+    Opbevaringsbetingelser: z.string().nullable(),
+    NbsSpeciale: z.string().nullable(),
+    Haandkoeb: z.boolean(),
+    TilskudKode: z.string().nullable(),
+    TilskudTekst: z.string().nullable(),
 })

@@ -7,5 +7,6 @@ export interface  MedicationStorageRequest
 }
 
 export const MedicationStorageRequestSchema = z.object({
-    
+    FkMedicationId: z.int32(),
+    Amount: z.number(),
 })

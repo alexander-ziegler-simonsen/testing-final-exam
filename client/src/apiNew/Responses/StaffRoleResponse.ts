@@ -8,5 +8,6 @@ export interface  StaffRoleResponse
 }
 
 export const StaffRoleResponseSchema = z.object({
-    
+    Id: z.int32(),
+    Name: z.string().min(2).max(50),
 })

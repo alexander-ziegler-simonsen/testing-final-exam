@@ -13,5 +13,9 @@ export interface PrescriptionResponse
     Doses : number; 
 }
 export const PrescriptionResponseSchema = z.object({
-    
+    Id: z.int32(),
+    FkMedicationId: z.int32(),
+    FkTreatmentId: z.int32(),
+    FkPrescribedByStaffId: z.int32(),
+    Doses: z.number(),
 })

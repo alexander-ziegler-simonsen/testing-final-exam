@@ -10,5 +10,10 @@ export interface  MedicineProductResponse
         Pakning : string; 
     }
 export const MedicineProductResponseSchema = z.object({
-    
+    Navn: z.string(),
+    Varenummer: z.string(),
+    Firma: z.string(),
+    Styrke: z.string(),
+    Detaljer: z.string(),
+    Pakning: z.string(),
 })

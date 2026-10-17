@@ -1,5 +1,5 @@
-﻿import type { FloorResponse } from "./FloorResponse";
-import type { RoomResponse } from "./RoomResponse";
+﻿import { type FloorResponse, FloorResponseSchema } from "./FloorResponse";
+import { type RoomResponse, RoomResponseSchema } from "./RoomResponse";
 import { z } from "zod";
 
 export interface FloorRoomsResponse {
@@ -7,4 +7,7 @@ export interface FloorRoomsResponse {
   Rooms: RoomResponse[];
 }
 
-export const FloorRoomsResponseSchema = z.object({});
+export const FloorRoomsResponseSchema = z.object({
+  Floor: FloorResponseSchema,
+  Rooms: z.array(RoomResponseSchema),
+});

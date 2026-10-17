@@ -11,5 +11,8 @@ export interface  StaffResponse
     FkRoleId : number; 
 }
 export const StaffResponseSchema = z.object({
-    
+    Id: z.int32(),
+    Firstname: z.string().min(2).max(100).nullable(),
+    Lastname: z.string().min(2).max(100).nullable(),
+    FkRoleId: z.int32(),
 })

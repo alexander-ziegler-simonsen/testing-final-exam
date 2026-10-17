@@ -7,5 +7,6 @@ export interface RoomRequest
     FkFloorId: number;
 }
 export const RoomRequestSchema = z.object({
-    
+    Name: z.string(),
+    FkFloorId: z.int32(),
 })
