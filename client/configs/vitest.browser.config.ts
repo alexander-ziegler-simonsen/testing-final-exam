@@ -6,10 +6,12 @@ import { defineProject } from 'vitest/config'
 export default defineProject({
     plugins: [react()],
     test: {
+        // a project's root defaults to its config file's folder, point it back at client/
+        root: path.resolve(__dirname, '..'),
         name: 'browser',
         include: ['src/**/*.test.{ts,tsx}'],
         exclude: ['src/**/*.unit.test.ts'],
-        setupFiles: [path.resolve(__dirname, './src/mocks/setupMswBrowser.ts')],
+        setupFiles: [path.resolve(__dirname, '../src/mocks/setupMswBrowser.ts')],
         browser: {
             enabled: true,
             provider: playwright(),

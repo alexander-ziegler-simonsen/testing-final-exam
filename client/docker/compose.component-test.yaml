@@ -8,7 +8,7 @@ services:
     platform: linux/amd64
     shm_size: 1gb 
     volumes:
-      - ./:/app/client
+      - ../:/app/client
       - node_modules:/app/client/node_modules
       - pnpm_store:/pnpm-store
     environment:
