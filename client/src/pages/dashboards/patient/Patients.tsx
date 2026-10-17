@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
-import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
+import { HStack, IconButton, Text } from "@chakra-ui/react";
+import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
 import type { PatientRequest } from "../../../api/Requests/PatientRequest";
 import type { PatientResponse } from "../../../api/Responses/PatientResponse";
@@ -27,7 +27,6 @@ const toPatientRequest = (values: PatientForm): PatientRequest => ({
 });
 
 const patientFormService: CommandFormService<PatientForm> = {
-  create: (values) => PatientService.create(toPatientRequest(values)),
   update: (id, values) => PatientService.update(id, toPatientRequest(values)),
   delete: (id) => PatientService.delete(id),
 };
@@ -47,7 +46,7 @@ const patientFields: FieldConfig<PatientForm>[] = [
 export default function Patients() {
   const navigate = useNavigate();
   const [data, setData] = useState<PatientResponse[]>([]);
-  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedPatient, openCreate, openEdit, openDelete } =
+  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedPatient, openEdit, openDelete } =
     useCommandPopup<PatientResponse>();
 
   const loadPatients = () => {
@@ -89,7 +88,6 @@ export default function Patients() {
     <>
       <HStack justify="space-between" mb="4">
         <Text data-testid="patients-page-heading" fontSize="xl" fontWeight="bold">Patients</Text>
-        <Button data-testid="patients-add-button" onClick={openCreate}><LuPlus /> Add Patient</Button>
       </HStack>
 
       <DataTable<PatientRow> testId="patients-table" data={data} columns={columns} pageSize={10} onRowClick={(patient) => navigate(`/app/patients/${patient.id}`)} />
