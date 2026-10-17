@@ -1,13 +1,13 @@
 import type { LoginResponse } from "../../../api/Responses/LoginResponse";
 
-// a staff login gets its staff role name as role, everyone else gets "patient"
+// a staff login gets its staff role name as role (lowercase, like the api's staff_role table), everyone else gets "patient"
 export const mockLoginResponse: LoginResponse = {
     token: "mock-access-token",
     staffId: 1,
     patientId: null,
     firstname: "John",
     lastname: "Smith",
-    role: "Doctor",
+    role: "doctor",
 };
 
 const mockPatientLoginResponse: LoginResponse = {
@@ -21,8 +21,9 @@ const mockPatientLoginResponse: LoginResponse = {
 
 export const mockLoginResponses: LoginResponse[] = [
     mockLoginResponse,
-    { ...mockLoginResponse, staffId: 2, firstname: "Anna", lastname: "Larsen", role: "Nurse" },
+    { ...mockLoginResponse, staffId: 2, firstname: "Anna", lastname: "Larsen", role: "nurse" },
     mockPatientLoginResponse,
+    { ...mockLoginResponse, staffId: 3, firstname: "Peter", lastname: "Hansen", role: "admin" },
 ];
 
 // one entry per nullable field - a login is either staff or patient, so the other id is null already
