@@ -3,15 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { Provider } from './components/ui/provider.tsx'
-import { client } from './api/client.gen.ts'
-import { setupAuthInterceptor } from './services/auth/authInterceptor.ts'
+import { setupAuthInterceptor } from './api/Services/authInterceptor.ts'
 
-// set config for the client singleton instance, this is the default config for all requests made by the client.
-client.setConfig({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  // required so the httpOnly refresh-token cookie round-trips with every request
-  withCredentials: true,
-})
+
+// the axios instance itself (baseURL, withCredentials) is configured in api/client.ts
 
 // on a 401 (expired access token), transparently refresh via the refresh-token
 // cookie and retry the request once, instead of forcing the user to log in again.

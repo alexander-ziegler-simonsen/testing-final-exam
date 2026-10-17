@@ -1,18 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { Box, Button, Field, HStack, Input, NativeSelect, Stack, Text } from "@chakra-ui/react";
-import { authLogin, zHospitalApiDtosInputsLoginInputDto } from "../../../api";
-import type {
-  HospitalApiDtosOutputsMedicationOutputDto,
-  HospitalApiDtosOutputsMedicationStorageOutputDto,
-  HospitalApiDtosOutputsPatientOutputDto,
-} from "../../../api";
-import { TreatmentService } from "../../../services/patient/Treatment";
-import { PrescriptionService } from "../../../services/patient/Prescription";
-import { MedicationStorageService } from "../../../services/medicin/MedicationStorage";
-import { MedicationService } from "../../../services/medicin/Medication";
+import { AuthService } from "../../../api/Services/Auth";
+import type { MedicationResponse } from "../../../api/Responses/MedicationResponse";
+import type { MedicationStorageResponse } from "../../../api/Responses/MedicationStorageResponse";
+import type { PatientResponse } from "../../../api/Responses/PatientResponse";
+import { TreatmentService } from "../../../api/Services/Treatment";
+import { PrescriptionService } from "../../../api/Services/Prescription";
+import { MedicationStorageService } from "../../../api/Services/MedicationStorage";
+import { MedicationService } from "../../../api/Services/Medication";
 import { useAuthStore } from "../../../stores/AuthStore";
 import { toaster } from "../../../components/ui/toaster";
-import { PatientService } from "../../../services/patient/Patient";
+import { PatientService } from "../../../api/Services/Patient";
 
 type ApprovalStep = "none" | "required" | "signing" | "approved";
 
@@ -22,20 +20,12 @@ const nowAsDatetimeLocal = () => {
   return now.toISOString().slice(0, 16);
 };
 
-// The API's zod schema requires a full ISO datetime (seconds + timezone),
-// but datetime-local inputs only produce "YYYY-MM-DDTHH:mm".
-const fromDatetimeLocal = (value: string): string | undefined => {
-  if (!value) return undefined;
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
-};
-
 export default function GiveTreatment() {
   const staffId = useAuthStore((state) => state.user?.staffId);
 
-  const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
-  const [medications, setMedications] = useState<HospitalApiDtosOutputsMedicationOutputDto[]>([]);
-  const [storages, setStorages] = useState<HospitalApiDtosOutputsMedicationStorageOutputDto[]>([]);
+  const [patients, setPatients] = useState<PatientResponse[]>([]);
+  const [medications, setMedications] = useState<MedicationResponse[]>([]);
+  const [storages, setStorages] = useState<MedicationStorageResponse[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
 
   // treatment fields
@@ -95,15 +85,10 @@ export default function GiveTreatment() {
     setApprovalLoading(true);
     setApprovalError(null);
     try {
-      // Verify the doctor's credentials via the raw login endpoint - NOT
-      // AuthService.login, which would overwrite the shared API client's
-      // bearer token and hijack the current staff member's session.
-      const body = zHospitalApiDtosInputsLoginInputDto.parse({ username: doctorUsername, password: doctorPassword });
-      const { data, error } = await authLogin({ body });
-      if (error || !data) {
-        setApprovalError("Invalid credentials. Please try again.");
-        return;
-      }
+      // Verify the doctor's credentials WITHOUT AuthService.login, which would
+      // overwrite the shared API client's bearer token and hijack the current
+      // staff member's session. Wrong credentials throw, landing in the catch below.
+      const data = await AuthService.verifyCredentials({ username: doctorUsername, password: doctorPassword });
       if ((data.role ?? "").toLowerCase() !== "doctor") {
         setApprovalError("Only a doctor can approve medication use.");
         return;
@@ -129,7 +114,7 @@ export default function GiveTreatment() {
 
     const hasPrescription = medicationId !== "";
     const dosesNum = hasPrescription ? Number.parseFloat(doses) : 0;
-    let storage: HospitalApiDtosOutputsMedicationStorageOutputDto | undefined;
+    let storage: MedicationStorageResponse | undefined;
 
     if (hasPrescription) {
       if (approvalStep !== "approved") {
@@ -154,7 +139,8 @@ export default function GiveTreatment() {
     setSubmitting(true);
     try {
       const treatmentId = await TreatmentService.create(
-        { fkPatientId: patientId as number, description: description.trim() || undefined, time: fromDatetimeLocal(time) },
+        // new Date() reads the datetime-local "YYYY-MM-DDTHH:mm" value as local time
+        { fkPatientId: patientId as number, description: description.trim() || null, time: new Date(time) },
         staffId,
       );
 

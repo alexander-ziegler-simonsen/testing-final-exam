@@ -3,36 +3,29 @@ import { useNavigate, useParams } from "react-router";
 import { Button, Heading, HStack, Stack, Text } from "@chakra-ui/react";
 import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { CommandFormPopup, type CommandFormMode, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
-import type {
-    HospitalApiDtosInputsRoomBookingInputDto,
-    HospitalApiDtosOutputsPatientOutputDto,
-    HospitalApiDtosOutputsRoomBookingOutputDto,
-    HospitalApiDtosOutputsRoomOutputDto,
-} from "../../../api";
-import { LocationService } from "../../../services/facilities/Location";
-import { RoomBookingService } from "../../../services/rooms/RoomBooking";
-import { PatientService } from "../../../services/patient/Patient";
+import type { RoomBookingRequest } from "../../../api/Requests/RoomBookingRequest";
+import type { PatientResponse } from "../../../api/Responses/PatientResponse";
+import type { RoomBookingResponse } from "../../../api/Responses/RoomBookingResponse";
+import type { RoomResponse } from "../../../api/Responses/RoomResponse";
+import { LocationService } from "../../../api/Services/Location";
+import { RoomBookingService } from "../../../api/Services/RoomBooking";
+import { PatientService } from "../../../api/Services/Patient";
 
-// datetime-local inputs need "YYYY-MM-DDTHH:mm", not a full ISO string.
-const toDatetimeLocal = (value?: string | null) => (value ? value.slice(0, 16) : "");
+// The popup's datetime-local inputs hold the times as "YYYY-MM-DDTHH:mm" strings, not Dates.
+type RoomBookingForm = Omit<RoomBookingRequest, "startTime" | "endTime"> & { startTime: string; endTime: string };
 
-// The API's zod schema requires a full ISO datetime (seconds + timezone),
-// but datetime-local inputs only produce "YYYY-MM-DDTHH:mm".
-const fromDatetimeLocal = (value: unknown): string | undefined => {
-    if (typeof value !== "string" || !value) return undefined;
-    const date = new Date(value);
-    return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
-};
+// datetime-local inputs need "YYYY-MM-DDTHH:mm" in local time, not a full (UTC) ISO string.
+const toDatetimeLocal = (date: Date) => new Date(date.getTime() - date.getTimezoneOffset() * 60_000).toISOString().slice(0, 16);
 
 export default function OneRoomBooking() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const bookingId = Number(id);
 
-    const [booking, setBooking] = useState<HospitalApiDtosOutputsRoomBookingOutputDto | null>(null);
-    const [patient, setPatient] = useState<HospitalApiDtosOutputsPatientOutputDto | null>(null);
-    const [rooms, setRooms] = useState<HospitalApiDtosOutputsRoomOutputDto[]>([]);
-    const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
+    const [booking, setBooking] = useState<RoomBookingResponse | null>(null);
+    const [patient, setPatient] = useState<PatientResponse | null>(null);
+    const [rooms, setRooms] = useState<RoomResponse[]>([]);
+    const [patients, setPatients] = useState<PatientResponse[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [popupMode, setPopupMode] = useState<CommandFormMode>("edit");
     const [popupOpen, setPopupOpen] = useState(false);
@@ -42,7 +35,7 @@ export default function OneRoomBooking() {
         RoomBookingService.getById(bookingId)
             .then((b) => {
                 setBooking(b);
-                return PatientService.getById(b.fkPatientId ?? 0);
+                return PatientService.getById(b.fkPatientId);
             })
             .then(setPatient)
             .catch((err) => setError(err.message));
@@ -76,7 +69,7 @@ export default function OneRoomBooking() {
         [patients],
     );
 
-    const roomBookingFields: FieldConfig<HospitalApiDtosInputsRoomBookingInputDto>[] = useMemo(
+    const roomBookingFields: FieldConfig<RoomBookingForm>[] = useMemo(
         () => [
             { key: "fkRoomId", label: "Room", type: "select", required: true, options: roomOptions },
             { key: "fkPatientId", label: "Patient", type: "select", required: true, options: patientOptions },
@@ -86,13 +79,15 @@ export default function OneRoomBooking() {
         [roomOptions, patientOptions],
     );
 
-    const roomBookingFormService: CommandFormService<HospitalApiDtosInputsRoomBookingInputDto> = useMemo(
+    // Converts the datetime-local values from the form into Dates (new Date()
+    // reads "YYYY-MM-DDTHH:mm" as local time) before they hit the request schema.
+    const roomBookingFormService: CommandFormService<RoomBookingForm> = useMemo(
         () => ({
             update: (bId, values) =>
                 RoomBookingService.update(bId, {
                     ...values,
-                    startTime: fromDatetimeLocal(values.startTime),
-                    endTime: fromDatetimeLocal(values.endTime),
+                    startTime: new Date(values.startTime),
+                    endTime: new Date(values.endTime),
                 }),
             delete: (bId) => RoomBookingService.delete(bId),
         }),
@@ -126,8 +121,8 @@ export default function OneRoomBooking() {
 
             <Stack gap="2">
                 <Text data-testid="one-room-booking-field-room"><b>Room:</b> {room?.name ?? `Room #${booking.fkRoomId}`}</Text>
-                <Text data-testid="one-room-booking-field-start"><b>Start Time:</b> {booking.startTime ? new Date(booking.startTime).toLocaleString() : ""}</Text>
-                <Text data-testid="one-room-booking-field-end"><b>End Time:</b> {booking.endTime ? new Date(booking.endTime).toLocaleString() : ""}</Text>
+                <Text data-testid="one-room-booking-field-start"><b>Start Time:</b> {booking.startTime.toLocaleString()}</Text>
+                <Text data-testid="one-room-booking-field-end"><b>End Time:</b> {booking.endTime.toLocaleString()}</Text>
             </Stack>
 
             <Heading size="md" mt="4">Patient</Heading>
@@ -140,7 +135,7 @@ export default function OneRoomBooking() {
                 <Text data-testid="one-room-booking-patient-gender"><b>Gender:</b> {patient.gender}</Text>
             </Stack>
 
-            <CommandFormPopup<HospitalApiDtosInputsRoomBookingInputDto> open={popupOpen} onOpenChange={setPopupOpen} service={roomBookingFormService} testId="one-room-booking-form"
+            <CommandFormPopup<RoomBookingForm> open={popupOpen} onOpenChange={setPopupOpen} service={roomBookingFormService} testId="one-room-booking-form"
                 mode={popupMode} title="Room Booking" fields={roomBookingFields} itemId={booking.id} initialValues={{
                     ...booking,
                     startTime: toDatetimeLocal(booking.startTime),

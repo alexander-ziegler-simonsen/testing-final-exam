@@ -2,18 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
-import type {
-    HospitalApiDtosOutputsPatientOutputDto,
-    HospitalApiDtosOutputsTreatmentOutputDto,
-} from "../../../api";
-import { TreatmentService } from "../../../services/patient/Treatment";
-import { PatientService } from "../../../services/patient/Patient";
+import type { PatientResponse } from "../../../api/Responses/PatientResponse";
+import type { TreatmentResponse } from "../../../api/Responses/TreatmentResponse";
+import { TreatmentService } from "../../../api/Services/Treatment";
+import { PatientService } from "../../../api/Services/Patient";
 
 export default function OnePatient() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const [patient, setPatient] = useState<HospitalApiDtosOutputsPatientOutputDto | null>(null);
-    const [treatments, setTreatments] = useState<HospitalApiDtosOutputsTreatmentOutputDto[]>([]);
+    const [patient, setPatient] = useState<PatientResponse | null>(null);
+    const [treatments, setTreatments] = useState<TreatmentResponse[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -26,10 +24,10 @@ export default function OnePatient() {
             .catch((err) => setError(err.message));
     }, [id]);
 
-    const treatmentColumns: ColumnConfig<HospitalApiDtosOutputsTreatmentOutputDto>[] = [
+    const treatmentColumns: ColumnConfig<TreatmentResponse>[] = [
         { key: "id", header: "Id" },
         { key: "description", header: "Description", enableSearch: true },
-        { key: "time", header: "Time", render: (value) => (value ? new Date(String(value)).toLocaleString() : ""), },
+        { key: "time", header: "Time", render: (_value, item) => item.time.toLocaleString(), },
     ];
 
     if (error) return <Text data-testid="one-patient-error" color="red.500">{error}</Text>;
@@ -47,7 +45,7 @@ export default function OnePatient() {
                 <Text data-testid="one-patient-field-lastname"><b>Last name:</b> {patient.lastname}</Text>
                 <Text data-testid="one-patient-field-gender"><b>Gender:</b> {patient.gender}</Text>
                 <Text data-testid="one-patient-field-cpr"><b>CPR Number:</b> {patient.cprNumber}</Text>
-                <Text data-testid="one-patient-field-date-of-birth"><b>Date of birth:</b> {patient.dateOfBirth}</Text>
+                <Text data-testid="one-patient-field-date-of-birth"><b>Date of birth:</b> {patient.dateOfBirth?.toISOString().slice(0, 10)}</Text>
                 <Text data-testid="one-patient-field-weight"><b>Weight:</b> {patient.weightKg != null ? `${patient.weightKg} kg` : ""}</Text>
                 <Text data-testid="one-patient-field-height"><b>Height:</b> {patient.heightCm != null ? `${patient.heightCm} cm` : ""}</Text>
             </Stack>

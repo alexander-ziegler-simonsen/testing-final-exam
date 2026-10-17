@@ -1,12 +1,12 @@
 import { Badge, Code, Input, Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
-import type { HospitalApiDtosOutputsMedicationStorageMissingOutputDto } from "../../../api";
-import { MedicationStorageMissingService } from "../../../services/medicin/MedicationStorageMissing";
+import type { MedicationStorageMissingResponse } from "../../../api/Responses/MedicationStorageMissingResponse";
+import { MedicationStorageMissingService } from "../../../api/Services/MedicationStorageMissing";
 import { useEffect, useState } from "react";
 
 export default function MissingMedicin() {
 
-  const [data, setData] = useState<HospitalApiDtosOutputsMedicationStorageMissingOutputDto[]>([]);
+  const [data, setData] = useState<MedicationStorageMissingResponse[]>([]);
 
   useEffect(() => {
     MedicationStorageMissingService.getAll()
@@ -14,7 +14,7 @@ export default function MissingMedicin() {
       .catch((error) => console.error(error));
   }, []);
 
-  const columns: ColumnConfig<HospitalApiDtosOutputsMedicationStorageMissingOutputDto>[] = [
+  const columns: ColumnConfig<MedicationStorageMissingResponse>[] = [
     {
       key: "amountMissing", header: "amount Missing", enableSearch: true, 
       render: (value) => (

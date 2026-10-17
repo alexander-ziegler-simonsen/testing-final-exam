@@ -7,11 +7,8 @@ import type { LoginResponse } from "../Responses/LoginResponse";
 interface RetryableRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
-
 const REFRESH_URL = "/api/Auth/refresh";
 
-// Coalesces concurrent 401s (e.g. several requests firing right as the access
-// token expires) into a single refresh call instead of one per request.
 let refreshPromise: Promise<LoginResponse | null> | null = null;
 
 function refreshOnce(): Promise<LoginResponse | null> {
@@ -23,9 +20,6 @@ function refreshOnce(): Promise<LoginResponse | null> {
   return refreshPromise;
 }
 
-// Registers a response interceptor so an expired access token is handled
-// transparently: on a 401, refresh once via the httpOnly refresh-token cookie,
-// then retry the original request with the new access token. Call once at app startup.
 export function setupAuthInterceptor() {
   http.interceptors.response.use(
     (response) => response,

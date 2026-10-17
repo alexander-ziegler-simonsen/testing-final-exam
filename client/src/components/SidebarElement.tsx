@@ -6,9 +6,6 @@ interface SidebarElementProps {
     title: string,
     icon: React.ReactNode; // Type for JSX elements like <LuCircleX />
     path: string
-    // data-testid for this entry, supplied by the caller. Sidebar renders
-    // this same list twice (desktop panel + mobile drawer), so the caller
-    // must pass a distinct prefix per rendering to keep testids unique.
     testId: string
 }
 

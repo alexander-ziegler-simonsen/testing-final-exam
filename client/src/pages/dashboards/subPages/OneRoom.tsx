@@ -1,23 +1,21 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Button, Heading, Stack, Table, Text } from "@chakra-ui/react";
-import type {
-    HospitalApiDtosOutputsFloorRoomsOutputDto,
-    HospitalApiDtosOutputsPatientOutputDto,
-    HospitalApiDtosOutputsRoomBookingOutputDto,
-} from "../../../api";
-import { LocationService } from "../../../services/facilities/Location";
-import { PatientService } from "../../../services/patient/Patient";
-import { RoomBookingService } from "../../../services/rooms/RoomBooking";
+import type { FloorRoomsResponse } from "../../../api/Responses/FloorRoomsResponse";
+import type { PatientResponse } from "../../../api/Responses/PatientResponse";
+import type { RoomBookingResponse } from "../../../api/Responses/RoomBookingResponse";
+import { LocationService } from "../../../api/Services/Location";
+import { PatientService } from "../../../api/Services/Patient";
+import { RoomBookingService } from "../../../api/Services/RoomBooking";
 
 export default function OneRoom() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const roomId = Number(id);
 
-    const [floors, setFloors] = useState<HospitalApiDtosOutputsFloorRoomsOutputDto[]>([]);
-    const [bookings, setBookings] = useState<HospitalApiDtosOutputsRoomBookingOutputDto[]>([]);
-    const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
+    const [floors, setFloors] = useState<FloorRoomsResponse[]>([]);
+    const [bookings, setBookings] = useState<RoomBookingResponse[]>([]);
+    const [patients, setPatients] = useState<PatientResponse[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loaded, setLoaded] = useState(false);
 

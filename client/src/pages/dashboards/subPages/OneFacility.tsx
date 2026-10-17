@@ -3,16 +3,14 @@ import { useNavigate, useParams } from "react-router";
 import { Box, Button, Heading, HStack, Stack, Tag, Text, Wrap } from "@chakra-ui/react";
 import { LuDoorOpen, LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
-import type {
-    HospitalApiDtosInputsFloorInputDto,
-    HospitalApiDtosOutputsFloorOutputDto,
-    HospitalApiDtosOutputsLocationOutputDto,
-} from "../../../api";
-import { LocationService } from "../../../services/facilities/Location";
+import type { FloorIRequest } from "../../../api/Requests/FloorIRequest";
+import type { FloorResponse } from "../../../api/Responses/FloorResponse";
+import type { LocationResponse } from "../../../api/Responses/LocationResponse";
+import { LocationService } from "../../../api/Services/Location";
 import { useAuthStore } from "../../../stores/AuthStore";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 
-const floorFields: FieldConfig<HospitalApiDtosInputsFloorInputDto>[] = [
+const floorFields: FieldConfig<FloorIRequest>[] = [
     { key: "name", label: "Name", type: "text", required: true },
 ];
 
@@ -22,10 +20,10 @@ export default function OneFacility() {
     const buildingId = Number(id);
     const isAdmin = useAuthStore((state) => state.user?.role === "admin");
 
-    const [location, setLocation] = useState<HospitalApiDtosOutputsLocationOutputDto | null>(null);
+    const [location, setLocation] = useState<LocationResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedFloor, openCreate, openEdit, openDelete } =
-        useCommandPopup<HospitalApiDtosOutputsFloorOutputDto>();
+        useCommandPopup<FloorResponse>();
 
     const loadLocation = () => {
         if (!id) return;
@@ -41,7 +39,7 @@ export default function OneFacility() {
 
     // Floors belong to this building; the popup only ever asks for a name, so
     // fkBuildingId is pinned here rather than left for the user to pick.
-    const floorService: CommandFormService<HospitalApiDtosInputsFloorInputDto> = useMemo(
+    const floorService: CommandFormService<FloorIRequest> = useMemo(
         () => ({
             create: (data) => LocationService.createFloor({ ...data, fkBuildingId: buildingId }),
             update: (floorId, data) => LocationService.putFloor(floorId, { ...data, fkBuildingId: buildingId }),
@@ -95,7 +93,7 @@ export default function OneFacility() {
                 </Box>
             ))}
 
-            <CommandFormPopup<HospitalApiDtosInputsFloorInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Floor" fields={floorFields}  itemId={selectedFloor?.id} initialValues={selectedFloor ?? undefined} service={floorService}onSuccess={loadLocation} testId="one-facility-floor-form" />
+            <CommandFormPopup<FloorIRequest> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Floor" fields={floorFields}  itemId={selectedFloor?.id} initialValues={selectedFloor ? { ...selectedFloor, name: selectedFloor.name ?? "" } : undefined} service={floorService} onSuccess={loadLocation} testId="one-facility-floor-form" />
         </Stack>
     );
 }

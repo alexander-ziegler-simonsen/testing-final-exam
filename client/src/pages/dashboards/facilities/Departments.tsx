@@ -3,26 +3,27 @@ import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import { CommandFormPopup, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
-import type { HospitalApiDtosInputsDepartmentInputDto, HospitalApiDtosOutputsDepartmentOutputDto } from "../../../api";
-import { DepartmentService } from "../../../services/facilities/Department";
+import type { DepartmentRequest } from "../../../api/Requests/DepartmentRequest";
+import type { DepartmentResponse } from "../../../api/Responses/DepartmentResponse";
+import { DepartmentService } from "../../../api/Services/Department";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 
 // Extends the output DTO with a synthetic column key for the actions cell,
 // since ColumnConfig keys must be keyof T.
 // types for dataTable
-type DepartmentRow = HospitalApiDtosOutputsDepartmentOutputDto & { actions?: undefined };
+type DepartmentRow = DepartmentResponse & { actions?: undefined };
 
 // popup fieldConfig
-const departmentFields: FieldConfig<HospitalApiDtosInputsDepartmentInputDto>[] = [
+const departmentFields: FieldConfig<DepartmentRequest>[] = [
     { key: "name", label: "Name", type: "text", required: true },
     { key: "type", label: "Type", type: "text", required: true },
 ];
 
 export default function Departments() {
     // states
-    const [data, setData] = useState<HospitalApiDtosOutputsDepartmentOutputDto[]>([]);
+    const [data, setData] = useState<DepartmentResponse[]>([]);
     const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedDepartment, openCreate, openEdit, openDelete } =
-        useCommandPopup<HospitalApiDtosOutputsDepartmentOutputDto>();
+        useCommandPopup<DepartmentResponse>();
 
     const loadDepartments = () => {
         DepartmentService.getAll()
@@ -57,7 +58,7 @@ export default function Departments() {
 
             <DataTable<DepartmentRow> testId="departments-table" data={data} columns={columns} pageSize={10} />
 
-            <CommandFormPopup<HospitalApiDtosInputsDepartmentInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Department" fields={departmentFields} itemId={selectedDepartment?.id} initialValues={selectedDepartment ?? undefined} service={DepartmentService} onSuccess={loadDepartments} testId="departments-form" />
+            <CommandFormPopup<DepartmentRequest> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Department" fields={departmentFields} itemId={selectedDepartment?.id} initialValues={selectedDepartment ?? undefined} service={DepartmentService} onSuccess={loadDepartments} testId="departments-form" />
         </>
     );
 }

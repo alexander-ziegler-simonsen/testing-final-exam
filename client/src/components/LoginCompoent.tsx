@@ -1,8 +1,8 @@
 import { Box, Button, Center, Heading, Input, Stack, Text } from "@chakra-ui/react";
-import { AuthService } from "../services/auth/Auth";
+import { AuthService } from "../api/Services/Auth";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import type { HospitalApiDtosOutputsLoginOutputDto } from "../api";
+import type { LoginResponse } from "../api/Responses/LoginResponse";
 import { useAuthStore } from "../stores/AuthStore";
 
 export default function LoginCompoent() {
@@ -15,7 +15,7 @@ export default function LoginCompoent() {
     async function loginFunc() {
         if (username.trim() !== "" && password.trim() !== "") {
             try {
-                let response: HospitalApiDtosOutputsLoginOutputDto = await AuthService.login({ username: username, password: password });
+                let response: LoginResponse = await AuthService.login({ username: username, password: password });
                 setFeedback("Login successful!");
                 setLoginFailed(false);
 

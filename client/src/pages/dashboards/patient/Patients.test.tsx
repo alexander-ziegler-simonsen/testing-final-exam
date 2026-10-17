@@ -6,9 +6,6 @@ import Patients from "./Patients";
 import { Provider } from "../../../components/ui/provider";
 import { matchScreenshot } from "../../../test-utils/matchScreenshot";
 
-
-// Patients fetches via PatientService, served here by the default MSW
-// handlers, which return the fixtures from mocks/fixtures/patient.ts.
 function renderPatients() {
     return render(<Patients />, {
         wrapper: ({ children }) => (

@@ -11,10 +11,6 @@ import { useAuthStore } from "../stores/AuthStore";
 //     cancelText?: string;
 // }
 
-// here I have given the props a type of MySidebarProps, which is an interface that I defined above.
-// This interface defines the shape of the props that the MySidebar component expects to receive.
-// The props are all optional, as indicated by the question mark after each property name.
-
 type Role = 'doctor' | 'nurse' | 'admin' | 'patient'
 
 interface NavigationLink {
@@ -22,8 +18,6 @@ interface NavigationLink {
     title: string;
     icon: React.ReactNode;
     testIdSuffix: string;
-    // Omit to allow everyone. Must mirror the RoleProtectedRoute rules in App.tsx
-    // so the sidebar never shows a link the router will then block.
     allowedRoles?: Role[];
 }
 
@@ -46,9 +40,6 @@ export default function MySidebar() {
     const [isMobileOpen, setIsMobileOpen] = useState(false)
     const user = useAuthStore((state) => state.user)
 
-    // Shared navigation list to avoid duplicating code. Rendered once for the
-    // desktop panel and once for the mobile drawer, both mounted in the DOM
-    // at the same time, so each rendering needs its own testid prefix.
     const renderNavigationLinks = (testIdPrefix: string) => (
         <>
             {navigationLinks

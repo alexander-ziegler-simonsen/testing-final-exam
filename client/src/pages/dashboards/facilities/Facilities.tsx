@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
-import type { HospitalApiDtosOutputsLocationOutputDto } from "../../../api";
-import { LocationService } from "../../../services/facilities/Location";
+import type { LocationResponse } from "../../../api/Responses/LocationResponse";
+import { LocationService } from "../../../api/Services/Location";
 
 interface BuildingRow {
     id?: number;
@@ -13,7 +13,7 @@ interface BuildingRow {
 
 export default function Facilities() {
     const navigate = useNavigate();
-    const [locations, setLocations] = useState<HospitalApiDtosOutputsLocationOutputDto[]>([]);
+    const [locations, setLocations] = useState<LocationResponse[]>([]);
 
     useEffect(() => {
         LocationService.getAll()

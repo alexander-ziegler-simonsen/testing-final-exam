@@ -2,19 +2,37 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
-import { CommandFormPopup, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
-import type { HospitalApiDtosInputsPatientInputDto, HospitalApiDtosOutputsPatientOutputDto } from "../../../api";
+import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
+import type { PatientRequest } from "../../../api/Requests/PatientRequest";
+import type { PatientResponse } from "../../../api/Responses/PatientResponse";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 import type { ColumnConfig } from "../../../hooks/useDataTable";
 import { DataTable } from "../../../components/dashboards/DataTable";
-import { PatientService } from "../../../services/patient/Patient";
+import { PatientService } from "../../../api/Services/Patient";
 
 
-// Extends the output DTO with a synthetic column key for the actions cell,
-// since ColumnConfig keys must be keyof T.
-type PatientRow = HospitalApiDtosOutputsPatientOutputDto & { actions?: undefined };
+type PatientRow = PatientResponse & { actions?: undefined };
 
-const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
+// The popup's date input holds dateOfBirth as a "YYYY-MM-DD" string, not a Date.
+type PatientForm = Omit<PatientRequest, "dateOfBirth"> & { dateOfBirth: string | null };
+
+// dateOfBirth is a date without a time, which PatientResponse parses as UTC midnight -
+// so the UTC date part is the actual date, independent of the browser's timezone.
+const toDateOnly = (date: Date | null) => (date ? date.toISOString().slice(0, 10) : null);
+
+// "YYYY-MM-DD" parses as UTC midnight, the same convention as above.
+const toPatientRequest = (values: PatientForm): PatientRequest => ({
+  ...values,
+  dateOfBirth: values.dateOfBirth ? new Date(values.dateOfBirth) : null,
+});
+
+const patientFormService: CommandFormService<PatientForm> = {
+  create: (values) => PatientService.create(toPatientRequest(values)),
+  update: (id, values) => PatientService.update(id, toPatientRequest(values)),
+  delete: (id) => PatientService.delete(id),
+};
+
+const patientFields: FieldConfig<PatientForm>[] = [
   { key: "firstname", label: "First name", type: "text", required: true, lockedOnEdit: true },
   { key: "lastname", label: "Last name", type: "text", required: true, lockedOnEdit: true },
   { key: "gender", label: "Gender", type: "select", required: true, lockedOnEdit: true,
@@ -28,9 +46,9 @@ const patientFields: FieldConfig<HospitalApiDtosInputsPatientInputDto>[] = [
 
 export default function Patients() {
   const navigate = useNavigate();
-  const [data, setData] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
+  const [data, setData] = useState<PatientResponse[]>([]);
   const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedPatient, openCreate, openEdit, openDelete } =
-    useCommandPopup<HospitalApiDtosOutputsPatientOutputDto>();
+    useCommandPopup<PatientResponse>();
 
   const loadPatients = () => {
     PatientService.getAll()
@@ -48,7 +66,7 @@ export default function Patients() {
     { key: "lastname", header: "Last name", enableSearch: true, },
     { key: "gender", header: "Gender", enableSearch: true, },
     { key: "cprNumber", header: "CPR Number", enableSearch: true, },
-    { key: "dateOfBirth", header: "Date of Birth", enableSearch: true, },
+    { key: "dateOfBirth", header: "Date of Birth", enableSearch: true, sortValue: (item) => toDateOnly(item.dateOfBirth), render: (_value, item) => toDateOnly(item.dateOfBirth) ?? "", },
     { key: "weightKg", header: "Weight (kg)", },
     { key: "heightCm", header: "Height (cm)", },
     { key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (
@@ -76,8 +94,9 @@ export default function Patients() {
 
       <DataTable<PatientRow> testId="patients-table" data={data} columns={columns} pageSize={10} onRowClick={(patient) => navigate(`/app/patients/${patient.id}`)} />
 
-      <CommandFormPopup<HospitalApiDtosInputsPatientInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Patient" fields={patientFields}
-        itemId={selectedPatient?.id} initialValues={selectedPatient ?? undefined} service={PatientService} onSuccess={loadPatients} testId="patients-form" />
+      <CommandFormPopup<PatientForm> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Patient" fields={patientFields} itemId={selectedPatient?.id}
+        initialValues={selectedPatient ? { ...selectedPatient, dateOfBirth: toDateOnly(selectedPatient.dateOfBirth) } : undefined}
+        service={patientFormService} onSuccess={loadPatients} testId="patients-form" />
     </>
   );
 }

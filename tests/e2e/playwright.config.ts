@@ -3,16 +3,11 @@ import path from 'node:path';
 
 export default defineConfig({
   testDir: './tests',
-  /* Run tests in files in parallel */
   fullyParallel: false,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   retries: 0,
   workers: 1,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [
-    ['html']
-  ],
+  reporter: [ ['html'] ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: 'http://localhost:5173',
@@ -40,9 +35,7 @@ export default defineConfig({
       testIgnore: /lighthouse\.spec\.ts/,
     },
 
-    /* Lighthouse audits only work against Chromium (CDP connection) and manage
-     * their own browser context (see tests/lighthouse.spec.ts), so this project
-     * intentionally does not use devices['Desktop Chrome'] / launchOptions. */
+    /* Lighthouse audits only work with Chromium 
     {
       name: 'lighthouse',
       testMatch: /lighthouse\.spec\.ts/,

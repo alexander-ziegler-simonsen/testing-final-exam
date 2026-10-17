@@ -3,27 +3,25 @@ import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuKeyRound, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
-import type {
-  HospitalApiDtosInputsRegisterInputDto,
-  HospitalApiDtosOutputsPatientOutputDto,
-  HospitalApiDtosOutputsStaffOutputDto,
-  HospitalApiDtosOutputsUserOutputDto,
-} from "../../../api";
-import { UserService } from "../../../services/auth/User";
-import { StaffService } from "../../../services/staff/Staff";
+import type { RegisterUserRequest } from "../../../api/Requests/RegisterUserRequest";
+import type { PatientResponse } from "../../../api/Responses/PatientResponse";
+import type { StaffResponse } from "../../../api/Responses/StaffResponse";
+import type { UserResponse } from "../../../api/Responses/UserResponse";
+import { UserService } from "../../../api/Services/User";
+import { StaffService } from "../../../api/Services/Staff";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
-import { PatientService } from "../../../services/patient/Patient";
+import { PatientService } from "../../../api/Services/Patient";
 
 // Extends the output DTO with a synthetic column key for the actions cell,
 // since ColumnConfig keys must be keyof T.
-type UserRow = HospitalApiDtosOutputsUserOutputDto & { actions?: undefined };
+type UserRow = UserResponse & { actions?: undefined };
 
 export default function Staff() {
-  const [users, setUsers] = useState<HospitalApiDtosOutputsUserOutputDto[]>([]);
-  const [staff, setStaff] = useState<HospitalApiDtosOutputsStaffOutputDto[]>([]);
-  const [patients, setPatients] = useState<HospitalApiDtosOutputsPatientOutputDto[]>([]);
+  const [users, setUsers] = useState<UserResponse[]>([]);
+  const [staff, setStaff] = useState<StaffResponse[]>([]);
+  const [patients, setPatients] = useState<PatientResponse[]>([]);
   const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedUser, openCreate, openEdit, openDelete } =
-    useCommandPopup<HospitalApiDtosOutputsUserOutputDto>();
+    useCommandPopup<UserResponse>();
 
   const loadUsers = () => {
     UserService.getAll()
@@ -54,7 +52,7 @@ export default function Staff() {
   };
 
   // Every user is linked to exactly one of a staff member or a patient.
-  const linkedAccountLabel = (item: HospitalApiDtosOutputsUserOutputDto) => {
+  const linkedAccountLabel = (item: UserResponse) => {
     if (item.fkStaffId) return staffName(item.fkStaffId);
     if (item.fkPatientId) return `Patient: ${patientName(item.fkPatientId)}`;
     return "—";
@@ -83,7 +81,7 @@ export default function Staff() {
   // field list is mode-dependent instead of shared between create and edit.
   // A user is either a staff login or a patient login - pick one, leave the
   // other blank.
-  const userFields: FieldConfig<HospitalApiDtosInputsRegisterInputDto>[] = useMemo(() => {
+  const userFields: FieldConfig<RegisterUserRequest>[] = useMemo(() => {
     if (popupMode === "edit") {
       return [{ key: "password", label: "New Password", type: "text", required: true }];
     }
@@ -95,7 +93,7 @@ export default function Staff() {
     ];
   }, [popupMode, staffOptions, patientOptions]);
 
-  const userFormService: CommandFormService<HospitalApiDtosInputsRegisterInputDto> = useMemo(
+  const userFormService: CommandFormService<RegisterUserRequest> = useMemo(
     () => ({
       create: (values) => {
         const hasStaff = values.fkStaffId !== undefined && values.fkStaffId !== null;
@@ -105,10 +103,10 @@ export default function Staff() {
         }
         return UserService.register({
           ...values,
-          // fkStaffId defaults to a staff id when left unset, so a patient
-          // login needs it explicitly nulled out rather than left blank.
+          // the request schema's links are .nullable(), not optional - the
+          // unused one has to be sent as null rather than left out.
           fkStaffId: hasStaff ? values.fkStaffId : null,
-          fkPatientId: hasPatient ? values.fkPatientId : undefined,
+          fkPatientId: hasPatient ? values.fkPatientId : null,
         });
       },
       update: (id, values) => UserService.changePassword(id, String(values.password ?? "")),
@@ -147,7 +145,7 @@ export default function Staff() {
 
       <DataTable<UserRow> testId="staff-table" data={users} columns={columns} pageSize={10} />
 
-      <CommandFormPopup<HospitalApiDtosInputsRegisterInputDto>open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="User" fields={userFields} itemId={selectedUser?.id} initialValues={selectedUser ?? undefined} service={userFormService} onSuccess={loadUsers} testId="staff-form" />
+      <CommandFormPopup<RegisterUserRequest>open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="User" fields={userFields} itemId={selectedUser?.id} initialValues={selectedUser ?? undefined} service={userFormService} onSuccess={loadUsers} testId="staff-form" />
     </>
   );
 }

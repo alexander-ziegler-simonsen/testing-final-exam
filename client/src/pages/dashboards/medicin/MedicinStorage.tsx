@@ -4,13 +4,11 @@ import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
 import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import { CommandFormPopup, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
-import type {
-    HospitalApiDtosInputsMedicationStorageInputDto,
-    HospitalApiDtosOutputsMedicationOutputDto,
-    HospitalApiDtosOutputsMedicationStorageOutputDto,
-} from "../../../api";
-import { MedicationStorageService } from "../../../services/medicin/MedicationStorage";
-import { MedicationService } from "../../../services/medicin/Medication";
+import type { MedicationStorageRequest } from "../../../api/Requests/MedicationStorageRequest";
+import type { MedicationResponse } from "../../../api/Responses/MedicationResponse";
+import type { MedicationStorageResponse } from "../../../api/Responses/MedicationStorageResponse";
+import { MedicationStorageService } from "../../../api/Services/MedicationStorage";
+import { MedicationService } from "../../../api/Services/Medication";
 import { useAuthStore } from "../../../stores/AuthStore";
 import { useCommandPopup } from "../../../hooks/useCommandPopup";
 
@@ -25,10 +23,10 @@ export default function MedicinStorage() {
     const navigate = useNavigate();
     const isAdmin = useAuthStore((state) => state.user?.role === "admin");
 
-    const [storages, setStorages] = useState<HospitalApiDtosOutputsMedicationStorageOutputDto[]>([]);
-    const [medications, setMedications] = useState<HospitalApiDtosOutputsMedicationOutputDto[]>([]);
+    const [storages, setStorages] = useState<MedicationStorageResponse[]>([]);
+    const [medications, setMedications] = useState<MedicationResponse[]>([]);
     const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedStorage, openCreate, openEdit, openDelete } =
-        useCommandPopup<HospitalApiDtosOutputsMedicationStorageOutputDto>();
+        useCommandPopup<MedicationStorageResponse>();
 
     const loadStorages = () => {
         MedicationStorageService.getAll()
@@ -61,7 +59,7 @@ export default function MedicinStorage() {
 
     // Regular staff may only change the stored amount; picking the medication
     // is only relevant when an admin creates a brand new storage row.
-    const storageFields: FieldConfig<HospitalApiDtosInputsMedicationStorageInputDto>[] = useMemo(() => {
+    const storageFields: FieldConfig<MedicationStorageRequest>[] = useMemo(() => {
         if (popupMode === "create") {
             return [
                 { key: "fkMedicationId", label: "Medication", type: "select", required: true, options: medicationOptions },
@@ -111,7 +109,7 @@ export default function MedicinStorage() {
 
             <DataTable<StorageRow> testId="medicin-storage-table" data={rows} columns={columns} pageSize={10} onRowClick={(item) => navigate(`/app/medicin_storage/${item.id}`)} />
 
-            <CommandFormPopup<HospitalApiDtosInputsMedicationStorageInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Medicin Storage" fields={storageFields}
+            <CommandFormPopup<MedicationStorageRequest> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Medicin Storage" fields={storageFields}
                 itemId={selectedStorage?.id} initialValues={selectedStorage ?? undefined} service={MedicationStorageService} onSuccess={loadStorages} testId="medicin-storage-form" />
         </>
     );

@@ -3,15 +3,13 @@ import { useNavigate, useParams } from "react-router";
 import { Button, Heading, HStack, Stack, Text } from "@chakra-ui/react";
 import { LuPencil } from "react-icons/lu";
 import { CommandFormPopup, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
-import type {
-    HospitalApiDtosInputsMedicationStorageInputDto,
-    HospitalApiDtosOutputsMedicationOutputDto,
-    HospitalApiDtosOutputsMedicationStorageOutputDto,
-} from "../../../api";
-import { MedicationStorageService } from "../../../services/medicin/MedicationStorage";
-import { MedicationService } from "../../../services/medicin/Medication";
+import type { MedicationStorageRequest } from "../../../api/Requests/MedicationStorageRequest";
+import type { MedicationResponse } from "../../../api/Responses/MedicationResponse";
+import type { MedicationStorageResponse } from "../../../api/Responses/MedicationStorageResponse";
+import { MedicationStorageService } from "../../../api/Services/MedicationStorage";
+import { MedicationService } from "../../../api/Services/Medication";
 
-const amountFields: FieldConfig<HospitalApiDtosInputsMedicationStorageInputDto>[] = [
+const amountFields: FieldConfig<MedicationStorageRequest>[] = [
     { key: "amount", label: "Amount", type: "number", required: true },
 ];
 
@@ -20,8 +18,8 @@ export default function OneMedicin() {
     const navigate = useNavigate();
     const storageId = Number(id);
 
-    const [storage, setStorage] = useState<HospitalApiDtosOutputsMedicationStorageOutputDto | null>(null);
-    const [medication, setMedication] = useState<HospitalApiDtosOutputsMedicationOutputDto | null>(null);
+    const [storage, setStorage] = useState<MedicationStorageResponse | null>(null);
+    const [medication, setMedication] = useState<MedicationResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [popupOpen, setPopupOpen] = useState(false);
 
@@ -69,7 +67,7 @@ export default function OneMedicin() {
                 <Text data-testid="one-medicin-field-description"><b>Description:</b> {medication.description}</Text>
             </Stack>
 
-            <CommandFormPopup<HospitalApiDtosInputsMedicationStorageInputDto> open={popupOpen} onOpenChange={setPopupOpen} mode="edit" title="Medicin Storage"  fields={amountFields} itemId={storage.id} initialValues={storage} service={MedicationStorageService} onSuccess={loadStorage} testId="one-medicin-form" />
+            <CommandFormPopup<MedicationStorageRequest> open={popupOpen} onOpenChange={setPopupOpen} mode="edit" title="Medicin Storage"  fields={amountFields} itemId={storage.id} initialValues={storage} service={MedicationStorageService} onSuccess={loadStorage} testId="one-medicin-form" />
         </Stack>
     );
 }

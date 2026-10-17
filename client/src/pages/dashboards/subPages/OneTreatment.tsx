@@ -2,19 +2,17 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
-import type {
-    HospitalApiDtosOutputsMedicationOutputDto,
-    HospitalApiDtosOutputsPatientOutputDto,
-    HospitalApiDtosOutputsPrescriptionOutputDto,
-    HospitalApiDtosOutputsStaffOutputDto,
-    HospitalApiDtosOutputsTreatmentOutputDto,
-} from "../../../api";
-import { TreatmentService } from "../../../services/patient/Treatment";
-import { PrescriptionService } from "../../../services/patient/Prescription";
-import { TreatmentStaffService } from "../../../services/patient/TreatmentStaff";
-import { StaffService } from "../../../services/staff/Staff";
-import { MedicationService } from "../../../services/medicin/Medication";
-import { PatientService } from "../../../services/patient/Patient";
+import type { MedicationResponse } from "../../../api/Responses/MedicationResponse";
+import type { PatientResponse } from "../../../api/Responses/PatientResponse";
+import type { PrescriptionResponse } from "../../../api/Responses/PrescriptionResponse";
+import type { StaffResponse } from "../../../api/Responses/StaffResponse";
+import type { TreatmentResponse } from "../../../api/Responses/TreatmentResponse";
+import { TreatmentService } from "../../../api/Services/Treatment";
+import { PrescriptionService } from "../../../api/Services/Prescription";
+import { TreatmentStaffService } from "../../../api/Services/TreatmentStaff";
+import { StaffService } from "../../../api/Services/Staff";
+import { MedicationService } from "../../../api/Services/Medication";
+import { PatientService } from "../../../api/Services/Patient";
 
 interface PrescriptionRow {
     id?: number;
@@ -28,12 +26,12 @@ export default function OneTreatment() {
     const navigate = useNavigate();
     const treatmentId = Number(id);
 
-    const [treatment, setTreatment] = useState<HospitalApiDtosOutputsTreatmentOutputDto | null>(null);
-    const [patient, setPatient] = useState<HospitalApiDtosOutputsPatientOutputDto | null>(null);
-    const [prescriptions, setPrescriptions] = useState<HospitalApiDtosOutputsPrescriptionOutputDto[]>([]);
-    const [assignedStaff, setAssignedStaff] = useState<HospitalApiDtosOutputsStaffOutputDto[]>([]);
-    const [staff, setStaff] = useState<HospitalApiDtosOutputsStaffOutputDto[]>([]);
-    const [medications, setMedications] = useState<HospitalApiDtosOutputsMedicationOutputDto[]>([]);
+    const [treatment, setTreatment] = useState<TreatmentResponse | null>(null);
+    const [patient, setPatient] = useState<PatientResponse | null>(null);
+    const [prescriptions, setPrescriptions] = useState<PrescriptionResponse[]>([]);
+    const [assignedStaff, setAssignedStaff] = useState<StaffResponse[]>([]);
+    const [staff, setStaff] = useState<StaffResponse[]>([]);
+    const [medications, setMedications] = useState<MedicationResponse[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -87,7 +85,7 @@ export default function OneTreatment() {
         { key: "prescribedByName", header: "Prescribed By", enableSearch: true },
     ];
 
-    const staffColumns: ColumnConfig<HospitalApiDtosOutputsStaffOutputDto>[] = [
+    const staffColumns: ColumnConfig<StaffResponse>[] = [
         { key: "id", header: "Id" },
         { key: "firstname", header: "First name", enableSearch: true },
         { key: "lastname", header: "Last name", enableSearch: true },

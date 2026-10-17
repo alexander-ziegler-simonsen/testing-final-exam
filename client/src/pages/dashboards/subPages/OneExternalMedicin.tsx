@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
-import type { HospitalApiDtosExternalMedicineDetailOutputDto } from "../../../api";
-import { ExternalMedicinePricesService } from "../../../services/medicin/ExternalMedicinePrices";
+import type { MedicineDetailResponse } from "../../../api/Responses/MedicineDetailResponse";
+import { ExternalMedicinePricesService } from "../../../api/Services/ExternalMedicinePrices";
 import { useExternalMedicinStore } from "../../../stores/ExternalMedicinStore";
 
 export default function OneExternalMedicin() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
-    const [details, setDetails] = useState<HospitalApiDtosExternalMedicineDetailOutputDto | null>(null);
+    const [details, setDetails] = useState<MedicineDetailResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const markDetailsMissing = useExternalMedicinStore((state) => state.markDetailsMissing);
     const markDetailsAvailable = useExternalMedicinStore((state) => state.markDetailsAvailable);

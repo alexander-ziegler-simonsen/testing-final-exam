@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Field, Input, NativeSelect, Stack, Text } from "@chakra-ui/react";
 import { toaster } from "../../../components/ui/toaster";
-import { PatientService } from "../../../services/patient/Patient";
+import { PatientService } from "../../../api/Services/Patient";
 
 export default function RegisterBaby() {
   const [firstname, setFirstname] = useState("");
@@ -24,7 +24,8 @@ export default function RegisterBaby() {
         firstname: firstname.trim(),
         lastname: lastname.trim(),
         gender,
-        dateOfBirth,
+        // "YYYY-MM-DD" from the date input; parsed as UTC midnight, which the schema turns back into that same date
+        dateOfBirth: new Date(dateOfBirth),
         weightKg: parseFloat(weight),
         heightCm: parseFloat(height),
       });

@@ -27,9 +27,6 @@ export async function resetDb() {
     await client.end();
   }
 
-  // Dropping the database also invalidates the API's pooled Npgsql connections.
-  // Poll the login endpoint (always does a DB lookup) until the API has
-  // reconnected, so callers don't race ahead of it with a real request.
   await waitForApiReady();
 }
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Text } from "@chakra-ui/react";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
-import type { HospitalApiDtosOutputsDepartmentStaffOutputDto } from "../../../api";
-import { DepartmentStaffService } from "../../../services/facilities/DepartmentStaff";
+import type { DepartmentStaffResponse } from "../../../api/Responses/DepartmentStaffResponse";
+import { DepartmentStaffService } from "../../../api/Services/DepartmentStaff";
 
 export default function DepartmentStaff() {
-  const [data, setData] = useState<HospitalApiDtosOutputsDepartmentStaffOutputDto[]>([]);
+  const [data, setData] = useState<DepartmentStaffResponse[]>([]);
 
   useEffect(() => {
     DepartmentStaffService.getAll()
@@ -13,7 +13,7 @@ export default function DepartmentStaff() {
       .catch((error) => console.error(error));
   }, []);
 
-  const columns: ColumnConfig<HospitalApiDtosOutputsDepartmentStaffOutputDto>[] = [
+  const columns: ColumnConfig<DepartmentStaffResponse>[] = [
     { key: "id", header: "Id" },
     { key: "department", header: "Department", sortValue: (item) => item.department?.name, render: (_value, item) => {
         const department = item.department;

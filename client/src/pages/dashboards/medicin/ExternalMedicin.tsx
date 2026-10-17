@@ -2,7 +2,7 @@ import { useState, type SubmitEvent } from "react";
 import { useNavigate } from "react-router";
 import { Badge, Button, HStack, Input, Table, Text } from "@chakra-ui/react";
 import { LuSearch } from "react-icons/lu";
-import { ExternalMedicinePricesService } from "../../../services/medicin/ExternalMedicinePrices";
+import { ExternalMedicinePricesService } from "../../../api/Services/ExternalMedicinePrices";
 import { useExternalMedicinStore } from "../../../stores/ExternalMedicinStore";
 
 export default function ExternalMedicin() {

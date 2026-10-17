@@ -4,8 +4,6 @@ import { fail, http } from "../client";
 import { type RoomBookingRequest, RoomBookingRequestSchema } from "../Requests/RoomBookingRequest";
 import { type RoomBookingResponse, RoomBookingResponseSchema } from "../Responses/RoomBookingResponse";
 
-// A rejected booking comes back as 409 with a plain string body
-// ("Room is already booked for the requested time slot."), which is worth showing as-is.
 const failWithServerMessage =
   (fallback: string) =>
   (error: unknown): never => {

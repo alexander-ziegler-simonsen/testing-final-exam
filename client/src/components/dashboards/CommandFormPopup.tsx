@@ -94,7 +94,7 @@ export function CommandFormPopup<TInput extends Record<string, any>, TId = numbe
 
   // Runs the service call for the current mode; throws if the form was
   // handed a service that doesn't support it, or an edit/delete with no id.
-  const runAction = (payload: Record<string, FieldValue | undefined>) => {
+  const runAction = (payload: Record<string, FieldValue | null>) => {
     if (mode === "create") {
       if (!service.create) throw new Error("Create is not supported for this form");
       return service.create(payload as unknown as TInput);
@@ -113,12 +113,13 @@ export function CommandFormPopup<TInput extends Record<string, any>, TId = numbe
     if (mode !== "delete" && !validate()) return;
 
     // Optional fields left blank submit "" from the inputs above, but the
-    // API's DTOs treat unset optional strings as null/undefined, not "" -
-    // an empty string trips their min-length validation.
-    const payload: Record<string, FieldValue | undefined> = { ...values };
+    // API's DTOs treat unset optional strings as null, not "" - an empty
+    // string trips their min-length validation. null (not undefined) is what
+    // the request schemas' .nullable() fields accept.
+    const payload: Record<string, FieldValue | null> = { ...values };
     for (const field of fields) {
       if (!field.required && payload[field.key] === "") {
-        payload[field.key] = undefined;
+        payload[field.key] = null;
       }
     }
 

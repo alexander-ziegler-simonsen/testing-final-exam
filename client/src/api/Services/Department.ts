@@ -17,7 +17,7 @@ export const DepartmentService = {
   create: async (newDepartment: DepartmentRequest): Promise<number> => {
     const body = DepartmentRequestSchema.parse(newDepartment);
     const { data } = await http.post("/api/Department", body).catch(fail("Failed to create department"));
-    // the api answers 204 No Content (no id) when nothing was created
+
     if (typeof data !== "number") throw new Error("Failed to create department");
     return data;
   },

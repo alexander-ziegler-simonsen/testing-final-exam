@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { HospitalApiDtosExternalMedicineProductOutputDto } from "../api";
+import type { MedicineProductResponse } from "../api/Responses/MedicineProductResponse";
 
 type SearchMode = "name" | "ingredient";
 
@@ -12,12 +12,12 @@ interface ExternalMedicinState {
 
     searchMode: SearchMode;
     query: string;
-    results: HospitalApiDtosExternalMedicineProductOutputDto[];
+    results: MedicineProductResponse[];
     searched: boolean;
     setSearch: (search: {
         searchMode: SearchMode;
         query: string;
-        results: HospitalApiDtosExternalMedicineProductOutputDto[];
+        results: MedicineProductResponse[];
         searched: boolean;
     }) => void;
 }
