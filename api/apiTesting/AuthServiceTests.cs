@@ -54,7 +54,7 @@ public class AuthServiceTests
         var salt = BCrypt.Net.BCrypt.GenerateSalt();
         var passwordHash = BCrypt.Net.BCrypt.HashPassword("Patient1234!", salt);
 
-        var patient = new Patient { Id = 1, Firstname = "Anna", Lastname = "Jensen" };
+        var patient = new Patient { Id = 1, Firstname = "Anna", Lastname = "Jensen", Gender = "female", CprNumber = "0101901234", DateOfBirth = new DateOnly(1990, 1, 1) };
         var user = new User
         {
             Id = 1,
@@ -137,7 +137,7 @@ public class AuthServiceTests
 
         var salt = BCrypt.Net.BCrypt.GenerateSalt();
         var passwordHash = BCrypt.Net.BCrypt.HashPassword("Patient1234!", salt);
-        var patient = new Patient { Id = 1, Firstname = "Anna", Lastname = "Jensen" };
+        var patient = new Patient { Id = 1, Firstname = "Anna", Lastname = "Jensen", Gender = "female", CprNumber = "0101901234", DateOfBirth = new DateOnly(1990, 1, 1) };
         var user = new User { Id = 1, Username = "annaj", PasswordHash = passwordHash, Salt = salt };
         context.Patients.Add(patient);
         context.Users.Add(user);

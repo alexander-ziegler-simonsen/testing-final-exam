@@ -5,7 +5,7 @@ namespace hospitalApi.Services.Interfaces
 {
     public interface IPatientService
     {
-        Task<IEnumerable<PatientOutputDto>> GetAll(PatientInputDto? filter = null, string? sortBy = null, string? sortDir = "asc");
+        Task<IEnumerable<PatientOutputDto>> GetAll(PatientFilterDto? filter = null, string? sortBy = null, string? sortDir = "asc");
         Task<PatientOutputDto?> GetOne(int id);
         Task<int> GetPaitentCount();
         Task<bool> EditPatient(int patientId, PatientInputDto editedPatientData);

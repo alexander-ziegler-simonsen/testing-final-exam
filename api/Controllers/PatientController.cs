@@ -26,7 +26,7 @@ namespace hospitalApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<PatientOutputDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IEnumerable<PatientOutputDto>> GetAllPatients(
-            [FromQuery] PatientInputDto? filter = null,
+            [FromQuery] PatientFilterDto? filter = null,
             [FromQuery] string? sortBy = null,
             [FromQuery] string? sortDir = "asc")
         {
@@ -78,7 +78,7 @@ namespace hospitalApi.Controllers
             string cprNumber;
             try
             {
-                cprNumber = _CprService.GenerateCprNumber(newBaby.DateOfBirth, newBaby.Gender ?? string.Empty);
+                cprNumber = await _CprService.GenerateCprNumber(newBaby.DateOfBirth, newBaby.Gender ?? string.Empty);
             }
             catch (ArgumentException ex)
             {
