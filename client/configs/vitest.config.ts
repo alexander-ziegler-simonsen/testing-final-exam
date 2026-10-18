@@ -16,7 +16,6 @@ export default defineConfig({
             enabled: true,
             clean: false,
             include: ['src/**/*.{ts,tsx}'],
-            exclude: ['src/api/**/*'],
 
             reporter: [ 'text', 'json' ],
         },

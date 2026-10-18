@@ -1,11 +1,10 @@
-import { expect, test } from "vitest";
+import { expect, onTestFinished, test } from "vitest";
+import { page, server } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { MemoryRouter } from "react-router";
 import { Provider } from "../ui/provider";
 import Navbar from "./Navbar";
 
-// Navbar renders react-router <Link>s (needs a Router) and Chakra components
-// (needs ChakraProvider), same wrapper pattern as Footer.test.tsx.
 function renderNavbar() {
     return render(<Navbar />, {
         wrapper: ({ children }) => (
@@ -28,10 +27,12 @@ test("renders all desktop nav links pointing at their expected routes", async ()
 });
 
 test("opens the mobile drawer when the menu toggle is clicked", async () => {
+    const { width, height } = server.config.browser.viewport;
+    await page.viewport(414, 896);
+    onTestFinished(() => page.viewport(width, height));
+
     const { getByTestId } = await renderNavbar();
 
-    // Chakra's Drawer only mounts its content into the portal once opened,
-    // so the drawer testid shouldn't exist in the DOM at all yet.
     await expect.element(getByTestId("nav-mobile-drawer")).not.toBeInTheDocument();
 
     await getByTestId("nav-mobile-menu-toggle").click();

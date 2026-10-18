@@ -6,7 +6,7 @@ const getParam = (request: Request, name: string) => new URL(request.url).search
 
 const E2E_MEDICINE_NAME = "panodil";
 const E2E_MEDICINE_INGREDIENT = "paracetamol";
-// the detail page is opened with the product's varenummer
+
 const E2E_MEDICINE_DETAIL_ID = mockMedicineProductResponse.varenummer;
 
 export const e2eExternalMedicinHandlers = [
