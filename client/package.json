@@ -19,7 +19,6 @@
     "img:update": "vitest -c configs/vitest.config.ts --update --browser.headless",
     "img:update:docker": "docker compose -f docker/compose.component-test.yaml run --rm --build component-tests --update",
     "img:update-head": "vitest -c configs/vitest.config.ts --update --browser.ui=false",
-    "openapi": "openapi-ts -f configs/openapi-ts.config.ts",
     "coverage": "vitest -c configs/vitest.config.ts run --coverage",
     "test:browser": "vitest -c configs/vitest.config.ts --project browser --browser.headless",
     "test:browser-head": "vitest -c configs/vitest.config.ts --project browser",
@@ -42,7 +41,6 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "0.99.0",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
