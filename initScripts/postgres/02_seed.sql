@@ -83,9 +83,6 @@ insert into room (name, fk_floor_id) values
 -- patients (25)
 -- from https://www.fakenamegenerator.com/advanced.php?t=country&n%5b%5d=us&c%5b%5d=dk&gen=50&age-min=19&age-max=85
 
--- date_of_birth is decoded from each cpr_number (ddmmyy + century digit), so it stays
--- consistent with what CprService would derive from the same cpr; weight_kg/height_cm
--- are made-up but plausible values spread across the bmi categories for test coverage.
 insert into patient (firstname, lastname, gender, cpr_number, date_of_birth, weight_kg, height_cm) values
 ('michael','conklin','male','1505534561','1953-05-15',82,178),
 ('darlene','kelly','female','1202543800','1954-02-12',65,162),
