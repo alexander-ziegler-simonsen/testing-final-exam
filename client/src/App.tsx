@@ -63,6 +63,8 @@ function App() {
             {/* Accessible by Everyone (Staff AND Patients) */}
             <Route path="treatment" element={<Treatments />} />
             <Route path="treatment/:id" element={<OneTreatment />} />
+            <Route path="external_medicin" element={<ExternalMedicin />} />
+            <Route path="external_medicin/:id" element={<OneExternalMedicin />} />
 
             {/* staff only */}
             <Route element={<RoleProtectedRoute allowedRoles={['doctor', 'nurse', 'admin']} />}>
@@ -80,8 +82,6 @@ function App() {
               <Route path="missing_medicin" element={<MissingMedicin />} />
               <Route path="medicin_storage" element={<MedicinStorage />} />
               <Route path="medicin_storage/:id" element={<OneMedicin />} />
-              <Route path="external_medicin" element={<ExternalMedicin />} />
-              <Route path="external_medicin/:id" element={<OneExternalMedicin />} />
               <Route path="room_booking" element={<RoomBooking />} />
               <Route path="room_booking/room/:id" element={<OneRoom />} />
               <Route path="room_booking/:id" element={<OneRoomBooking />} />

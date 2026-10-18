@@ -36,7 +36,7 @@ const navigationGroups: NavigationGroup[] = [
         id: "medicine", title: "Medicine", links: [
             { path: "missing_medicin", title: "missing meds", icon: <LuPillBottle size={20} />, testIdSuffix: "missing-medicin-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
             { path: "medicin_storage", title: "medicin storage", icon: <LuWarehouse size={20} />, testIdSuffix: "medicin-storage-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
-            { path: "external_medicin", title: "find medicin price", icon: <LuSearch size={20} />, testIdSuffix: "external-medicin-link", allowedRoles: ['doctor', 'nurse', 'admin'] },
+            { path: "external_medicin", title: "find medicin price", icon: <LuSearch size={20} />, testIdSuffix: "external-medicin-link" },
         ]
     },
     {
