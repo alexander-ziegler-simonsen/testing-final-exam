@@ -8,14 +8,12 @@ export default defineConfig({
   retries: 0,
   workers: 1,
   reporter: [ ['html'] ],
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
-    locale: 'en-GB', /* fixed the problem with date formatting not being the same in headless mode */
+    locale: 'en-GB', /* fixed the problem with date formatting */
   },
 
-  /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
@@ -35,12 +33,10 @@ export default defineConfig({
       testIgnore: /lighthouse\.spec\.ts/,
     },
 
-    /* Lighthouse audits only work with Chromium 
+    /* Lighthouse audits only work with Chromium  */
     {
       name: 'lighthouse',
       testMatch: /lighthouse\.spec\.ts/,
-      // One test runs a full Lighthouse audit (~20-30s each) against 3
-      // dashboard pages in sequence - past the default 30s test timeout.
       timeout: 2 * 60 * 1000,
     },
 
