@@ -112,7 +112,7 @@ insert into patient (firstname, lastname, gender, cpr_number, date_of_birth, wei
 ('michael','gonzalez','male','1411973723','1997-11-14',72,177),
 ('charles','eusebio','male','1111563477','1956-11-11',80,170),
 ('bobby','selzer','male','0603026535','2002-03-06',66,175),
-('test', 'deletetarget', 'other', 'ZZTEST-PATIENT-0001', '1990-01-01', 70, 170);
+('test', 'deletetarget', 'other', '0101909999', '1990-01-01', 70, 170);
 
 -- staff (doctors first, then nurses, then admin) - role_id: 1 = doctor, 2 = nurse, 3 = admin
 
