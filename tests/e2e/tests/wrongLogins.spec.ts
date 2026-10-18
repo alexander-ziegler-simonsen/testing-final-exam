@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-// import { resetDb } from './dbReset';
 
 test('doctor login with wrong password', async ({ page }) => {
 
