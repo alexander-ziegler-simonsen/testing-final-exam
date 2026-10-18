@@ -10,4 +10,10 @@ if [ "$installed" != "$PLAYWRIGHT_VERSION" ]; then
     exit 1
 fi
 
-exec pnpm exec vitest run -c configs/vitest.config.ts --project browser --browser.headless "$@"
+script=test:browser
+if [ $# -gt 0 ] && [[ $1 != -* ]]; then
+    script=$1
+    shift
+fi
+
+exec pnpm run "$script" "$@"
