@@ -8883,7 +8883,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n    \"firstname\": \"michael\",\n    \"lastname\": \"conklin\",\n    \"gender\": \"male\",\n    \"cprNumber\": \"150553-4561\"\n}",
+                          "raw": "{\n    \"firstname\": \"michael\",\n    \"lastname\": \"conklin\",\n    \"gender\": \"male\",\n    \"cprNumber\": \"150553-4561\",\n    \"dateOfBirth\": \"1953-05-15\"\n}",
                           "options": {
                             "raw": {
                               "headerFamily": "json",
@@ -9232,7 +9232,7 @@
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n  \"firstname\": \"string\",\n  \"lastname\": \"string\",\n  \"gender\": \"string\",\n  \"cprNumber\": \"{{cprNumber}}\"\n}",
+                      "raw": "{\n  \"firstname\": \"string\",\n  \"lastname\": \"string\",\n  \"gender\": \"string\",\n  \"cprNumber\": \"{{cprNumber}}\",\n  \"dateOfBirth\": \"1990-01-01\"\n}",
                       "options": {
                         "raw": {
                           "headerFamily": "json",
@@ -9375,7 +9375,7 @@
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n  \"firstname\": \"string put\",\n  \"lastname\": \"string put\",\n  \"gender\": \"string\",\n  \"cprNumber\": \"{{cprNumber}}\"\n}",
+                      "raw": "{\n  \"firstname\": \"string put\",\n  \"lastname\": \"string put\",\n  \"gender\": \"string\",\n  \"cprNumber\": \"{{cprNumber}}\",\n  \"dateOfBirth\": \"1990-01-01\"\n}",
                       "options": {
                         "raw": {
                           "headerFamily": "json",
@@ -9962,7 +9962,7 @@
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n  \"firstname\": \"string put\",\n  \"lastname\": \"string put\",\n  \"gender\": \"string\",\n  \"cprNumber\": \"1234567890\"\n}",
+                      "raw": "{\n  \"firstname\": \"string put\",\n  \"lastname\": \"string put\",\n  \"gender\": \"string\",\n  \"cprNumber\": \"1234567890\",\n  \"dateOfBirth\": \"1990-01-01\"\n}",
                       "options": {
                         "raw": {
                           "headerFamily": "json",
