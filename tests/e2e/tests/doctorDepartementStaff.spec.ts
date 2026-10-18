@@ -1,4 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { resetDb } from './dbReset';
+
+test.beforeEach(async () => {
+  await resetDb();
+});
 
 test('Doctor looks at departmentStaff read data', async ({ page }) => {
   await page.goto('http://localhost:5173/');
