@@ -1,0 +1,34 @@
+{
+  "HTTP Request - register baby" : {
+    "transaction" : "HTTP Request - register baby",
+    "sampleCount" : 181828,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 3.8367413159688777,
+    "medianResTime" : 3.0,
+    "minResTime" : 1.0,
+    "maxResTime" : 213.0,
+    "pct1ResTime" : 4.0,
+    "pct2ResTime" : 4.0,
+    "pct3ResTime" : 9.0,
+    "throughput" : 3140.5426878767466,
+    "receivedKBytesPerSec" : 501.1053438649671,
+    "sentKBytesPerSec" : 2526.8363497353057
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 181828,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 3.8367413159688777,
+    "medianResTime" : 3.0,
+    "minResTime" : 1.0,
+    "maxResTime" : 213.0,
+    "pct1ResTime" : 4.0,
+    "pct2ResTime" : 4.0,
+    "pct3ResTime" : 9.0,
+    "throughput" : 3140.5426878767466,
+    "receivedKBytesPerSec" : 501.1053438649671,
+    "sentKBytesPerSec" : 2526.8363497353057
+  }
+}
