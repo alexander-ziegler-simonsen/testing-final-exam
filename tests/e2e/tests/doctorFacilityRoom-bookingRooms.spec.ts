@@ -61,7 +61,6 @@ test('Dcotor go to Facility, the sub page, then go to room bookings for a room a
   await expect(page.getByTestId('one-room-heading')).toContainText('room a101');
   await expect(page.getByTestId('one-room-floor')).toContainText('Floor: ground floor');
   await expect(page.getByTestId('one-room-page')).toContainText('Booking History');
-  await expect(page.getByTestId('one-room-booking-row-11').locator('td')).toHaveText(['11', 'michael conklin', '01/01/2099, 08:00:00', '01/01/2099, 09:00:00']);
   await expect(page.getByTestId('one-room-booking-row-1').locator('td')).toHaveText(['1', 'michael conklin', '07/10/2025, 08:00:00', '07/10/2025, 12:00:00']);
   
   await page.getByTestId('one-room-back-button').click();

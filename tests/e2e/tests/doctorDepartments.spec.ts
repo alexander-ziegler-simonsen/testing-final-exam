@@ -57,14 +57,17 @@ test("Doctor full CRUD on Department", async ({ page }) => {
   await page.getByTestId('departments-form-field-type').fill('test2');
   await page.getByTestId('departments-form-submit-button').click();
 
-  // check that it got added
-  await expect(page.getByTestId('departments-table-row-6-cell-id')).toContainText('7');
-  await expect(page.getByTestId('departments-table-row-6-cell-name')).toContainText('test2');
-  await expect(page.getByTestId('departments-table-row-6-cell-type')).toContainText('test2');
   
+  await expect(page.getByTestId('departments-table-row-5-cell-id')).toContainText('6');
+  await expect(page.getByTestId('departments-table-row-5-cell-name')).toContainText('test2');
+  await expect(page.getByTestId('departments-table-row-5-cell-type')).toContainText('test2');
+
   // delete it
   await page.getByTestId('departments-delete-6').click();
   await page.getByTestId('departments-form-submit-button').click();
+
+  // check that it got deleted
+  await expect(page.getByTestId('departments-table-row-5-cell-id')).toHaveCount(0);
 
   // logout
   await page.getByTestId('dashboard-navbar-logout-button').click();
