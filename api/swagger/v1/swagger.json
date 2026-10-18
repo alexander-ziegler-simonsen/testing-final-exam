@@ -1904,8 +1904,6 @@
             "name": "Firstname",
             "in": "query",
             "schema": {
-              "maxLength": 100,
-              "minLength": 2,
               "type": "string"
             }
           },
@@ -1913,8 +1911,6 @@
             "name": "Lastname",
             "in": "query",
             "schema": {
-              "maxLength": 100,
-              "minLength": 2,
               "type": "string"
             }
           },
@@ -1922,8 +1918,6 @@
             "name": "Gender",
             "in": "query",
             "schema": {
-              "maxLength": 50,
-              "minLength": 2,
               "type": "string"
             }
           },
@@ -1931,33 +1925,7 @@
             "name": "CprNumber",
             "in": "query",
             "schema": {
-              "maxLength": 10,
-              "minLength": 0,
               "type": "string"
-            }
-          },
-          {
-            "name": "DateOfBirth",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          },
-          {
-            "name": "WeightKg",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "name": "HeightCm",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "format": "double"
             }
           },
           {
@@ -4697,39 +4665,34 @@
         }
       },
       "hospitalApi.DTOs.Inputs.PatientInputDto": {
+        "required": [
+          "firstname",
+          "lastname",
+          "gender",
+          "cprNumber",
+          "dateOfBirth"
+        ],
         "type": "object",
         "properties": {
           "firstname": {
             "maxLength": 100,
             "minLength": 2,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "lastname": {
             "maxLength": 100,
             "minLength": 2,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "gender": {
             "maxLength": 50,
             "minLength": 2,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "cprNumber": {
             "maxLength": 10,
             "minLength": 0,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "dateOfBirth": {
             "type": [
@@ -4776,23 +4739,22 @@
         }
       },
       "hospitalApi.DTOs.Inputs.RegisterBabyDto": {
+        "required": [
+          "firstname",
+          "lastname",
+          "gender"
+        ],
         "type": "object",
         "properties": {
           "firstname": {
             "maxLength": 100,
             "minLength": 2,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "lastname": {
             "maxLength": 100,
             "minLength": 2,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "weightKg": {
             "maximum": 20,
@@ -4807,10 +4769,7 @@
             "format": "float"
           },
           "gender": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "dateOfBirth": {
             "type": "string",
@@ -5204,40 +5163,25 @@
           "firstname": {
             "maxLength": 100,
             "minLength": 2,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "lastname": {
             "maxLength": 100,
             "minLength": 2,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "gender": {
             "maxLength": 50,
             "minLength": 2,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "cprNumber": {
             "maxLength": 10,
             "minLength": 0,
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "dateOfBirth": {
-            "type": [
-              "null",
-              "string"
-            ],
+            "type": "string",
             "format": "date"
           },
           "weightKg": {
