@@ -27,33 +27,38 @@ public class CprServiceTest
         _context.Dispose();
     }
 
-    // 1858-1899
-    [TestCase("01-01-1858", "female", "010158", new[] { 5, 6, 7, 8 })]
-    [TestCase("15-03-1880", "male",   "150380", new[] { 5, 6, 7, 8 })]
-    [TestCase("20-08-1890", "female", "200890", new[] { 5, 6, 7, 8 })]
-    [TestCase("31-12-1899", "male",   "311299", new[] { 5, 6, 7, 8 })]
+    // 1858-1899 
+    [TestCase("01-01-1858", "female", "010158", new[] { 5, 6, 7, 8 })] 
+    [TestCase("01-01-1859", "male",   "010159", new[] { 5, 6, 7, 8 })] 
+    [TestCase("15-06-1878", "female", "150678", new[] { 5, 6, 7, 8 })] 
+    [TestCase("31-12-1898", "male",   "311298", new[] { 5, 6, 7, 8 })] 
+    [TestCase("31-12-1899", "female", "311299", new[] { 5, 6, 7, 8 })] 
     // 1900-1936
-    [TestCase("01-01-1900", "male",   "010100", new[] { 0, 1, 2, 3 })]
-    [TestCase("10-05-1915", "male",   "100515", new[] { 0, 1, 2, 3 })]
-    [TestCase("01-07-1925", "female", "010725", new[] { 0, 1, 2, 3 })]
-    [TestCase("31-12-1936", "female", "311236", new[] { 0, 1, 2, 3 })]
+    [TestCase("01-01-1900", "male",   "010100", new[] { 0, 1, 2, 3 })] 
+    [TestCase("01-01-1901", "female", "010101", new[] { 0, 1, 2, 3 })] 
+    [TestCase("15-06-1918", "male",   "150618", new[] { 0, 1, 2, 3 })] 
+    [TestCase("31-12-1935", "female", "311235", new[] { 0, 1, 2, 3 })] 
+    [TestCase("31-12-1936", "male",   "311236", new[] { 0, 1, 2, 3 })] 
     // 1937-1999
-    [TestCase("01-01-1937", "female", "010137", new[] { 0, 1, 2, 3, 4, 9 })]
-    [TestCase("24-12-1968", "male",   "241268", new[] { 0, 1, 2, 3, 4, 9 })]
-    [TestCase("30-06-1985", "female", "300685", new[] { 0, 1, 2, 3, 4, 9 })]
-    [TestCase("31-12-1999", "male",   "311299", new[] { 0, 1, 2, 3, 4, 9 })]
+    [TestCase("01-01-1937", "female", "010137", new[] { 0, 1, 2, 3, 4, 9 })] 
+    [TestCase("01-01-1938", "male",   "010138", new[] { 0, 1, 2, 3, 4, 9 })] 
+    [TestCase("29-02-1968", "female", "290268", new[] { 0, 1, 2, 3, 4, 9 })] 
+    [TestCase("31-12-1998", "male",   "311298", new[] { 0, 1, 2, 3, 4, 9 })] 
+    [TestCase("31-12-1999", "female", "311299", new[] { 0, 1, 2, 3, 4, 9 })] 
     // 2000-2036
-    [TestCase("01-01-2000", "male",   "010100", new[] { 4, 5, 6, 7, 8, 9 })]
-    [TestCase("28-02-2010", "female", "280210", new[] { 4, 5, 6, 7, 8, 9 })]
-    [TestCase("29-02-2024", "male",   "290224", new[] { 4, 5, 6, 7, 8, 9 })]
-    [TestCase("31-12-2036", "female", "311236", new[] { 4, 5, 6, 7, 8, 9 })]
-    // 2037-2057
-    [TestCase("01-01-2037", "female", "010137", new[] { 5, 6, 7, 8 })]
-    [TestCase("09-09-2045", "male",   "090945", new[] { 5, 6, 7, 8 })]
-    [TestCase("18-04-2050", "female", "180450", new[] { 5, 6, 7, 8 })]
-    [TestCase("31-12-2057", "male",   "311257", new[] { 5, 6, 7, 8 })]
-    public async Task GenerateCprNumbers(
-        string birthDate, string gender, string expectedDatePart, int[] allowedCenturyDigits)
+    [TestCase("01-01-2000", "male",   "010100", new[] { 4, 5, 6, 7, 8, 9 })] 
+    [TestCase("01-01-2001", "female", "010101", new[] { 4, 5, 6, 7, 8, 9 })] 
+    [TestCase("15-06-2018", "male",   "150618", new[] { 4, 5, 6, 7, 8, 9 })] 
+    [TestCase("31-12-2035", "female", "311235", new[] { 4, 5, 6, 7, 8, 9 })] 
+    [TestCase("31-12-2036", "male",   "311236", new[] { 4, 5, 6, 7, 8, 9 })] 
+    // 2037-2057 
+    [TestCase("01-01-2037", "female", "010137", new[] { 5, 6, 7, 8 })] 
+    [TestCase("01-01-2038", "male",   "010138", new[] { 5, 6, 7, 8 })] 
+    [TestCase("15-06-2047", "female", "150647", new[] { 5, 6, 7, 8 })] 
+    [TestCase("31-12-2056", "male",   "311256", new[] { 5, 6, 7, 8 })] 
+    [TestCase("31-12-2057", "female", "311257", new[] { 5, 6, 7, 8 })] 
+    public async Task GenerateCprNumbers(string birthDate, string gender, 
+    string expectedDatePart, int[] allowedCenturyDigits)
     {
         var date = DateOnly.ParseExact(birthDate, "dd-MM-yyyy");
 
@@ -72,5 +77,14 @@ public class CprServiceTest
             Assert.That(allowedCenturyDigits, Does.Contain(centuryDigit));
             Assert.That(isEven, Is.EqualTo(gender == "female"));
         });
+    }
+    
+    [TestCase("31-12-1857", "male")]   
+    [TestCase("01-01-2058", "female")] 
+    public void GenerateCprNumbers_OutsideRange(string birthDate, string gender)
+    {
+        var date = DateOnly.ParseExact(birthDate, "dd-MM-yyyy");
+
+        Assert.CatchAsync<ArgumentException>(async () => await _service.GenerateCprNumber(date, gender));
     }
 }

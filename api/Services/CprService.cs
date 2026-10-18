@@ -20,6 +20,11 @@ namespace hospitalApi.Services
         {
             const int maxAttempts = 100;
 
+            // outside range
+            if (birthDate.Year < 1858 || birthDate.Year > 2057)
+                throw new ArgumentOutOfRangeException(nameof(birthDate),
+                $"CPR numbers can only be generated for birth years 1858-2057, got {birthDate.Year}.");
+
             bool isFemale = gender == "female";
 
             string date = birthDate.ToString("ddMMyy");
