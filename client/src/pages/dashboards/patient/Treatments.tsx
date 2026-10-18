@@ -24,23 +24,37 @@ const toDatetimeLocal = (date: Date) => new Date(date.getTime() - date.getTimezo
 
 export default function Treatments() {
   const navigate = useNavigate();
-  const staffId = useAuthStore((state) => state.user?.staffId);
+  const user = useAuthStore((state) => state.user);
+  const staffId = user?.staffId;
+  const patientId = user?.patientId;
+  const isPatient = user?.role === "patient";
   const [data, setData] = useState<TreatmentResponse[]>([]);
   const [patients, setPatients] = useState<PatientResponse[]>([]);
   const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedTreatment, openCreate, openEdit, openDelete } =
     useCommandPopup<TreatmentResponse>();
 
+  // Patients only get their own treatments. A patient without a patient id gets nothing,
+  // since leaving the filter out would return every patient's treatments.
+  const fetchTreatments = (): Promise<TreatmentResponse[]> => {
+    if (!isPatient) return TreatmentService.getAll();
+    if (!patientId) return Promise.resolve([]);
+    return TreatmentService.getAll({ fkPatientId: patientId });
+  };
+
   const loadTreatments = () => {
-    TreatmentService.getAll()
+    fetchTreatments()
       .then(setData)
       .catch((error) => console.error(error));
   };
 
   useEffect(() => {
     loadTreatments();
-    PatientService.getAll()
-      .then(setPatients)
-      .catch((error) => console.error(error));
+    // the patient list only feeds the create/edit form, which patients don't get
+    if (!isPatient) {
+      PatientService.getAll()
+        .then(setPatients)
+        .catch((error) => console.error(error));
+    }
   }, []);
 
   const treatmentFields: FieldConfig<TreatmentForm>[] = useMemo(
@@ -86,14 +100,17 @@ export default function Treatments() {
     },
   ];
 
+  // patients can look at their treatments but not change them
+  const visibleColumns = isPatient ? columns.filter((column) => column.key !== "actions") : columns;
+
   return (
     <>
       <HStack justify="space-between" mb="4">
         <Text data-testid="treatments-page-heading" fontSize="xl" fontWeight="bold">Treatments</Text>
-        <Button data-testid="treatments-add-button" onClick={openCreate}><LuPlus /> Add Treatment</Button>
+        {!isPatient && <Button data-testid="treatments-add-button" onClick={openCreate}><LuPlus /> Add Treatment</Button>}
       </HStack>
 
-      <DataTable<TreatmentRow> testId="treatments-table" data={data} columns={columns} pageSize={10} onRowClick={(treatment) => navigate(`/app/treatment/${treatment.id}`)} />
+      <DataTable<TreatmentRow> testId="treatments-table" data={data} columns={visibleColumns} pageSize={10} onRowClick={(treatment) => navigate(`/app/treatment/${treatment.id}`)} />
 
       <CommandFormPopup<TreatmentForm> open={popupOpen} onOpenChange={setPopupOpen} mode={popupMode} title="Treatment"
         fields={treatmentFields} itemId={selectedTreatment?.id} service={treatmentFormService} onSuccess={loadTreatments} testId="treatments-form"
