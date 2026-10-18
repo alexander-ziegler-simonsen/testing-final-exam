@@ -16,13 +16,12 @@
     "lint:fix-d": "oxlint -c configs/.oxlintrc.json --tsconfig=configs/tsconfig.json --fix-dangerously",
     "test": "vitest -c configs/vitest.config.ts",
     "test:unit": "vitest -c configs/vitest.config.ts --project unit",
-    "img:update": "vitest -c configs/vitest.config.ts --update --browser.headless",
-    "img:update:docker": "docker compose -f docker/compose.component-test.yaml run --rm --build component-tests --update",
-    "img:update-head": "vitest -c configs/vitest.config.ts --update --browser.ui=false",
-    "coverage": "vitest -c configs/vitest.config.ts run --coverage",
     "test:browser": "vitest -c configs/vitest.config.ts --project browser --browser.headless",
     "test:browser-head": "vitest -c configs/vitest.config.ts --project browser",
-    "test:browser:docker": "docker compose -f docker/compose.component-test.yaml run --rm --build component-tests"
+    "test:browser:docker": "docker compose -f docker/compose.component-test.yaml run --rm --build component-tests",
+    "img:update": "vitest -c configs/vitest.config.ts --update --browser.headless",
+    "img:update:docker": "docker compose -f docker/compose.component-test.yaml run --rm --build component-tests img:update",
+    "coverage": "vitest -c configs/vitest.config.ts run --coverage"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.36.1",
