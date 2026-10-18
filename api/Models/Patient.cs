@@ -7,15 +7,15 @@ public partial class Patient
 {
     public int Id { get; set; }
 
-    public string? Firstname { get; set; }
+    public string Firstname { get; set; } = null!;
 
-    public string? Lastname { get; set; }
+    public string Lastname { get; set; } = null!;
 
-    public string? Gender { get; set; }
+    public string Gender { get; set; } = null!;
 
-    public string? CprNumber { get; set; }
+    public string CprNumber { get; set; } = null!;
 
-    public DateOnly? DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
 
     public double? WeightKg { get; set; }
 

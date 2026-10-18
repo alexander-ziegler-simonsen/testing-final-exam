@@ -34,11 +34,11 @@ create table room (
 
 create table patient (
     id int generated always as identity primary key,
-    firstname varchar(100),
-    lastname varchar(100),
-    gender varchar(50),
-    cpr_number varchar(50) unique,
-    date_of_birth date,
+    firstname varchar(100) not null,
+    lastname varchar(100) not null,
+    gender varchar(50) not null,
+    cpr_number varchar(50) not null unique,
+    date_of_birth date not null,
     weight_kg double precision,
     height_cm double precision
 );

@@ -41,11 +41,6 @@ export const mockPatientResponses: PatientResponseJson[] = [
 
 // one entry per nullable field, with only that field set to null
 export const mockPatientResponsesWithNulls: PatientResponseJson[] = [
-    { ...mockPatientResponse, id: 11, firstname: null },
-    { ...mockPatientResponse, id: 12, lastname: null },
-    { ...mockPatientResponse, id: 13, gender: null },
-    { ...mockPatientResponse, id: 14, cprNumber: null },
-    { ...mockPatientResponse, id: 15, dateOfBirth: null },
     { ...mockPatientResponse, id: 16, weightKg: null },
     { ...mockPatientResponse, id: 17, heightCm: null },
 ];

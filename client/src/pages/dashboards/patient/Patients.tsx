@@ -14,16 +14,16 @@ import { PatientService } from "../../../api/Services/Patient";
 type PatientRow = PatientResponse & { actions?: undefined };
 
 // The popup's date input holds dateOfBirth as a "YYYY-MM-DD" string, not a Date.
-type PatientForm = Omit<PatientRequest, "dateOfBirth"> & { dateOfBirth: string | null };
+type PatientForm = Omit<PatientRequest, "dateOfBirth"> & { dateOfBirth: string };
 
 // dateOfBirth is a date without a time, which PatientResponse parses as UTC midnight -
 // so the UTC date part is the actual date, independent of the browser's timezone.
-const toDateOnly = (date: Date | null) => (date ? date.toISOString().slice(0, 10) : null);
+const toDateOnly = (date: Date) => date.toISOString().slice(0, 10);
 
 // "YYYY-MM-DD" parses as UTC midnight, the same convention as above.
 const toPatientRequest = (values: PatientForm): PatientRequest => ({
   ...values,
-  dateOfBirth: values.dateOfBirth ? new Date(values.dateOfBirth) : null,
+  dateOfBirth: new Date(values.dateOfBirth),
 });
 
 const patientFormService: CommandFormService<PatientForm> = {
@@ -38,7 +38,7 @@ const patientFields: FieldConfig<PatientForm>[] = [
     options: [ { label: "Male", value: "Male" }, { label: "Female", value: "Female" }, { label: "Other", value: "Other" },],
   },
   { key: "cprNumber", label: "CPR Number", type: "text", required: true, lockedOnEdit: true },
-  { key: "dateOfBirth", label: "Date of birth", type: "date", lockedOnEdit: true },
+  { key: "dateOfBirth", label: "Date of birth", type: "date", required: true, lockedOnEdit: true },
   { key: "weightKg", label: "Weight (kg)", type: "number" },
   { key: "heightCm", label: "Height (cm)", type: "number" },
 ];
@@ -65,7 +65,7 @@ export default function Patients() {
     { key: "lastname", header: "Last name", enableSearch: true, },
     { key: "gender", header: "Gender", enableSearch: true, },
     { key: "cprNumber", header: "CPR Number", enableSearch: true, },
-    { key: "dateOfBirth", header: "Date of Birth", enableSearch: true, sortValue: (item) => toDateOnly(item.dateOfBirth), render: (_value, item) => toDateOnly(item.dateOfBirth) ?? "", },
+    { key: "dateOfBirth", header: "Date of Birth", enableSearch: true, sortValue: (item) => toDateOnly(item.dateOfBirth), render: (_value, item) => toDateOnly(item.dateOfBirth), },
     { key: "weightKg", header: "Weight (kg)", },
     { key: "heightCm", header: "Height (cm)", },
     { key: "actions", header: "Actions", enableSort: false, render: (_value, item) => (

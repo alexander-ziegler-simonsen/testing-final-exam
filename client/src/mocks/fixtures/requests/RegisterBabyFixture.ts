@@ -15,10 +15,3 @@ export const mockRegisterBabyRequests: RegisterBabyRequest[] = [
     { firstname: "Oliver", lastname: "Nielsen", weightKg: 3.8, heightCm: 53, gender: "Male", dateOfBirth: new Date("2026-10-16") },
     { firstname: "Noa", lastname: "Berg", weightKg: 2.9, heightCm: 48, gender: "Other", dateOfBirth: new Date("2026-10-17") },
 ];
-
-// one entry per nullable field, with only that field set to null
-export const mockRegisterBabyRequestsWithNulls: RegisterBabyRequest[] = [
-    { ...mockRegisterBabyRequest, firstname: null },
-    { ...mockRegisterBabyRequest, lastname: null },
-    { ...mockRegisterBabyRequest, gender: null },
-];

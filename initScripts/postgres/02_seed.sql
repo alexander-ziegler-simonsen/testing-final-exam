@@ -1,15 +1,10 @@
 
--- insert data _______________________
-
-
-
 -- staff roles
 
 insert into staff_role (name) values
 ('doctor'),
 ('nurse'),
-('admin'),
-('not-in-use');
+('admin');
 
 
 -- buildings
@@ -23,8 +18,7 @@ insert into building (name, address) values
 
 insert into floor (name, fk_building_id) values
 ('ground floor', 1), ('first floor', 1), ('second floor', 1),
-('ground floor', 2), ('first floor', 2), ('second floor', 2),
-('test-delete target', 1);
+('ground floor', 2), ('first floor', 2), ('second floor', 2);
 
 
 -- medication (26)
@@ -55,8 +49,7 @@ insert into medication (name,generic_name,brand,form,strength,category,descripti
 ('escitalopram','escitalopram','lexapro','tablet','10mg','depression','treats depression and anxiety.'),
 ('montelukast','montelukast','singulair','tablet','10mg','respiratory','treats asthma and allergies.'),
 ('ranitidine','ranitidine','zantac','tablet','150mg','acid reducer','reduces stomach acid.'),
-('melatonin','melatonin','natrol','tablet','5mg','sleep aid','helps with sleep disorders.'),
-('test-delete target', 'test', 'test', 'tablet', '0mg', 'test fixture', 'disposable row for delete testing, do not use for anything else.');
+('melatonin','melatonin','natrol','tablet','5mg','sleep aid','helps with sleep disorders.');
 
 
 -- medication storage
@@ -64,8 +57,7 @@ insert into medication (name,generic_name,brand,form,strength,category,descripti
 insert into medication_storage (fk_medication_id, amount) values
 (1,500),(2,400),(3,300),(4,250),(5,200),(6,180),(7,160),(8,150),(9,140),(10,130),
 (11,120),(12,110),(13,100),(14,90),(15,80),(16,70),(17,60),(18,50),(19,40),(20,30),
-(21,25),(22,20),(23,15),(24,10),(25,5),(26,30),
-(1,1);
+(21,25),(22,20),(23,15),(24,10),(25,5),(26,30);
 
 
 -- rooms
@@ -76,8 +68,7 @@ insert into room (name, fk_floor_id) values
 ('room a301',3),('room a302',3),('room a303',3),('room a304',3),('room a305',3),
 ('room b101',4),('room b102',4),('room b103',4),('room b104',4),('room b105',4),
 ('room b201',5),('room b202',5),('room b203',5),('room b204',5),('room b205',5),
-('room b301',6),('room b302',6),('room b303',6),('room b304',6),('room b305',6),
-('room b306',6);
+('room b301',6),('room b302',6),('room b303',6),('room b304',6),('room b305',6);
 
 
 -- patients (25)
@@ -108,8 +99,7 @@ insert into patient (firstname, lastname, gender, cpr_number, date_of_birth, wei
 ('stephanie','knox','female','2211600554','1960-11-22',88,160),
 ('michael','gonzalez','male','1411973723','1997-11-14',72,177),
 ('charles','eusebio','male','1111563477','1956-11-11',80,170),
-('bobby','selzer','male','0603026535','2002-03-06',66,175),
-('test', 'deletetarget', 'other', '0101909999', '1990-01-01', 70, 170);
+('bobby','selzer','male','0603026535','2002-03-06',66,175);
 
 -- staff (doctors first, then nurses, then admin) - role_id: 1 = doctor, 2 = nurse, 3 = admin
 
@@ -132,26 +122,25 @@ insert into staff (firstname, lastname, fk_role_id) values
 ('peter','christensen',2),('nikolaj','møller',2),('thomas','pedersen',2),
 ('maria','jensen',2),('john','poulsen',2),('sara','nielsen',2),
 ('henrik','hansen',2),
-('kirsten','holm',3),
-('test', 'delete target', 3);
+('kirsten','holm',3);
 
--- users (linked to staff, for login)
--- passwords: doctors use 'Doctor1234!', nurses use 'Nurse1234!', admin uses 'Admin1234!'
+-- users
+-- passwords: 
+--- doctors use 'Doctor1234!', 
+--- nurses use 'Nurse1234!', 
+--- admin uses 'Admin1234!'
+-- password: 'Patient1234!'
 
 insert into "user" (username, password_hash, salt, fk_staff_id) values
 ('larsc',  '$2b$11$nlclhzrwTwvhpiFLLyB32./O5E.NSqH9Z6YyHVHLInzuvic3W0daK', '$2b$11$nlclhzrwTwvhpiFLLyB32.', 1),
 ('doctor',   '$2b$11$v49fsgGrRe4izN65HiA.X.R9nnF7pfoOLf/s7QRiDsLFaTE4MNtLe', '$2b$11$v49fsgGrRe4izN65HiA.X.', 2),
 ('annaj',  '$2b$11$F/xqtdVrZjJUb6hfXptkAuse9F7s3DbH33SigLynX9D0YxMMqZI0O', '$2b$11$F/xqtdVrZjJUb6hfXptkAu', 26),
 ('nurse', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRuGeMLXwumuCHWBCr7by6mccjlzMnT65m', '$2b$11$zFxZ4mU9GQZBiLkrz9fCRu', 27),
-('admin', '$2b$11$AO5m33t61b01mMygc4uxqelHjDV/qAce9gGg8jX8lKGoI6GddnBlK', '$2b$11$AO5m33t61b01mMygc4uxqe', 51);
--- patient users (linked to patient via user_patient, for login - not staff)
--- password: 'Patient1234!'
-insert into "user" (username, password_hash, salt, fk_staff_id) values
+('admin', '$2b$11$AO5m33t61b01mMygc4uxqelHjDV/qAce9gGg8jX8lKGoI6GddnBlK', '$2b$11$AO5m33t61b01mMygc4uxqe', 51),
 ('patient', '$2b$11$ksR/CXHW8KK5iufZueYHiO1sHNYatmwbDKhvfkhXM0I/FpF554ADS', '$2b$11$ksR/CXHW8KK5iufZueYHiO', null);
 
 insert into user_patient (fk_user_id, fk_patient_id) values
 ((select id from "user" where username = 'patient'), 1);
-
 
 -- departments
 
@@ -160,10 +149,11 @@ insert into department (name, type) values
 ('surgery','operation'),
 ('cardiology','specialist'),
 ('pediatrics','child care'),
-('radiology','diagnostics'),
-('test-delete target', 'test fixture');
+('radiology','diagnostics');
 
--- department staff - doctors: 1–25, nurses: 26–50
+-- department staff 
+-- doctors: 1–25, 
+-- nurses: 26–50
 insert into department_staff (fk_staff_id, fk_department_id) values
 (1,1),(2,1),(3,2),(4,2),(5,3),(6,3),(7,4),(8,4),(9,5),(10,5),(11,1),
 (12,2),(13,3),(14,4),(15,5),(16,1),(17,2),(18,3),(19,4),(20,5),(21,1),
@@ -199,8 +189,7 @@ insert into treatment (fk_patient_id,description,time) values
 (22,'vaccination',current_timestamp),
 (23,'routine checkup',current_timestamp),
 (24,'lab test follow-up',current_timestamp),
-(25,'chronic illness monitoring',current_timestamp),
-(26, 'disposable treatment, reserved for delete fixtures', current_timestamp);
+(25,'chronic illness monitoring',current_timestamp);
 
 -- treatment staff - (doctor + nurse per treatment)
 insert into treatment_staff (fk_treatment_id, fk_staff_id) values
@@ -209,8 +198,7 @@ insert into treatment_staff (fk_treatment_id, fk_staff_id) values
 (11,11),(11,36),(12,12),(12,37),(13,13),(13,38),(14,14),(14,39),
 (15,15),(15,40),(16,16),(16,41),(17,17),(17,42),(18,18),(18,43),
 (19,19),(19,44),(20,20),(20,45),(21,21),(21,46),(22,22),(22,47),
-(23,23),(23,48),(24,24),(24,49),(25,25),(25,50),
-(26, 1);
+(23,23),(23,48),(24,24),(24,49),(25,25),(25,50);
 
 -- prescriptions - (doctors only)
 insert into prescription (fk_medication_id, fk_treatment_id, fk_prescribed_by_staff_id, doses) values
@@ -218,9 +206,7 @@ insert into prescription (fk_medication_id, fk_treatment_id, fk_prescribed_by_st
 (6,6,6,3),(7,7,7,2),(8,8,8,1),(9,9,9,2),(10,10,10,1),
 (11,11,11,2),(12,12,12,1),(13,13,13,2),(14,14,14,3),(15,15,15,1),
 (16,16,16,2),(17,17,17,1),(18,18,18,2),(19,19,19,3),(20,20,20,1),
-(21,21,21,2),(22,22,22,1),(23,23,23,2),(24,24,24,1),(25,25,25,3),
-(1, 26, 1, 1);
-
+(21,21,21,2),(22,22,22,1),(23,23,23,2),(24,24,24,1),(25,25,25,3);
 
 -- room bookings
 
@@ -234,11 +220,9 @@ insert into room_booking (fk_room_id,start_time,end_time,fk_patient_id) values
 (7,'2025-10-07 14:00:00','2025-10-07 18:00:00',7),
 (8,'2025-10-07 15:00:00','2025-10-07 19:00:00',8),
 (9,'2025-10-07 16:00:00','2025-10-07 20:00:00',9),
-(10,'2025-10-07 17:00:00','2025-10-07 21:00:00',10),
-(1, '2099-01-01 08:00:00', '2099-01-01 09:00:00', 1);
+(10,'2025-10-07 17:00:00','2025-10-07 21:00:00',10);
 
 -- medication storage missing
 insert into medication_storage_missing (fk_medication_storage_id, amount_missing, went_missing_at) values
 (1, 10, '2025-10-07 12:00:00'),
-(2, 5, '2025-10-07 15:30:00'),
-(27, 1, '2099-01-01 08:00:00');
+(2, 5, '2025-10-07 15:30:00');

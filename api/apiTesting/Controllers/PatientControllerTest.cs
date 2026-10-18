@@ -60,7 +60,7 @@ public class PatientControllerTest
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         _patientServiceMock.Verify(
-            s => s.GetAll(It.IsAny<PatientInputDto>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            s => s.GetAll(It.IsAny<PatientFilterDto>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
     }
 
     [Test]
@@ -68,7 +68,7 @@ public class PatientControllerTest
     {
         // Arrange
         _patientServiceMock
-            .Setup(s => s.GetAll(It.IsAny<PatientInputDto>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Setup(s => s.GetAll(It.IsAny<PatientFilterDto>(), It.IsAny<string>(), It.IsAny<string>()))
             .ThrowsAsync(new InvalidOperationException("boom"));
         var client = _factory.CreateClient();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", BuildAccessToken());
@@ -85,7 +85,7 @@ public class PatientControllerTest
     {
         // Arrange
         _patientServiceMock
-            .Setup(s => s.GetAll(It.IsAny<PatientInputDto>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Setup(s => s.GetAll(It.IsAny<PatientFilterDto>(), It.IsAny<string>(), It.IsAny<string>()))
             .ReturnsAsync([]);
         var client = _factory.CreateClient();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", BuildAccessToken());
@@ -96,7 +96,7 @@ public class PatientControllerTest
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         _patientServiceMock.Verify(
-            s => s.GetAll(It.IsAny<PatientInputDto>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            s => s.GetAll(It.IsAny<PatientFilterDto>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 
     [Test]

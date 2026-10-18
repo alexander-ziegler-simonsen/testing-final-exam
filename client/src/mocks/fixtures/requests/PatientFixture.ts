@@ -35,11 +35,6 @@ export const mockPatientRequests: PatientRequest[] = [
 
 // one entry per nullable field, with only that field set to null
 export const mockPatientRequestsWithNulls: PatientRequest[] = [
-    { ...mockPatientRequest, firstname: null },
-    { ...mockPatientRequest, lastname: null },
-    { ...mockPatientRequest, gender: null },
-    { ...mockPatientRequest, cprNumber: null },
-    { ...mockPatientRequest, dateOfBirth: null },
     { ...mockPatientRequest, weightKg: null },
     { ...mockPatientRequest, heightCm: null },
 ];

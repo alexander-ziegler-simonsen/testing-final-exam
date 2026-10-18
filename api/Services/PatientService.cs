@@ -21,20 +21,20 @@ namespace hospitalApi.Services
             _patients = dbContext.Patients;
         }
 
-        public async Task<IEnumerable<PatientOutputDto>> GetAll(PatientInputDto? filter = null, string? sortBy = null, string? sortDir = "asc")
+        public async Task<IEnumerable<PatientOutputDto>> GetAll(PatientFilterDto? filter = null, string? sortBy = null, string? sortDir = "asc")
         {
             IQueryable<Patient> query = _patients;
 
             if (filter != null)
             {
                 if (!string.IsNullOrWhiteSpace(filter.Firstname))
-                    query = query.Where(p => p.Firstname != null && p.Firstname.ToLower().Contains(filter.Firstname.ToLower()));
+                    query = query.Where(p => p.Firstname.ToLower().Contains(filter.Firstname.ToLower()));
                 if (!string.IsNullOrWhiteSpace(filter.Lastname))
-                    query = query.Where(p => p.Lastname != null && p.Lastname.ToLower().Contains(filter.Lastname.ToLower()));
+                    query = query.Where(p => p.Lastname.ToLower().Contains(filter.Lastname.ToLower()));
                 if (!string.IsNullOrWhiteSpace(filter.Gender))
-                    query = query.Where(p => p.Gender != null && p.Gender.ToLower().Contains(filter.Gender.ToLower()));
+                    query = query.Where(p => p.Gender.ToLower().Contains(filter.Gender.ToLower()));
                 if (!string.IsNullOrWhiteSpace(filter.CprNumber))
-                    query = query.Where(p => p.CprNumber != null && p.CprNumber.ToLower().Contains(filter.CprNumber.ToLower()));
+                    query = query.Where(p => p.CprNumber.ToLower().Contains(filter.CprNumber.ToLower()));
             }
 
             bool desc = sortDir?.ToLower() == "desc";
@@ -77,7 +77,7 @@ namespace hospitalApi.Services
             entity.Lastname = editedPatientData.Lastname;
             entity.Gender = editedPatientData.Gender;
             entity.CprNumber = editedPatientData.CprNumber;
-            entity.DateOfBirth = editedPatientData.DateOfBirth;
+            entity.DateOfBirth = editedPatientData.DateOfBirth!.Value;
             entity.WeightKg = editedPatientData.WeightKg;
             entity.HeightCm = editedPatientData.HeightCm;
 
@@ -105,7 +105,7 @@ namespace hospitalApi.Services
                 Lastname = newPatient.Lastname,
                 Gender = newPatient.Gender,
                 CprNumber = newPatient.CprNumber,
-                DateOfBirth = newPatient.DateOfBirth,
+                DateOfBirth = newPatient.DateOfBirth!.Value,
                 WeightKg = newPatient.WeightKg,
                 HeightCm = newPatient.HeightCm
             };
