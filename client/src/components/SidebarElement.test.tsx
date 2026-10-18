@@ -36,7 +36,7 @@ test("renders the open button as a link to the given path", async () => {
     testId: "sidebar-desktop-shifts-link",
   });
 
-  await expect.element(getByRole("link", { name: "open" })).toHaveAttribute("href", "/shifts");
+  await expect.element(getByRole("link", { name: "shifts" })).toHaveAttribute("href", "/shifts");
 });
 
 test("keeps testIds distinct per caller so the same element can render twice", async () => {
