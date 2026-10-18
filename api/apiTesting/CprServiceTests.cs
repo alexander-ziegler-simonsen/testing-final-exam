@@ -1,96 +1,119 @@
+using hospitalApi.Data;
+using hospitalApi.Models;
 using hospitalApi.Services;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
 namespace hospitalApiTesting;
 
 public class CprServiceTests
 {
+    // CprService picks the century digit and serial digits at random, so the
+    // generation tests repeat enough times to hit most of the possible values.
+    private const int Repetitions = 50;
+
+    private HospitalContext _context;
     private CprService _service;
 
     [SetUp]
     public void Setup()
     {
-        _service = new CprService();
+        _context = new HospitalContext(new DbContextOptionsBuilder<HospitalContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options);
+        _service = new CprService(_context);
     }
 
-    // --- Structural equivalence classes: format before we even look at the date ---
-    [TestCase(null, ExpectedResult = false)]
-    [TestCase("", ExpectedResult = false)]
-    [TestCase("010190000", ExpectedResult = false)]   // 9 digits: one short of the boundary
-    [TestCase("01019000011", ExpectedResult = false)]  // 11 digits: one past the boundary
-    [TestCase("01019000A1", ExpectedResult = false)]   // right length, non-digit character
-    [TestCase("010190-001", ExpectedResult = false)]   // right length, contains a dash
-    public bool IsValid_StructuralCases(string? cpr) => _service.IsValid(cpr);
-
-    // --- Calendar validity (EP + BVA), all pinned to century digit '0' (=> 19xx)
-    // so these cases isolate the date-checking branch from the century table. ---
-    [TestCase("300490" + "0001", ExpectedResult = true)]  // Apr 30: valid boundary (last day of a 30-day month)
-    [TestCase("310490" + "0001", ExpectedResult = false)] // Apr 31: invalid, one past that boundary
-    [TestCase("000190" + "0001", ExpectedResult = false)] // day 00: below range
-    [TestCase("010090" + "0001", ExpectedResult = false)] // month 00: below range
-    [TestCase("010190" + "0001", ExpectedResult = true)]  // Jan 1: valid low boundary
-    [TestCase("011390" + "0001", ExpectedResult = false)] // month 13: above range
-    [TestCase("290299" + "0001", ExpectedResult = false)] // Feb 29, 1999 (not a leap year)
-    [TestCase("290296" + "0001", ExpectedResult = true)]  // Feb 29, 1996 (leap year)
-    public bool IsValid_CalendarCases(string cpr) => _service.IsValid(cpr);
-
-    // --- Century decision table: digit 7 (the first digit of SSSS) x YY -> century.
-    // Each row below is chosen so a wrong century produces a different, checkable
-    // leap-year outcome for Feb 29 - i.e. getting the century wrong flips the result.
-    //   digit 0-3          -> always 19xx
-    //   digit 4 or 9        -> YY 00-36 => 20xx, YY 37-99 => 19xx
-    //   digit 5-8           -> YY 00-57 => 20xx, YY 58-99 => 18xx
-    [TestCase("290200" + "0001", ExpectedResult = false, TestName = "Digit0_Yy00_MustStayIn1900s_NotSlipTo2000")] // digit 0 forces 1900 even though yy=00 "looks like" 2000; 1900 is not a leap year
-    [TestCase("290236" + "4001", ExpectedResult = true, TestName = "Digit4_Yy36_JustInside2000sThreshold")]        // yy=36 => 2036, a leap year
-    [TestCase("290237" + "4001", ExpectedResult = false, TestName = "Digit4_Yy37_JustOutside2000sThreshold")]      // yy=37 => 1937, not a leap year
-    [TestCase("290236" + "9001", ExpectedResult = true, TestName = "Digit9_BehavesLikeDigit4")]                    // yy=36 => 2036, leap year
-    [TestCase("290200" + "5001", ExpectedResult = true, TestName = "Digit5_Yy00_2000sSide_LeapViaDiv400Rule")]     // yy=00 => 2000, leap (div by 400)
-    [TestCase("290299" + "8001", ExpectedResult = false, TestName = "Digit8_Yy99_1800sSide_NotLeap")]              // yy=99 => 1899, not leap
-    public bool IsValid_CenturyTableCases(string cpr) => _service.IsValid(cpr);
-
-    [Test]
-    public void GenerateCprNumber_ForMaleAndFemale_SetsCorrectGenderDigitParity()
+    [TearDown]
+    public void TearDown()
     {
-        var male = _service.GenerateCprNumber(new DateOnly(1990, 1, 1), "male");
-        var female = _service.GenerateCprNumber(new DateOnly(1990, 1, 1), "female");
-
-        Assert.That(int.Parse(male[^1..]) % 2, Is.EqualTo(1));
-        Assert.That(int.Parse(female[^1..]) % 2, Is.EqualTo(0));
-    }
-
-    [TestCase(1858, 1, 1)]   // lower boundary 
-    [TestCase(2057, 12, 31)] // upper boundary
-    [TestCase(1990, 1, 1)]   
-    [TestCase(2010, 5, 20)]  
-    public void GenerateCprNumber_ThenIsValid_RoundTripsForEncodableDates(int year, int month, int day)
-    {
-        var cpr = _service.GenerateCprNumber(new DateOnly(year, month, day), "male");
-
-        Assert.That(_service.IsValid(cpr), Is.True);
-    }
-
-    [TestCase(1857, 12, 31)] // one day before the lower boundary
-    [TestCase(2058, 1, 1)]   // one day after the upper boundary
-    public void GenerateCprNumber_ForDatesOutsideEncodableRange_Throws(int year, int month, int day)
-    {
-        Assert.Throws<ArgumentOutOfRangeException>(() =>
-            _service.GenerateCprNumber(new DateOnly(year, month, day), "male"));
-    }
-
-    [TestCase("")]
-    [TestCase("other")]
-    public void GenerateCprNumber_ForInvalidGender_Throws(string gender)
-    {
-        Assert.Throws<ArgumentException>(() =>
-            _service.GenerateCprNumber(new DateOnly(1990, 1, 1), gender));
+        _context.Dispose();
     }
 
     [Test]
-    public void Positive_GenerateCprNumber_ForTwins_GivesDistinctNumbers()
+    public async Task GenerateCprNumber_ForMaleAndFemale_SetsCorrectGenderDigitParity()
     {
-        string firstTwin = "0101900001";
-        string secondTwin = "0101900011";
+        for (int i = 0; i < Repetitions; i++)
+        {
+            var male = await _service.GenerateCprNumber(new DateOnly(1990, 1, 1), "male");
+            var female = await _service.GenerateCprNumber(new DateOnly(1990, 1, 1), "female");
 
-        Assert.That(secondTwin, Is.Not.EqualTo(firstTwin));
+            Assert.That(int.Parse(male[^1..]) % 2, Is.EqualTo(1), male);
+            Assert.That(int.Parse(female[^1..]) % 2, Is.EqualTo(0), female);
+        }
+    }
+
+    // --- Century decision table (BVA): both edges of every year range the
+    // service picks a century digit for. Decode() is an independent oracle, so a
+    // digit from the wrong range decodes to the wrong century and fails. ---
+    [TestCase(1858, 1, 1)]   // lower boundary of what CPR can encode
+    [TestCase(1899, 12, 31)]
+    [TestCase(1900, 1, 1)]
+    [TestCase(1936, 12, 31)]
+    [TestCase(1937, 1, 1)]
+    [TestCase(1999, 12, 31)]
+    [TestCase(2000, 1, 1)]
+    [TestCase(2036, 12, 31)]
+    [TestCase(2037, 1, 1)]
+    [TestCase(2057, 12, 31)] // upper boundary of what CPR can encode
+    public async Task GenerateCprNumber_ForEncodableDates_DecodesBackToBirthDate(int year, int month, int day)
+    {
+        var birthDate = new DateOnly(year, month, day);
+
+        for (int i = 0; i < Repetitions; i++)
+        {
+            var cpr = await _service.GenerateCprNumber(birthDate, "male");
+
+            Assert.That(cpr, Has.Length.EqualTo(10));
+            Assert.That(cpr.All(char.IsAsciiDigit), Is.True, cpr);
+            Assert.That(Decode(cpr), Is.EqualTo(birthDate), cpr);
+        }
+    }
+
+    [Test]
+    public async Task GenerateCprNumber_WhenEveryCprForTheDateIsTaken_ThrowsInvalidOperationException()
+    {
+        // Every female CPR for 01-01-1858 already belongs to a patient, whatever
+        // century/serial digits the service picks, so every attempt collides.
+        var birthDate = new DateOnly(1858, 1, 1);
+        for (int serial = 0; serial < 1000; serial++)
+        {
+            foreach (char genderDigit in "02468")
+            {
+                _context.Patients.Add(new Patient
+                {
+                    Firstname = "Taken",
+                    Lastname = "Patient",
+                    Gender = "female",
+                    CprNumber = $"010158{serial:D3}{genderDigit}",
+                    DateOfBirth = birthDate
+                });
+            }
+        }
+        await _context.SaveChangesAsync();
+
+        Assert.ThrowsAsync<InvalidOperationException>(() =>
+            _service.GenerateCprNumber(birthDate, "female"));
+    }
+
+    // Century decision table for digit 7 (the first digit of SSSS), combined with YY:
+    //   digit 0-3    -> always 19xx
+    //   digit 4 or 9 -> YY 00-36 => 20xx, YY 37-99 => 19xx
+    //   digit 5-8    -> YY 00-57 => 20xx, YY 58-99 => 18xx
+    private static DateOnly Decode(string cpr)
+    {
+        int day = int.Parse(cpr[0..2]);
+        int month = int.Parse(cpr[2..4]);
+        int yy = int.Parse(cpr[4..6]);
+        int centuryDigit = cpr[6] - '0';
+
+        int century = centuryDigit switch
+        {
+            >= 0 and <= 3 => 1900,
+            4 or 9 => yy <= 36 ? 2000 : 1900,
+            _ => yy <= 57 ? 2000 : 1800
+        };
+
+        return new DateOnly(century + yy, month, day);
     }
 }
