@@ -1,24 +1,14 @@
-import { Wrap } from "@chakra-ui/react";
-import InfoCard from "../../components/dashboards/InfoCard";
+import { Heading, Stack, Text } from "@chakra-ui/react";
+import { LuHospital } from "react-icons/lu";
 
 export default function Overview() {
-
-  let data = [
-    { title: "Patients", value: "253", },
-    { title: "Staff", value: "25", },
-    { title: "rooms in use", value: "22", type: "B1" },
-    { title: "rooms empty", value: "34", },
-    { title: "missing reported medicin", value: "22", type: "unresolved" }
-  ]
-
   return (
-    <>
-      <p data-testid="overview-page-heading">this is Overview page</p>
-
-      <Wrap rowGap={8} columnGap={6} p={4} data-testid="overview-cards">{data.map((item, index) => ( 
-        <InfoCard key={index} testId={`overview-card-${index}`} title={item.title} value={item.value} type={item.type} /> ))}
-      </Wrap>
-
-    </>
+    <Stack gap={4} p={4} maxW="2xl">
+      <LuHospital size={48} />
+      <Heading size="2xl" data-testid="overview-page-heading">Welcome to the Hospital System</Heading>
+      <Text data-testid="overview-page-text">
+        Use the menu on the left to manage patients, staff, departments, rooms and medicine.
+      </Text>
+    </Stack>
   );
 }
