@@ -43,7 +43,7 @@ export default function ExternalMedicin() {
 
     return (
         <>
-            <Text data-testid="external-medicin-page-heading" fontSize="xl" fontWeight="bold" mb="4">Find Medicin Price</Text>
+            <Text data-testid="external-medicin-page-heading" fontSize="xl" fontWeight="bold" mb="4">Find Medicin</Text>
 
             <form onSubmit={handleSearch}>
                 <HStack gap="4" mb="4" flexWrap="wrap" align="end">
