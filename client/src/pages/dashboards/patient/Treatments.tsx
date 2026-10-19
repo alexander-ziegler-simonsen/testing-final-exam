@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
-import { Button, HStack, IconButton, Text } from "@chakra-ui/react";
-import { LuPencil, LuPlus, LuTrash2 } from "react-icons/lu";
+import { HStack, IconButton, Text } from "@chakra-ui/react";
+import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { DataTable, type ColumnConfig } from "../../../components/dashboards/DataTable";
 import { CommandFormPopup, type CommandFormService, type FieldConfig } from "../../../components/dashboards/CommandFormPopup";
 import type { TreatmentRequest } from "../../../api/Requests/TreatmentRequest";
@@ -30,7 +30,7 @@ export default function Treatments() {
   const isPatient = user?.role === "patient";
   const [data, setData] = useState<TreatmentResponse[]>([]);
   const [patients, setPatients] = useState<PatientResponse[]>([]);
-  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedTreatment, openCreate, openEdit, openDelete } =
+  const { open: popupOpen, setOpen: setPopupOpen, mode: popupMode, selected: selectedTreatment, openEdit, openDelete } =
     useCommandPopup<TreatmentResponse>();
 
   // Patients only get their own treatments. A patient without a patient id gets nothing,
@@ -107,7 +107,6 @@ export default function Treatments() {
     <>
       <HStack justify="space-between" mb="4">
         <Text data-testid="treatments-page-heading" fontSize="xl" fontWeight="bold">Treatments</Text>
-        {!isPatient && <Button data-testid="treatments-add-button" onClick={openCreate}><LuPlus /> Add Treatment</Button>}
       </HStack>
 
       <DataTable<TreatmentRow> testId="treatments-table" data={data} columns={visibleColumns} pageSize={10} onRowClick={(treatment) => navigate(`/app/treatment/${treatment.id}`)} />

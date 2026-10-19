@@ -65,7 +65,6 @@ test("a logged-in patient only sees their own treatments and can't change them",
         .toHaveTextContent("Follow-up on blood test results.");
     await expect.element(getByTestId("treatments-table-row-2")).not.toBeInTheDocument();
 
-    await expect.element(getByTestId("treatments-add-button")).not.toBeInTheDocument();
     await expect.element(getByTestId("treatments-table-header-actions")).not.toBeInTheDocument();
     await expect.element(getByTestId("treatments-edit-1")).not.toBeInTheDocument();
     expect(getAllPatients).not.toHaveBeenCalled();
