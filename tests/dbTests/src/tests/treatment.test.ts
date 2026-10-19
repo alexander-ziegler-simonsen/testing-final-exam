@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("treatment table - positive tests (+)", () => {
   test("(+) check count of treatments", async () => {
     const res = await getClient().query("SELECT COUNT(*) from treatment");
-    expect(res.rows[0].count).toBe('26'); // pg returns (COUNT) as string
+    expect(res.rows[0].count).toBe('25'); // pg returns (COUNT) as string
   });
 
   test("(+) select treatments and check the values", async () => {
@@ -18,7 +18,7 @@ describe("treatment table - positive tests (+)", () => {
   // add
   test("(+) add new treatment and check if it was added", async () => {
     const description = "yep, treatment was made here";
-    const newId = 27;
+    const newId = 26;
     const patientId = 1;
     const current_timestamp = new Date().toISOString();
     const res = await getClient().query("INSERT INTO treatment (fk_patient_id, description, time) VALUES ($1,$2, $3)", [patientId, description, current_timestamp]);

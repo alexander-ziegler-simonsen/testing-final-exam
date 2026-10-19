@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("department table - positive tests (+)", () => {
   test("(+) check count of  departments", async () => {
     const res = await getClient().query("SELECT COUNT(*) from department");
-    expect(res.rows[0].count).toBe("6"); // pg returns (COUNT) as string
+    expect(res.rows[0].count).toBe("5"); // pg returns (COUNT) as string
   });
 
   test("(+) select departments and check the values", async () => {
@@ -21,7 +21,7 @@ describe("department table - positive tests (+)", () => {
   test("(+) add new department and check if it was added", async () => {
     const name = "newAddedDepartment";
     const type = "type";
-    const newId = 7;
+    const newId = 6;
     const res = await getClient().query("INSERT INTO department (name, type) VALUES ($1,$2)", [name,type]);
     expect(res.rowCount).toBe(1);
 
@@ -42,11 +42,16 @@ describe("department table - positive tests (+)", () => {
     expect(check.rows[0].name).toBe(newName);
   });
 
-  // delete
+  // delete - every seeded department is used by department_staff, so add one to delete
   test("(+) delete a department", async () => {
-    const id = 6;
-    const res = await getClient().query("DELETE FROM department WHERE id = $1", [id]);
+    const name = "newAddedDepartment";
+    const type = "type";
+    const newId = 6;
+    const res = await getClient().query("INSERT INTO department (name, type) VALUES ($1,$2)", [name, type]);
     expect(res.rowCount).toBe(1);
+
+    const check = await getClient().query("DELETE FROM department WHERE id = $1", [newId]);
+    expect(check.rowCount).toBe(1);
   });
 });
 

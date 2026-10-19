@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("floor table - positive tests (+)", () => {
   test("(+) check count of  floors", async () => {
     const res = await getClient().query("SELECT COUNT(*) from floor");
-    expect(res.rows[0].count).toBe("7"); // pg returns (COUNT) as string
+    expect(res.rows[0].count).toBe("6"); // pg returns (COUNT) as string
   });
 
   test("(+) select floors and check the values", async () => {
@@ -21,7 +21,7 @@ describe("floor table - positive tests (+)", () => {
   test("(+) add new floor and check if it was added", async () => {
     const name = "newAddedFloor";
     const buildingId = 1;
-    const newId = 8;
+    const newId = 7;
     const res = await getClient().query("INSERT INTO floor (name, fk_building_id) VALUES ($1,$2)", [name,buildingId]);
     expect(res.rowCount).toBe(1);
 
@@ -41,11 +41,16 @@ describe("floor table - positive tests (+)", () => {
     expect(check.rows[0].name).toBe(newName);
   });
 
-  // delete
+  // delete - every seeded floor is used by a room, so add one to delete
   test("(+) delete a floor", async () => {
-    const id = 7;
-    const res = await getClient().query("DELETE FROM floor WHERE id = $1", [id]);
+    const name = "newAddedFloor";
+    const buildingId = 1;
+    const newId = 7;
+    const res = await getClient().query("INSERT INTO floor (name, fk_building_id) VALUES ($1,$2)", [name, buildingId]);
     expect(res.rowCount).toBe(1);
+
+    const check = await getClient().query("DELETE FROM floor WHERE id = $1", [newId]);
+    expect(check.rowCount).toBe(1);
   });
 });
 

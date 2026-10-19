@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("room_booking table - positive tests (+)", () => {
     test("(+) check count of room_booking fk_room_ids", async () => {
         const res = await getClient().query("SELECT COUNT(*) from room_booking");
-        expect(res.rows[0].count).toBe("11"); // pg returns (COUNT) as string
+        expect(res.rows[0].count).toBe("10"); // pg returns (COUNT) as string
     });
 
     test("(+) select fk_room_ids and check the values", async () => {
@@ -18,7 +18,7 @@ describe("room_booking table - positive tests (+)", () => {
     // add
     test("(+) add new fk_room_id and check if it was added", async () => {
         const fk_room_id = 1;
-        const newId = 12;
+        const newId = 11;
         const fk_patient_id = 1;
         const start_time = "2025-10-07 10:00:00";
         const end_time = "2025-10-07 14:00:00";
@@ -47,7 +47,7 @@ describe("room_booking table - positive tests (+)", () => {
 
     // delete
     test("(+) delete a room_booking", async () => {
-        const id = 11;
+        const id = 10;
         const res = await getClient().query("DELETE FROM room_booking WHERE id = $1", [id]);
         expect(res.rowCount).toBe(1);
     });

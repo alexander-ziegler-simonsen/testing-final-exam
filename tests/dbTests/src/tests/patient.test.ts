@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("patient table - positive tests (+)", () => {
     test("(+) check count of  patients", async () => {
         const res = await getClient().query("SELECT COUNT(*) from patient");
-        expect(res.rows[0].count).toBe("26"); // pg returns (COUNT) as string
+        expect(res.rows[0].count).toBe("25"); // pg returns (COUNT) as string
     });
 
     test("(+) select patients and check the values", async () => {
@@ -21,7 +21,7 @@ describe("patient table - positive tests (+)", () => {
     test("(+) add new patient and check if it was added", async () => {
         const firstname = "newAddedpatient";
         const lastname = "lastname";
-        const newId = 27;
+        const newId = 26;
         const gender = "test";
         const cpr = "12341234-1234";
         const birth = "1959-01-10";
@@ -50,7 +50,7 @@ describe("patient table - positive tests (+)", () => {
     test("(+) make a new patient and then delete that patient", async () => {
         const firstname = "newAddedpatient";
         const lastname = "lastname";
-        const newId = 27;
+        const newId = 26;
         const gender = "test";
         const cpr = "12341234-1234";
         const birth = "1959-01-10";

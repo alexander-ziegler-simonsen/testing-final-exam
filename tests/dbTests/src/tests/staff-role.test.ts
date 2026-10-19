@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("staff_role table - positive tests (+)", () => {
   test("(+) check count of staff roles", async () => {
     const res = await getClient().query("SELECT COUNT(*) from staff_role");
-    expect(res.rows[0].count).toBe("4"); // pg returns (COUNT) as string
+    expect(res.rows[0].count).toBe("3"); // pg returns (COUNT) as string
   });
 
   test("(+) select roles and check the values", async () => {
@@ -12,13 +12,12 @@ describe("staff_role table - positive tests (+)", () => {
     expect(res.rows[0].name).toBe("doctor");
     expect(res.rows[1].name).toBe("nurse");
     expect(res.rows[2].name).toBe("admin");
-    expect(res.rows[3].name).toBe("not-in-use");
   });
 
   // add
   test("(+) add new role and check if it was added", async () => {
     const name = "newAddedStaffRole"
-    const newId = "5"
+    const newId = "4"
     const res = await getClient().query("INSERT INTO staff_role (name) VALUES ($1)", [name]);
     expect(res.rowCount).toBe(1);
 
@@ -28,7 +27,7 @@ describe("staff_role table - positive tests (+)", () => {
 
   // edit
   test("(+) edit a staff role", async () => {
-    const id = 4;
+    const id = 3;
     const newName = "newRoleName";
 
     const res = await getClient().query("UPDATE staff_role SET name = $1 WHERE id = $2", [newName, id]);
@@ -38,10 +37,15 @@ describe("staff_role table - positive tests (+)", () => {
     expect(check.rows[0].name).toBe(newName);
   });
 
-  // delete
+  // delete - every seeded role is used by staff, so add one to delete
   test("(+) delete a staff role", async () => {
-    const res = await getClient().query("DELETE FROM staff_role WHERE id = 4");
+    const name = "newAddedStaffRole";
+    const newId = 4;
+    const res = await getClient().query("INSERT INTO staff_role (name) VALUES ($1)", [name]);
     expect(res.rowCount).toBe(1);
+
+    const check = await getClient().query("DELETE FROM staff_role WHERE id = $1", [newId]);
+    expect(check.rowCount).toBe(1);
   });
 });
 

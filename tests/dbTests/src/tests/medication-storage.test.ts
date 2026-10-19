@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("medication_storage table - positive tests (+)", () => {
     test("(+) check count of medication-storage", async () => {
         const res = await getClient().query("SELECT COUNT(*) from medication_storage");
-        expect(res.rows[0].count).toBe("27"); // pg returns (COUNT) as string
+        expect(res.rows[0].count).toBe("26"); // pg returns (COUNT) as string
     });
 
     test("(+) select and check the values", async () => {
@@ -22,7 +22,7 @@ describe("medication_storage table - positive tests (+)", () => {
         const fk_medication_id = 1
         const amount = 2
 
-        const newId = 28
+        const newId = 27
         const res = await getClient().query("INSERT INTO medication_storage (fk_medication_id, amount) VALUES ($1,$2)", [fk_medication_id, amount]);
         expect(res.rowCount).toBe(1);
 

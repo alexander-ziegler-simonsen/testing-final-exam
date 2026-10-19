@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("staff table - positive tests (+)", () => {
     test("(+) check count of staff firstnames", async () => {
         const res = await getClient().query("SELECT COUNT(*) from staff");
-        expect(res.rows[0].count).toBe("52"); // pg returns (COUNT) as string
+        expect(res.rows[0].count).toBe("51"); // pg returns (COUNT) as string
     });
 
     test("(+) select firstnames and check the values", async () => {
@@ -23,7 +23,7 @@ describe("staff table - positive tests (+)", () => {
     // add
     test("(+) add new firstname and check if it was added", async () => {
         const firstname = "newAddedStafffirstname";
-        const newId = 53;
+        const newId = 52;
         const lastname = "lastname";
         const fkRoleId = 1;
         const res = await getClient().query("INSERT INTO staff (firstname, lastname, fk_role_id) VALUES ($1,$2,$3)", [firstname, lastname, fkRoleId]);
@@ -48,11 +48,17 @@ describe("staff table - positive tests (+)", () => {
         expect(check.rows[0].firstname).toBe(newfirstname);
     });
 
-    // delete
+    // delete - every seeded staff is used by department_staff/user, so add one to delete
     test("(+) delete a staff", async () => {
-        const id = 52;
-        const res = await getClient().query("DELETE FROM staff WHERE id = $1", [id]);
+        const firstname = "newAddedStafffirstname";
+        const lastname = "lastname";
+        const fkRoleId = 1;
+        const newId = 52;
+        const res = await getClient().query("INSERT INTO staff (firstname, lastname, fk_role_id) VALUES ($1,$2,$3)", [firstname, lastname, fkRoleId]);
         expect(res.rowCount).toBe(1);
+
+        const check = await getClient().query("DELETE FROM staff WHERE id = $1", [newId]);
+        expect(check.rowCount).toBe(1);
     });
 });
 

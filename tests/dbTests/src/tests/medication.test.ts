@@ -4,7 +4,7 @@ import { getClient } from "../test-setup.js";
 describe("medication table - positive tests (+)", () => {
     test("(+) check count of medication name", async () => {
         const res = await getClient().query("SELECT COUNT(*) from medication");
-        expect(res.rows[0].count).toBe("27"); // pg returns (COUNT) as string
+        expect(res.rows[0].count).toBe("26"); // pg returns (COUNT) as string
     });
 
     test("(+) select name and check the values", async () => {
@@ -17,7 +17,7 @@ describe("medication table - positive tests (+)", () => {
     // add
     test("(+) add new medication and check if it was added", async () => {
         const generic_name = "newGeneric_name";
-        const newId = 28;
+        const newId = 27;
         const name = "name";
         const brand = "brand";
         const form = "pill";

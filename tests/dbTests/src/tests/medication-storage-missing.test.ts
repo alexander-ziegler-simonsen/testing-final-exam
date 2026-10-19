@@ -4,20 +4,17 @@ import { getClient } from "../test-setup.js";
 describe("medication_storage_missing table - positive tests (+)", () => {
     test("(+) check count of medication-storage-missing", async () => {
         const res = await getClient().query("SELECT COUNT(*) from medication_storage_missing");
-        expect(res.rows[0].count).toBe("3"); // pg returns (COUNT) as string
+        expect(res.rows[0].count).toBe("2"); // pg returns (COUNT) as string
     });
 
     test("(+) select and check the values", async () => {
         const res = await getClient().query("SELECT * from medication_storage_missing");
         expect(res.rows[0].fk_medication_storage_id).toBe(1);
         expect(res.rows[1].fk_medication_storage_id).toBe(2);
-        expect(res.rows[2].fk_medication_storage_id).toBe(27);
         expect(res.rows[0].amount_missing).toBe(10);
         expect(res.rows[1].amount_missing).toBe(5);
-        expect(res.rows[2].amount_missing).toBe(1);
         expect(res.rows[0].went_missing_at).toEqual(new Date('2025-10-07 12:00:00'));
         expect(res.rows[1].went_missing_at).toEqual(new Date('2025-10-07 15:30:00'));
-        expect(res.rows[2].went_missing_at).toEqual(new Date('2099-01-01 08:00:00'));
     });
 
     // add
@@ -26,7 +23,7 @@ describe("medication_storage_missing table - positive tests (+)", () => {
         const amount_missing = 2
         const went_missing = '2025-10-07 12:00:00'
 
-        const newId = 4
+        const newId = 3
         const res = await getClient().query("INSERT INTO medication_storage_missing (fk_medication_storage_id, amount_missing, went_missing_at) VALUES ($1,$2,$3)", [fk_medication_storage_id, amount_missing,went_missing]);
         expect(res.rowCount).toBe(1);
 
@@ -39,7 +36,7 @@ describe("medication_storage_missing table - positive tests (+)", () => {
 
     // edit
     test("(+) edit a medication-storage-missing medication-storage-missing", async () => {
-        const id = 3;
+        const id = 1;
         const newfk_medication_storage_id = 2;
 
         const res = await getClient().query("UPDATE medication_storage_missing SET fk_medication_storage_id = $1 WHERE id = $2", [newfk_medication_storage_id, id]);
@@ -51,7 +48,7 @@ describe("medication_storage_missing table - positive tests (+)", () => {
 
     // delete
     test("(+) delete a medication-storage-missing medication-storage-missing", async () => {
-        const res = await getClient().query("DELETE FROM medication_storage_missing WHERE id = 3");
+        const res = await getClient().query("DELETE FROM medication_storage_missing WHERE id = 2");
         expect(res.rowCount).toBe(1);
     });
 });
