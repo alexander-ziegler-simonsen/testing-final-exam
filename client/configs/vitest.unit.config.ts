@@ -8,7 +8,7 @@ export default defineProject({
         name: 'unit',
         environment: "jsdom",
         include: ['src/**/*.unit.test.ts'],
-        setupFiles: [path.resolve(__dirname, '../src/mocks/SetupMswNode.ts')],
+        setupFiles: [path.resolve(__dirname, '../src/mocks/setupMswNode.ts')],
         typecheck: {
             enabled: true,
             include: [ 'src/**/*.unit.test.ts' ],
