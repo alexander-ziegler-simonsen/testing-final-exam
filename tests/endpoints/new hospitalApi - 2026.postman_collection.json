@@ -900,31 +900,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/TreatmentStaff/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/TreatmentStaff/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "TreatmentStaff",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "51"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -2000,31 +1975,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/Prescription/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Prescription/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Prescription",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "26"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -3101,31 +3051,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/DepartmentStaff/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/DepartmentStaff/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "DepartmentStaff",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "51"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -4221,31 +4146,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/RoomBooking/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/RoomBooking/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "RoomBooking",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "11"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -5498,31 +5398,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/MissingStorage/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/MissingStorage/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "MissingStorage",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "3"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -6598,31 +6473,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/Treatment/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Treatment/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Treatment",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "26"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -7856,31 +7706,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/Storage/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Storage/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Storage",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "27"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -8956,31 +8781,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/Patient/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Patient/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Patient",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "26"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -10312,31 +10112,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/Staff/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Staff/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Staff",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "52"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -11412,31 +11187,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/Medicin/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Medicin/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Medicin",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "27"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -12500,31 +12250,6 @@
                           "body": ""
                         }
                       ]
-                    },
-                    {
-                      "name": "set 1 - /api/Department/:id - delete",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/api/Department/:id",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "api",
-                            "Department",
-                            ":id"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "6"
-                            }
-                          ]
-                        }
-                      },
-                      "response": []
                     }
                   ]
                 },
@@ -13683,32 +13408,6 @@
                               "body": ""
                             }
                           ]
-                        },
-                        {
-                          "name": "set 1 - /api/Location/floor/:id - delete",
-                          "request": {
-                            "method": "DELETE",
-                            "header": [],
-                            "url": {
-                              "raw": "{{baseUrl}}/api/Location/floor/:id",
-                              "host": [
-                                "{{baseUrl}}"
-                              ],
-                              "path": [
-                                "api",
-                                "Location",
-                                "floor",
-                                ":id"
-                              ],
-                              "variable": [
-                                {
-                                  "key": "id",
-                                  "value": "7"
-                                }
-                              ]
-                            }
-                          },
-                          "response": []
                         }
                       ]
                     },
