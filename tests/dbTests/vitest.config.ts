@@ -2,7 +2,8 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    fileParallelism: false, 
+    setupFiles: "./src/test-setup.ts",
+    fileParallelism: false,
     isolate: false,        
     hookTimeout: 60_000,  
     reporters: ["verbose"]  
