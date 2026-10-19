@@ -72,15 +72,6 @@ describe("staff table - negative tests (-)", () => {
         ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
     });
 
-    //   test("(-) add a firstname with NULL firstname", async () => {
-    //     const firstname = null;
-    //     const lastname = "lastname";
-    //     const roleFkId = 1;
-    //     await expect(
-    //       getClient().query("insert into staff (firstname, lastname, fk_role_id) VALUES ($1,$2,$3)", [firstname, lastname, roleFkId])
-    //     ).rejects.toMatchObject({ code: "23502" }); // not_null_violation
-    //   });
-
     test("(-) edit a staff firstname by an id that does not exist", async () => {
         const id = 400;
         const newfirstname = "newfirstnamefirstname";

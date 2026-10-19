@@ -64,14 +64,6 @@ describe("department table - negative tests (-)", () => {
     ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
   });
 
-//   test("(-) add a department with NULL name", async () => {
-//     const department = null;
-//     const type = "type";
-//     await expect(
-//       getClient().query("insert into department (name, type) VALUES ($1,$2)", [department,type])
-//     ).rejects.toMatchObject({ code: "23502" }); // not_null_violation
-//   });
-
   test("(-) edit a  department by an id that does not exist", async () => {
     const id = 40;
     const newName = "newDepartmentName";

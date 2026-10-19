@@ -39,14 +39,6 @@ describe("treatment_staff table - positive tests (+)", () => {
         const check = await getClient().query("SELECT fk_treatment_id FROM treatment_staff WHERE id = $1", [id]);
         expect(check.rows[0].fk_treatment_id).toBe(treatment_id);
     });
-
-    // delete
-    // does not work , since FK is in used somewhere else.
-    // get this error - 23503
-    //   test("(+) delete a treatment_staff", async () => {
-    //     const res = await getClient().query("DELETE FROM treatment_staff WHERE id = 4");
-    //     expect(res.rowCount).toBe(1);
-    //   });
 });
 
 describe("treatment_staff table - negative tests (-)", () => {

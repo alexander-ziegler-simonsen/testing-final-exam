@@ -51,26 +51,12 @@ describe("department_staff table - positive tests (+)", () => {
 });
 
 describe("department_staff table - negative tests (-)", () => {
-  //   test("(-) add a role with too long a name", async () => {
-  //     const role = "1".repeat(51); // 51 chars
-  //     await expect(
-  //       getClient().query("insert into department_staff (name) VALUES ($1)", [role])
-  //     ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
-  //   });
-
   test("(-) add a new department_staff with NULL staffId", async () => {
     const staffId = null;
     const id = "1";
     const departmentId = "5";
     await expect(getClient().query("insert into department_staff (fk_staff_id, fk_department_id) VALUES ($1, $2)", [staffId, departmentId])).rejects.toMatchObject({ code: "23502" }); // not_null_violation
   });
-
-  // test("(-) edit a department_staff by a staff id that does not exist", async () => {
-  //   const id = 1;
-  //   const newStaffId = 400;
-  //   const res = await getClient().query("UPDATE department_staff SET fk_staff_id = $1 WHERE id = $2", [newStaffId, id]);
-  //   expect(res.rowCount).toBe(0);
-  // });
 
   test("(-) edit a department_staff by a staff id that does not exist", async () => {
     const id = 1;

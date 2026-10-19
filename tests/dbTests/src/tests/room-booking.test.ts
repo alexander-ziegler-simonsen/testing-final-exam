@@ -54,15 +54,6 @@ describe("room_booking table - positive tests (+)", () => {
 });
 
 describe("room_booking table - negative tests (-)", () => {
-    // test("(-) add a room_booking with too long a fk_room_id", async () => {
-    //     const fk_room_id = 1;
-    //     const fk_patient_id = 1;
-    //     const start_time = "2025-10-07 10:00:00";
-    //     const end_time = "2025-10-07 14:00:00";
-    //     await expect(
-    //         getClient().query("INSERT INTO room_booking (fk_room_id, start_time, end_time, fk_patient_id, fk_role_id) VALUES ($1,$2,$3,$4)", [fk_room_id, start_time, end_time, fk_patient_id])
-    //     ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
-    // });
 
     test("(-) add a room booking with NULL fk_room_id", async () => {
         const fk_room_id = null;

@@ -54,14 +54,6 @@ describe("medication_storage_missing table - positive tests (+)", () => {
 });
 
 describe("medication_storage_missing table - negative tests (-)", () => {
-    //   test("(-) add a medication-storage-missing with too long a fk_medication_storage_id", async () => {
-    //     const fk_medication_storage_id = 1
-    //     const amount_missing = 2
-    //     await expect(
-    //       getClient().query("insert into medication_storage_missing (fk_medication_storage_id) VALUES ($1)", [fk_medication_storage_id, amount_missing])
-    //     ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
-    //   });
-
     test("(-) add a medication-storage-missing with NULL fk_medication_storage_id", async () => {
         const fk_medication_storage_id = null;
         const amount_missing = 2;

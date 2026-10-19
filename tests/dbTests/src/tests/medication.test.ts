@@ -46,12 +46,6 @@ describe("medication table - positive tests (+)", () => {
         expect(check.rows[0].generic_name).toBe(newgeneric_name);
     });
 
-    // // delete
-    // test("(+) delete a medication", async () => {
-    //     const id = 26;
-    //     const res = await getClient().query("DELETE FROM medication WHERE id = $1", [id]);
-    //     expect(res.rowCount).toBe(1);
-    // });
 });
 
 describe("medication table - negative tests (-)", () => {
@@ -68,15 +62,6 @@ describe("medication table - negative tests (-)", () => {
             getClient().query("INSERT INTO medication (generic_name, name, brand, form, strength, category, description) VALUES ($1,$2,$3,$4,$5,$6,$7)", [generic_name, name, brand, form, str, category, descrip])
         ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
     });
-
-    //   test("(-) add a generic_name with NULL generic_name", async () => {
-    //     const generic_name = null;
-    //     const name = "name";
-    //     const roleFkId = 1;
-    //     await expect(
-    //       getClient().query("insert into medication (generic_name, name, fk_role_id) VALUES ($1,$2,$3)", [generic_name, name, roleFkId])
-    //     ).rejects.toMatchObject({ code: "23502" }); // not_null_violation
-    //   });
 
     test("(-) edit a medication generic_name by an id that does not exist", async () => {
         const id = 400;

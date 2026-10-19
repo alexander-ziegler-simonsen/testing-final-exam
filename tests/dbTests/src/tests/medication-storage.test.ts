@@ -50,14 +50,6 @@ describe("medication_storage table - positive tests (+)", () => {
 });
 
 describe("medication_storage table - negative tests (-)", () => {
-    //   test("(-) add a medication-storage with too long a fk_medication_id", async () => {
-    //     const fk_medication_id = 1
-    //     const amount = 2
-    //     await expect(
-    //       getClient().query("insert into medication_storage (fk_medication_id) VALUES ($1)", [fk_medication_id, amount])
-    //     ).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
-    //   });
-
     test("(-) add a medication-storage with NULL fk_medication_id", async () => {
         const fk_medication_id = null;
         const amount = 2;

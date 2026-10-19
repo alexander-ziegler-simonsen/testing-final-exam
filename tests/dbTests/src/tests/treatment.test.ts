@@ -41,14 +41,6 @@ describe("treatment table - positive tests (+)", () => {
     const check = await getClient().query("SELECT description FROM treatment WHERE id = $1", [id]);
     expect(check.rows[0].description).toBe(newDescription);
   });
-
-  // delete
-  // does not work , since FK is in used somewhere else.
-  // get this error - 23503
-//   test("(+) delete a treatment", async () => {
-//     const res = await getClient().query("DELETE FROM treatment WHERE id = 4");
-//     expect(res.rowCount).toBe(1);
-//   });
 });
 
 describe("treatment table - negative tests (-)", () => {
@@ -58,14 +50,6 @@ describe("treatment table - negative tests (-)", () => {
     const treatment = "1".repeat(501); // 501 chars
     await expect(getClient().query("insert into treatment (fk_patient_id,description,time) VALUES ($1,$2,$3)", [patientId, treatment, current_timestamp])).rejects.toMatchObject({ code: "22001" }); // string_data_right_truncation
   });
-
-  // no null constaints
-//   test("(-) add a treatment with NULL description", async () => {
-//     const treatment = null;
-//     const patientId = 1;
-//     const current_timestamp = new Date().toISOString();
-//     await expect(getClient().query("insert into treatment (fk_patient_id,description,time) VALUES ($1,$2,$3)", [patientId, treatment, current_timestamp])).rejects.toMatchObject({ code: "23502" }); // not_null_violation
-//   });
 
   test("(-) edit a treatment by an id that does not exist", async () => {
     const id = 400;
