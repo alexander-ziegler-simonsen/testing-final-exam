@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "6a53b8aa-0b81-4bc1-aaf1-ad62ef0c95ec",
+    "_postman_id": "d0f8d07e-6fd8-40e3-a1a1-54ef2245475c",
     "name": "hospitalApi - 2026",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "12590735"
@@ -222,14 +222,10 @@
                         {
                           "listen": "test",
                           "script": {
-                            "exec": [
-                              "pm.test(\"Status code is 401\", function () {",
-                              "    pm.response.to.have.status(401);",
-                              "});"
-                            ],
                             "type": "text/javascript",
-                            "packages": {},
-                            "requests": {}
+                            "exec": [
+                              "pm.test(\"Status code is 401\", function () {\n    pm.response.to.have.status(401);\n});"
+                            ]
                           }
                         }
                       ],
@@ -243,10 +239,9 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n  \"username\": \"nurse\",\n  \"password\": \"Nurse12\"\n}",
+                          "raw": "{\n  \"username\": \"nurse\",\n  \"password\": \"Nurse1222\"\n}",
                           "options": {
                             "raw": {
-                              "headerFamily": "json",
                               "language": "json"
                             }
                           }
@@ -5107,91 +5102,6 @@
                       "body": ""
                     }
                   ]
-                },
-                {
-                  "name": "set 3 - /api/RoomBooking - overlapping booking (409 Conflict)",
-                  "event": [
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "exec": [
-                          "const twoHours = 2 * 60 * 60 * 1000;",
-                          "const randomDaysAhead = Math.floor(Math.random() * 365 * 100);",
-                          "const start = new Date(Date.now() + randomDaysAhead * 24 * 60 * 60 * 1000);",
-                          "const end = new Date(start.getTime() + twoHours);",
-                          "",
-                          "pm.environment.set(\"overlapBookingStart\", start.toISOString());",
-                          "pm.environment.set(\"overlapBookingEnd\", end.toISOString());",
-                          "",
-                          "// Seed a booking for room 1 in this window so the request below overlaps it.",
-                          "const seedResponse = await pm.sendRequest({",
-                          "    url: pm.variables.get(\"baseUrl\") + \"/api/RoomBooking\",",
-                          "    method: \"POST\",",
-                          "    header: { \"Content-Type\": \"application/json\" },",
-                          "    body: {",
-                          "        mode: \"raw\",",
-                          "        raw: JSON.stringify({",
-                          "            fkRoomId: 1,",
-                          "            startTime: start.toISOString(),",
-                          "            endTime: end.toISOString(),",
-                          "            fkPatientId: 1",
-                          "        })",
-                          "    }",
-                          "});",
-                          "",
-                          "if (seedResponse.code !== 200) {",
-                          "    console.warn(\"Seed booking for overlap test did not return 200:\", seedResponse.code, seedResponse.text());",
-                          "}"
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "test",
-                      "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 409\", function () {",
-                          "    pm.response.to.have.status(409);",
-                          "});"
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    }
-                  ],
-                  "request": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"fkRoomId\": 1,\n  \"startTime\": \"{{overlapBookingStart}}\",\n  \"endTime\": \"{{overlapBookingEnd}}\",\n  \"fkPatientId\": 1\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/api/RoomBooking",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "api",
-                        "RoomBooking"
-                      ]
-                    }
-                  },
-                  "response": []
                 }
               ],
               "event": [
@@ -8708,10 +8618,9 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n    \"firstname\": \"michael\",\n    \"lastname\": \"conklin\",\n    \"gender\": \"male\",\n    \"cprNumber\": \"150553-4561\",\n    \"dateOfBirth\": \"1953-05-15\"\n}",
+                          "raw": "{\n    \"firstname\": \"michael\",\n    \"lastname\": \"conklin\",\n    \"gender\": \"male\",\n    \"cprNumber\": \"1505534561\",\n    \"dateOfBirth\": \"1953-05-15\"\n}",
                           "options": {
                             "raw": {
-                              "headerFamily": "json",
                               "language": "json"
                             }
                           }
@@ -14502,55 +14411,6 @@
                   "response": []
                 },
                 {
-                  "name": "set 1 - /api/User/register - linked to patient",
-                  "event": [
-                    {
-                      "listen": "test",
-                      "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", function () {",
-                          "    pm.response.to.have.status(200);",
-                          "});"
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    }
-                  ],
-                  "request": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"username\": \"pat{{$randomInt}}{{$randomInt}}\",\n  \"password\": \"string123\",\n  \"fkPatientId\": 1\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/api/User/register",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "api",
-                        "User",
-                        "register"
-                      ]
-                    }
-                  },
-                  "response": []
-                },
-                {
                   "name": "set 1 - /api/User/:id/password",
                   "request": {
                     "method": "PUT",
@@ -14585,31 +14445,6 @@
                         {
                           "key": "id",
                           "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "response": []
-                },
-                {
-                  "name": "set 1 - /api/User/:id - delete",
-                  "request": {
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/api/User/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "api",
-                        "User",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "7"
                         }
                       ]
                     }
