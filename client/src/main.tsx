@@ -6,10 +6,6 @@ import { Provider } from './components/ui/provider.tsx'
 import { setupAuthInterceptor } from './api/Services/authInterceptor.ts'
 
 
-// the axios instance itself (baseURL, withCredentials) is configured in api/client.ts
-
-// on a 401 (expired access token), transparently refresh via the refresh-token
-// cookie and retry the request once, instead of forcing the user to log in again.
 setupAuthInterceptor()
 
 // https://mswjs.io/docs/integrations/browser/#conditionally-enable-mocking
@@ -22,9 +18,6 @@ async function enableMocking() {
     return worker.start()
   }
 
-  // e2e mode: only the 3 external-medicine-price endpoints are mocked, so
-  // e2e runs never call the real api.medicinpriser.dk. Everything else is
-  // unhandled by MSW and bypassed straight through to the real local API.
   if (mocking === 'external-only') {
     const { worker } = await import('./mocks/config/BrowserExternalOnly');
     console.log("[msw] external-only mocking is running — only ExternalMedicinePrices endpoints are mocked");
@@ -32,7 +25,7 @@ async function enableMocking() {
   }
 }
 
-// start msw mocking, if we are in "dev" mode, start msw, if not dev, do nothing.
+/
 enableMocking().then(() => {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>

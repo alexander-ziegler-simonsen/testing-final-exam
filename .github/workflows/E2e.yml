@@ -75,6 +75,7 @@ jobs:
       POSTGRES_PORT: 5432
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
       VITE_API_BASE_URL: http://localhost:5028
+      VITE_API_MOCKING: external-only # .env.e2e is gitignored (*.e2e), so CI sets it here
 
     steps:
       - uses: actions/checkout@v4

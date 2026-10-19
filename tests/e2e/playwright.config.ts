@@ -62,7 +62,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'pnpm run dev',
+    command: 'pnpm run dev:e2e',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI, 
     cwd: path.join(__dirname, '../../client'),
